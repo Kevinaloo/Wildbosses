@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Tours & Safaris — Wildbosses</title>
+<meta name="description" content="Browse 1,200+ tours and safaris across Kenya and Tanzania. Filter by destination, category, duration and price. Zero commission — guides keep 100%."/>
+<meta name="theme-color" content="#0F4C2A"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --forest:#0F4C2A;--forest-2:#1A6B3A;--forest-3:#2D8A52;--canopy:#0A3520;
+  --savanna:#D4A843;--savanna-2:#E8C05A;--ember:#E85D2C;
+  --sky:#4A90D9;--dusk:#8B4FBE;
+  --glass:#FAFDFB;--glass-2:#F0F7F2;--glass-3:#E4F0E8;
+  --ink:#080F0A;--ink-soft:#3D5040;--ink-faint:#7A9B80;
+  --line:rgba(8,15,10,.07);--line-2:rgba(8,15,10,.13);
+  --font-d:'Geist','Inter',sans-serif;--font-b:'Inter',system-ui,sans-serif;
+  --ease-out:cubic-bezier(.22,1,.36,1);
+  --shadow-lift:0 24px 80px rgba(15,76,42,.15),0 8px 24px rgba(8,15,10,.07);
+  --radius:20px;
+  /* THEME — overridden per category */
+  --t1:var(--forest);--t2:var(--forest-2);--t1-rgb:15,76,42;
+  --theme-grad:linear-gradient(135deg,var(--forest),var(--forest-2));
+}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-b);background:var(--glass);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+
+/* aurora bg */
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.ab{position:absolute;border-radius:50%;filter:blur(90px);opacity:.22;mix-blend-mode:multiply;animation:drift 28s ease-in-out infinite;}
+.ab-1{width:500px;height:500px;top:-10%;left:-5%;background:radial-gradient(circle,rgba(15,76,42,1),transparent 68%);}
+.ab-2{width:420px;height:420px;bottom:-8%;right:-4%;animation-delay:-12s;opacity:.16;background:radial-gradient(circle,rgba(212,168,67,1),transparent 70%);}
+.ab-3{width:360px;height:360px;top:42%;left:38%;animation-delay:-20s;opacity:.12;background:radial-gradient(circle,rgba(45,138,82,1),transparent 72%);}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(44px,-34px) scale(1.09);}66%{transform:translate(-34px,44px) scale(.94);}}
+
+/* ── ENTRY TRANSITION ── */
+#tx{position:fixed;inset:0;z-index:9999;background:#03110A;display:flex;align-items:center;justify-content:center;pointer-events:none;animation:txOut 1s cubic-bezier(.7,0,.2,1) 2.2s forwards;}
+@keyframes txOut{to{opacity:0;transform:scale(1.06);}}
+.tx-inner{text-align:center;}
+.tx-ico{font-size:64px;opacity:0;animation:txRise 1s .15s var(--ease-out) forwards;}
+@keyframes txRise{0%{opacity:0;transform:translateY(30px) scale(.8);}100%{opacity:1;transform:none;}}
+.tx-label{font-family:var(--font-d);font-weight:300;font-size:32px;color:#fff;opacity:0;animation:txUp .7s .6s forwards;letter-spacing:-.02em;}
+.tx-sub{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-top:8px;opacity:0;animation:txUp .6s .75s forwards;}
+@keyframes txUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+
+/* ── TOPBAR ── */
+.topbar{position:sticky;top:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(250,253,251,.82);backdrop-filter:blur(22px) saturate(180%);border-bottom:1px solid var(--line);}
+.tb-left{display:flex;align-items:center;gap:12px;}
+.tb-back{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink-soft);transition:all .25s;text-decoration:none;}
+.tb-back:hover{border-color:var(--forest);color:var(--forest);}
+.tb-brand{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.tb-logo-mark{width:30px;height:30px;border-radius:8px;background:var(--theme-grad);display:flex;align-items:center;justify-content:center;}
+.tb-logo-mark svg{width:15px;height:15px;color:#fff;}
+.tb-name{font-family:var(--font-d);font-weight:700;font-size:16px;color:var(--ink);letter-spacing:-.02em;}
+.tb-right{display:flex;align-items:center;gap:10px;}
+.tb-chip{font-size:11px;font-weight:700;padding:5px 13px;border-radius:100px;color:var(--forest);background:rgba(15,76,42,.08);border:1px solid rgba(15,76,42,.18);}
+.tb-list-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:100px;background:var(--theme-grad);color:#fff;font-weight:700;font-size:12.5px;text-decoration:none;transition:filter .2s;}
+.tb-list-btn:hover{filter:brightness(1.1);}
+
+/* ── HERO STRIP ── */
+.page-hero{position:relative;z-index:2;padding:40px 24px 0;max-width:1200px;margin:0 auto;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--forest);margin-bottom:12px;padding:6px 13px;border-radius:100px;background:rgba(15,76,42,.08);border:1px solid rgba(15,76,42,.18);}
+.hero-eyebrow span{width:5px;height:5px;border-radius:50%;background:var(--forest);animation:pulse 2s ease infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.7);}}
+.page-title{font-family:var(--font-d);font-weight:300;font-size:clamp(28px,4.8vw,50px);letter-spacing:-.025em;line-height:1.04;margin-bottom:10px;}
+.page-title em{font-style:italic;font-weight:600;color:var(--forest);}
+.page-sub{font-size:15px;color:var(--ink-soft);margin-bottom:28px;max-width:520px;line-height:1.65;}
+
+/* ── SEARCH BAR ── */
+.search-bar{display:flex;align-items:stretch;gap:0;background:rgba(255,255,255,.85);backdrop-filter:blur(16px);border:1px solid var(--line-2);border-radius:18px;padding:6px;box-shadow:0 8px 32px rgba(15,76,42,.08);max-width:760px;margin-bottom:16px;}
+.sb-input-wrap{flex:1;position:relative;}
+.sb-ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--ink-faint);}
+.sb-input{width:100%;padding:11px 14px 11px 38px;border:none;background:transparent;font-family:var(--font-b);font-size:14px;color:var(--ink);outline:none;border-radius:13px;}
+.sb-input::placeholder{color:var(--ink-faint);}
+.sb-sep{width:1px;background:var(--line-2);margin:8px 0;flex-shrink:0;}
+.sb-sel{padding:0 16px;border:none;background:transparent;font-family:var(--font-b);font-size:13px;color:var(--ink-soft);outline:none;cursor:pointer;min-width:130px;}
+.sb-btn{width:46px;border-radius:13px;background:var(--theme-grad);border:none;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;margin-left:4px;flex-shrink:0;transition:filter .2s;}
+.sb-btn:hover{filter:brightness(1.1);}
+@media(max-width:600px){.sb-sep,.sb-sel{display:none;}}
+
+/* ── FILTER CHIPS ── */
+.filter-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.filter-row::-webkit-scrollbar{display:none;}
+.fchip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--ink-soft);padding:7px 14px;border-radius:100px;background:rgba(255,255,255,.75);border:1px solid var(--line-2);cursor:pointer;transition:all .22s;white-space:nowrap;flex-shrink:0;}
+.fchip:hover{border-color:var(--forest);}
+.fchip.active{background:var(--theme-grad);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(15,76,42,.22);}
+
+/* ── SORT & COUNT BAR ── */
+.count-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;max-width:1200px;margin:0 auto;flex-wrap:wrap;gap:10px;}
+.result-count{font-size:14px;color:var(--ink-soft);}
+.result-count strong{color:var(--ink);}
+.sort-group{display:flex;align-items:center;gap:8px;}
+.sort-label{font-size:12.5px;color:var(--ink-faint);}
+.sort-select{padding:8px 28px 8px 12px;border-radius:11px;border:1px solid var(--line-2);background:rgba(255,255,255,.8);font-family:var(--font-b);font-size:13px;outline:none;cursor:pointer;color:var(--ink);}
+
+/* ── GRID ── */
+.content{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 24px 80px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;}
+@media(max-width:700px){.grid{grid-template-columns:repeat(2,1fr);gap:12px;}}
+@media(max-width:420px){.grid{grid-template-columns:1fr;}}
+
+/* tour card */
+.card{border-radius:22px;overflow:hidden;background:#fff;border:1px solid var(--line);cursor:pointer;transition:all .45s var(--ease-out);text-decoration:none;display:flex;flex-direction:column;color:inherit;opacity:0;transform:translateY(20px);}
+.card.in{opacity:1;transform:none;}
+.card:hover{transform:translateY(-7px);box-shadow:var(--shadow-lift);border-color:transparent;}
+.card-img{height:200px;position:relative;overflow:hidden;}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .65s var(--ease-out);}
+.card:hover .card-img img{transform:scale(1.07);}
+.img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(3,17,10,.55) 0%,transparent 55%);}
+.card-badge{position:absolute;top:12px;left:12px;padding:5px 11px;border-radius:100px;font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;backdrop-filter:blur(8px);}
+.badge-safari{background:rgba(15,76,42,.88);color:#4EE0A8;}
+.badge-walk{background:rgba(74,144,217,.88);color:#D6EEFF;}
+.badge-culture{background:rgba(212,168,67,.88);color:#3D2A00;}
+.badge-adventure{background:rgba(139,79,190,.88);color:#EDD9FF;}
+.badge-beach{background:rgba(44,111,170,.88);color:#B8E4FF;}
+.badge-bird{background:rgba(45,138,82,.88);color:#C5FFE4;}
+.badge-photo{background:rgba(232,93,44,.88);color:#fff;}
+.badge-night{background:rgba(10,53,32,.95);color:#88FFB8;}
+.card-fav{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.9);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;font-size:14px;color:var(--ink-soft);transition:all .25s;}
+.card-fav:hover{transform:scale(1.12);}
+.card-fav.saved{color:#E11D48;}
+.card-rating{position:absolute;bottom:12px;right:12px;display:flex;align-items:center;gap:4px;padding:4px 9px;border-radius:100px;background:rgba(3,17,10,.75);color:#fff;font-size:10.5px;font-weight:600;}
+.card-body{padding:16px 18px 18px;flex:1;display:flex;flex-direction:column;}
+.card-meta{font-size:10.5px;color:var(--ink-faint);display:flex;align-items:center;gap:5px;margin-bottom:7px;}
+.card-name{font-family:var(--font-d);font-weight:600;font-size:15.5px;color:var(--ink);margin-bottom:8px;line-height:1.3;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.card-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px;}
+.card-tag{font-size:10px;padding:3px 8px;border-radius:100px;background:var(--glass-3);border:1px solid var(--line);color:var(--ink-soft);}
+.card-foot{display:flex;align-items:flex-end;justify-content:space-between;padding-top:12px;border-top:1px solid var(--line);}
+.card-price .pval{font-family:var(--font-d);font-weight:700;font-size:18px;color:var(--ink);}
+.card-price .pval.free{color:var(--forest-3);}
+.card-price .pper{font-size:11px;color:var(--ink-faint);}
+.card-go{width:34px;height:34px;border-radius:50%;background:var(--glass-3);display:flex;align-items:center;justify-content:center;color:var(--forest);transition:all .3s;}
+.card:hover .card-go{background:var(--theme-grad);color:#fff;transform:rotate(-45deg);}
+
+/* ── GUIDE INFO strip on card ── */
+.card-guide{display:flex;align-items:center;gap:8px;margin-top:6px;margin-bottom:8px;}
+.guide-avatar{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--forest),var(--forest-2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;flex-shrink:0;}
+.guide-name{font-size:11.5px;color:var(--ink-soft);}
+
+/* ── DETAIL DRAWER ── */
+.drawer-overlay{position:fixed;inset:0;z-index:200;background:rgba(3,17,10,.45);backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:all .38s;}
+.drawer-overlay.open{opacity:1;visibility:visible;}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:520px;max-width:96vw;z-index:201;background:var(--glass);box-shadow:-20px 0 60px rgba(3,17,10,.15);transform:translateX(105%);transition:transform .52s var(--ease-out);overflow-y:auto;}
+.drawer.open{transform:none;}
+.dr-img{height:280px;position:relative;overflow:hidden;}
+.dr-img img{width:100%;height:100%;object-fit:cover;}
+.dr-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(3,17,10,.7) 0%,transparent 55%);}
+.dr-close{position:absolute;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(250,253,251,.9);backdrop-filter:blur(8px);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);z-index:2;transition:transform .2s;}
+.dr-close:hover{transform:scale(1.08);}
+.dr-share{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(250,253,251,.9);backdrop-filter:blur(8px);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);}
+.dr-body{padding:26px 28px 36px;}
+.dr-eyebrow{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--forest);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.dr-title{font-family:var(--font-d);font-weight:600;font-size:clamp(20px,2.4vw,26px);margin-bottom:14px;line-height:1.2;}
+.dr-quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
+.dq{padding:12px 14px;border-radius:14px;background:var(--glass-2);border:1px solid var(--line);}
+.dq-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:4px;}
+.dq-val{font-family:var(--font-d);font-weight:600;font-size:14px;color:var(--ink);}
+.dr-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;}
+.dr-tag{font-size:11.5px;color:var(--ink-soft);padding:5px 11px;border-radius:100px;background:var(--glass-3);border:1px solid var(--line);}
+.dr-section{margin-bottom:20px;}
+.dr-section-head{font-family:var(--font-d);font-weight:600;font-size:15px;margin-bottom:10px;color:var(--ink);}
+.dr-desc{font-size:14px;color:var(--ink-soft);line-height:1.75;}
+.dr-includes{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.dr-include{font-size:13px;color:var(--ink-soft);display:flex;align-items:flex-start;gap:8px;}
+.dr-check{color:var(--forest-3);flex-shrink:0;margin-top:2px;}
+.dr-itinerary{display:flex;flex-direction:column;gap:10px;}
+.dr-stop{display:flex;align-items:flex-start;gap:12px;}
+.dr-stop-num{width:24px;height:24px;border-radius:50%;background:var(--theme-grad);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.dr-stop-name{font-size:13.5px;color:var(--ink-soft);}
+
+/* guide strip */
+.dr-guide{display:flex;align-items:center;gap:14px;padding:18px;border-radius:16px;background:var(--glass-2);border:1px solid var(--line);margin-bottom:20px;}
+.dr-guide-avatar{width:48px;height:48px;border-radius:50%;background:var(--theme-grad);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--font-d);font-weight:700;font-size:18px;flex-shrink:0;}
+.dr-guide-name{font-weight:600;font-size:15px;margin-bottom:3px;}
+.dr-guide-meta{font-size:12px;color:var(--ink-faint);}
+.dr-guide-msg{margin-left:auto;padding:8px 16px;border-radius:100px;background:rgba(15,76,42,.08);border:1px solid rgba(15,76,42,.18);color:var(--forest);font-weight:600;font-size:12px;cursor:pointer;transition:all .25s;}
+.dr-guide-msg:hover{background:var(--forest);color:#fff;}
+
+/* CTA box */
+.dr-cta-box{position:sticky;bottom:0;background:var(--glass);border-top:1px solid var(--line);padding:18px 28px 22px;}
+.dr-price-row{display:flex;align-items:baseline;gap:6px;margin-bottom:14px;}
+.dr-price-val{font-family:var(--font-d);font-weight:700;font-size:28px;color:var(--ink);}
+.dr-price-val.free{color:var(--forest-3);}
+.dr-price-per{font-size:14px;color:var(--ink-faint);}
+.dr-price-note{font-size:12px;color:var(--forest);font-weight:600;display:block;margin-top:2px;}
+.dr-cta-btns{display:flex;gap:10px;}
+.dr-cta-primary{flex:1;padding:15px;border-radius:14px;background:var(--theme-grad);color:#fff;font-family:var(--font-b);font-weight:700;font-size:15px;border:none;cursor:pointer;transition:all .28s;box-shadow:0 10px 28px rgba(15,76,42,.25);}
+.dr-cta-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(15,76,42,.35);}
+.dr-cta-save{width:50px;height:50px;border-radius:14px;background:var(--glass-3);border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;transition:all .25s;color:var(--ink-soft);}
+.dr-cta-save:hover{background:var(--glass-2);}
+.dr-cta-save.saved{color:#E11D48;background:#FFF0F3;border-color:#FDD;}
+
+/* ── EMPTY STATE ── */
+.empty{text-align:center;padding:72px 24px;grid-column:1/-1;}
+.empty-icon{font-size:52px;margin-bottom:18px;}
+.empty-title{font-family:var(--font-d);font-size:21px;font-weight:500;margin-bottom:9px;color:var(--ink);}
+.empty-sub{font-size:14px;color:var(--ink-faint);max-width:320px;margin:0 auto 22px;}
+.empty-reset{padding:11px 24px;border-radius:100px;background:var(--theme-grad);color:#fff;font-weight:600;font-size:13.5px;border:none;cursor:pointer;}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);z-index:9999;padding:12px 22px;border-radius:100px;background:var(--ink);color:#fff;font-size:13px;font-weight:500;opacity:0;transition:all .35s;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ── MAP VIEW TOGGLE ── */
+.view-toggle{display:flex;gap:4px;padding:4px;border-radius:12px;background:var(--glass-3);border:1px solid var(--line);}
+.vt-btn{padding:7px 14px;border-radius:9px;font-size:12px;font-weight:600;cursor:pointer;transition:all .22s;border:none;background:transparent;color:var(--ink-soft);}
+.vt-btn.active{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(8,15,10,.08);}
+
+/* ── MOBILE optimisations ── */
+@media(max-width:700px){
+  .card{border-radius:16px;}
+  .card-img{height:150px;}
+  .card-body{padding:11px 12px 13px;}
+  .card-name{font-size:13px;-webkit-line-clamp:2;}
+  .card-price .pval{font-size:15px;}
+  .card-go{width:28px;height:28px;}
+  .page-hero,.content{padding-left:16px;padding-right:16px;}
+  .drawer{width:100%;max-width:100%;}
+  .dr-body{padding:18px 20px 28px;}
+  .dr-cta-box{padding:14px 20px 18px;}
+}
+@media(max-width:700px){
+  .card,.topbar,.drawer,.card-badge,.card-fav,.card-rating,.dr-close,.dr-share{
+    backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+  }
+  .card{background:#fff!important;opacity:1!important;transform:none!important;}
+  .ab{filter:blur(40px)!important;opacity:.1!important;}
+}
+
+/* Map view placeholder */
+.map-view{display:none;height:60vh;border-radius:20px;background:var(--glass-3);margin:0 24px;position:relative;overflow:hidden;z-index:2;}
+.map-view.visible{display:flex;align-items:center;justify-content:center;}
+.map-placeholder{text-align:center;color:var(--ink-faint);}
+.map-placeholder svg{width:52px;height:52px;margin-bottom:16px;opacity:.3;}
+</style>
+</head>
+<body>
+<!-- entry transition -->
+<div id="tx">
+  <div class="tx-inner">
+    <div class="tx-ico">🌍</div>
+    <div class="tx-label">Explore beyond</div>
+    <div class="tx-sub">Wildbosses · Tours & Safaris</div>
+  </div>
+</div>
+
+<div class="aurora">
+  <div class="ab ab-1"></div><div class="ab ab-2"></div><div class="ab ab-3"></div>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="tb-left">
+    <a href="index.html" class="tb-back" aria-label="Home">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </a>
+    <a href="index.html" class="tb-brand">
+      <div class="tb-logo-mark"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+      <span class="tb-name">Wildbosses</span>
+    </a>
+    <div class="tb-chip" id="tbChip">Tours & Safaris</div>
+  </div>
+  <div class="tb-right">
+    <div class="view-toggle">
+      <button class="vt-btn active" onclick="setView('grid',this)" aria-label="Grid view">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      </button>
+      <button class="vt-btn" onclick="setView('map',this)" aria-label="Map view">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3L3 7v14l6-4 6 4 6-4V3l-6 4z"/><path d="M9 3v14M15 7v14"/></svg>
+      </button>
+    </div>
+    <a href="list-tour.html" class="tb-list-btn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      List a tour
+    </a>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-eyebrow"><span></span>1,200+ experiences</div>
+  <h1 class="page-title">Days you'll <em>never forget.</em></h1>
+  <p class="page-sub">Safaris, city walks, cultural expeditions and adventures across Kenya and Tanzania. Guides keep 100%.</p>
+
+  <!-- search bar -->
+  <div class="search-bar" style="max-width:760px;">
+    <div class="sb-input-wrap">
+      <svg class="sb-ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input class="sb-input" id="searchInput" type="text" placeholder="Search tours, destinations, guides…" oninput="renderGrid()"/>
+    </div>
+    <div class="sb-sep"></div>
+    <select class="sb-sel" id="selDest" onchange="renderGrid()">
+      <option value="">All destinations</option>
+      <option value="nairobi">Nairobi</option>
+      <option value="masai-mara">Masai Mara</option>
+      <option value="amboseli">Amboseli</option>
+      <option value="zanzibar">Zanzibar</option>
+      <option value="diani">Diani Beach</option>
+      <option value="serengeti">Serengeti</option>
+      <option value="kilimanjaro">Kilimanjaro</option>
+      <option value="naivasha">Naivasha</option>
+    </select>
+    <button class="sb-btn" onclick="renderGrid()" aria-label="Search">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    </button>
+  </div>
+
+  <!-- filter chips -->
+  <div class="filter-row" id="filterRow">
+    <div class="fchip active" onclick="setFilter('all',this)">All</div>
+    <div class="fchip" onclick="setFilter('safari',this)">🦁 Safari</div>
+    <div class="fchip" onclick="setFilter('walk',this)">🚶 Walking</div>
+    <div class="fchip" onclick="setFilter('culture',this)">🎭 Cultural</div>
+    <div class="fchip" onclick="setFilter('adventure',this)">⛰️ Adventure</div>
+    <div class="fchip" onclick="setFilter('beach',this)">🌊 Beach</div>
+    <div class="fchip" onclick="setFilter('bird',this)">🦅 Birding</div>
+    <div class="fchip" onclick="setFilter('photo',this)">📷 Photography</div>
+    <div class="fchip" onclick="setFilter('night',this)">🌙 Night</div>
+    <div class="fchip" onclick="setFilter('free',this)">✨ Free tours</div>
+  </div>
+</div>
+
+<!-- count bar -->
+<div class="count-bar">
+  <div class="result-count"><strong id="resultNum">0</strong> tours found</div>
+  <div class="sort-group">
+    <span class="sort-label">Sort:</span>
+    <select class="sort-select" id="sortSel" onchange="renderGrid()">
+      <option value="recommended">Recommended</option>
+      <option value="rating">Highest rated</option>
+      <option value="price-asc">Price: Low → High</option>
+      <option value="price-desc">Price: High → Low</option>
+      <option value="reviews">Most reviewed</option>
+      <option value="duration-asc">Duration: Shortest</option>
+    </select>
+  </div>
+</div>
+
+<!-- map view placeholder -->
+<div class="map-view" id="mapView">
+  <div class="map-placeholder">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3L3 7v14l6-4 6 4 6-4V3l-6 4z"/><path d="M9 3v14M15 7v14"/></svg>
+    <div style="font-family:var(--font-d);font-size:18px;font-weight:500;margin-bottom:6px;">Map view</div>
+    <div style="font-size:13px;">Interactive map coming soon</div>
+  </div>
+</div>
+
+<!-- GRID -->
+<div class="content">
+  <div class="grid" id="grid"></div>
+</div>
+
+<!-- DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer"></div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ══ TOUR DATA ══ */
+const TOURS = [
+  // NAIROBI WALKING
+  {id:1,type:'free_tour',cat:'walk',dest:'nairobi',name:'The Best Nairobi Free Walking Tour 🏆',guide:'James Mwangi',loc:'Nairobi CBD',dur:'2h 30m',group:'Max 16',rating:4.96,reviews:1240,price:0,tags:['City Walk','History','Markets','Parliament'],desc:'Nairobi\'s #1 rated walking tour. Explore the Parliament, KICC, Jamia Mosque, Maasai Market, City Market and the August 7th Memorial Park with a guide who brings every story to life. The most comprehensive CBD experience in the city.',itinerary:['Dedan Kimathi Statue','Sarova Stanley Hotel','McMillan Library','Jamia Mosque','City Market','Parliament Buildings','KICC Rooftop','August 7th Memorial'],includes:['Local guide','Walking map','Refreshment stop','Photography spots'],img:'https://images.unsplash.com/photo-1611348524140-53c9a25263d6?w=800&q=80'},
+  {id:2,type:'free_tour',cat:'walk',dest:'nairobi',name:'Best & Most Fun Tour of Nairobi with Peter',guide:'Peter Kamau',loc:'Nairobi CBD',dur:'3h',group:'Max 100',rating:4.88,reviews:847,price:0,tags:['City Walk','Uhuru Park','Accessible','Historic'],desc:'A fun, energetic walk through Nairobi\'s heart — Carrefour to Jamia Mosque, University of Nairobi, Norfolk Hotel, KICC, Uhuru Park and the Bomb Blast Memorial. Peter\'s infectious enthusiasm makes this unmissable.',itinerary:['KICC','University of Nairobi','Uhuru Park','National Archives','City Market','Bomb Blast Memorial'],includes:['Expert local guide','Photography tips','Maasai Market visit'],img:'https://images.unsplash.com/photo-1586974136961-8e94c7c6fdba?w=800&q=80'},
+  {id:3,type:'free_tour',cat:'walk',dest:'nairobi',name:'Nairobi History, Culture & Traditions',guide:'Edwin Obeni',loc:'Nairobi CBD',dur:'2h 30m',group:'Max 25',rating:4.94,reviews:183,price:0,tags:['History','Culture','Traditions','KICC'],desc:'Deep-dive into Nairobi\'s vibrant heritage — War Monuments, McMillan Library, Jamia Mosque, City Market, Jevanjee Garden, Norfolk Hotel and Maasai Market. Edwin connects Kenya\'s 43 tribes, its colonial era and its independence.',itinerary:['Uhuru Park','KICC','Maasai Market','Jamia Mosque','City Market','Holy Family Basilica'],includes:['Cultural commentary','Swahili phrases guide'],img:'https://images.unsplash.com/photo-1601923234547-f9d25b3f0a55?w=800&q=80'},
+  // NATURE
+  {id:4,type:'free_tour',cat:'walk',dest:'nairobi',name:'Karura Forest Nature & Wildlife Walk',guide:'Ismael Nzioka',loc:'Karura Forest, Nairobi',dur:'2h 30m',group:'Max 6',rating:4.98,reviews:156,price:600,tags:['Nature','Wildlife','Waterfalls','Canopy Walk'],desc:'Explore Karura Forest — one of the world\'s largest urban forests. Stunning waterfalls, Mau Mau caves, monkeys, bushbucks and birds. The canopy walk gives panoramic views across Nairobi. An astonishing green lung hidden inside the city.',itinerary:['Karura Gate A','Karura Waterfalls','Mau Mau Caves','Wildlife Spotting','Canopy Walk','Picnic Point'],includes:['Nature guide','Binoculars','Bird checklist'],img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80'},
+  // COMMUNITY
+  {id:5,type:'free_tour',cat:'culture',dest:'nairobi',name:'Kibera Community Tour — Chocolate City',guide:'Daniel Oguttu',loc:'Kibera, Nairobi',dur:'2h 30m',group:'Max 6',rating:4.90,reviews:308,price:0,tags:['Community','Authentic','Local Life','Social Impact'],desc:'An authentic community experience in Kibera — East Africa\'s largest urban settlement. See the Magic Field, meet locals, and understand the real resilience of a community building their own future. Profits fund the Okolea Mtaa Foundation.',itinerary:['Ayany Estate','Kibera Arts District','Community School','Okolea Mtaa Foundation'],includes:['Community contribution','Local guide from Kibera','Tea with a family'],img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80'},
+  // SAFARIS
+  {id:6,type:'tour',cat:'safari',dest:'masai-mara',name:'Masai Mara Big Five Game Drive',guide:'James Otieno',loc:'Masai Mara NR',dur:'Full day (10h)',group:'Max 6',rating:4.97,reviews:2140,price:12500,tags:['Big Five','Game Drive','Sunrise Start','Private Vehicle'],desc:'The ultimate Masai Mara experience — a private 4x4 game drive at sunrise through the world\'s most famous wildlife reserve. James and his team have an extraordinary record of Big Five sightings, including rare cheetah kills and river crossings.',itinerary:['Pre-dawn pickup','Golden Hour drive','Big Five search','Sundowner','Return transfer'],includes:['Private 4×4 vehicle','Park entry fees','Lunch & drinks','Sundowner','Professional guide'],img:'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80'},
+  {id:7,type:'tour',cat:'safari',dest:'masai-mara',name:'Masai Mara 3 Days 2 Nights Safari',guide:'Grace Wanjiku',loc:'Masai Mara NR',dur:'3 days 2 nights',group:'Max 8',rating:4.95,reviews:891,price:65000,tags:['Full Safari','Great Migration','Bush Camp','Bush Walks'],desc:'Three days immersed in the Masai Mara ecosystem. Morning and afternoon game drives, guided bush walks, a Maasai village visit and two nights at a premium tented camp overlooking the savanna. The definitive Kenya safari.',itinerary:['Day 1: Nairobi → Mara, afternoon game drive','Day 2: Full day game drives, Maasai village','Day 3: Morning drive, return to Nairobi'],includes:['Return transfers','All park fees','Full board meals','Tented accommodation','Professional guide × 3 days'],img:'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&q=80'},
+  {id:8,type:'tour',cat:'safari',dest:'amboseli',name:'Amboseli Elephants & Kilimanjaro Views',guide:'David Nzau',loc:'Amboseli NP',dur:'2 days 1 night',group:'Max 8',rating:4.93,reviews:412,price:28000,tags:['Elephants','Kilimanjaro','Overnight','Photography'],desc:'Watch enormous elephant herds move across Amboseli\'s open plains with the snow-capped peak of Kilimanjaro rising above them at dawn. David\'s knowledge of the resident elephant families is encyclopaedic.',itinerary:['Early departure from Nairobi','Afternoon game drive in Amboseli','Overnight lodge stay','Dawn Kilimanjaro shoot','Return drive'],includes:['Return transfer','Park entry fees','Accommodation','Breakfast & lunch','Photography guide'],img:'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&q=80'},
+  {id:9,type:'tour',cat:'safari',dest:'naivasha',name:'Hell Gate & Lake Naivasha Day Trip',guide:'Wambua Mutua',loc:'Naivasha, Kenya',dur:'Full day (9h)',group:'Max 12',rating:4.86,reviews:647,price:8500,tags:['Cycling','Gorge','Wildlife','Boat Ride'],desc:'Kenya\'s most adventurous day trip — cycle through Hell Gate Gorge past grazing zebra and giraffe, then descend into a dramatic red-rock gorge. Follow with a motorboat ride on Lake Naivasha to spot hippos and 350+ bird species.',itinerary:['Departure from Nairobi','Hell Gate National Park cycling','Gorge walk','Lunch','Lake Naivasha boat safari','Return'],includes:['Transport','Bike hire','Park fees','Boat trip','Packed lunch'],img:'https://images.unsplash.com/photo-1538970272646-f61fabb3bda3?w=800&q=80'},
+  {id:10,type:'tour',cat:'bird',dest:'naivasha',name:'Lake Nakuru Flamingo & Rhino Safari',guide:'Prof. John Mwangi',loc:'Lake Nakuru NP',dur:'Full day (10h)',group:'Max 8',rating:4.92,reviews:234,price:11500,tags:['Flamingos','Rhino','Birds','Lake'],desc:'Lake Nakuru hosts over 1 million flamingos when conditions peak — a biblical pink spectacle from the clifftop viewpoint. Plus Rothschild giraffe, white and black rhino, and over 450 recorded bird species with Kenya\'s most qualified ornithologist.',itinerary:['Early departure Nairobi','Arrive Nakuru','Flamingo shoreline','Rhino sanctuary','Clifftop viewpoint','Return'],includes:['Transport','Park fees','Binoculars','Bird list'],img:'https://images.unsplash.com/photo-1535081143840-a09e58c2e08b?w=800&q=80'},
+  // MOUNTAIN
+  {id:11,type:'tour',cat:'adventure',dest:'kilimanjaro',name:'Mount Kilimanjaro — Marangu Route 6 Days',guide:'Felix Massawe',loc:'Mt Kilimanjaro, Tanzania',dur:'6 days 5 nights',group:'Max 8',rating:4.94,reviews:389,price:185000,tags:['Summit','High Altitude','Hike','UNESCO'],desc:'Africa\'s highest peak — the roof of the continent at 5,895m. Felix has led 400+ successful summit attempts on the Marangu ("Coca-Cola") route, the most accessible path with hut accommodation at every camp. Your best shot at Uhuru Peak.',itinerary:['Day 1-2: Nairobi → Moshi, registration','Day 3: Mandara Huts','Day 4: Horombo Huts','Day 5: Kibo Huts','Day 6: Summit push → descent'],includes:['All park fees','Accommodation','Meals × 3 per day','Porters × 2 per climber','Guide certificate'],img:'https://images.unsplash.com/photo-1519923834699-ef0b7cde4712?w=800&q=80'},
+  {id:12,type:'tour',cat:'adventure',dest:'nairobi',name:'Ngong Hills Sunrise Hike',guide:'Beatrice Muthoni',loc:'Ngong Hills, Nairobi',dur:'Half day (5h)',group:'Max 12',rating:4.82,reviews:192,price:3500,tags:['Hiking','Sunrise','Views','City Escape'],desc:'Leave Nairobi before dawn, reach the Ngong Hills ridge for a spectacular sunrise over the Rift Valley and Nairobi skyline simultaneously. Gentle enough for beginners, rewarding enough for regulars. Beatrice is a certified mountain guide with deep cultural knowledge of the Maasai Hills.',itinerary:['3:30am pickup Nairobi','Arrive Ngong','Pre-dawn summit hike','Sunrise','Ridge walk','Return'],includes:['Transport','Guide','Headlamp','Breakfast on summit'],img:'https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=800&q=80'},
+  // ZANZIBAR / COAST
+  {id:13,type:'tour',cat:'culture',dest:'zanzibar',name:'Zanzibar Stone Town & Spice Farm',guide:'Ali Hassan',loc:'Zanzibar City',dur:'Full day (8h)',group:'Max 12',rating:4.91,reviews:623,price:9500,tags:['UNESCO','Spices','History','Food'],desc:'Two iconic Zanzibar experiences in one day: a walking tour through the UNESCO-listed Stone Town with its carved doors, Arab architecture and vibrant markets, then a spice farm where you taste and smell cloves, vanilla, cinnamon and lemongrass growing wild.',itinerary:['Stone Town walk (3h)','Forodhani Gardens lunch','Spice Farm (2h)','Prison Island boat trip'],includes:['Local guide','Boat to Prison Island','Spice tasting','Lunch'],img:'https://images.unsplash.com/photo-1516117172878-fd2c41f4a759?w=800&q=80'},
+  {id:14,type:'tour',cat:'beach',dest:'diani',name:'Diani Beach Dhow Sunset Cruise',guide:'Omar Salim',loc:'Diani Beach, Kenya',dur:'3h',group:'Max 14',rating:4.85,reviews:298,price:5500,tags:['Sunset','Dhow','Dolphins','Snorkelling'],desc:'Drift across the Indian Ocean on a traditional wooden dhow as the sun melts into the horizon. Swim with spinner dolphins, snorkel the coral reef, and return with sundowners and fresh coconut. Omar\'s family has sailed these waters for four generations.',itinerary:['Diani jetty departure','Dolphin spotting','Reef snorkel','Sundowner sail','Return'],includes:['Dhow hire','Snorkel gear','Drinks & fruit','Life jackets'],img:'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80'},
+  {id:15,type:'tour',cat:'beach',dest:'diani',name:'Wasini Island & Kisite Marine Park',guide:'Juma Masai',loc:'Wasini Island, Kenya',dur:'Full day (12h)',group:'Max 20',rating:4.88,reviews:441,price:14500,tags:['Dolphins','Coral','Snorkelling','Dhow Lunch'],desc:'The classic Kenya Coast bucket-list experience. A wooden dhow sails to Kisite-Mpunguti Marine National Park — East Africa\'s finest coral reef — for dolphin encounters and spectacular snorkelling. Lunch on Wasini Island with freshly grilled seafood.',itinerary:['Shimoni jetty','Dolphin search by dhow','Kisite reef snorkel','Wasini Island lunch','Return'],includes:['All transport','Dhow','Marine park fees','Snorkel gear','Seafood lunch'],img:'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80'},
+  // PHOTOGRAPHY
+  {id:16,type:'tour',cat:'photo',dest:'masai-mara',name:'Mara Photography Safari — Golden Light',guide:'Njoro Gitau',loc:'Masai Mara NR',dur:'Full day (11h)',group:'Max 4',rating:5.0,reviews:78,price:22000,tags:['Photography','Golden Hour','Private','Expert'],desc:'Designed for serious photographers. Njoro, a wildlife photographer with National Geographic credentials, positions the vehicle for perfect light at dawn and dusk. Small group of 4 maximum ensures every traveller gets the shot. Includes camera support and RAW workflow advice.',itinerary:['3:30am departure','Blue hour position','Golden hour shots','Breakfast in the bush','Midday editing','Afternoon golden hour','Return'],includes:['Private 4×4','Photography guide','All meals','Editing session','Park fees'],img:'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80'},
+  // NIGHT
+  {id:17,type:'tour',cat:'night',dest:'masai-mara',name:'Mara Night Game Drive — Nocturnal Wildlife',guide:'Jackson Kipchoge',loc:'Masai Mara Conservancy',dur:'3h (dusk to 10pm)',group:'Max 6',rating:4.89,reviews:122,price:9500,tags:['Night Drive','Nocturnal','Spotlight','Conservancy'],desc:'The Masai Mara after dark is a completely different world. Spotlight the eyes of leopards, hyenas, aardvarks, civets and nocturnal birds across the conservancy. Jackson has 15 years of night-drive experience and a record spotter\'s memory.',itinerary:['Sunset pickup','Sundowner on the plains','Night drive','Stargazing break','Return to camp'],includes:['Spotlight vehicle','Conservation levy','Bush sundowner','Expert guide'],img:'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=800&q=80'},
+  // SERENGETI
+  {id:18,type:'tour',cat:'safari',dest:'serengeti',name:'Serengeti Great Migration Safari 4 Days',guide:'Emmanuel Maro',loc:'Serengeti NP, Tanzania',dur:'4 days 3 nights',group:'Max 6',rating:4.97,reviews:556,price:195000,tags:['Great Migration','Serengeti','Big Five','Balloon Option'],desc:'The greatest wildlife show on earth — 1.5 million wildebeest and 200,000 zebra thunder across the Serengeti. Emmanuel tracks the migration with 20 years of expertise, positioning for river crossings and predator action. A once-in-a-lifetime journey.',itinerary:['Day 1: Arusha → Central Serengeti','Day 2: Migration area full day','Day 3: Ngorongoro Crater','Day 4: Return'],includes:['All park fees','Accommodation × 3 nights','Full board','Return Arusha transfers','Resident naturalist'],img:'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&q=80'},
+];
+
+/* ══ STATE ══ */
+let _filter = 'all';
+let _search = '';
+let _dest = '';
+let _sort = 'recommended';
+const FAV_KEY = 'wb_favs';
+const savedFavs = JSON.parse(localStorage.getItem(FAV_KEY)||'[]');
+
+/* ══ FILTER ══ */
+function setFilter(k,el) {
+  _filter=k;
+  document.querySelectorAll('.fchip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  renderGrid();
+}
+
+function renderGrid() {
+  _search = (document.getElementById('searchInput')?.value||'').toLowerCase();
+  _dest = document.getElementById('selDest')?.value||'';
+  _sort = document.getElementById('sortSel')?.value||'recommended';
+
+  let list = TOURS.filter(t=>{
+    const matchCat = _filter==='all' || (_filter==='free' ? t.price===0 : t.cat===_filter);
+    const matchSearch = !_search || t.name.toLowerCase().includes(_search) || t.loc.toLowerCase().includes(_search) || t.guide.toLowerCase().includes(_search) || t.tags.some(x=>x.toLowerCase().includes(_search));
+    const matchDest = !_dest || t.dest===_dest;
+    return matchCat && matchSearch && matchDest;
+  });
+
+  // sort
+  switch(_sort) {
+    case 'rating': list.sort((a,b)=>b.rating-a.rating); break;
+    case 'price-asc': list.sort((a,b)=>a.price-b.price); break;
+    case 'price-desc': list.sort((a,b)=>b.price-a.price); break;
+    case 'reviews': list.sort((a,b)=>b.reviews-a.reviews); break;
+    case 'duration-asc': break;
+  }
+
+  document.getElementById('resultNum').textContent = list.length;
+  const g = document.getElementById('grid');
+
+  if(!list.length) {
+    g.innerHTML=`<div class="empty"><div class="empty-icon">🌍</div><div class="empty-title">No tours match</div><div class="empty-sub">Try adjusting your filters or search terms</div><button class="empty-reset" onclick="resetFilters()">Clear all filters</button></div>`;
+    return;
+  }
+
+  const badgeMap = {safari:'badge-safari',walk:'badge-walk',culture:'badge-culture',adventure:'badge-adventure',beach:'badge-beach',bird:'badge-bird',photo:'badge-photo',night:'badge-night'};
+  const badgeLabel = {safari:'🦁 Safari',walk:'🚶 Walking',culture:'🎭 Culture',adventure:'⛰️ Adventure',beach:'🌊 Beach',bird:'🦅 Birding',photo:'📷 Photo',night:'🌙 Night'};
+
+  g.innerHTML = list.map((t,i)=>{
+    const isFree = t.price===0;
+    const isSaved = savedFavs.includes(t.id);
+    const stars = `<svg width="11" height="11" viewBox="0 0 24 24" fill="#D4A843" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    return `
+    <div class="card" onclick="openDrawer(${t.id})" style="transition-delay:${Math.min(i*50,400)}ms;" data-id="${t.id}" role="button" tabindex="0" aria-label="${t.name}">
+      <div class="card-img">
+        <img src="${t.img}" alt="${t.name}" loading="lazy" decoding="async" onerror="this.style.opacity='.3'"/>
+        <div class="img-overlay"></div>
+        <div class="card-badge ${badgeMap[t.cat]||'badge-safari'}">${badgeLabel[t.cat]||'Tour'}</div>
+        <button class="card-fav${isSaved?' saved':''}" onclick="event.stopPropagation();toggleFav(this,${t.id})" aria-label="Save tour">${isSaved?'♥':'♡'}</button>
+        <div class="card-rating">${stars} ${t.rating} <span style="opacity:.5;">(${t.reviews.toLocaleString()})</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          ${t.loc} · ${t.dur} · ${t.group}
+        </div>
+        <div class="card-name">${t.name}</div>
+        <div class="card-guide"><div class="guide-avatar">${t.guide[0]}</div><span class="guide-name">${t.guide}</span></div>
+        <div class="card-tags">${t.tags.map(x=>`<span class="card-tag">${x}</span>`).join('')}</div>
+        <div class="card-foot">
+          <div class="card-price">
+            ${isFree ? `<span class="pval free">Free</span><span class="pper"> / tip your guide</span>` : `<span class="pval">KES ${Number(t.price).toLocaleString()}</span><span class="pper">/person</span>`}
+          </div>
+          <div class="card-go">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  requestAnimationFrame(()=>{
+    document.querySelectorAll('.card').forEach((c,i)=>setTimeout(()=>c.classList.add('in'),i*40));
+  });
+}
+
+function resetFilters() {
+  _filter='all';
+  document.getElementById('searchInput').value='';
+  document.getElementById('selDest').value='';
+  document.querySelectorAll('.fchip').forEach(c=>c.classList.remove('active'));
+  document.querySelector('.fchip').classList.add('active');
+  renderGrid();
+}
+
+/* ══ DRAWER ══ */
+function openDrawer(id) {
+  const t = TOURS.find(x=>x.id===id);
+  if(!t) return;
+  const isFree=t.price===0;
+  const isSaved=savedFavs.includes(t.id);
+  const stars='★'.repeat(Math.floor(t.rating))+(t.rating%1>=.5?'½':'');
+  document.getElementById('drawer').innerHTML=`
+    <div class="dr-img">
+      <img src="${t.img}" alt="${t.name}" loading="eager"/>
+      <div class="dr-img-overlay"></div>
+      <button class="dr-close" onclick="closeDrawer()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <button class="dr-share" onclick="shareTour(${t.id})" aria-label="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
+    </div>
+    <div class="dr-body">
+      <div class="dr-eyebrow">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/></svg>
+        ${t.loc}
+      </div>
+      <div class="dr-title">${t.name}</div>
+      <div class="dr-quick">
+        <div class="dq"><div class="dq-label">Duration</div><div class="dq-val">${t.dur}</div></div>
+        <div class="dq"><div class="dq-label">Group</div><div class="dq-val">${t.group}</div></div>
+        <div class="dq"><div class="dq-label">Rating</div><div class="dq-val" style="color:var(--savanna);">★ ${t.rating} <span style="font-size:12px;color:var(--ink-faint);">(${t.reviews.toLocaleString()})</span></div></div>
+      </div>
+      <div class="dr-tags">${t.tags.map(x=>`<span class="dr-tag">${x}</span>`).join('')}</div>
+      <div class="dr-guide">
+        <div class="dr-guide-avatar">${t.guide[0]}</div>
+        <div>
+          <div class="dr-guide-name">${t.guide}</div>
+          <div class="dr-guide-meta">Local guide · Verified on Wildbosses</div>
+        </div>
+        <button class="dr-guide-msg" onclick="messageGuide(${t.id})">Message</button>
+      </div>
+      <div class="dr-section">
+        <div class="dr-section-head">About this tour</div>
+        <div class="dr-desc">${t.desc}</div>
+      </div>
+      ${t.itinerary ? `
+      <div class="dr-section">
+        <div class="dr-section-head">What you'll do</div>
+        <div class="dr-itinerary">${t.itinerary.map((s,i)=>`<div class="dr-stop"><div class="dr-stop-num">${i+1}</div><div class="dr-stop-name">${s}</div></div>`).join('')}</div>
+      </div>` : ''}
+      ${t.includes ? `
+      <div class="dr-section">
+        <div class="dr-section-head">What's included</div>
+        <div class="dr-includes">${t.includes.map(x=>`<div class="dr-include"><span class="dr-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>${x}</div>`).join('')}</div>
+      </div>` : ''}
+    </div>
+    <div class="dr-cta-box">
+      <div class="dr-price-row">
+        ${isFree ? `<span class="dr-price-val free">Free</span><span class="dr-price-per">/ tip your guide</span>` : `<span class="dr-price-val">KES ${Number(t.price).toLocaleString()}</span><span class="dr-price-per">/person</span>`}
+      </div>
+      <span class="dr-price-note">Zero commission — guide keeps 100%</span>
+      <div class="dr-cta-btns" style="margin-top:14px;">
+        <button class="dr-cta-primary" onclick="bookTour(${t.id})">${isFree ? 'Reserve a spot' : 'Book this tour'}</button>
+        <button class="dr-cta-save${isSaved?' saved':''}" onclick="toggleFavDrawer(this,${t.id})">${isSaved?'♥':'♡'}</button>
+      </div>
+    </div>`;
+
+  document.getElementById('drawerOverlay').classList.add('open');
+  document.getElementById('drawer').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeDrawer() {
+  document.getElementById('drawerOverlay').classList.remove('open');
+  document.getElementById('drawer').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+/* ══ FAVOURITES ══ */
+function toggleFav(btn,id) {
+  const idx=savedFavs.indexOf(id);
+  if(idx>-1){savedFavs.splice(idx,1);btn.classList.remove('saved');btn.textContent='♡';}
+  else{savedFavs.push(id);btn.classList.add('saved');btn.textContent='♥';}
+  localStorage.setItem(FAV_KEY,JSON.stringify(savedFavs));
+  showToast(idx>-1?'Removed from saved':'Saved to your list ♥');
+}
+function toggleFavDrawer(btn,id) {
+  const idx=savedFavs.indexOf(id);
+  if(idx>-1){savedFavs.splice(idx,1);btn.classList.remove('saved');btn.textContent='♡';}
+  else{savedFavs.push(id);btn.classList.add('saved');btn.textContent='♥';}
+  localStorage.setItem(FAV_KEY,JSON.stringify(savedFavs));
+  // sync card button
+  const card=document.querySelector(`[data-id="${id}"] .card-fav`);
+  if(card){card.classList.toggle('saved',idx===-1);card.textContent=idx===-1?'♥':'♡';}
+  showToast(idx>-1?'Removed from saved':'Saved ♥');
+}
+
+/* ══ ACTIONS ══ */
+function bookTour(id) {
+  const t=TOURS.find(x=>x.id===id);
+  showToast(`Booking ${t?.name||'tour'}… (demo)`);
+}
+function messageGuide(id) { showToast('Opening guide chat… (demo)'); }
+function shareTour(id) {
+  if(navigator.share){navigator.share({title:TOURS.find(x=>x.id===id)?.name,url:location.href});}
+  else{navigator.clipboard.writeText(location.href).then(()=>showToast('Link copied!'));}
+}
+
+/* ══ VIEW TOGGLE ══ */
+function setView(v,btn) {
+  document.querySelectorAll('.vt-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('grid').style.display = v==='map'?'none':'grid';
+  const mapV=document.getElementById('mapView');
+  if(v==='map'){mapV.classList.add('visible');}else{mapV.classList.remove('visible');}
+}
+
+/* ══ TOAST ══ */
+function showToast(m,d=3000){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),d);}
+
+/* ══ ENTRY TX DISMISS ══ */
+const tx=document.getElementById('tx');
+function dismissTx(){tx.style.display='none';}
+tx.addEventListener('animationend',dismissTx,{once:true});
+setTimeout(dismissTx,3000);
+
+/* ══ INIT ══ */
+renderGrid();
+// read URL params
+(()=>{const p=new URLSearchParams(location.search);const cat=p.get('cat');const dest=p.get('dest');
+if(cat){const chip=document.querySelector(`.fchip[onclick*="'${cat}'"]`);if(chip){setFilter(cat,chip);}}
+if(dest){document.getElementById('selDest').value=dest;renderGrid();}})();
+</script>
+</body>
+</html>

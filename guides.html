@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Meet Our Guides — Wildbosses</title>
+<meta name="description" content="380+ certified local guides across Kenya and Tanzania. Read profiles, reviews and ratings. Every guide is vetted, background-checked and keeps 100% of their earnings."/>
+<meta name="theme-color" content="#0F4C2A"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --forest:#0F4C2A;--forest-2:#1A6B3A;--forest-3:#2D8A52;--canopy:#0A3520;
+  --savanna:#D4A843;--savanna-2:#E8C05A;--ember:#E85D2C;
+  --glass:#FAFDFB;--glass-2:#F0F7F2;--glass-3:#E4F0E8;
+  --ink:#080F0A;--ink-soft:#3D5040;--ink-faint:#7A9B80;
+  --line:rgba(8,15,10,.07);--line-2:rgba(8,15,10,.13);
+  --font-d:'Geist','Inter',sans-serif;--font-b:'Inter',system-ui,sans-serif;
+  --ease-out:cubic-bezier(.22,1,.36,1);
+  --shadow-lift:0 24px 80px rgba(15,76,42,.15),0 8px 24px rgba(8,15,10,.07);
+  --theme-grad:linear-gradient(135deg,var(--forest),var(--forest-2));
+}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-b);background:var(--glass);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.ab{position:absolute;border-radius:50%;filter:blur(90px);opacity:.18;mix-blend-mode:multiply;animation:drift 28s ease-in-out infinite;}
+.ab-1{width:500px;height:500px;top:-10%;left:-5%;background:radial-gradient(circle,rgba(15,76,42,1),transparent 68%);}
+.ab-2{width:420px;height:420px;bottom:-8%;right:-4%;animation-delay:-12s;opacity:.13;background:radial-gradient(circle,rgba(212,168,67,1),transparent 70%);}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(44px,-34px) scale(1.09);}66%{transform:translate(-34px,44px) scale(.94);}}
+
+/* topbar */
+.topbar{position:sticky;top:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(250,253,251,.85);backdrop-filter:blur(22px) saturate(180%);border-bottom:1px solid var(--line);}
+.tb-left{display:flex;align-items:center;gap:12px;}
+.tb-back{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink-soft);transition:all .25s;}
+.tb-back:hover{border-color:var(--forest);color:var(--forest);}
+.tb-brand{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.tb-logo-mark{width:30px;height:30px;border-radius:8px;background:var(--theme-grad);display:flex;align-items:center;justify-content:center;}
+.tb-logo-mark svg{width:15px;height:15px;color:#fff;}
+.tb-name{font-family:var(--font-d);font-weight:700;font-size:16px;color:var(--ink);}
+.tb-chip{font-size:11px;font-weight:700;padding:5px 13px;border-radius:100px;color:var(--forest);background:rgba(15,76,42,.08);border:1px solid rgba(15,76,42,.18);}
+.tb-cta{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:100px;background:var(--theme-grad);color:#fff;font-weight:700;font-size:12.5px;text-decoration:none;transition:filter .2s;}
+.tb-cta:hover{filter:brightness(1.1);}
+
+/* hero */
+.page-hero{position:relative;z-index:2;padding:48px 40px 0;max-width:1200px;margin:0 auto;}
+.sec-eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--forest-3);margin-bottom:14px;}
+.page-title{font-family:var(--font-d);font-weight:300;font-size:clamp(32px,5vw,56px);letter-spacing:-.025em;line-height:1.04;margin-bottom:12px;}
+.page-title em{font-style:italic;font-weight:600;color:var(--forest);}
+.page-sub{font-size:15.5px;color:var(--ink-soft);max-width:540px;line-height:1.65;margin-bottom:36px;}
+
+/* filter row */
+.filter-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px;}
+.fchip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--ink-soft);padding:7px 14px;border-radius:100px;background:rgba(255,255,255,.75);border:1px solid var(--line-2);cursor:pointer;transition:all .22s;white-space:nowrap;}
+.fchip:hover{border-color:var(--forest);}
+.fchip.active{background:var(--theme-grad);color:#fff;border-color:transparent;}
+
+/* search */
+.search-wrap{max-width:500px;display:flex;gap:0;background:rgba(255,255,255,.88);border:1px solid var(--line-2);border-radius:16px;padding:5px;box-shadow:0 6px 24px rgba(15,76,42,.07);margin-bottom:8px;}
+.search-ico{width:40px;display:flex;align-items:center;justify-content:center;color:var(--ink-faint);}
+.search-input{flex:1;padding:10px 8px;border:none;background:transparent;font-family:var(--font-b);font-size:14px;color:var(--ink);outline:none;}
+.search-input::placeholder{color:var(--ink-faint);}
+
+/* stats strip */
+.guide-stats{background:var(--forest);padding:28px 40px;position:relative;z-index:2;}
+.guide-stats-inner{max-width:1200px;margin:0 auto;display:flex;gap:0;justify-content:space-between;flex-wrap:wrap;}
+.gs-item{padding:10px 24px;border-right:1px solid rgba(255,255,255,.12);text-align:center;flex:1;}
+.gs-item:last-child{border-right:none;}
+.gs-num{font-family:var(--font-d);font-weight:700;font-size:26px;color:#fff;margin-bottom:3px;}
+.gs-num span{background:linear-gradient(120deg,var(--savanna),var(--savanna-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.gs-label{font-size:11.5px;color:rgba(255,255,255,.5);}
+@media(max-width:680px){.guide-stats{padding:20px;}.gs-item{padding:8px 12px;}.gs-num{font-size:20px;}}
+
+/* count bar */
+.count-bar{display:flex;align-items:center;justify-content:space-between;padding:16px 40px;max-width:1200px;margin:0 auto;flex-wrap:wrap;gap:10px;}
+.result-count{font-size:13.5px;color:var(--ink-soft);}
+.result-count strong{color:var(--ink);}
+.sort-select{padding:8px 24px 8px 12px;border-radius:11px;border:1px solid var(--line-2);background:rgba(255,255,255,.8);font-family:var(--font-b);font-size:13px;outline:none;cursor:pointer;}
+
+/* content */
+.content{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 40px 80px;}
+.guide-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;}
+
+/* guide card */
+.guide-card{border-radius:22px;background:#fff;border:1px solid var(--line);overflow:hidden;transition:all .42s var(--ease-out);cursor:pointer;opacity:0;transform:translateY(20px);}
+.guide-card.in{opacity:1;transform:none;}
+.guide-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lift);border-color:transparent;}
+.gc-cover{height:120px;position:relative;overflow:hidden;}
+.gc-cover img{width:100%;height:100%;object-fit:cover;transition:transform .65s var(--ease-out);}
+.guide-card:hover .gc-cover img{transform:scale(1.06);}
+.gc-cover-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(15,76,42,.6),rgba(3,17,10,.4));}
+.gc-verified{position:absolute;top:12px;right:12px;display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:100px;background:rgba(15,76,42,.85);color:#4EE0A8;font-size:10px;font-weight:700;backdrop-filter:blur(6px);}
+.gc-body{padding:0 20px 20px;}
+.gc-avatar-wrap{display:flex;align-items:flex-end;justify-content:space-between;margin-top:-28px;margin-bottom:14px;}
+.gc-avatar{width:56px;height:56px;border-radius:50%;border:3px solid #fff;background:var(--theme-grad);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--font-d);font-weight:700;font-size:20px;flex-shrink:0;box-shadow:0 4px 14px rgba(15,76,42,.25);}
+.gc-langs{display:flex;gap:4px;}
+.gc-lang{font-size:9.5px;font-weight:700;padding:3px 8px;border-radius:100px;background:var(--glass-3);border:1px solid var(--line);color:var(--ink-soft);}
+.gc-name{font-family:var(--font-d);font-weight:700;font-size:17px;color:var(--ink);margin-bottom:3px;}
+.gc-meta{font-size:12px;color:var(--ink-faint);display:flex;align-items:center;gap:6px;margin-bottom:12px;}
+.gc-meta-dot{width:3px;height:3px;border-radius:50%;background:var(--ink-faint);}
+.gc-rating{display:flex;align-items:center;gap:5px;margin-bottom:12px;}
+.gc-stars{color:var(--savanna);font-size:13px;}
+.gc-rating-num{font-family:var(--font-d);font-weight:600;font-size:14px;color:var(--ink);}
+.gc-reviews{font-size:12px;color:var(--ink-faint);}
+.gc-bio{font-size:13px;color:var(--ink-soft);line-height:1.65;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.gc-specialties{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px;}
+.gc-spec{font-size:10.5px;padding:4px 9px;border-radius:100px;background:var(--glass-3);border:1px solid var(--line);color:var(--ink-soft);}
+.gc-foot{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(--line);}
+.gc-tours-count{font-size:12px;color:var(--ink-faint);}
+.gc-tours-count strong{color:var(--ink);font-family:var(--font-d);}
+.gc-btns{display:flex;gap:7px;}
+.gc-msg{padding:8px 16px;border-radius:100px;background:rgba(15,76,42,.08);border:1px solid rgba(15,76,42,.18);color:var(--forest);font-weight:600;font-size:12px;cursor:pointer;transition:all .22s;}
+.gc-msg:hover{background:var(--forest);color:#fff;}
+.gc-view{padding:8px 16px;border-radius:100px;background:var(--theme-grad);color:#fff;font-weight:600;font-size:12px;cursor:pointer;border:none;transition:filter .2s;}
+.gc-view:hover{filter:brightness(1.1);}
+
+/* GUIDE DRAWER */
+.drawer-overlay{position:fixed;inset:0;z-index:200;background:rgba(3,17,10,.45);backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:all .38s;}
+.drawer-overlay.open{opacity:1;visibility:visible;}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:540px;max-width:96vw;z-index:201;background:var(--glass);box-shadow:-20px 0 60px rgba(3,17,10,.15);transform:translateX(105%);transition:transform .52s var(--ease-out);overflow-y:auto;}
+.drawer.open{transform:none;}
+.gd-cover{height:200px;position:relative;overflow:hidden;}
+.gd-cover img{width:100%;height:100%;object-fit:cover;}
+.gd-cover-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(3,17,10,.75) 0%,rgba(3,17,10,.2) 60%,transparent 100%);}
+.gd-close{position:absolute;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(250,253,251,.9);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);}
+.gd-body{padding:28px 30px 36px;}
+.gd-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:22px;}
+.gd-avatar-lg{width:72px;height:72px;border-radius:50%;background:var(--theme-grad);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--font-d);font-weight:700;font-size:26px;flex-shrink:0;box-shadow:0 8px 24px rgba(15,76,42,.3);}
+.gd-name{font-family:var(--font-d);font-weight:700;font-size:24px;color:var(--ink);margin-bottom:4px;}
+.gd-meta-line{font-size:13px;color:var(--ink-faint);margin-bottom:8px;}
+.gd-verified-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:100px;background:rgba(15,76,42,.09);border:1px solid rgba(15,76,42,.2);color:var(--forest);font-size:11px;font-weight:700;}
+.gd-section{margin-bottom:22px;}
+.gd-section-head{font-family:var(--font-d);font-weight:600;font-size:15px;color:var(--ink);margin-bottom:10px;}
+.gd-bio{font-size:14px;color:var(--ink-soft);line-height:1.75;}
+.gd-stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
+.gd-stat{padding:14px;border-radius:14px;background:var(--glass-2);border:1px solid var(--line);text-align:center;}
+.gd-stat-num{font-family:var(--font-d);font-weight:700;font-size:20px;color:var(--ink);margin-bottom:3px;}
+.gd-stat-label{font-size:10.5px;color:var(--ink-faint);}
+.gd-tours{display:flex;flex-direction:column;gap:10px;}
+.gd-tour-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:var(--glass-2);border:1px solid var(--line);cursor:pointer;transition:all .25s;}
+.gd-tour-item:hover{border-color:var(--forest);transform:translateX(4px);}
+.gd-tour-ico{width:40px;height:40px;border-radius:11px;background:var(--theme-grad);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.gd-tour-name{font-weight:600;font-size:13.5px;color:var(--ink);margin-bottom:2px;}
+.gd-tour-meta{font-size:11.5px;color:var(--ink-faint);}
+.gd-reviews{display:flex;flex-direction:column;gap:12px;}
+.gd-review{padding:14px 16px;border-radius:14px;background:var(--glass-2);border:1px solid var(--line);}
+.gd-review-stars{color:var(--savanna);font-size:12px;margin-bottom:6px;}
+.gd-review-text{font-size:13px;color:var(--ink-soft);line-height:1.65;font-style:italic;margin-bottom:8px;}
+.gd-review-author{font-size:11.5px;color:var(--ink-faint);font-weight:500;}
+.gd-cta-box{position:sticky;bottom:0;background:var(--glass);border-top:1px solid var(--line);padding:18px 30px 22px;}
+.gd-cta-btns{display:flex;gap:10px;}
+.gd-cta-book{flex:1;padding:14px;border-radius:14px;background:var(--theme-grad);color:#fff;font-weight:700;font-size:14.5px;border:none;cursor:pointer;transition:all .28s;box-shadow:0 8px 24px rgba(15,76,42,.25);}
+.gd-cta-book:hover{transform:translateY(-2px);}
+.gd-cta-msg{padding:14px 20px;border-radius:14px;background:rgba(15,76,42,.08);border:1px solid rgba(15,76,42,.2);color:var(--forest);font-weight:700;font-size:14.5px;cursor:pointer;transition:all .28s;}
+.gd-cta-msg:hover{background:rgba(15,76,42,.14);}
+
+/* become guide CTA */
+.become-guide{position:relative;z-index:2;margin:0 40px 80px;border-radius:28px;background:var(--canopy);overflow:hidden;padding:56px 48px;}
+.bg-aurora{position:absolute;inset:0;pointer-events:none;}
+.bg-b1{position:absolute;width:400px;height:400px;border-radius:50%;filter:blur(80px);background:radial-gradient(circle,rgba(15,76,42,.7),transparent 65%);top:-15%;left:-5%;}
+.bg-b2{position:absolute;width:320px;height:320px;border-radius:50%;filter:blur(80px);background:radial-gradient(circle,rgba(212,168,67,.18),transparent 70%);bottom:-10%;right:-5%;}
+.bg-inner{position:relative;z-index:2;max-width:700px;margin:0 auto;text-align:center;}
+.bg-eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--savanna);margin-bottom:16px;}
+.bg-headline{font-family:var(--font-d);font-weight:300;font-size:clamp(28px,4vw,42px);line-height:1.08;letter-spacing:-.025em;color:#fff;margin-bottom:16px;}
+.bg-headline em{font-style:italic;font-weight:600;background:linear-gradient(120deg,var(--savanna),var(--savanna-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.bg-sub{font-size:15px;color:rgba(255,255,255,.55);margin-bottom:34px;line-height:1.6;}
+.bg-btn{display:inline-flex;align-items:center;gap:9px;padding:14px 32px;border-radius:100px;background:linear-gradient(135deg,var(--savanna),var(--ember));color:#fff;font-weight:700;font-size:14.5px;text-decoration:none;box-shadow:0 10px 32px rgba(212,168,67,.35);transition:all .3s;}
+.bg-btn:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(212,168,67,.45);}
+
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);z-index:9999;padding:12px 22px;border-radius:100px;background:var(--ink);color:#fff;font-size:13px;font-weight:500;opacity:0;transition:all .35s;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media(max-width:700px){.page-hero,.content{padding-left:20px;padding-right:20px;}.guide-stats{padding:20px;}.become-guide{margin:0 20px 60px;padding:36px 28px;}.count-bar{padding:14px 20px;}.drawer{width:100%;max-width:100%;}.gd-body{padding:20px 22px 28px;}}
+@media(max-width:560px){.guide-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="aurora"><div class="ab ab-1"></div><div class="ab ab-2"></div></div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="tb-left">
+    <a href="index.html" class="tb-back"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
+    <a href="index.html" class="tb-brand">
+      <div class="tb-logo-mark"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+      <span class="tb-name">Wildbosses</span>
+    </a>
+    <div class="tb-chip">380+ Guides</div>
+  </div>
+  <div class="tb-right">
+    <a href="list-tour.html" class="tb-cta">Become a guide <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="sec-eyebrow">Our guide community</div>
+  <h1 class="page-title">The people who make<br><em>East Africa</em> come alive.</h1>
+  <p class="page-sub">380+ certified, background-checked local guides across Kenya and Tanzania. They set their own prices and keep every shilling of what they earn.</p>
+
+  <div class="search-wrap">
+    <div class="search-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+    <input class="search-input" id="searchInput" type="text" placeholder="Search guides by name, location or specialty…" oninput="renderGuides()"/>
+  </div>
+  <div class="filter-row">
+    <div class="fchip active" onclick="setFilter('all',this)">All guides</div>
+    <div class="fchip" onclick="setFilter('safari',this)">🦁 Safari</div>
+    <div class="fchip" onclick="setFilter('walk',this)">🚶 Walking</div>
+    <div class="fchip" onclick="setFilter('mountain',this)">⛰️ Mountain</div>
+    <div class="fchip" onclick="setFilter('culture',this)">🎭 Cultural</div>
+    <div class="fchip" onclick="setFilter('bird',this)">🦅 Birding</div>
+    <div class="fchip" onclick="setFilter('photo',this)">📷 Photography</div>
+    <div class="fchip" onclick="setFilter('marine',this)">🤿 Marine</div>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div class="guide-stats">
+  <div class="guide-stats-inner">
+    <div class="gs-item"><div class="gs-num"><span>380+</span></div><div class="gs-label">Active guides</div></div>
+    <div class="gs-item"><div class="gs-num"><span>4.87</span></div><div class="gs-label">Average rating</div></div>
+    <div class="gs-item"><div class="gs-num"><span>8,400+</span></div><div class="gs-label">Reviews left</div></div>
+    <div class="gs-item"><div class="gs-num"><span>100%</span></div><div class="gs-label">Earnings kept by guides</div></div>
+  </div>
+</div>
+
+<!-- COUNT BAR -->
+<div class="count-bar">
+  <div class="result-count"><strong id="resultNum">0</strong> guides found</div>
+  <select class="sort-select" id="sortSel" onchange="renderGuides()">
+    <option value="rating">Highest rated</option>
+    <option value="reviews">Most reviewed</option>
+    <option value="tours">Most tours</option>
+  </select>
+</div>
+
+<!-- GRID -->
+<div class="content">
+  <div class="guide-grid" id="guideGrid"></div>
+</div>
+
+<!-- BECOME A GUIDE CTA -->
+<div class="become-guide">
+  <div class="bg-aurora"><div class="bg-b1"></div><div class="bg-b2"></div></div>
+  <div class="bg-inner">
+    <div class="bg-eyebrow">For local guides</div>
+    <h2 class="bg-headline">You know this land.<br><em>Share it with the world.</em></h2>
+    <p class="bg-sub">List your tours, set your own price, and keep 100% of what you earn. No registration fee. No commission. Ever.</p>
+    <a href="list-tour.html" class="bg-btn">Join as a guide <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+  </div>
+</div>
+
+<!-- DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const GUIDES = [
+  {id:1,name:'James Mwangi',initial:'J',loc:'Nairobi, Kenya',specialty:['walk','culture'],bio:'15 years guiding in Nairobi CBD. Born and raised in Westlands, James has an encyclopaedic knowledge of the city\'s history, architecture and street culture. His tours have been featured in Lonely Planet and The Guardian Travel.',rating:4.96,reviews:1240,tours:3,experience:'15 years',languages:['EN','SW','FR'],verified:true,certifications:['Kenya Tourism Board','GuruWalk Elite'],
+  coverImg:'https://images.unsplash.com/photo-1611348524140-53c9a25263d6?w=600&q=80',
+  tourList:[{name:'Best Nairobi Free Walking Tour',dur:'2h 30m',price:'Free'},{name:'Nairobi After Dark Night Walk',dur:'2h',price:'KES 2,000'},{name:'Nairobi Markets Deep Dive',dur:'3h',price:'KES 1,500'}],
+  recentReviews:[{text:'James knows every doorway, every story, every face. An absolute maestro.',author:'Sophie R., London',stars:5},{text:'Booked James twice. Will keep coming back every time I visit Nairobi.',author:'Luca M., Milan',stars:5}]},
+
+  {id:2,name:'Grace Wanjiku',initial:'G',loc:'Naivasha / Amboseli, Kenya',specialty:['safari','photo'],bio:'Former Kenya Wildlife Service ranger turned independent guide. Grace has spent 12 years tracking wildlife across Kenya\'s major parks. Her photography safari expertise is unmatched — she knows where every leopard hides before dawn.',rating:4.95,reviews:891,tours:5,experience:'12 years',languages:['EN','SW'],verified:true,certifications:['KWS Certified Guide','National Geographic Expedition Partner'],
+  coverImg:'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=600&q=80',
+  tourList:[{name:'Amboseli Elephants & Kilimanjaro',dur:'2 days',price:'KES 28,000'},{name:'Masai Mara Photography Safari',dur:'Full day',price:'KES 22,000'},{name:'Lake Naivasha Boat & Hell Gate',dur:'Full day',price:'KES 8,500'}],
+  recentReviews:[{text:'Grace positioned us for the most incredible leopard shot I\'ve ever taken. Professional and warm.',author:'Amara J., Toronto',stars:5},{text:'Her knowledge of the elephant families in Amboseli is genuinely scientific.',author:'Felix H., Berlin',stars:5}]},
+
+  {id:3,name:'Ali Hassan',initial:'A',loc:'Zanzibar, Tanzania',specialty:['culture','walk'],bio:'Born in Stone Town to a family of dhow sailors, Ali speaks Swahili, Arabic, English and Italian. He leads immersive cultural walks through UNESCO-listed Stone Town and spice farm tours that engage every sense.',rating:4.91,reviews:623,tours:4,experience:'10 years',languages:['EN','SW','AR','IT'],verified:true,certifications:['Tanzania Tourism Board','Stone Town Heritage Guide'],
+  coverImg:'https://images.unsplash.com/photo-1516117172878-fd2c41f4a759?w=600&q=80',
+  tourList:[{name:'Stone Town & Spice Farm',dur:'Full day',price:'KES 9,500'},{name:'Zanzibar Dhow Sunset Sail',dur:'3h',price:'KES 6,000'},{name:'Jozani Forest & Red Colobus',dur:'Half day',price:'KES 7,500'}],
+  recentReviews:[{text:'Ali brought every alley, every carved door to life with stories his grandfather told him.',author:'Priya R., Singapore',stars:5},{text:'The spice farm was extraordinary. We smelled vanilla, cloves, and cinnamon growing wild.',author:'Daniel O., Lagos',stars:5}]},
+
+  {id:4,name:'Ismael Nzioka',initial:'I',loc:'Nairobi, Kenya',specialty:['walk','bird'],bio:'A passionate naturalist and ornithologist, Ismael leads nature walks through Karura Forest and Nairobi\'s green spaces. His Karura Forest walk has maintained a near-perfect 4.98 rating across 156 reviews. He has documented 387 bird species in Nairobi alone.',rating:4.98,reviews:156,tours:3,experience:'7 years',languages:['EN','SW'],verified:true,certifications:['Kenya Birding Guide','KWS Naturalist Certificate'],
+  coverImg:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80',
+  tourList:[{name:'Karura Forest Nature Walk',dur:'2h 30m',price:'KES 600'},{name:'Nairobi Bird Walk — 6am',dur:'3h',price:'KES 2,500'},{name:'Ngong Hills Forest Trail',dur:'Half day',price:'KES 4,000'}],
+  recentReviews:[{text:'Ismael spotted a Hartlaub\'s Turaco from 80m. I barely knew what I was looking for.',author:'Sarah K., London',stars:5},{text:'A secret Nairobi that most Nairobians don\'t know exists. The waterfall alone is worth it.',author:'Mohammed A., Dubai',stars:5}]},
+
+  {id:5,name:'Felix Massawe',initial:'F',loc:'Moshi, Tanzania',specialty:['mountain'],bio:'Summit success rate of 89% on Kilimanjaro — the highest of any independent guide registered with KINAPA. Felix has led over 400 successful ascents and written a wilderness first aid manual for altitude mountaineering.',rating:4.94,reviews:389,tours:3,experience:'18 years',languages:['EN','SW','DE'],verified:true,certifications:['KINAPA Certified Mountain Guide','Wilderness First Aid Instructor'],
+  coverImg:'https://images.unsplash.com/photo-1519923834699-ef0b7cde4712?w=600&q=80',
+  tourList:[{name:'Kilimanjaro — Marangu Route 6 Days',dur:'6 days',price:'KES 185,000'},{name:'Kilimanjaro — Lemosho Route 8 Days',dur:'8 days',price:'KES 245,000'},{name:'Mt Meru Crater Hike',dur:'4 days',price:'KES 95,000'}],
+  recentReviews:[{text:'Felix got me to Uhuru Peak when I was ready to turn back at Stella Point. Life-changing.',author:'Yuki T., Tokyo',stars:5},{text:'His altitude knowledge is almost medical. I felt completely safe throughout.',author:'Marcus B., Cape Town',stars:5}]},
+
+  {id:6,name:'Beatrice Muthoni',initial:'B',loc:'Nairobi, Kenya',specialty:['mountain','walk'],bio:'A certified mountain guide and marathon runner, Beatrice specialises in dawn hikes to Ngong Hills, Longonot crater and Aberdare Forest. She is a trained wilderness first aider and leads the Nairobi Women\'s Hiking Club on weekends.',rating:4.82,reviews:192,tours:4,experience:'8 years',languages:['EN','SW'],verified:true,certifications:['Kenya Mountain Guides Association','Wilderness First Aid'],
+  coverImg:'https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=600&q=80',
+  tourList:[{name:'Ngong Hills Sunrise Hike',dur:'5h',price:'KES 3,500'},{name:'Longonot Crater Hike',dur:'Full day',price:'KES 6,500'},{name:'Karura Forest Trail Run',dur:'2h',price:'KES 2,000'}],
+  recentReviews:[{text:'We reached the summit just as the sun cracked the Rift Valley. I wept. She smiled.',author:'Jennifer C., New York',stars:5},{text:'Beatrice is endlessly encouraging and knows every pebble on these hills.',author:'Robert M., Nairobi',stars:5}]},
+
+  {id:7,name:'Omar Salim',initial:'O',loc:'Diani Beach, Kenya',specialty:['marine','walk'],bio:'Third-generation fisherman and PADI-certified dive master, Omar leads the finest dhow experiences on the Kenyan Coast. His family has sailed these waters for 80 years and he knows every reef, dolphin pod location and current on the South Coast.',rating:4.85,reviews:298,tours:4,experience:'14 years',languages:['EN','SW','AR'],verified:true,certifications:['PADI Divemaster','Kenya Coast Tourism Authority'],
+  coverImg:'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80',
+  tourList:[{name:'Diani Dhow Sunset Cruise',dur:'3h',price:'KES 5,500'},{name:'Wasini Island & Kisite Marine Park',dur:'Full day',price:'KES 14,500'},{name:'Diani Snorkel & Beach Day',dur:'4h',price:'KES 4,000'}],
+  recentReviews:[{text:'The dolphins surfed the dhow\'s bow wave for 20 minutes. Omar knew exactly where they\'d be.',author:'Clara F., Barcelona',stars:5},{text:'Family trip with three kids. Omar was brilliant with them. Absolute gem of a guide.',author:'Paul D., Sydney',stars:5}]},
+
+  {id:8,name:'Njoro Gitau',initial:'N',loc:'Masai Mara, Kenya',specialty:['safari','photo'],bio:'Wildlife photographer and guide with National Geographic exhibition credits. Njoro\'s photography safaris are designed around golden-hour light and predator behaviour patterns he has studied for a decade. Maximum 4 guests per vehicle.',rating:5.0,reviews:78,tours:2,experience:'10 years',languages:['EN','SW'],verified:true,certifications:['Kenya Professional Safari Guides Association','National Geographic Certified'],
+  coverImg:'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=600&q=80',
+  tourList:[{name:'Mara Photography Safari — Golden Light',dur:'Full day',price:'KES 22,000'},{name:'Big Five Private Game Drive',dur:'10h',price:'KES 15,000'}],
+  recentReviews:[{text:'5/5 is not enough. Njoro sees the bush differently. My shots look like magazine covers.',author:'Anna L., Stockholm',stars:5},{text:'We got a cheetah family hunting sequence at 6am. Still the best morning of my life.',author:'Kenji M., Osaka',stars:5}]},
+
+  {id:9,name:'Daniel Oguttu',initial:'D',loc:'Kibera, Nairobi',specialty:['culture','walk'],bio:'Born and raised in Kibera, Daniel founded the Okolea Mtaa Foundation to use tourism to fund community projects. His tours are the most ethically-run community experiences in East Africa — honest, dignified and deeply educational.',rating:4.90,reviews:308,tours:2,experience:'9 years',languages:['EN','SW'],verified:true,certifications:['Responsible Tourism Kenya','Community Tourism Award 2025'],
+  coverImg:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+  tourList:[{name:'Kibera Community Tour',dur:'2h 30m',price:'Free (tip)'},{name:'Kibera Art & Social Enterprise Walk',dur:'3h',price:'KES 1,500'}],
+  recentReviews:[{text:'The most honest, human tour I have done anywhere in the world. Not poverty tourism — real storytelling.',author:'Daniel O., Lagos',stars:5},{text:'Daniel changed how I see East Africa. Profound, respectful and incredibly moving.',author:'Emma W., Manchester',stars:5}]},
+
+  {id:10,name:'Emmanuel Maro',initial:'E',loc:'Arusha, Tanzania',specialty:['safari'],bio:'Born into a Maasai family on the edge of the Serengeti, Emmanuel has tracked the Great Migration for 20 years. His ability to read wildebeest and predator behaviour borders on the supernatural. A senior guide with a flawless safety record.',rating:4.97,reviews:556,tours:4,experience:'20 years',languages:['EN','SW'],verified:true,certifications:['Tanzania Wildlife Management Authority','Arusha Safari Guides Association'],
+  coverImg:'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&q=80',
+  tourList:[{name:'Serengeti Great Migration 4 Days',dur:'4 days',price:'KES 195,000'},{name:'Ngorongoro Crater Day Trip',dur:'Full day',price:'KES 32,000'},{name:'Tarangire Elephant Safari',dur:'Full day',price:'KES 28,000'}],
+  recentReviews:[{text:'We saw 3 river crossings in one day. Emmanuel had tracked the column for hours to position us.',author:'Carlos R., Madrid',stars:5},{text:'20 years of knowledge in every sentence. The definitive Serengeti guide.',author:'Helen T., Melbourne',stars:5}]},
+
+  {id:11,name:'Wambua Mutua',initial:'W',loc:'Naivasha, Kenya',specialty:['safari','bird'],bio:'A specialist in Hell Gate, Lake Nakuru and Lake Naivasha — Kenya\'s Rift Valley lakes system. Wambua has birded these wetlands for 11 years and holds the record for most species spotted in a single Naivasha day (142 species).',rating:4.86,reviews:647,tours:5,experience:'11 years',languages:['EN','SW'],verified:true,certifications:['Kenya Birding Guides Association','East African Rift Lakes Specialist'],
+  coverImg:'https://images.unsplash.com/photo-1538970272646-f61fabb3bda3?w=600&q=80',
+  tourList:[{name:'Hell Gate & Lake Naivasha Day Trip',dur:'Full day',price:'KES 8,500'},{name:'Lake Nakuru Flamingo Safari',dur:'Full day',price:'KES 11,500'},{name:'Lake Baringo Bird Count',dur:'Full day',price:'KES 9,000'}],
+  recentReviews:[{text:'142 species in one day. I was exhausted. He was still going at sunset.',author:'Prof. John S., Edinburgh',stars:5},{text:'Hell Gate on bikes with Wambua is the most fun I\'ve had in Kenya.',author:'Steph N., Dublin',stars:5}]},
+
+  {id:12,name:'Peter Kamau',initial:'P',loc:'Nairobi, Kenya',specialty:['walk','culture'],bio:'Peter\'s energy is infectious. His walking tour has a 4.88 rating across nearly 900 reviews and is consistently ranked #1 for fun and accessibility. He is the go-to guide for groups and families wanting to see Nairobi without intimidation.',rating:4.88,reviews:847,tours:3,experience:'8 years',languages:['EN','SW','ES'],verified:true,certifications:['GuruWalk Elite','Kenya Tourism Board Certified'],
+  coverImg:'https://images.unsplash.com/photo-1586974136961-8e94c7c6fdba?w=600&q=80',
+  tourList:[{name:'Best & Most Fun Nairobi City Tour',dur:'3h',price:'Free (tip)'},{name:'Nairobi Food Culture Walk',dur:'3h',price:'KES 2,500'},{name:'Matatu Culture & Eastlands Walk',dur:'2h 30m',price:'KES 1,500'}],
+  recentReviews:[{text:'Peter is comedy, history and charm in one person. Best 3 hours in Nairobi, hands down.',author:'Luca M., Milan',stars:5},{text:'He made my kids feel like Nairobi was the most exciting city on earth. Maybe it is.',author:'Julie B., Toronto',stars:5}]},
+];
+
+let _filter='all';
+function setFilter(k,el){_filter=k;document.querySelectorAll('.fchip').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderGuides();}
+
+function renderGuides(){
+  const q=(document.getElementById('searchInput')?.value||'').toLowerCase();
+  const sort=document.getElementById('sortSel')?.value||'rating';
+  let list=GUIDES.filter(g=>{
+    const matchSpec=_filter==='all'||g.specialty.includes(_filter);
+    const matchQ=!q||g.name.toLowerCase().includes(q)||g.loc.toLowerCase().includes(q)||g.bio.toLowerCase().includes(q)||g.specialty.some(s=>s.includes(q));
+    return matchSpec&&matchQ;
+  });
+  switch(sort){
+    case 'rating':list.sort((a,b)=>b.rating-a.rating);break;
+    case 'reviews':list.sort((a,b)=>b.reviews-a.reviews);break;
+    case 'tours':list.sort((a,b)=>b.tours-a.tours);break;
+  }
+  document.getElementById('resultNum').textContent=list.length;
+  const grid=document.getElementById('guideGrid');
+  grid.innerHTML=list.map((g,i)=>{
+    const stars='★'.repeat(Math.round(g.rating)).slice(0,5);
+    return `
+    <div class="guide-card" onclick="openGuide(${g.id})" style="transition-delay:${Math.min(i*50,400)}ms;" tabindex="0" role="button">
+      <div class="gc-cover">
+        <img src="${g.coverImg}" alt="${g.name}" loading="lazy"/>
+        <div class="gc-cover-overlay"></div>
+        ${g.verified?`<div class="gc-verified"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Verified</div>`:''}
+      </div>
+      <div class="gc-body">
+        <div class="gc-avatar-wrap">
+          <div class="gc-avatar">${g.initial}</div>
+          <div class="gc-langs">${g.languages.map(l=>`<span class="gc-lang">${l}</span>`).join('')}</div>
+        </div>
+        <div class="gc-name">${g.name}</div>
+        <div class="gc-meta"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/></svg>${g.loc}<span class="gc-meta-dot"></span>${g.experience}</div>
+        <div class="gc-rating">
+          <span class="gc-stars">${stars}</span>
+          <span class="gc-rating-num">${g.rating}</span>
+          <span class="gc-reviews">(${g.reviews.toLocaleString()} reviews)</span>
+        </div>
+        <div class="gc-bio">${g.bio}</div>
+        <div class="gc-specialties">${g.specialty.map(s=>`<span class="gc-spec">${s.charAt(0).toUpperCase()+s.slice(1)}</span>`).join('')}${g.certifications.slice(0,1).map(c=>`<span class="gc-spec" style="color:var(--forest);border-color:rgba(15,76,42,.2);background:rgba(15,76,42,.06);">${c}</span>`).join('')}</div>
+        <div class="gc-foot">
+          <div class="gc-tours-count"><strong>${g.tours}</strong> tours listed</div>
+          <div class="gc-btns">
+            <button class="gc-msg" onclick="event.stopPropagation();msgGuide(${g.id})">Message</button>
+            <button class="gc-view">View profile</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  requestAnimationFrame(()=>{document.querySelectorAll('.guide-card').forEach((c,i)=>setTimeout(()=>c.classList.add('in'),i*40));});
+}
+
+function openGuide(id){
+  const g=GUIDES.find(x=>x.id===id);
+  if(!g)return;
+  const stars='★'.repeat(Math.round(g.rating)).slice(0,5);
+  document.getElementById('drawer').innerHTML=`
+    <div class="gd-cover">
+      <img src="${g.coverImg}" alt="${g.name}"/>
+      <div class="gd-cover-overlay"></div>
+      <button class="gd-close" onclick="closeDrawer()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="gd-body">
+      <div class="gd-header">
+        <div class="gd-avatar-lg">${g.initial}</div>
+        <div>
+          <div class="gd-name">${g.name}</div>
+          <div class="gd-meta-line">${g.loc} · ${g.experience} experience</div>
+          ${g.verified?`<div class="gd-verified-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Verified guide</div>`:''}
+        </div>
+      </div>
+      <div class="gd-stats-grid">
+        <div class="gd-stat"><div class="gd-stat-num" style="color:var(--savanna);">★ ${g.rating}</div><div class="gd-stat-label">Average rating</div></div>
+        <div class="gd-stat"><div class="gd-stat-num">${g.reviews.toLocaleString()}</div><div class="gd-stat-label">Reviews</div></div>
+        <div class="gd-stat"><div class="gd-stat-num">${g.tours}</div><div class="gd-stat-label">Tours listed</div></div>
+      </div>
+      <div class="gd-section">
+        <div class="gd-section-head">About ${g.name.split(' ')[0]}</div>
+        <div class="gd-bio">${g.bio}</div>
+      </div>
+      <div class="gd-section">
+        <div class="gd-section-head">Tours by ${g.name.split(' ')[0]}</div>
+        <div class="gd-tours">${g.tourList.map(t=>`
+          <div class="gd-tour-item" onclick="window.location.href='tours.html'">
+            <div class="gd-tour-ico">🗺️</div>
+            <div>
+              <div class="gd-tour-name">${t.name}</div>
+              <div class="gd-tour-meta">${t.dur} · ${t.price}</div>
+            </div>
+            <svg style="margin-left:auto;flex-shrink:0;color:var(--forest);" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </div>`).join('')}
+        </div>
+      </div>
+      <div class="gd-section">
+        <div class="gd-section-head">What guests say</div>
+        <div class="gd-reviews">${g.recentReviews.map(r=>`
+          <div class="gd-review">
+            <div class="gd-review-stars">${'★'.repeat(r.stars)}</div>
+            <div class="gd-review-text">"${r.text}"</div>
+            <div class="gd-review-author">— ${r.author}</div>
+          </div>`).join('')}
+        </div>
+      </div>
+      <div class="gd-section">
+        <div class="gd-section-head">Languages & certifications</div>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;">
+          ${g.languages.map(l=>`<span style="font-size:11.5px;padding:5px 12px;border-radius:100px;background:var(--glass-3);border:1px solid var(--line);color:var(--ink-soft);">${l}</span>`).join('')}
+          ${g.certifications.map(c=>`<span style="font-size:11.5px;padding:5px 12px;border-radius:100px;background:rgba(15,76,42,.07);border:1px solid rgba(15,76,42,.18);color:var(--forest);">${c}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="gd-cta-box">
+      <div class="gd-cta-btns">
+        <button class="gd-cta-book" onclick="window.location.href='tours.html'">View all tours</button>
+        <button class="gd-cta-msg" onclick="msgGuide(${g.id})">Message guide</button>
+      </div>
+    </div>`;
+  document.getElementById('drawerOverlay').classList.add('open');
+  document.getElementById('drawer').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeDrawer(){document.getElementById('drawerOverlay').classList.remove('open');document.getElementById('drawer').classList.remove('open');document.body.style.overflow='';}
+function msgGuide(id){showToast('Opening guide chat… (demo)');}
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
+
+renderGuides();
+</script>
+</body>
+</html>
