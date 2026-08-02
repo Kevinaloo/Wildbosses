@@ -1,0 +1,139 @@
+/* ═══════════════════════════════════════════════════
+   WILDBOSSES DESIGN SYSTEM — v2.0
+   Typefaces: Cabinet Grotesk (display) + Satoshi (body)
+   Palette: Deep canopy + molten gold + fire coral
+   Signature: Living ink — text that breathes like savanna grass
+   ═══════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* ── Palette ── */
+  --ink:       #09140B;   /* deepest forest ink */
+  --ink-2:     #1C2A1E;
+  --ink-soft:  #3A5240;
+  --ink-muted: #6B8C72;
+  --ink-ghost: #9EB8A4;
+
+  --canvas:    #F6FAF5;   /* pale morning mist */
+  --canvas-2:  #EEF5EC;
+  --canvas-3:  #E3EFE1;
+
+  --grove:     #0D4225;   /* primary brand — old growth */
+  --grove-2:   #186038;
+  --grove-3:   #267A4A;
+  --grove-4:   #3D9962;
+
+  --gold:      #C8960A;   /* molten savanna gold */
+  --gold-2:    #E0AE1A;
+  --gold-3:    #F0C840;
+  --gold-pale: #FDF3C0;
+
+  --fire:      #D94820;   /* fire coral / sunset */
+  --fire-2:    #F06030;
+  --fire-pale: #FEF0EB;
+
+  --sky:       #1A5FA8;   /* deep lake blue */
+  --sky-pale:  #E8F1FC;
+
+  --line:      rgba(9,20,11,.06);
+  --line-2:    rgba(9,20,11,.11);
+  --line-3:    rgba(9,20,11,.18);
+
+  /* ── Typography ── */
+  --font-serif: 'DM Serif Display', Georgia, serif;
+  --font-sans:  'DM Sans', system-ui, -apple-system, sans-serif;
+
+  /* ── Scale ── */
+  --text-xs:   11px;
+  --text-sm:   13px;
+  --text-base: 15px;
+  --text-md:   17px;
+  --text-lg:   20px;
+  --text-xl:   24px;
+  --text-2xl:  32px;
+  --text-3xl:  42px;
+  --text-4xl:  56px;
+  --text-5xl:  72px;
+  --text-6xl:  96px;
+
+  /* ── Motion ── */
+  --ease:        cubic-bezier(.22, 1, .36, 1);
+  --ease-back:   cubic-bezier(.34, 1.4, .44, 1);
+  --ease-sharp:  cubic-bezier(.76, 0, .24, 1);
+
+  /* ── Shadows ── */
+  --shadow-sm:  0 2px 8px rgba(9,20,11,.06), 0 1px 2px rgba(9,20,11,.04);
+  --shadow-md:  0 8px 28px rgba(9,20,11,.09), 0 2px 6px rgba(9,20,11,.05);
+  --shadow-lg:  0 20px 60px rgba(9,20,11,.13), 0 6px 18px rgba(9,20,11,.07);
+  --shadow-xl:  0 40px 100px rgba(9,20,11,.18), 0 12px 32px rgba(9,20,11,.09);
+  --shadow-grove: 0 12px 40px rgba(13,66,37,.30);
+  --shadow-gold:  0 8px 28px rgba(200,150,10,.32);
+
+  /* ── Radii ── */
+  --r-sm:  8px;
+  --r-md:  14px;
+  --r-lg:  22px;
+  --r-xl:  32px;
+  --r-pill: 9999px;
+
+  /* ── Gradients ── */
+  --grad-grove:  linear-gradient(135deg, var(--grove), var(--grove-2));
+  --grad-gold:   linear-gradient(135deg, var(--gold), var(--gold-2));
+  --grad-fire:   linear-gradient(135deg, var(--fire), var(--fire-2));
+  --grad-sunset: linear-gradient(135deg, var(--gold), var(--fire));
+  --grad-sky:    linear-gradient(135deg, var(--ink), var(--grove));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--canvas);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ── Utility ── */
+.sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font-family: inherit; }
+
+/* ── Reveal animation ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .8s var(--ease), transform .8s var(--ease);
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-left  { transform: translateX(-24px); }
+.reveal-right { transform: translateX(24px); }
+.reveal-left.visible, .reveal-right.visible { transform: none; }
+
+/* ── Cursor glow (desktop only) ── */
+@media (hover: hover) {
+  .cursor-glow {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(13,66,37,.08), transparent 70%);
+    pointer-events: none;
+    z-index: 9990;
+    transform: translate(-50%, -50%);
+    transition: opacity .3s;
+  }
+}
