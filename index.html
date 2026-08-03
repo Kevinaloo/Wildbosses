@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="stylesheet" href="wb-core.css"/>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Wildbosses — Premium Tours & Safaris, Kenya</title>
 <meta name="description" content="Premium safaris, cultural expeditions and adventures across Kenya and Tanzania. Book directly with Wildbosses — East Africa's finest boutique tour company."/>
 <meta name="theme-color" content="#0B3D20"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 /* ═══════════════════════════════════════
    WILDBOSSES — DESIGN SYSTEM
@@ -55,9 +53,9 @@
   --shadow-f:    0 12px 40px rgba(11,61,32,.28);
   --shadow-g:    0 8px 28px rgba(200,144,10,.30);
   --r-sm: 8px; --r-md: 14px; --r-lg: 22px; --r-xl: 32px; --r-pill: 9999px;
-  --serif: 'Playfair Display', Georgia, serif;
-  --sans:  'Space Grotesk', system-ui, sans-serif;
-  --ui:    'Inter', system-ui, sans-serif;
+  --serif:'Geist','Inter',system-ui,sans-serif;
+  --sans:'Geist','Inter',system-ui,sans-serif;
+  --ui:'Inter',system-ui,-apple-system,sans-serif;
 }
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 html { scroll-behavior: smooth; }
@@ -747,8 +745,8 @@ body { font-family: var(--sans); background: var(--canvas); color: var(--ink); -
   background: var(--gf); display:flex;align-items:center;justify-content:center;
 }
 .fb-logo-icon svg { width:16px;height:16px;color:var(--gold-3); }
-.fb-logo-name { font-family:var(--sans);font-weight:700;font-size:16px;color:#fff; }
-.footer-tagline { font-family:var(--ui);font-size:13px;color:rgba(255,255,255,.28);line-height:1.7;max-width:240px;margin-bottom:22px; }
+.fb-logo-name { font-family:var(--font-d);font-weight:700;font-size:16px;color:#fff; }
+.footer-tagline { font-family:var(--font-b);font-size:13px;color:rgba(255,255,255,.28);line-height:1.7;max-width:240px;margin-bottom:22px; }
 .footer-socials { display:flex;gap:8px; }
 .footer-socials a {
   width:34px;height:34px;border-radius:9px;
@@ -757,17 +755,17 @@ body { font-family: var(--sans); background: var(--canvas); color: var(--ink); -
   color:rgba(255,255,255,.40);text-decoration:none;transition:all .25s;
 }
 .footer-socials a:hover { background:rgba(255,255,255,.12);color:rgba(255,255,255,.80); }
-.footer-col h4 { font-family:var(--ui);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.20);margin-bottom:16px; }
-.footer-col a { display:block;font-family:var(--ui);font-size:13px;color:rgba(255,255,255,.38);text-decoration:none;padding:4px 0;transition:color .2s; }
+.footer-col h4 { font-family:var(--font-b);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.20);margin-bottom:16px; }
+.footer-col a { display:block;font-family:var(--font-b);font-size:13px;color:rgba(255,255,255,.38);text-decoration:none;padding:4px 0;transition:color .2s; }
 .footer-col a:hover { color:rgba(255,255,255,.72); }
 .footer-bottom {
   border-top:1px solid rgba(255,255,255,.06);
   padding:22px 0; max-width:1280px;margin:0 auto;
   display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
 }
-.footer-copy { font-family:var(--ui);font-size:12px;color:rgba(255,255,255,.18); }
+.footer-copy { font-family:var(--font-b);font-size:12px;color:rgba(255,255,255,.18); }
 .footer-legal { display:flex;gap:20px; }
-.footer-legal a { font-family:var(--ui);font-size:12px;color:rgba(255,255,255,.18);text-decoration:none;transition:color .2s; }
+.footer-legal a { font-family:var(--font-b);font-size:12px;color:rgba(255,255,255,.18);text-decoration:none;transition:color .2s; }
 .footer-legal a:hover { color:rgba(255,255,255,.50); }
 
 /* ═══ MOBILE DRAWER ═══ */
@@ -782,7 +780,7 @@ body { font-family: var(--sans); background: var(--canvas); color: var(--ink); -
 .mobile-menu.open .mm-overlay { opacity:1;pointer-events:all; }
 .mobile-menu.open .mm-panel { transform:none;pointer-events:all; }
 .mm-panel a {
-  font-family:var(--sans);font-size:18px;font-weight:500;
+  font-family:var(--font-d);font-size:18px;font-weight:500;
   color:var(--ink);text-decoration:none;padding:13px 0;
   border-bottom:1px solid var(--line);display:block;transition:color .2s;
 }
@@ -828,30 +826,30 @@ body { font-family: var(--sans); background: var(--canvas); color: var(--ink); -
 .modal-body { padding:28px 32px 36px; }
 @media(max-width:500px){.modal-body{padding:22px 20px 30px}}
 .modal-eyebrow {
-  font-family:var(--ui);font-size:10.5px;font-weight:700;
+  font-family:var(--font-b);font-size:10.5px;font-weight:700;
   letter-spacing:.12em;text-transform:uppercase;
   color:var(--forest-lite);margin-bottom:8px;
   display:flex;align-items:center;gap:6px;
 }
-.modal-title { font-family:var(--serif);font-size:clamp(22px,3vw,30px);color:var(--ink);margin-bottom:16px;line-height:1.2; }
+.modal-title { font-family:var(--font-d);font-size:clamp(22px,3vw,30px);color:var(--ink);margin-bottom:16px;line-height:1.2; }
 .modal-quick { display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px; }
 @media(max-width:480px){.modal-quick{grid-template-columns:repeat(3,1fr)}}
 .mq-cell { padding:12px 14px;border-radius:var(--r-md);background:var(--canvas-2);border:1px solid var(--line-2); }
-.mq-label { font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:4px; }
-.mq-val { font-family:var(--sans);font-weight:600;font-size:14px;color:var(--ink); }
+.mq-label { font-family:var(--font-b);font-size:9.5px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:4px; }
+.mq-val { font-family:var(--font-d);font-weight:600;font-size:14px;color:var(--ink); }
 .modal-desc { font-size:14.5px;color:var(--ink-soft);line-height:1.75;margin-bottom:20px; }
 .modal-includes { display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:22px; }
-.mi { display:flex;align-items:flex-start;gap:8px;font-family:var(--ui);font-size:13px;color:var(--ink-soft); }
+.mi { display:flex;align-items:flex-start;gap:8px;font-family:var(--font-b);font-size:13px;color:var(--ink-soft); }
 .mi-check { color:var(--forest-lite);flex-shrink:0;margin-top:2px; }
 .modal-itinerary { display:flex;flex-direction:column;gap:10px;margin-bottom:22px; }
 .mit { display:flex;align-items:flex-start;gap:12px; }
 .mit-num {
   width:22px;height:22px;border-radius:50%;
   background:var(--gf);color:#fff;
-  font-family:var(--ui);font-size:9px;font-weight:700;
+  font-family:var(--font-b);font-size:9px;font-weight:700;
   display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;
 }
-.mit-text { font-family:var(--ui);font-size:13.5px;color:var(--ink-soft);line-height:1.6; }
+.mit-text { font-family:var(--font-b);font-size:13.5px;color:var(--ink-soft);line-height:1.6; }
 .modal-cta-box {
   position:sticky;bottom:0;
   background:var(--canvas);border-top:1px solid var(--line-2);
@@ -859,16 +857,16 @@ body { font-family: var(--sans); background: var(--canvas); color: var(--ink); -
 }
 @media(max-width:500px){.modal-cta-box{margin:0 -20px -30px;padding:16px 20px 20px}}
 .mcb-row { display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px; }
-.mcb-price-note { font-family:var(--ui);font-size:11px;color:var(--ink-ghost);margin-bottom:4px; }
-.mcb-price { font-family:var(--serif);font-size:32px;color:var(--ink); }
+.mcb-price-note { font-family:var(--font-b);font-size:11px;color:var(--ink-ghost);margin-bottom:4px; }
+.mcb-price { font-family:var(--font-d);font-size:32px;color:var(--ink); }
 .mcb-price.free { color:var(--forest-lite);font-size:26px; }
-.mcb-per { font-family:var(--ui);font-size:13px;color:var(--ink-muted); }
-.mcb-deposit { font-family:var(--ui);font-size:11.5px;color:var(--forest-lite);font-weight:600; }
+.mcb-per { font-family:var(--font-b);font-size:13px;color:var(--ink-muted); }
+.mcb-deposit { font-family:var(--font-b);font-size:11.5px;color:var(--forest-lite);font-weight:600; }
 .mcb-btns { display:flex;gap:10px; }
 .mcb-book {
   flex:1;padding:15px;border-radius:var(--r-md);
   background:var(--gf);color:#fff;
-  font-family:var(--sans);font-weight:700;font-size:15px;
+  font-family:var(--font-d);font-weight:700;font-size:15px;
   border:none;cursor:pointer;transition:all .28s;
   box-shadow:var(--shadow-f);
 }
@@ -905,7 +903,7 @@ body { font-family: var(--sans); background: var(--canvas); color: var(--ink); -
   position:fixed;bottom:100px;right:28px;z-index:9999;
   padding:12px 22px;border-radius:var(--r-pill);
   background:var(--ink);color:#fff;
-  font-family:var(--ui);font-size:13px;font-weight:500;
+  font-family:var(--font-b);font-size:13px;font-weight:500;
   opacity:0;transform:translateY(10px);
   transition:all .35s;pointer-events:none;
 }
@@ -1087,7 +1085,7 @@ body { font-family: var(--sans); background: var(--canvas); color: var(--ink); -
       </div>
     </div>
     <div class="cdc-right">
-      <div style="font-family:var(--ui);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.30);margin-bottom:14px;text-align:center;">Booking closes in</div>
+      <div style="font-family:var(--font-b);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.30);margin-bottom:14px;text-align:center;">Booking closes in</div>
       <div class="timer-grid">
         <div class="timer-unit"><div class="timer-num" id="tDays">00</div><div class="timer-label">Days</div></div>
         <div class="timer-unit"><div class="timer-num" id="tHours">00</div><div class="timer-label">Hours</div></div>
@@ -1095,8 +1093,8 @@ body { font-family: var(--sans); background: var(--canvas); color: var(--ink); -
         <div class="timer-unit"><div class="timer-num" id="tSecs">00</div><div class="timer-label">Secs</div></div>
       </div>
       <div style="text-align:center;margin-top:16px;">
-        <div style="font-family:var(--ui);font-size:11px;color:rgba(255,255,255,.28);">30% deposit secures your place</div>
-        <div style="font-family:var(--sans);font-weight:600;font-size:13px;color:var(--gold-2);margin-top:4px;">= KES 28,500 today</div>
+        <div style="font-family:var(--font-b);font-size:11px;color:rgba(255,255,255,.28);">30% deposit secures your place</div>
+        <div style="font-family:var(--font-d);font-weight:600;font-size:13px;color:var(--gold-2);margin-top:4px;">= KES 28,500 today</div>
       </div>
     </div>
   </div>
@@ -1110,7 +1108,7 @@ body { font-family: var(--sans); background: var(--canvas); color: var(--ink); -
         <div class="eyebrow">Our tours</div>
         <h2 class="headline">Experiences that<br>stay with you <em>forever.</em></h2>
       </div>
-      <a href="tours.html" style="display:inline-flex;align-items:center;gap:7px;font-family:var(--ui);font-size:13.5px;font-weight:600;color:var(--forest);text-decoration:none;padding:11px 22px;border-radius:var(--r-pill);border:1.5px solid rgba(11,61,32,.22);transition:all .25s;" onmouseover="this.style.background='var(--forest)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='var(--forest)'">All tours <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+      <a href="tours.html" style="display:inline-flex;align-items:center;gap:7px;font-family:var(--font-b);font-size:13.5px;font-weight:600;color:var(--forest);text-decoration:none;padding:11px 22px;border-radius:var(--r-pill);border:1.5px solid rgba(11,61,32,.22);transition:all .25s;" onmouseover="this.style.background='var(--forest)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='var(--forest)'">All tours <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
     </div>
     <div class="tours-grid" id="featuredTours"></div>
   </div>
@@ -1278,12 +1276,7 @@ body { font-family: var(--sans); background: var(--canvas); color: var(--ink); -
   <div class="modal"><div class="modal-box" id="modalBox" onclick="event.stopPropagation()"></div></div>
 </div>
 
-<!-- WhatsApp FAB -->
-<a href="https://wa.me/254716206494?text=Hi%20Wildbosses!%20I'd%20like%20to%20book%20a%20tour." class="wa-fab" target="_blank" aria-label="Chat on WhatsApp">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
 
-<div class="toast" id="toast"></div>
 
 <script>
 /* ── NAV ── */
@@ -1447,10 +1440,10 @@ function openTourModal(id){
         <div class="mq-cell"><div class="mq-label">Group</div><div class="mq-val">${t.group}</div></div>
         <div class="mq-cell"><div class="mq-label">Rating</div><div class="mq-val" style="color:var(--gold);">★ ${t.rating}</div></div>
       </div>
-      ${t.countdown.spots<=4&&t.countdown.spots>0?`<div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--r-md);background:rgba(214,62,21,.06);border:1px solid rgba(214,62,21,.16);margin-bottom:16px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D63E15" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span style="font-family:var(--ui);font-size:13px;color:var(--ember);font-weight:600;">Only ${t.countdown.spots} spot${t.countdown.spots>1?'s':''} remaining — this departure is almost full</span></div>`:''}
+      ${t.countdown.spots<=4&&t.countdown.spots>0?`<div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--r-md);background:rgba(214,62,21,.06);border:1px solid rgba(214,62,21,.16);margin-bottom:16px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D63E15" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span style="font-family:var(--font-b);font-size:13px;color:var(--ember);font-weight:600;">Only ${t.countdown.spots} spot${t.countdown.spots>1?'s':''} remaining — this departure is almost full</span></div>`:''}
       <div class="modal-desc">${t.desc}</div>
-      ${t.itinerary?`<div style="font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:10px;">What you'll do</div><div class="modal-itinerary">${t.itinerary.map((s,i)=>`<div class="mit"><div class="mit-num">${i+1}</div><div class="mit-text">${s}</div></div>`).join('')}</div>`:''}
-      ${t.includes?`<div style="font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:10px;margin-top:18px;">What's included</div><div class="modal-includes">${t.includes.map(x=>`<div class="mi"><svg class="mi-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>${x}</div>`).join('')}</div>`:''}
+      ${t.itinerary?`<div style="font-family:var(--font-d);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:10px;">What you'll do</div><div class="modal-itinerary">${t.itinerary.map((s,i)=>`<div class="mit"><div class="mit-num">${i+1}</div><div class="mit-text">${s}</div></div>`).join('')}</div>`:''}
+      ${t.includes?`<div style="font-family:var(--font-d);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:10px;margin-top:18px;">What's included</div><div class="modal-includes">${t.includes.map(x=>`<div class="mi"><svg class="mi-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>${x}</div>`).join('')}</div>`:''}
       <div class="modal-cta-box">
         <div class="mcb-row">
           <div>
@@ -1459,7 +1452,7 @@ function openTourModal(id){
             ${!isFree?`<span class="mcb-per"> /person</span>`:''}
             ${!isFree&&t.deposit?`<div class="mcb-deposit">30% deposit = KES ${t.deposit.toLocaleString()} to secure your spot</div>`:''}
           </div>
-          <div style="text-align:right;font-family:var(--ui);font-size:12px;color:var(--ink-ghost);">★ ${t.rating} · ${t.reviews.toLocaleString()} reviews</div>
+          <div style="text-align:right;font-family:var(--font-b);font-size:12px;color:var(--ink-ghost);">★ ${t.rating} · ${t.reviews.toLocaleString()} reviews</div>
         </div>
         <div class="mcb-btns">
           <button class="mcb-book${!isFree&&t.deposit?' deposit':''}" onclick="bookTour('${t.id}')">${isFree?'Reserve a spot':t.countdown.spots<=3?'Pay deposit — secure your spot':'Book this tour'}</button>
@@ -1517,5 +1510,6 @@ document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 /* ── Toast ── */
 function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
 </script>
+<script src="wb-shell.js"></script>
 </body>
 </html>
