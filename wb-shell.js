@@ -49,7 +49,7 @@
   /* ══════════════════════════════════════════════════
      2. WHATSAPP FAB — bottom-left
   ══════════════════════════════════════════════════ */
-  var WA_NUM = '254716206494';
+  var WA_NUM = '254796818671';
   var WA_MSG = encodeURIComponent("Hi Wildbosses! I'd like to enquire about a tour.");
   var fab = el('a');
   fab.id = 'wb-wa-fab';

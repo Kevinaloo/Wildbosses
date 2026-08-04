@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Sitemap: https://wildbosses.com/sitemap.xml
+
+# Block non-HTML assets from being crawled unnecessarily
+Disallow: /wildbosses-ds.css
+Disallow: /wb-core.css
+Disallow: /wb-shell.js
