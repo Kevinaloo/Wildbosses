@@ -11,7 +11,6 @@
 <meta name="author" content="Wildbosses Tours & Safaris"/>
 <meta name="theme-color" content="#0B3D20"/>
 <link rel="canonical" href="https://wildbosses.com/"/>
-<!-- Open Graph -->
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://wildbosses.com/"/>
 <meta property="og:title" content="Wildbosses | Kenya's Best Safaris & Tours — Book Direct"/>
@@ -19,1205 +18,988 @@
 <meta property="og:image" content="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1200&q=80"/>
 <meta property="og:site_name" content="Wildbosses"/>
 <meta property="og:locale" content="en_KE"/>
-<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Wildbosses | Kenya Safaris & Tours"/>
 <meta name="twitter:description" content="Private safaris, city walks & Kilimanjaro. 4.97★ from 1,200+ guests. Book via WhatsApp."/>
 <meta name="twitter:image" content="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1200&q=80"/>
-<!-- Schema.org JSON-LD -->
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"TouristInformationCenter","name":"Wildbosses Tours & Safaris","description":"Kenya's premier boutique tour company — private safaris, city walks, mountain treks and coastal adventures since 2013.","url":"https://wildbosses.com","telephone":"+254796818671","email":"hello@wildbosses.co","address":{"@type":"PostalAddress","addressLocality":"Nairobi","addressCountry":"KE"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.97","reviewCount":"1240","bestRating":"5"},"openingHours":"Mo-Su 07:00-20:00","sameAs":["https://wa.me/254796818671","https://instagram.com/wildbosses"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Kenya Tours & Safaris","itemListElement":[{"@type":"Offer","name":"Masai Mara Big Five Safari","price":"12500","priceCurrency":"KES"},{"@type":"Offer","name":"Nairobi City Walking Tour","price":"0","priceCurrency":"KES"},{"@type":"Offer","name":"Kilimanjaro Marangu Route","price":"185000","priceCurrency":"KES"}]}}
-</script>
-<style>
-/* ═══════════════════════════════════════
-   WILDBOSSES — DESIGN SYSTEM
-   Display: Playfair Display (editorial serif)
-   Body: Space Grotesk (geometric sans)
-   UI: Inter (utility)
-   ═══════════════════════════════════════ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --forest:      #0B3D20;
-  --forest-mid:  #155C30;
-  --forest-lite: #1E7A40;
-  --moss:        #2A9E55;
-  --sage:        #4BB870;
-  --canvas:      #F7FAF5;
-  --canvas-2:    #EDF3EA;
-  --canvas-3:    #E0EBD9;
-  --gold:        #C8900A;
-  --gold-2:      #E0A818;
-  --gold-3:      #F5C430;
-  --gold-pale:   rgba(200,144,10,.10);
-  --ember:       #D63E15;
-  --ember-2:     #F05520;
-  --ink:         #080E09;
-  --ink-2:       #1A261C;
-  --ink-soft:    #3B5040;
-  --ink-muted:   #6B8A72;
-  --ink-ghost:   #9DB8A2;
-  --white:       #FFFFFF;
-  --line:        rgba(8,14,9,.06);
-  --line-2:      rgba(8,14,9,.11);
-  --line-3:      rgba(8,14,9,.18);
-  --line-w:      rgba(255,255,255,.10);
-  --line-w2:     rgba(255,255,255,.18);
-  --gf:          linear-gradient(135deg, var(--forest), var(--forest-mid));
-  --gg:          linear-gradient(135deg, var(--gold), var(--gold-2));
-  --ge:          linear-gradient(135deg, var(--gold), var(--ember));
-  --ease:        cubic-bezier(.22,1,.36,1);
-  --ease-back:   cubic-bezier(.34,1.4,.44,1);
-  --shadow-sm:   0 2px 10px rgba(8,14,9,.06);
-  --shadow-md:   0 8px 32px rgba(8,14,9,.10);
-  --shadow-lg:   0 20px 60px rgba(8,14,9,.14);
-  --shadow-xl:   0 40px 100px rgba(8,14,9,.20);
-  --shadow-f:    0 12px 40px rgba(11,61,32,.28);
-  --shadow-g:    0 8px 28px rgba(200,144,10,.30);
-  --r-sm: 8px; --r-md: 14px; --r-lg: 22px; --r-xl: 32px; --r-pill: 9999px;
-  --serif:'Geist','Inter',system-ui,sans-serif;
-  --sans:'Geist','Inter',system-ui,sans-serif;
-  --ui:'Inter',system-ui,-apple-system,sans-serif;
-}
-@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-html { scroll-behavior: smooth; }
-body { font-family: var(--sans); background: var(--canvas); color: var(--ink); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TouristInformationCenter","name":"Wildbosses Tours & Safaris","description":"Kenya's premier boutique tour company.","url":"https://wildbosses.com","telephone":"+254796818671","email":"hello@wildbosses.co","address":{"@type":"PostalAddress","addressLocality":"Nairobi","addressCountry":"KE"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.97","reviewCount":"1240","bestRating":"5"},"openingHours":"Mo-Su 07:00-20:00","sameAs":["https://wa.me/254796818671","https://instagram.com/wildbosses"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Kenya Tours & Safaris","itemListElement":[{"@type":"Offer","name":"Masai Mara Big Five Safari","price":"12500","priceCurrency":"KES"},{"@type":"Offer","name":"Nairobi City Walking Tour","price":"0","priceCurrency":"KES"},{"@type":"Offer","name":"Kilimanjaro Marangu Route","price":"185000","priceCurrency":"KES"}]}}</script>
 
-/* ═══ NAV ═══ */
+<style>
+/* ══════════════════════════════════════════════════════════
+   WILDBOSSES INDEX — clean, conflict-free CSS
+   Fonts via wb-core.css: Geist (--font-d) + Inter (--font-b)
+   ══════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Nav ── */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 900;
-  height: 68px; display: flex; align-items: center;
-  padding: 0 48px; transition: all .5s var(--ease);
+  height: 64px; display: flex; align-items: center;
+  padding: 0 48px; transition: all .45s var(--ease, cubic-bezier(.22,1,.36,1));
 }
 .nav.scrolled {
-  background: rgba(247,250,245,.92);
+  background: rgba(247,250,245,.93);
   backdrop-filter: blur(24px) saturate(180%);
-  border-bottom: 1px solid var(--line-2);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(8,14,9,.10);
   box-shadow: 0 4px 20px rgba(8,14,9,.06);
-  height: 62px;
+  height: 60px;
 }
 .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
 .nav-icon {
   width: 36px; height: 36px; border-radius: 10px;
-  background: var(--gf); display: flex; align-items: center; justify-content: center;
-  box-shadow: var(--shadow-f); flex-shrink: 0;
+  background: linear-gradient(135deg,#0A3B1E,#135C2E);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 20px rgba(10,59,30,.35); flex-shrink: 0;
 }
-.nav-icon svg { width: 18px; height: 18px; color: var(--gold-3); }
+.nav-icon svg { width: 18px; height: 18px; color: #F2BE2E; }
 .nav-wordmark {
-  font-family: var(--sans); font-weight: 700; font-size: 19px;
-  letter-spacing: -.03em; color: #fff; transition: color .4s;
+  font-family: var(--font-d, 'Geist','Inter',sans-serif);
+  font-weight: 700; font-size: 19px; letter-spacing: -.035em;
+  color: #fff; transition: color .4s;
 }
-.nav.scrolled .nav-wordmark { color: var(--ink); }
-.nav-links { display: flex; gap: 32px; margin: 0 auto; }
-@media(max-width:900px){.nav-links{display:none}}
+.nav.scrolled .nav-wordmark { color: #070D08; }
+.nav-links { display: flex; gap: 30px; margin: 0 auto; }
+@media(max-width:860px){.nav-links{display:none}}
 .nav-links a {
-  font-family: var(--ui); font-size: 13.5px; font-weight: 500;
-  color: rgba(255,255,255,.72); text-decoration: none;
-  transition: color .25s; letter-spacing: .01em;
+  font-family: var(--font-b,'Inter',sans-serif); font-size: 13.5px; font-weight: 500;
+  color: rgba(255,255,255,.70); text-decoration: none; transition: color .22s;
 }
-.nav.scrolled .nav-links a { color: var(--ink-soft); }
+.nav.scrolled .nav-links a { color: #5E7A63; }
 .nav-links a:hover { color: #fff; }
-.nav.scrolled .nav-links a:hover { color: var(--forest); }
-.nav-right { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.nav.scrolled .nav-links a:hover { color: #0A3B1E; }
+.nav-right { display: flex; align-items: center; gap: 9px; margin-left: auto; }
 .nav-enquire {
-  font-family: var(--ui); font-size: 13px; font-weight: 600;
-  color: rgba(255,255,255,.75); text-decoration: none;
-  padding: 9px 18px; border-radius: var(--r-pill);
-  transition: all .25s;
+  font-family: var(--font-b,'Inter',sans-serif); font-size: 13px; font-weight: 500;
+  color: rgba(255,255,255,.68); text-decoration: none; padding: 8px 16px;
+  transition: color .22s;
 }
-.nav.scrolled .nav-enquire { color: var(--ink-soft); }
+.nav.scrolled .nav-enquire { color: #5E7A63; }
 .nav-book {
-  font-family: var(--ui); font-size: 13px; font-weight: 700;
-  background: var(--ge); color: #fff; text-decoration: none;
-  padding: 10px 22px; border-radius: var(--r-pill);
-  box-shadow: var(--shadow-g); transition: all .3s;
-  white-space: nowrap;
+  font-family: var(--font-d,'Geist','Inter',sans-serif); font-size: 13px; font-weight: 700;
+  background: linear-gradient(135deg,#DCA318,#D44010); color: #fff;
+  text-decoration: none; padding: 10px 22px; border-radius: 100px;
+  box-shadow: 0 6px 22px rgba(200,144,10,.35); transition: all .28s; white-space: nowrap;
+  letter-spacing: -.02em;
 }
-.nav-book:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 12px 36px rgba(200,144,10,.40); }
-.nav-hamburger {
+.nav-book:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.nav-ham {
   display: none; width: 40px; height: 40px; border-radius: 10px;
-  background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.16);
   align-items: center; justify-content: center; cursor: pointer; color: #fff;
+  transition: all .22s;
 }
-.nav.scrolled .nav-hamburger { background: var(--canvas-2); border-color: var(--line-2); color: var(--ink); }
-@media(max-width:900px){.nav-hamburger{display:flex}.nav-enquire{display:none}}
-@media(max-width:600px){.nav{padding:0 20px}}
+.nav.scrolled .nav-ham { background: #EFF5EC; border-color: rgba(8,14,9,.11); color: #070D08; }
+@media(max-width:860px){ .nav-ham{display:flex} .nav-enquire{display:none} .nav{padding:0 24px} }
+@media(max-width:480px){ .nav{padding:0 16px} }
 
-/* ═══ HERO ═══ */
+/* ── Mobile drawer ── */
+.mm { position:fixed;inset:0;z-index:9800;pointer-events:none; }
+.mm-ov { position:absolute;inset:0;background:rgba(3,16,10,.55);backdrop-filter:blur(4px);opacity:0;transition:opacity .32s; }
+.mm-panel {
+  position:absolute;top:0;right:0;bottom:0;width:290px;
+  background:#F8FBF6;transform:translateX(106%);
+  transition:transform .44s cubic-bezier(.22,1,.36,1);
+  padding:72px 28px 36px;display:flex;flex-direction:column;gap:2px;
+}
+.mm.open .mm-ov{opacity:1;pointer-events:all}
+.mm.open .mm-panel{transform:none;pointer-events:all}
+.mm-panel a {
+  font-family:var(--font-d,'Geist','Inter',sans-serif); font-size:17px; font-weight:600;
+  color:#070D08; text-decoration:none; padding:13px 0;
+  border-bottom:1px solid rgba(8,14,9,.07); display:block; letter-spacing:-.02em;
+  transition:color .2s;
+}
+.mm-panel a:hover{color:#0A3B1E}
+.mm-panel .mm-cta{
+  color:#0A3B1E;font-weight:700;border:none;margin-top:16px;
+  padding:13px 0;
+}
+.mm-x {
+  position:absolute;top:18px;right:18px;width:38px;height:38px;border-radius:50%;
+  background:#EFF5EC;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  color:#5E7A63;
+}
+
+/* ════════════════════════════════════════
+   HERO — two-column above the fold
+   ════════════════════════════════════════ */
 .hero {
   position: relative; min-height: 100vh;
-  background: #03100A;
-  display: flex; flex-direction: column; justify-content: center;
-  overflow: hidden; padding-top: 68px;
+  background: #030F06; display: flex; flex-direction: column; overflow: hidden;
 }
 
-/* Layered background */
+/* layered background */
 .hero-bg {
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 20% 40%, rgba(11,61,32,.85) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 80% at 80% 20%, rgba(21,92,48,.40) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 50% at 50% 90%, rgba(3,16,10,.90) 0%, transparent 65%),
-    linear-gradient(160deg, #041208 0%, #0B3D20 40%, #031008 100%);
+    radial-gradient(ellipse 75% 65% at 10% 45%, rgba(10,59,30,.88) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 70% at 85% 15%, rgba(19,92,46,.32) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 55% at 50% 95%, rgba(3,16,6,.90) 0%, transparent 60%),
+    linear-gradient(155deg, #040E06 0%, #0A3B1E 38%, #030D05 100%);
 }
-/* Subtle texture */
-.hero-texture {
-  position: absolute; inset: 0; opacity: .03;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+.hero-noise {
+  position: absolute; inset: -5%;
+  width: 110%; height: 110%;
+  opacity: .032; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
+/* orbs */
+.orb { position:absolute;border-radius:50%;filter:blur(88px);pointer-events:none;animation:orbFloat ease-in-out infinite; }
+.o1{width:580px;height:580px;top:-12%;left:-8%;background:radial-gradient(circle,rgba(10,59,30,.72),transparent 65%);animation-duration:28s;}
+.o2{width:460px;height:460px;top:15%;right:-6%;background:radial-gradient(circle,rgba(30,122,64,.22),transparent 68%);animation-duration:34s;animation-delay:-13s;}
+.o3{width:380px;height:380px;bottom:-8%;left:32%;background:radial-gradient(circle,rgba(19,92,46,.30),transparent 70%);animation-duration:30s;animation-delay:-21s;}
+.o4{width:280px;height:280px;bottom:18%;right:18%;background:radial-gradient(circle,rgba(196,138,0,.11),transparent 72%);animation-duration:24s;animation-delay:-8s;}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(36px,-28px) scale(1.05)}66%{transform:translate(-28px,36px) scale(.96)}}
 
-/* Glowing orbs */
-.hero-orb {
-  position: absolute; border-radius: 50%;
-  filter: blur(80px); pointer-events: none;
-  animation: orbDrift ease-in-out infinite;
-}
-.orb-1 { width:600px;height:600px;top:-15%;left:-8%;background:radial-gradient(circle,rgba(11,61,32,.7),transparent 65%);animation-duration:26s; }
-.orb-2 { width:500px;height:500px;top:10%;right:-6%;background:radial-gradient(circle,rgba(30,122,64,.25),transparent 68%);animation-duration:32s;animation-delay:-11s; }
-.orb-3 { width:400px;height:400px;bottom:-10%;left:35%;background:radial-gradient(circle,rgba(21,92,48,.35),transparent 70%);animation-duration:28s;animation-delay:-19s; }
-.orb-4 { width:300px;height:300px;bottom:15%;right:15%;background:radial-gradient(circle,rgba(200,144,10,.12),transparent 72%);animation-duration:22s;animation-delay:-7s; }
-@keyframes orbDrift {
-  0%,100%{transform:translate(0,0) scale(1);}
-  33%{transform:translate(40px,-30px) scale(1.06);}
-  66%{transform:translate(-30px,40px) scale(.96);}
-}
+/* particles */
+.hero-stars{position:absolute;inset:0;pointer-events:none;}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle ease-in-out infinite;}
+@keyframes twinkle{0%,100%{opacity:.05;transform:scale(1)}50%{opacity:.55;transform:scale(1.9)}}
 
-/* Particles */
-.hero-particles { position:absolute;inset:0;pointer-events:none; }
-.particle {
-  position: absolute; border-radius: 50%; background: #fff;
-  animation: particleFade ease-in-out infinite;
-}
-@keyframes particleFade {
-  0%,100%{opacity:.04;transform:scale(1);}
-  50%{opacity:.5;transform:scale(1.8);}
-}
-
-/* Hero content */
+/* ── HERO GRID ── */
 .hero-inner {
   position: relative; z-index: 5;
-  max-width: 1280px; margin: 0 auto;
-  padding: 80px 48px 60px;
-  width: 100%;
+  flex: 1; display: flex; align-items: center;
+  max-width: 1280px; margin: 0 auto; width: 100%;
+  padding: 96px 48px 56px;
+  gap: 48px;
 }
-@media(max-width:600px){.hero-inner{padding:60px 24px 40px}}
+@media(max-width:1080px){.hero-inner{flex-direction:column;align-items:flex-start;padding:88px 32px 44px;gap:36px}}
+@media(max-width:540px){.hero-inner{padding:80px 20px 36px;gap:28px}}
 
+/* left */
+.hero-left { flex: 1; min-width: 0; }
+
+/* right — countdown card */
+.hero-right {
+  flex-shrink: 0; width: 360px;
+  background: rgba(255,255,255,.07);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 22px; overflow: hidden;
+  box-shadow: 0 28px 64px rgba(0,0,0,.40), 0 0 0 1px rgba(255,255,255,.05) inset;
+  animation: cardRise .9s .55s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes cardRise{from{opacity:0;transform:translateY(32px) scale(.97)}to{opacity:1;transform:none}}
+@media(max-width:1080px){.hero-right{width:100%;max-width:480px}}
+@media(max-width:860px){.hero-right{display:none}} /* mobile: promo popup covers it */
+
+/* ── eyebrow ── */
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--ui); font-size: 10.5px; font-weight: 700;
+  font-family: var(--font-b,'Inter',sans-serif); font-size: 10.5px; font-weight: 700;
   letter-spacing: .20em; text-transform: uppercase;
-  color: var(--gold-2); margin-bottom: 28px;
-  padding: 7px 16px; border-radius: var(--r-pill);
-  background: rgba(200,144,10,.10); border: 1px solid rgba(200,144,10,.22);
-  opacity: 0; animation: slideUp .8s .2s var(--ease) forwards;
+  color: #DCA318; margin-bottom: 24px;
+  padding: 7px 16px; border-radius: 100px;
+  background: rgba(200,138,0,.10); border: 1px solid rgba(200,138,0,.22);
+  animation: fadeUp .8s .18s cubic-bezier(.22,1,.36,1) both;
 }
-.eyebrow-dot {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--gold-2); box-shadow: 0 0 8px var(--gold-2);
-  animation: pulseGlow 2s ease infinite;
-}
-@keyframes pulseGlow{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.7);}}
+.ew-dot { width:5px;height:5px;border-radius:50%;background:#DCA318;box-shadow:0 0 8px #DCA318;animation:edot 2s ease infinite; }
+@keyframes edot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
 
+/* ── headline ── */
 .hero-title {
-  font-family: var(--serif);
-  font-size: clamp(52px, 8.5vw, 108px);
-  line-height: .96; letter-spacing: -.02em;
-  color: #fff; margin-bottom: 28px;
-  max-width: 820px;
+  font-family: var(--font-d,'Geist','Inter',sans-serif);
+  font-size: clamp(50px, 7.2vw, 96px);
+  font-weight: 700; line-height: .95;
+  letter-spacing: -.040em; color: #fff;
+  margin-bottom: 20px;
 }
-.hero-title .line { display: block; opacity: 0; animation: slideUp .9s var(--ease) forwards; }
-.hero-title .line:nth-child(1){animation-delay:.30s}
-.hero-title .line:nth-child(2){animation-delay:.44s}
-.hero-title .line:nth-child(3){animation-delay:.58s}
-.hero-title .accent {
-  font-style: italic;
-  background: linear-gradient(110deg, var(--gold-3), var(--ember-2), var(--gold-2));
+.hero-title .ln { display: block; animation: fadeUp .9s cubic-bezier(.22,1,.36,1) both; }
+.hero-title .ln:nth-child(1){animation-delay:.28s}
+.hero-title .ln:nth-child(2){animation-delay:.40s}
+.hero-title .ln:nth-child(3){animation-delay:.52s}
+.hero-title .hl {
+  font-style: normal; font-weight: 800;
+  background: linear-gradient(110deg,#F5C430 0%,#F05520 55%,#E0A818 100%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
-@keyframes slideUp {
-  from{opacity:0;transform:translateY(30px);}
-  to{opacity:1;transform:none;}
-}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
 
+/* ── sub ── */
 .hero-sub {
-  font-size: clamp(16px,2vw,20px); color: rgba(255,255,255,.58);
-  max-width: 520px; line-height: 1.7; margin-bottom: 48px;
-  font-weight: 300;
-  opacity: 0; animation: slideUp .9s .70s var(--ease) forwards;
+  font-family: var(--font-b,'Inter',sans-serif);
+  font-size: clamp(15px, 1.7vw, 18px); font-weight: 300;
+  color: rgba(255,255,255,.54); max-width: 500px; line-height: 1.72;
+  margin-bottom: 30px;
+  animation: fadeUp .9s .64s cubic-bezier(.22,1,.36,1) both;
 }
 
-/* Hero search */
-.hero-search {
-  opacity: 0; animation: slideUp .9s .84s var(--ease) forwards;
-  margin-bottom: 32px;
-}
-.search-box {
+/* ── SEARCH BOX ── */
+.hero-search { animation: fadeUp .9s .76s cubic-bezier(.22,1,.36,1) both; margin-bottom: 18px; }
+.sbox {
   display: flex; align-items: stretch;
-  max-width: 800px;
-  background: rgba(255,255,255,.07);
-  backdrop-filter: blur(24px) saturate(160%);
-  border: 1px solid rgba(255,255,255,.14);
-  border-radius: 20px; padding: 8px; gap: 0;
-  box-shadow: 0 24px 60px rgba(0,0,0,.25);
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 18px; padding: 7px; gap: 0;
+  box-shadow: 0 24px 60px rgba(0,0,0,.30);
+  max-width: 720px;
 }
-.sb-field {
-  flex: 1; padding: 12px 20px; cursor: pointer;
-  border-radius: 14px; transition: background .2s; min-width: 0;
+.sbox-field {
+  flex: 1; padding: 10px 16px; min-width: 0;
+  border-right: 1px solid rgba(255,255,255,.09);
+  cursor: pointer;
 }
-.sb-field:hover { background: rgba(255,255,255,.06); }
-.sb-label {
-  font-family: var(--ui); font-size: 9.5px; font-weight: 700;
-  letter-spacing: .14em; text-transform: uppercase;
-  color: rgba(255,255,255,.38); margin-bottom: 4px;
+.sbox-field:last-of-type { border-right: none; }
+.sbox-label {
+  font-family: var(--font-b,'Inter',sans-serif); font-size: 9.5px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.36); margin-bottom: 4px;
 }
-.sb-value {
-  font-family: var(--sans); font-size: 14px; font-weight: 500;
-  color: rgba(255,255,255,.88); white-space: nowrap;
-  overflow: hidden; text-overflow: ellipsis;
+.sbox-sel {
+  width: 100%; border: none; background: transparent; outline: none;
+  font-family: var(--font-d,'Geist','Inter',sans-serif); font-size: 13.5px; font-weight: 500;
+  color: rgba(255,255,255,.85); cursor: pointer;
+  appearance: none; -webkit-appearance: none;
+  letter-spacing: -.015em;
 }
-.sb-value.ph { color: rgba(255,255,255,.35); font-weight: 400; }
-.sb-divider { width: 1px; background: rgba(255,255,255,.10); margin: 10px 0; flex-shrink: 0; }
-.sb-btn {
-  flex-shrink: 0; padding: 14px 32px; margin-left: 6px;
-  border-radius: 14px; border: none; cursor: pointer;
-  background: var(--ge); color: #fff;
-  font-family: var(--sans); font-size: 14px; font-weight: 700;
-  display: flex; align-items: center; gap: 9px;
-  box-shadow: var(--shadow-g); transition: all .3s;
+.sbox-sel option { background: #0A3B1E; color: #fff; }
+.sbox-btn {
+  flex-shrink: 0; padding: 0 26px; margin-left: 5px;
+  border-radius: 13px; border: none; cursor: pointer;
+  background: linear-gradient(135deg,#DCA318,#D44010);
+  color: #fff; font-family: var(--font-d,'Geist','Inter',sans-serif);
+  font-size: 14px; font-weight: 700; letter-spacing: -.02em;
+  display: flex; align-items: center; gap: 8px;
+  box-shadow: 0 6px 22px rgba(200,138,0,.38); transition: all .25s;
+  white-space: nowrap;
 }
-.sb-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
-@media(max-width:700px){
-  .search-box{flex-direction:column;border-radius:16px;gap:0}
-  .sb-divider{display:none}.sb-field{padding:14px 18px}
-  .sb-btn{padding:16px;border-radius:12px;justify-content:center;margin-left:0}
+.sbox-btn:hover { filter: brightness(1.09); transform: translateY(-1px); box-shadow: 0 10px 30px rgba(200,138,0,.48); }
+.sbox-btn:active { transform: scale(.97); }
+@media(max-width:640px){
+  .sbox{flex-wrap:wrap;border-radius:16px;padding:6px}
+  .sbox-field{flex:1 1 40%;border-right:none;border-bottom:1px solid rgba(255,255,255,.08);padding:10px 14px}
+  .sbox-field:last-of-type{border-bottom:none}
+  .sbox-btn{flex:1 1 100%;padding:13px;border-radius:12px;justify-content:center;margin-left:0;margin-top:4px}
 }
 
-/* Hero quick tags */
+/* social proof under search */
+.sbox-proof {
+  display: flex; align-items: center; gap: 10px; margin-top: 12px;
+  animation: fadeUp .8s .9s cubic-bezier(.22,1,.36,1) both;
+}
+.proof-avatars { display:flex; }
+.pav {
+  width: 24px; height: 24px; border-radius: 50%;
+  border: 2px solid rgba(10,59,30,.80);
+  background: linear-gradient(135deg,#0A3B1E,#135C2E);
+  color: #F2BE2E; font-family: var(--font-d,'Geist','Inter',sans-serif);
+  font-size: 9px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin-left: -7px;
+}
+.pav:first-child{margin-left:0}
+.proof-text { font-family:var(--font-b,'Inter',sans-serif); font-size:12px; color:rgba(255,255,255,.48); }
+.proof-text strong { color:rgba(255,255,255,.78); font-weight:600; }
+.proof-live { color:rgba(100,220,130,.72); }
+
+/* ── hero destination tags ── */
 .hero-tags {
-  display: flex; flex-wrap: wrap; gap: 8px;
-  opacity: 0; animation: slideUp .8s .96s var(--ease) forwards;
+  display: flex; flex-wrap: wrap; gap: 7px;
+  animation: fadeUp .8s 1.0s cubic-bezier(.22,1,.36,1) both;
 }
-.hero-tag {
-  font-family: var(--ui); font-size: 12.5px; font-weight: 500;
-  color: rgba(255,255,255,.60); padding: 7px 16px;
-  border-radius: var(--r-pill);
-  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.10);
-  cursor: pointer; transition: all .25s;
+.htag {
+  font-family: var(--font-b,'Inter',sans-serif); font-size: 12px; font-weight: 500;
+  color: rgba(255,255,255,.58); padding: 7px 15px;
+  border-radius: 100px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.11);
+  cursor: pointer; transition: all .22s; user-select: none;
 }
-.hero-tag:hover, .hero-tag.active {
-  background: rgba(200,144,10,.16); color: var(--gold-3);
-  border-color: rgba(200,144,10,.30);
+.htag:hover { background: rgba(255,255,255,.13); color: #fff; }
+.htag.on {
+  background: rgba(200,138,0,.16); color: #F5C430;
+  border-color: rgba(200,138,0,.32);
 }
 
-/* Hero scroll indicator */
-.hero-scroll {
-  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
-  z-index: 5; display: flex; flex-direction: column; align-items: center; gap: 8px;
-  opacity: 0; animation: fadeIn 1s 1.4s forwards;
+/* ════════════════════════════════════════
+   HERO RIGHT — COUNTDOWN CARD
+   ════════════════════════════════════════ */
+.hc-label {
+  display: flex; align-items: center; gap: 7px;
+  font-family: var(--font-b,'Inter',sans-serif); font-size: 10px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: #DCA318; padding: 14px 16px 0;
 }
-@keyframes fadeIn{to{opacity:1}}
+.hc-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #DCA318; box-shadow: 0 0 9px #DCA318;
+  animation: hcDot 1.8s ease infinite; flex-shrink: 0;
+}
+@keyframes hcDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+.hc-img {
+  position: relative; height: 178px; margin: 10px 12px 0;
+  border-radius: 14px; overflow: hidden;
+}
+.hc-img img { width:100%;height:100%;object-fit:cover; }
+.hc-img-grad {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(3,16,6,.85) 0%, rgba(3,16,6,.08) 60%, transparent 80%);
+}
+.hc-urg {
+  position: absolute; bottom: 10px; left: 10px;
+  font-family: var(--font-b,'Inter',sans-serif); font-size: 11px; font-weight: 700;
+  padding: 5px 12px; border-radius: 100px;
+  background: rgba(212,64,16,.92); color: #fff;
+  box-shadow: 0 4px 16px rgba(212,64,16,.48);
+  animation: urgPop 2.4s ease-in-out infinite;
+}
+@keyframes urgPop{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.hc-body { padding: 14px 16px 16px; }
+.hc-title {
+  font-family: var(--font-d,'Geist','Inter',sans-serif);
+  font-size: 15.5px; font-weight: 500; color: #fff;
+  margin-bottom: 4px; line-height: 1.3; letter-spacing: -.025em;
+}
+.hc-title b { font-weight: 800; }
+.hc-date { font-family:var(--font-b,'Inter',sans-serif); font-size:11.5px; color:rgba(255,255,255,.46); margin-bottom:13px; }
+
+/* timer */
+.hc-timer-lbl {
+  font-family:var(--font-b,'Inter',sans-serif); font-size:9px; font-weight:700;
+  letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.26); margin-bottom:8px;
+}
+.hc-timer { display:flex;align-items:center;gap:4px;margin-bottom:14px; }
+.hcu { text-align:center;flex:1; }
+.hcn {
+  display:block; font-family:var(--font-d,'Geist','Inter',sans-serif);
+  font-weight:700; font-size:clamp(24px,3vw,32px); color:#fff;
+  line-height:1; letter-spacing:-.04em; font-variant-numeric:tabular-nums;
+}
+.hcl {
+  font-family:var(--font-b,'Inter',sans-serif); font-size:8.5px; color:rgba(255,255,255,.28);
+  font-weight:600; letter-spacing:.10em; text-transform:uppercase;
+}
+.hcc {
+  font-family:var(--font-d,'Geist','Inter',sans-serif); font-weight:700; font-size:22px;
+  color:rgba(255,255,255,.22); padding-bottom:14px;
+  animation:colBlink 1s step-end infinite;
+}
+@keyframes colBlink{0%,100%{opacity:1}50%{opacity:.15}}
+
+/* spots bar */
+.hc-spots { display:flex;align-items:center;gap:10px;margin-bottom:12px; }
+.hc-bar { flex:1;height:4px;background:rgba(255,255,255,.10);border-radius:2px;overflow:hidden; }
+.hc-fill { height:100%;width:75%;background:linear-gradient(90deg,#DCA318,#D44010);border-radius:2px; }
+.hc-spots-txt { font-family:var(--font-b,'Inter',sans-serif); font-size:11px; color:rgba(255,255,255,.42); white-space:nowrap; }
+.hc-spots-txt strong { color:#F5C430; }
+
+/* price */
+.hc-price-row { display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:13px; }
+.hc-price-lbl { font-family:var(--font-b,'Inter',sans-serif); font-size:9.5px; color:rgba(255,255,255,.28); margin-bottom:2px; }
+.hc-price { font-family:var(--font-d,'Geist','Inter',sans-serif); font-weight:700; font-size:21px; color:#fff; letter-spacing:-.03em; }
+.hc-price sub { font-size:12px; font-weight:400; color:rgba(255,255,255,.38); }
+.hc-dep { font-family:var(--font-b,'Inter',sans-serif); font-size:10.5px; font-weight:600; color:#DCA318; text-align:right; line-height:1.4; }
+
+/* CTAs */
+.hc-cta {
+  width:100%; padding:13px; border-radius:12px; border:none; cursor:pointer;
+  background:linear-gradient(135deg,#DCA318,#D44010); color:#fff;
+  font-family:var(--font-d,'Geist','Inter',sans-serif); font-weight:700; font-size:14px;
+  letter-spacing:-.02em; display:flex; align-items:center; justify-content:center; gap:7px;
+  box-shadow:0 8px 26px rgba(200,138,0,.42); transition:all .25s; margin-bottom:8px;
+}
+.hc-cta:hover{filter:brightness(1.10);transform:translateY(-2px);box-shadow:0 14px 34px rgba(200,138,0,.52);}
+.hc-cta:active{transform:scale(.97);}
+.hc-wa {
+  width:100%; padding:11px; border-radius:12px;
+  background:rgba(37,211,102,.11); border:1px solid rgba(37,211,102,.28);
+  color:rgba(37,211,102,.88); font-family:var(--font-b,'Inter',sans-serif);
+  font-weight:600; font-size:13px;
+  display:flex; align-items:center; justify-content:center; gap:7px;
+  text-decoration:none; transition:all .25s;
+}
+.hc-wa:hover{background:rgba(37,211,102,.20);border-color:rgba(37,211,102,.50);color:rgba(37,211,102,1);}
+
+/* ════════════════════════════════════════
+   SCROLL INDICATOR
+   ════════════════════════════════════════ */
+.hero-scroll {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  z-index: 5; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  animation: fadeIn 1s 1.6s both;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .scroll-line {
-  width: 1px; height: 48px;
-  background: linear-gradient(to bottom, transparent, rgba(255,255,255,.35));
+  width: 1px; height: 44px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,.32));
   position: relative; overflow: hidden;
 }
 .scroll-line::after {
-  content: ''; position: absolute; top: -100%; left: 0; right: 0;
-  height: 100%; background: rgba(255,255,255,.6);
-  animation: scrollDown 2s ease-in-out infinite;
+  content: ''; position:absolute; top:-100%; left:0; right:0;
+  height:100%; background:rgba(255,255,255,.65);
+  animation:scrollDrop 2s ease-in-out infinite;
 }
-@keyframes scrollDown{0%{top:-100%}100%{top:100%}}
-.scroll-text {
-  font-family: var(--ui); font-size: 9.5px; font-weight: 600;
-  letter-spacing: .18em; text-transform: uppercase;
-  color: rgba(255,255,255,.28); writing-mode: vertical-rl;
+@keyframes scrollDrop{0%{top:-100%}100%{top:100%}}
+.scroll-txt {
+  font-family: var(--font-b,'Inter',sans-serif); font-size:9.5px; font-weight:600;
+  letter-spacing:.18em; text-transform:uppercase;
+  color:rgba(255,255,255,.26); writing-mode:vertical-rl;
 }
 
-/* Hero marquee */
+/* ── Marquee ── */
 .hero-marquee {
   position: absolute; bottom: 0; left: 0; right: 0; z-index: 5;
-  padding: 18px 0; border-top: 1px solid rgba(255,255,255,.06);
-  overflow: hidden;
+  padding: 16px 0; border-top: 1px solid rgba(255,255,255,.06); overflow: hidden;
   -webkit-mask: linear-gradient(90deg,transparent 0%,#000 8%,#000 92%,transparent 100%);
   mask: linear-gradient(90deg,transparent 0%,#000 8%,#000 92%,transparent 100%);
 }
-.marquee-track { display:flex;width:max-content;animation:marquee 36s linear infinite; }
-.marquee-item {
-  display: flex; align-items: center; gap: 12px;
-  font-family: var(--ui); font-size: 12px; font-weight: 500;
-  color: rgba(255,255,255,.22); white-space: nowrap; padding: 0 22px;
-  letter-spacing: .04em;
+.mq-track { display:flex;width:max-content;animation:mqRun 36s linear infinite; }
+.mq-item {
+  display:flex;align-items:center;gap:11px;padding:0 22px;
+  font-family:var(--font-b,'Inter',sans-serif); font-size:12px; font-weight:500;
+  color:rgba(255,255,255,.20); white-space:nowrap; letter-spacing:.04em;
 }
-.marquee-gem { width: 4px; height: 4px; border-radius: 50%; background: var(--gold-2); opacity: .5; }
-@keyframes marquee{to{transform:translateX(-50%)}}
+.mq-gem { width:4px;height:4px;border-radius:50%;background:#DCA318;opacity:.45; }
+@keyframes mqRun{to{transform:translateX(-50%)}}
 
-/* ═══ STATS ═══ */
-.stats-bar {
-  background: var(--forest); padding: 0;
-  position: relative; z-index: 2;
-}
+/* ════════════════════════════════════════
+   STATS BAR
+   ════════════════════════════════════════ */
+.stats-bar { background:#0A3B1E; }
 .stats-inner {
-  max-width: 1280px; margin: 0 auto;
-  display: grid; grid-template-columns: repeat(4,1fr);
-  padding: 0 48px;
+  max-width:1280px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  padding:0 48px;
 }
 @media(max-width:700px){.stats-inner{grid-template-columns:repeat(2,1fr);padding:0 24px}}
 .stat-cell {
-  padding: 32px 20px; text-align: center;
-  border-right: 1px solid rgba(255,255,255,.08);
-  position: relative;
+  padding:28px 16px;text-align:center;
+  border-right:1px solid rgba(255,255,255,.08);
 }
-.stat-cell:last-child { border-right: none; }
+.stat-cell:last-child{border-right:none}
 .stat-num {
-  font-family: var(--serif); font-size: clamp(28px,4vw,42px);
-  color: #fff; font-weight: 400; margin-bottom: 5px;
+  font-family:var(--font-d,'Geist','Inter',sans-serif);
+  font-size:clamp(24px,3.5vw,38px); font-weight:700;
+  color:#fff; margin-bottom:4px; letter-spacing:-.03em;
 }
-.stat-num span { font-style: italic; color: var(--gold-3); }
-.stat-label { font-family: var(--ui); font-size: 11.5px; color: rgba(255,255,255,.42); font-weight: 500; }
+.stat-num span { color:#F5C430; }
+.stat-lbl { font-family:var(--font-b,'Inter',sans-serif); font-size:11.5px; color:rgba(255,255,255,.38); }
 
-/* ═══ SECTION BASE ═══ */
-.section { padding: 100px 48px; }
-.sec-inner { max-width: 1280px; margin: 0 auto; }
-.eyebrow {
-  font-family: var(--ui); font-size: 10.5px; font-weight: 700;
-  letter-spacing: .20em; text-transform: uppercase;
-  color: var(--forest-lite); margin-bottom: 14px;
-}
-.headline {
-  font-family: var(--serif);
-  font-size: clamp(32px,4.5vw,56px);
-  line-height: 1.05; letter-spacing: -.015em;
-  color: var(--ink); margin-bottom: 14px;
-}
-.headline em { font-style: italic; color: var(--forest); }
-.subhead {
-  font-size: 16px; color: var(--ink-muted);
-  line-height: 1.7; max-width: 520px; margin-bottom: 56px;
-  font-weight: 300;
-}
-@media(max-width:600px){.section{padding:72px 24px}}
-
-/* ═══ DESTINATIONS ═══ */
-.dest-grid {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
-  grid-template-rows: 280px 280px;
-  gap: 16px;
-}
-@media(max-width:980px){.dest-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}}
-@media(max-width:560px){.dest-grid{grid-template-columns:1fr}}
-
-.dest-card {
-  position: relative; border-radius: var(--r-lg); overflow: hidden;
-  display: block; text-decoration: none; cursor: pointer;
-  transition: transform .5s var(--ease), box-shadow .5s;
-}
-.dest-card.span-col { grid-column:span 1; grid-row:span 2; }
-@media(max-width:980px){.dest-card.span-col{grid-row:span 1}}
-.dest-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-xl); }
-.dest-img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; transition: transform .7s var(--ease);
-}
-.dest-card:hover .dest-img { transform: scale(1.07); }
-.dest-grad {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(3,16,10,.90) 0%, rgba(3,16,10,.40) 50%, rgba(3,16,10,.10) 80%);
-}
-.dest-country {
-  position: absolute; top: 16px; left: 16px;
-  font-family: var(--ui); font-size: 10px; font-weight: 700;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: var(--gold-2); padding: 5px 12px; border-radius: var(--r-pill);
-  background: rgba(3,16,10,.65); backdrop-filter: blur(8px);
-  border: 1px solid rgba(200,144,10,.25);
-}
-.dest-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px; }
-.dest-name {
-  font-family: var(--serif); font-size: clamp(20px,2.2vw,26px);
-  color: #fff; margin-bottom: 6px; line-height: 1.2;
-}
-.dest-count {
-  font-family: var(--ui); font-size: 12px; color: rgba(255,255,255,.55);
-  display: flex; align-items: center; gap: 6px;
-}
-.dest-arrow {
-  position: absolute; top: 16px; right: 16px;
-  width: 38px; height: 38px; border-radius: 50%;
-  background: rgba(255,255,255,.10); backdrop-filter: blur(8px);
-  display: flex; align-items: center; justify-content: center;
-  color: rgba(255,255,255,.7); opacity: 0; transform: translateY(4px);
-  transition: all .35s;
-}
-.dest-card:hover .dest-arrow { opacity: 1; transform: none; }
-
-/* ═══ TOUR CARDS (featured) ═══ */
-.tours-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-@media(max-width:960px){.tours-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.tours-grid{grid-template-columns:1fr;gap:16px}}
-
-.tour-card {
-  border-radius: var(--r-lg); overflow: hidden;
-  background: #fff; border: 1px solid var(--line-2);
-  display: flex; flex-direction: column;
-  cursor: pointer; transition: all .45s var(--ease);
-  text-decoration: none; color: inherit;
-}
-.tour-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-xl);
-  border-color: transparent;
-}
-.tc-img { position: relative; height: 230px; overflow: hidden; background: var(--canvas-2); }
-.tc-img img { width:100%;height:100%;object-fit:cover;transition:transform .65s var(--ease); }
-.tour-card:hover .tc-img img { transform: scale(1.07); }
-.tc-overlay { position:absolute;inset:0;background:linear-gradient(to top,rgba(3,16,10,.60) 0%,transparent 55%); }
-
-/* countdown badge on card */
-.tc-countdown {
-  position: absolute; top: 14px; left: 14px;
-  font-family: var(--ui); font-size: 10px; font-weight: 700;
-  padding: 5px 11px; border-radius: var(--r-pill);
-  backdrop-filter: blur(8px); letter-spacing: .04em;
-}
-.tc-countdown.urgent { background:rgba(214,62,21,.88);color:#fff; }
-.tc-countdown.soon { background:rgba(200,144,10,.88);color:#fff; }
-.tc-countdown.open { background:rgba(11,61,32,.88);color:#4EE0A8; }
-.tc-countdown.full { background:rgba(8,14,9,.88);color:rgba(255,255,255,.5); }
-
-.tc-fav {
-  position: absolute; top: 14px; right: 14px;
-  width: 34px; height: 34px; border-radius: 50%;
-  background: rgba(255,255,255,.88); backdrop-filter: blur(6px);
-  border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
-  font-size: 14px; color: var(--ink-soft); transition: all .25s;
-}
-.tc-fav:hover { transform: scale(1.12); }
-.tc-fav.saved { color: #E11D48; }
-
-.tc-rating {
-  position: absolute; bottom: 14px; right: 14px;
-  display: flex; align-items: center; gap: 4px;
-  padding: 4px 10px; border-radius: var(--r-pill);
-  background: rgba(3,16,10,.72); color: #fff;
-  font-family: var(--ui); font-size: 11px; font-weight: 600;
-}
-
-.tc-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
-.tc-cat {
-  font-family: var(--ui); font-size: 10.5px; font-weight: 700;
-  letter-spacing: .10em; text-transform: uppercase;
-  color: var(--forest-lite); margin-bottom: 8px;
-  display: flex; align-items: center; gap: 6px;
-}
-.tc-name {
-  font-family: var(--serif); font-size: 19px; color: var(--ink);
-  margin-bottom: 10px; line-height: 1.25; flex: 1;
-}
-.tc-meta {
-  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;
-}
-.tc-pill {
-  font-family: var(--ui); font-size: 11px; color: var(--ink-soft);
-  padding: 4px 10px; border-radius: var(--r-pill);
-  background: var(--canvas-2); border: 1px solid var(--line-2);
-}
-.tc-foot {
-  display: flex; align-items: flex-end; justify-content: space-between;
-  padding-top: 16px; border-top: 1px solid var(--line);
-}
-.tc-price-label { font-family: var(--ui); font-size: 10.5px; color: var(--ink-ghost); margin-bottom: 2px; }
-.tc-price-val {
-  font-family: var(--serif); font-size: 24px; color: var(--ink);
-  font-weight: 400;
-}
-.tc-price-val.free { color: var(--forest-lite); font-size: 20px; }
-.tc-price-per { font-family: var(--ui); font-size: 11.5px; color: var(--ink-muted); }
-.tc-cta {
-  padding: 11px 22px; border-radius: var(--r-pill);
-  background: var(--gf); color: #fff;
-  font-family: var(--sans); font-size: 13px; font-weight: 700;
-  border: none; cursor: pointer; transition: all .28s; white-space: nowrap;
-  box-shadow: var(--shadow-f);
-}
-.tc-cta:hover { filter: brightness(1.12); transform: translateY(-1px); }
-.tc-cta.deposit { background: var(--ge); box-shadow: var(--shadow-g); }
-
-/* ═══ COUNTDOWN TIMER BANNER ═══ */
-.countdown-section { padding: 0 48px 80px; }
-@media(max-width:600px){.countdown-section{padding:0 24px 60px}}
-.countdown-card {
-  max-width: 1280px; margin: 0 auto;
-  border-radius: var(--r-xl); overflow: hidden;
-  position: relative; background: var(--ink); padding: 52px 56px;
-  display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center;
-}
-@media(max-width:800px){.countdown-card{grid-template-columns:1fr;padding:36px 30px;gap:28px}}
-.cdc-bg {
-  position: absolute; inset: 0; pointer-events: none;
-  background:
-    radial-gradient(ellipse 60% 80% at 0% 50%, rgba(11,61,32,.60),transparent 55%),
-    radial-gradient(ellipse 40% 60% at 100% 30%, rgba(200,144,10,.15),transparent 60%);
-}
-.cdc-texture {
-  position:absolute;inset:0;opacity:.025;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-.cdc-left { position: relative; z-index: 2; }
-.cdc-eyebrow {
-  font-family: var(--ui); font-size: 10px; font-weight: 700;
-  letter-spacing: .20em; text-transform: uppercase;
-  color: var(--gold-2); margin-bottom: 16px;
-  display: flex; align-items: center; gap: 8px;
-}
-.cdc-pulse {
-  width: 8px; height: 8px; border-radius: 50%; background: var(--gold-2);
-  animation: cPulse 1.5s ease infinite;
-}
-@keyframes cPulse{0%,100%{box-shadow:0 0 0 0 rgba(200,144,10,.6)}70%{box-shadow:0 0 0 8px rgba(200,144,10,0)}}
-.cdc-title {
-  font-family: var(--serif); font-size: clamp(24px,3vw,36px);
-  color: #fff; margin-bottom: 8px; line-height: 1.15;
-}
-.cdc-title em { font-style: italic; color: var(--gold-3); }
-.cdc-sub { font-size: 14px; color: rgba(255,255,255,.50); line-height: 1.65; max-width: 500px; margin-bottom: 24px; }
-.cdc-details { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
-.cdc-detail { display: flex; align-items: center; gap: 7px; font-family: var(--ui); font-size: 13px; color: rgba(255,255,255,.65); }
-.cdc-detail svg { color: var(--gold-2); flex-shrink: 0; }
-.cdc-spots {
-  display: flex; align-items: center; gap: 10px; margin-bottom: 28px;
-}
-.spots-bar { flex: 1; max-width: 200px; height: 4px; background: rgba(255,255,255,.12); border-radius: 2px; overflow: hidden; }
-.spots-fill { height: 100%; background: linear-gradient(90deg,var(--gold),var(--ember)); border-radius: 2px; transition: width 1s var(--ease); }
-.spots-label { font-family: var(--ui); font-size: 12px; color: rgba(255,255,255,.55); white-space: nowrap; }
-.spots-label strong { color: var(--gold-3); }
-.cdc-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-.cdc-btn-primary {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 28px; border-radius: var(--r-pill);
-  background: var(--ge); color: #fff;
-  font-family: var(--sans); font-weight: 700; font-size: 14px;
-  border: none; cursor: pointer; text-decoration: none;
-  box-shadow: 0 10px 32px rgba(200,144,10,.35); transition: all .3s;
-}
-.cdc-btn-primary:hover { transform: translateY(-2px); filter: brightness(1.08); }
-.cdc-btn-ghost {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 24px; border-radius: var(--r-pill);
-  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16);
-  color: #fff; font-family: var(--sans); font-weight: 600; font-size: 14px;
-  cursor: pointer; text-decoration: none; transition: all .3s;
-}
-.cdc-btn-ghost:hover { background: rgba(255,255,255,.14); }
-.cdc-right { position: relative; z-index: 2; }
-.timer-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
-@media(max-width:500px){.timer-grid{grid-template-columns:repeat(2,1fr)}}
-.timer-unit {
-  text-align: center; padding: 20px 16px;
-  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.10);
-  border-radius: var(--r-md); min-width: 80px;
-}
-.timer-num {
-  font-family: var(--serif); font-size: clamp(32px,4vw,48px);
-  color: #fff; line-height: 1; margin-bottom: 6px;
-  font-variant-numeric: tabular-nums;
-}
-.timer-label {
-  font-family: var(--ui); font-size: 9.5px; font-weight: 700;
-  letter-spacing: .14em; text-transform: uppercase;
-  color: rgba(255,255,255,.30);
-}
-
-/* ═══ EXPERIENCE ROW (how it works) ═══ */
-.exp-section { padding: 100px 48px; background: var(--ink); position: relative; overflow: hidden; }
-@media(max-width:600px){.exp-section{padding:72px 24px}}
-.exp-bg {
-  position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(ellipse 50% 70% at 10% 50%, rgba(11,61,32,.45),transparent 55%),
-              radial-gradient(ellipse 40% 50% at 90% 30%, rgba(200,144,10,.10),transparent 60%);
-}
-.exp-inner { position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; }
-.exp-eyebrow { color: var(--gold-2); }
-.exp-headline { color: #fff; }
-.exp-headline em { color: var(--gold-3); }
-.exp-sub { color: rgba(255,255,255,.42); }
-.exp-steps {
-  display: grid; grid-template-columns: repeat(4,1fr);
-  gap: 32px; position: relative;
-}
-@media(max-width:880px){.exp-steps{grid-template-columns:repeat(2,1fr);gap:20px}}
-@media(max-width:480px){.exp-steps{grid-template-columns:1fr}}
-/* connecting line */
-.exp-steps::before {
-  content: ''; position: absolute;
-  top: 24px; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg,transparent,rgba(255,255,255,.08) 20%,rgba(255,255,255,.08) 80%,transparent);
-  pointer-events: none;
-}
-@media(max-width:880px){.exp-steps::before{display:none}}
-.exp-step { position: relative; }
-.step-ico {
-  width: 48px; height: 48px; border-radius: var(--r-md);
-  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.10);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 20px; position: relative;
-}
-.step-ico svg { color: var(--gold-2); }
-.step-n {
-  position: absolute; top: -6px; right: -6px;
-  width: 18px; height: 18px; border-radius: 50%;
-  background: var(--ge); font-family: var(--ui); font-size: 9px; font-weight: 700;
-  color: #fff; display: flex; align-items: center; justify-content: center;
-}
-.step-title {
-  font-family: var(--serif); font-size: 19px; color: #fff;
-  margin-bottom: 10px; font-weight: 400;
-}
-.step-desc { font-family: var(--ui); font-size: 13.5px; color: rgba(255,255,255,.45); line-height: 1.7; }
-
-/* ═══ TESTIMONIALS ═══ */
-.testi-section { padding: 100px 48px; }
-@media(max-width:600px){.testi-section{padding:72px 24px}}
-.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
-@media(max-width:860px){.testi-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.testi-grid{grid-template-columns:1fr}}
-.testi-card {
-  border-radius: var(--r-lg); background: #fff;
-  border: 1px solid var(--line-2); padding: 28px;
-  transition: all .4s var(--ease);
-}
-.testi-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-.testi-stars { display: flex; gap: 3px; margin-bottom: 14px; color: var(--gold-2); font-size: 14px; }
-.testi-quote {
-  font-family: var(--serif); font-size: 16px; font-style: italic;
-  color: var(--ink); line-height: 1.7; margin-bottom: 20px;
-}
-.testi-author { display: flex; align-items: center; gap: 12px; }
-.testi-avatar {
-  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
-  background: var(--gf); display: flex; align-items: center; justify-content: center;
-  font-family: var(--serif); font-size: 14px; color: var(--gold-3);
-}
-.testi-name { font-family: var(--sans); font-size: 13.5px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
-.testi-meta { font-family: var(--ui); font-size: 11.5px; color: var(--ink-muted); }
-
-/* ═══ FINAL CTA ═══ */
-.final-section {
-  padding: 120px 48px;
-  background: var(--forest); position: relative; overflow: hidden;
-  text-align: center;
-}
-@media(max-width:600px){.final-section{padding:80px 24px}}
-.final-bg {
-  position: absolute; inset: 0; pointer-events: none;
-  background:
-    radial-gradient(ellipse 60% 80% at 20% 50%, rgba(11,61,32,.80),transparent 55%),
-    radial-gradient(ellipse 50% 60% at 80% 30%, rgba(30,122,64,.30),transparent 60%),
-    radial-gradient(ellipse 40% 50% at 50% 100%, rgba(3,16,10,.80),transparent 55%);
-}
-.final-texture {
-  position:absolute;inset:0;opacity:.025;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-.final-inner { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
-.final-headline {
-  font-family: var(--serif);
-  font-size: clamp(36px,5.5vw,68px);
-  color: #fff; line-height: 1.02; letter-spacing: -.02em; margin-bottom: 20px;
-}
-.final-headline em { font-style: italic; color: var(--gold-3); }
-.final-sub { font-size: 17px; color: rgba(255,255,255,.48); margin-bottom: 44px; line-height: 1.65; font-weight: 300; }
-.final-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 9px;
-  padding: 16px 34px; border-radius: var(--r-pill);
-  background: var(--ge); color: #fff;
-  font-family: var(--sans); font-weight: 700; font-size: 15px;
-  text-decoration: none; border: none; cursor: pointer;
-  box-shadow: 0 12px 40px rgba(200,144,10,.38); transition: all .3s;
-}
-.btn-primary:hover { transform: translateY(-3px); filter: brightness(1.08); box-shadow: 0 20px 52px rgba(200,144,10,.50); }
-.btn-ghost-light {
-  display: inline-flex; align-items: center; gap: 9px;
-  padding: 16px 28px; border-radius: var(--r-pill);
-  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.18);
-  color: rgba(255,255,255,.85); font-family: var(--sans); font-weight: 600; font-size: 15px;
-  text-decoration: none; transition: all .3s;
-}
-.btn-ghost-light:hover { background: rgba(255,255,255,.14); color: #fff; }
-
-/* ═══ FOOTER ═══ */
-.footer { background: #030C05; border-top: 1px solid rgba(255,255,255,.06); padding: 64px 48px 0; }
-@media(max-width:600px){.footer{padding:48px 24px 0}}
-.footer-grid {
-  max-width: 1280px; margin: 0 auto;
-  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 52px; padding-bottom: 52px;
-}
-@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr 1fr}}
-@media(max-width:600px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}}
-@media(max-width:400px){.footer-grid{grid-template-columns:1fr}}
-.footer-brand .fb-logo { display:flex;align-items:center;gap:9px;text-decoration:none;margin-bottom:18px; }
-.fb-logo-icon {
-  width: 32px; height: 32px; border-radius: 9px;
-  background: var(--gf); display:flex;align-items:center;justify-content:center;
-}
-.fb-logo-icon svg { width:16px;height:16px;color:var(--gold-3); }
-.fb-logo-name { font-family:var(--font-d);font-weight:700;font-size:16px;color:#fff; }
-.footer-tagline { font-family:var(--font-b);font-size:13px;color:rgba(255,255,255,.28);line-height:1.7;max-width:240px;margin-bottom:22px; }
-.footer-socials { display:flex;gap:8px; }
-.footer-socials a {
-  width:34px;height:34px;border-radius:9px;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);
-  display:flex;align-items:center;justify-content:center;
-  color:rgba(255,255,255,.40);text-decoration:none;transition:all .25s;
-}
-.footer-socials a:hover { background:rgba(255,255,255,.12);color:rgba(255,255,255,.80); }
-.footer-col h4 { font-family:var(--font-b);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.20);margin-bottom:16px; }
-.footer-col a { display:block;font-family:var(--font-b);font-size:13px;color:rgba(255,255,255,.38);text-decoration:none;padding:4px 0;transition:color .2s; }
-.footer-col a:hover { color:rgba(255,255,255,.72); }
-.footer-bottom {
-  border-top:1px solid rgba(255,255,255,.06);
-  padding:22px 0; max-width:1280px;margin:0 auto;
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
-}
-.footer-copy { font-family:var(--font-b);font-size:12px;color:rgba(255,255,255,.18); }
-.footer-legal { display:flex;gap:20px; }
-.footer-legal a { font-family:var(--font-b);font-size:12px;color:rgba(255,255,255,.18);text-decoration:none;transition:color .2s; }
-.footer-legal a:hover { color:rgba(255,255,255,.50); }
-
-/* ═══ MOBILE DRAWER ═══ */
-.mobile-menu { position:fixed;inset:0;z-index:9900;pointer-events:none; }
-.mm-overlay { position:absolute;inset:0;background:rgba(3,16,10,.55);backdrop-filter:blur(4px);opacity:0;transition:opacity .35s; }
-.mm-panel {
-  position:absolute;top:0;right:0;bottom:0;width:300px;
-  background:var(--canvas);transform:translateX(110%);
-  transition:transform .45s var(--ease);
-  padding:80px 32px 40px;display:flex;flex-direction:column;gap:4px;
-}
-.mobile-menu.open .mm-overlay { opacity:1;pointer-events:all; }
-.mobile-menu.open .mm-panel { transform:none;pointer-events:all; }
-.mm-panel a {
-  font-family:var(--font-d);font-size:18px;font-weight:500;
-  color:var(--ink);text-decoration:none;padding:13px 0;
-  border-bottom:1px solid var(--line);display:block;transition:color .2s;
-}
-.mm-panel a:hover { color:var(--forest); }
-.mm-close {
-  position:absolute;top:20px;right:20px;width:40px;height:40px;
-  border-radius:50%;background:var(--canvas-2);border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;color:var(--ink-soft);
-}
-
-/* ═══ TOUR MODAL ═══ */
-.modal-overlay {
-  position:fixed;inset:0;z-index:9800;
-  background:rgba(3,16,10,.55);backdrop-filter:blur(6px);
-  opacity:0;visibility:hidden;transition:all .4s;
-}
-.modal-overlay.open { opacity:1;visibility:visible; }
-.modal {
-  position:fixed;inset:0;z-index:9801;
-  display:flex;align-items:flex-end;justify-content:center;
-  padding:0;pointer-events:none;
-}
-@media(min-width:720px){.modal{align-items:center;padding:40px}}
-.modal-box {
-  pointer-events:all;width:100%;max-width:700px;
-  background:var(--canvas);border-radius:var(--r-xl) var(--r-xl) 0 0;
-  max-height:92vh;overflow-y:auto;
-  transform:translateY(60px);opacity:0;
-  transition:all .5s var(--ease);
-}
-@media(min-width:720px){.modal-box{border-radius:var(--r-xl);transform:translateY(30px)}}
-.modal-overlay.open .modal-box { transform:none;opacity:1; }
-.modal-img { height:240px;position:relative;overflow:hidden;border-radius:var(--r-xl) var(--r-xl) 0 0; }
-.modal-img img { width:100%;height:100%;object-fit:cover; }
-.modal-img-overlay { position:absolute;inset:0;background:linear-gradient(to top,rgba(3,16,10,.70) 0%,transparent 55%); }
-.modal-close {
-  position:absolute;top:16px;right:16px;width:40px;height:40px;
-  border-radius:50%;background:rgba(247,250,245,.90);backdrop-filter:blur(8px);
-  border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
-  color:var(--ink);transition:transform .2s;
-}
-.modal-close:hover { transform:scale(1.08); }
-.modal-body { padding:28px 32px 36px; }
-@media(max-width:500px){.modal-body{padding:22px 20px 30px}}
-.modal-eyebrow {
-  font-family:var(--font-b);font-size:10.5px;font-weight:700;
-  letter-spacing:.12em;text-transform:uppercase;
-  color:var(--forest-lite);margin-bottom:8px;
-  display:flex;align-items:center;gap:6px;
-}
-.modal-title { font-family:var(--font-d);font-size:clamp(22px,3vw,30px);color:var(--ink);margin-bottom:16px;line-height:1.2; }
-.modal-quick { display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px; }
-@media(max-width:480px){.modal-quick{grid-template-columns:repeat(3,1fr)}}
-.mq-cell { padding:12px 14px;border-radius:var(--r-md);background:var(--canvas-2);border:1px solid var(--line-2); }
-.mq-label { font-family:var(--font-b);font-size:9.5px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:4px; }
-.mq-val { font-family:var(--font-d);font-weight:600;font-size:14px;color:var(--ink); }
-.modal-desc { font-size:14.5px;color:var(--ink-soft);line-height:1.75;margin-bottom:20px; }
-.modal-includes { display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:22px; }
-.mi { display:flex;align-items:flex-start;gap:8px;font-family:var(--font-b);font-size:13px;color:var(--ink-soft); }
-.mi-check { color:var(--forest-lite);flex-shrink:0;margin-top:2px; }
-.modal-itinerary { display:flex;flex-direction:column;gap:10px;margin-bottom:22px; }
-.mit { display:flex;align-items:flex-start;gap:12px; }
-.mit-num {
-  width:22px;height:22px;border-radius:50%;
-  background:var(--gf);color:#fff;
-  font-family:var(--font-b);font-size:9px;font-weight:700;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;
-}
-.mit-text { font-family:var(--font-b);font-size:13.5px;color:var(--ink-soft);line-height:1.6; }
-.modal-cta-box {
-  position:sticky;bottom:0;
-  background:var(--canvas);border-top:1px solid var(--line-2);
-  padding:18px 32px 22px;margin:0 -32px -36px;
-}
-@media(max-width:500px){.modal-cta-box{margin:0 -20px -30px;padding:16px 20px 20px}}
-.mcb-row { display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px; }
-.mcb-price-note { font-family:var(--font-b);font-size:11px;color:var(--ink-ghost);margin-bottom:4px; }
-.mcb-price { font-family:var(--font-d);font-size:32px;color:var(--ink); }
-.mcb-price.free { color:var(--forest-lite);font-size:26px; }
-.mcb-per { font-family:var(--font-b);font-size:13px;color:var(--ink-muted); }
-.mcb-deposit { font-family:var(--font-b);font-size:11.5px;color:var(--forest-lite);font-weight:600; }
-.mcb-btns { display:flex;gap:10px; }
-.mcb-book {
-  flex:1;padding:15px;border-radius:var(--r-md);
-  background:var(--gf);color:#fff;
-  font-family:var(--font-d);font-weight:700;font-size:15px;
-  border:none;cursor:pointer;transition:all .28s;
-  box-shadow:var(--shadow-f);
-}
-.mcb-book:hover { filter:brightness(1.12);transform:translateY(-2px); }
-.mcb-book.deposit { background:var(--ge);box-shadow:var(--shadow-g); }
-.mcb-wish {
-  width:50px;height:50px;border-radius:var(--r-md);
-  background:var(--canvas-2);border:1px solid var(--line-2);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:19px;color:var(--ink-muted);
-  transition:all .25s;flex-shrink:0;
-}
-.mcb-wish:hover { background:var(--canvas-3); }
-.mcb-wish.saved { color:#E11D48; }
-
-/* section‑level reveal */
-.reveal { opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease); }
-.reveal.vis { opacity:1;transform:none; }
-.reveal-d1{transition-delay:.10s}.reveal-d2{transition-delay:.20s}.reveal-d3{transition-delay:.30s}.reveal-d4{transition-delay:.40s}
-
-/* whatsapp fab */
-.wa-fab {
-  position:fixed;bottom:28px;right:28px;z-index:800;
-  width:56px;height:56px;border-radius:50%;
-  background:#25D366;box-shadow:0 8px 28px rgba(37,211,102,.40);
-  display:flex;align-items:center;justify-content:center;
-  text-decoration:none;transition:all .3s;
-}
-.wa-fab:hover { transform:scale(1.10);box-shadow:0 12px 36px rgba(37,211,102,.55); }
-.wa-fab svg { width:26px;height:26px;color:#fff; }
-
-/* toast */
-.toast {
-  position:fixed;bottom:100px;right:28px;z-index:9999;
-  padding:12px 22px;border-radius:var(--r-pill);
-  background:var(--ink);color:#fff;
-  font-family:var(--font-b);font-size:13px;font-weight:500;
-  opacity:0;transform:translateY(10px);
-  transition:all .35s;pointer-events:none;
-}
-.toast.show { opacity:1;transform:none; }
-
-/* ═══════════════════════════════════════
-   HERO TWO-COLUMN LAYOUT
-   ═══════════════════════════════════════ */
-
-/* Override: hero now shows full content above fold */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.hero-inner {
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 40px;
-  align-items: center;
-  padding: 100px 48px 48px; /* top padding accounts for fixed nav */
-  max-width: 1280px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-@media(max-width:1100px){ .hero-inner{ grid-template-columns:1fr;gap:32px;padding:88px 32px 40px; } }
-@media(max-width:600px){ .hero-inner{ padding:80px 20px 32px; } }
-
-/* compact the title for split layout */
-.hero-title {
-  font-size: clamp(44px, 6.5vw, 84px);
-  margin-bottom: 18px;
-}
-.hero-sub {
-  font-size: clamp(14px,1.6vw,17px);
-  margin-bottom: 28px;
-}
-
-/* ── Search bar upgrades ── */
-.hero-search { opacity:0;animation:slideUp .9s .72s var(--ease) forwards;margin-bottom:16px; }
-
-/* Select-styled fields */
-.sb-select {
-  width:100%;border:none;background:transparent;
-  font-family:var(--font-b);font-size:14px;font-weight:500;
-  color:rgba(255,255,255,.88);outline:none;cursor:pointer;
-  appearance:none;-webkit-appearance:none;
-  padding:0;
-}
-.sb-select option { background:#0B3D20;color:#fff; }
-.sb-select.ph, .sb-select option:first-child { color:rgba(255,255,255,.35); }
-
-/* Social proof strip under search */
-.search-proof {
-  display:flex;align-items:center;gap:10px;margin-top:10px;
-  opacity:0;animation:slideUp .8s 1s var(--ease) forwards;
-}
-.sp-avatars { display:flex; }
-.spa {
-  width:24px;height:24px;border-radius:50%;border:2px solid rgba(11,61,32,.8);
-  background:var(--gf);color:var(--gold-3);
-  font-family:var(--font-d);font-size:9px;font-weight:700;
-  display:flex;align-items:center;justify-content:center;
-  margin-left:-7px;
-}
-.spa:first-child{margin-left:0}
-.sp-text {
-  font-family:var(--font-b);font-size:11.5px;color:rgba(255,255,255,.52);
-}
-.sp-text strong{color:rgba(255,255,255,.80);font-weight:600;}
-.sp-live{color:rgba(100,220,140,.75);}
-
-/* hero-tags */
-.hero-tags{
-  display:flex;flex-wrap:wrap;gap:7px;
-  opacity:0;animation:slideUp .8s 1.1s var(--ease) forwards;
-}
-
-/* ═══════════════════════════════════════
-   HERO RIGHT — COUNTDOWN CARD
-   ═══════════════════════════════════════ */
-.hero-right {
-  opacity:0;animation:slideUp .9s .6s var(--ease) forwards;
-  border-radius:20px;overflow:hidden;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.12);
-  backdrop-filter:blur(20px);
-  box-shadow:0 24px 60px rgba(0,0,0,.35);
-  flex-shrink:0;
-}
-.hc-label {
-  display:flex;align-items:center;gap:7px;
-  font-family:var(--font-b);font-size:10px;font-weight:700;
-  letter-spacing:.16em;text-transform:uppercase;
-  color:var(--gold-2);padding:12px 16px 0;
-}
-.hc-live-dot {
-  width:7px;height:7px;border-radius:50%;background:var(--gold-2);
-  box-shadow:0 0 8px var(--gold-2);
-  animation:pulseGlow 1.8s ease infinite;flex-shrink:0;
-}
-.hc-tour-img {
-  position:relative;height:180px;margin:10px 12px 0;
-  border-radius:14px;overflow:hidden;
-}
-.hc-tour-img img{width:100%;height:100%;object-fit:cover;}
-.hc-img-grad{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(3,16,10,.80) 0%,rgba(3,16,10,.10) 60%,transparent 80%);
-}
-.hc-urgency-badge {
-  position:absolute;bottom:10px;left:10px;
-  font-family:var(--font-b);font-size:10.5px;font-weight:700;
-  padding:4px 11px;border-radius:100px;
-  background:rgba(214,62,21,.92);color:#fff;
-  box-shadow:0 4px 14px rgba(214,62,21,.45);
-  animation:urgencyPop 2.5s ease-in-out infinite;
-}
-@keyframes urgencyPop{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.04);}
-}
-.hc-body{padding:14px 16px 16px;}
-.hc-title{
-  font-family:var(--font-d);font-size:16px;font-weight:500;
-  color:#fff;margin-bottom:5px;line-height:1.3;
-  letter-spacing:-.025em;
-}
-.hc-title strong{font-weight:800;}
-.hc-date{
-  font-family:var(--font-b);font-size:11.5px;color:rgba(255,255,255,.50);
-  margin-bottom:12px;
-}
-
-/* countdown timer */
-.hc-timer-label{
-  font-family:var(--font-b);font-size:9px;font-weight:700;
-  letter-spacing:.16em;text-transform:uppercase;
-  color:rgba(255,255,255,.28);margin-bottom:7px;
-}
-.hc-timer{display:flex;align-items:center;gap:4px;margin-bottom:14px;}
-.hc-unit{text-align:center;flex:1;}
-.hc-num{
-  display:block;font-family:var(--font-d);font-weight:700;
-  font-size:clamp(22px,3vw,28px);color:#fff;line-height:1;
-  letter-spacing:-.04em;font-variant-numeric:tabular-nums;
-}
-.hc-unit-label{
-  font-family:var(--font-b);font-size:8.5px;color:rgba(255,255,255,.30);
-  font-weight:600;letter-spacing:.10em;text-transform:uppercase;
-}
-.hc-colon{
-  font-family:var(--font-d);font-weight:700;font-size:20px;
-  color:rgba(255,255,255,.25);padding-bottom:12px;
-  animation:colonBlink 1s step-end infinite;
-}
-@keyframes colonBlink{0%,100%{opacity:1}50%{opacity:.2}}
-
-/* spots bar */
-.hc-spots-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
-.hc-spots-bar{
-  flex:1;height:4px;background:rgba(255,255,255,.10);
-  border-radius:2px;overflow:hidden;
-}
-.hc-spots-fill{
-  height:100%;width:75%;
-  background:linear-gradient(90deg,var(--gold-2),var(--ember));
-  border-radius:2px;
-}
-.hc-spots-txt{
-  font-family:var(--font-b);font-size:11px;color:rgba(255,255,255,.45);
-  white-space:nowrap;
-}
-.hc-spots-txt strong{color:var(--gold-3);}
-
-/* price */
-.hc-price-row{
-  display:flex;align-items:flex-end;justify-content:space-between;
-  margin-bottom:12px;
-}
-.hc-price-lbl{font-family:var(--font-b);font-size:9.5px;color:rgba(255,255,255,.30);margin-bottom:2px;}
-.hc-price{
-  font-family:var(--font-d);font-weight:700;font-size:20px;
-  color:#fff;letter-spacing:-.03em;
-}
-.hc-price-per{font-size:12px;font-weight:400;color:rgba(255,255,255,.40);}
-.hc-deposit{
-  font-family:var(--font-b);font-size:10.5px;font-weight:600;
-  color:var(--gold-2);text-align:right;line-height:1.4;
-}
-
-/* CTA buttons */
-.hc-cta{
-  width:100%;padding:13px;border-radius:12px;border:none;cursor:pointer;
-  background:linear-gradient(135deg,var(--gold-2),var(--ember));
-  color:#fff;font-family:var(--font-d);font-weight:700;font-size:14px;
-  letter-spacing:-.02em;display:flex;align-items:center;justify-content:center;gap:7px;
-  box-shadow:0 8px 24px rgba(200,144,10,.40);
-  transition:all .25s var(--ease);margin-bottom:8px;
-}
-.hc-cta:hover{filter:brightness(1.10);transform:translateY(-2px);box-shadow:0 14px 32px rgba(200,144,10,.50);}
-.hc-wa{
-  width:100%;padding:11px;border-radius:12px;
-  background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.28);
-  color:rgba(37,211,102,.90);font-family:var(--font-b);font-weight:600;font-size:13px;
-  display:flex;align-items:center;justify-content:center;gap:7px;
-  text-decoration:none;transition:all .25s;
-}
-.hc-wa:hover{background:rgba(37,211,102,.20);border-color:rgba(37,211,102,.50);}
-
-/* On mobile, countdown card goes below search */
-@media(max-width:1100px){
-  .hero-right{max-width:480px;margin:0 auto;width:100%;}
-  .hero-right{display:none;} /* hide on mobile — promo popup handles it */
-}
-@media(min-width:1101px) and (max-width:1280px){
-  .hc-title{font-size:14px;}
-  .hc-num{font-size:22px;}
-}
-
-/* ═══════════════════════════════════════
-   TRUST BADGES under stats bar
-   ═══════════════════════════════════════ */
-.trust-strip {
-  background:var(--canvas-2);
-  border-bottom:1px solid var(--line-2);
-  padding:14px 48px;
-  overflow:hidden;
-}
-@media(max-width:600px){.trust-strip{padding:12px 20px}}
+/* ════════════════════════════════════════
+   TRUST STRIP
+   ════════════════════════════════════════ */
+.trust-strip { background:#EFF5EC; border-bottom:1px solid rgba(8,14,9,.08); padding:13px 48px; }
+@media(max-width:600px){.trust-strip{padding:11px 20px}}
 .trust-inner {
   max-width:1280px;margin:0 auto;
-  display:flex;align-items:center;justify-content:center;gap:32px;
-  flex-wrap:wrap;
+  display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;
 }
 .trust-item {
-  display:flex;align-items:center;gap:7px;
-  font-family:var(--font-b);font-size:12px;color:var(--ink-muted);
+  display:flex;align-items:center;gap:6px;
+  font-family:var(--font-b,'Inter',sans-serif); font-size:12px; color:#5E7A63;
   white-space:nowrap;
 }
-.trust-item svg{color:var(--grove-3);flex-shrink:0;}
-.trust-item strong{color:var(--ink);font-weight:600;}
+.trust-item svg{color:#1C7A3E;flex-shrink:0;}
+.trust-item strong{color:#070D08;font-weight:600;}
 
-/* ═══════════════════════════════════════
-   URGENCY TICKER — live social proof
-   ═══════════════════════════════════════ */
-#wb-ticker {
+/* ════════════════════════════════════════
+   SECTIONS
+   ════════════════════════════════════════ */
+.section { padding:92px 48px; }
+.sec-inner { max-width:1280px;margin:0 auto; }
+@media(max-width:600px){.section{padding:68px 24px}}
+.eyebrow {
+  font-family:var(--font-b,'Inter',sans-serif); font-size:10.5px; font-weight:700;
+  letter-spacing:.20em; text-transform:uppercase; color:#2E9E54; margin-bottom:12px;
+}
+.headline {
+  font-family:var(--font-d,'Geist','Inter',sans-serif);
+  font-size:clamp(30px,4.2vw,52px); font-weight:600;
+  line-height:1.04; letter-spacing:-.030em; color:#070D08; margin-bottom:13px;
+}
+.headline em {
+  font-style:normal; font-weight:800;
+  background:linear-gradient(110deg,#DCA318,#D44010);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.subhead {
+  font-family:var(--font-b,'Inter',sans-serif); font-size:15.5px; color:#6B8A72;
+  line-height:1.70; max-width:520px; font-weight:300; margin-bottom:48px;
+}
+
+/* ════════════════════════════════════════
+   COUNTDOWN SECTION
+   ════════════════════════════════════════ */
+.cd-section { padding:0 48px 80px; }
+@media(max-width:600px){.cd-section{padding:0 24px 60px}}
+.cd-card {
+  max-width:1280px;margin:0 auto;
+  border-radius:26px;overflow:hidden;background:#070D08;
+  padding:48px 52px;
+  display:grid;grid-template-columns:1fr auto;gap:44px;align-items:center;
+  position:relative;
+}
+@media(max-width:860px){.cd-card{grid-template-columns:1fr;padding:36px 28px;gap:28px}}
+.cd-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 55% 80% at 0% 50%,rgba(10,59,30,.55),transparent 55%),
+             radial-gradient(ellipse 35% 50% at 100% 20%,rgba(196,138,0,.11),transparent 60%);
+}
+.cd-noise{
+  position:absolute;inset:0;opacity:.022;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.cd-left{position:relative;z-index:2;}
+.cd-eyebrow{
+  font-family:var(--font-b,'Inter',sans-serif);font-size:10px;font-weight:700;
+  letter-spacing:.20em;text-transform:uppercase;color:#DCA318;
+  margin-bottom:12px;display:flex;align-items:center;gap:8px;
+}
+.cd-pulse{
+  width:8px;height:8px;border-radius:50%;background:#DCA318;
+  animation:cdPulse 1.5s ease infinite;
+}
+@keyframes cdPulse{0%,100%{box-shadow:0 0 0 0 rgba(200,138,0,.65)}70%{box-shadow:0 0 0 9px rgba(200,138,0,0)}}
+.cd-title{
+  font-family:var(--font-d,'Geist','Inter',sans-serif);
+  font-size:clamp(22px,3vw,34px);font-weight:600;
+  color:#fff;margin-bottom:7px;line-height:1.12;letter-spacing:-.030em;
+}
+.cd-title em{font-style:normal;font-weight:800;color:#F5C430;}
+.cd-sub{font-family:var(--font-b,'Inter',sans-serif);font-size:13.5px;color:rgba(255,255,255,.40);line-height:1.65;margin-bottom:18px;max-width:460px;}
+.cd-details{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:16px;}
+.cd-det{display:flex;align-items:center;gap:6px;font-family:var(--font-b,'Inter',sans-serif);font-size:12.5px;color:rgba(255,255,255,.55);}
+.cd-det svg{color:#DCA318;flex-shrink:0;}
+.cd-spots{display:flex;align-items:center;gap:12px;margin-bottom:22px;}
+.cd-spots-bar{width:160px;height:4px;background:rgba(255,255,255,.10);border-radius:2px;overflow:hidden;flex-shrink:0;}
+.cd-spots-fill{height:100%;width:75%;background:linear-gradient(90deg,#DCA318,#D44010);border-radius:2px;}
+.cd-spots-txt{font-family:var(--font-b,'Inter',sans-serif);font-size:12px;color:rgba(255,255,255,.40);}
+.cd-spots-txt strong{color:#F5C430;}
+.cd-btns{display:flex;gap:10px;flex-wrap:wrap;}
+.cd-btn-p{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 26px;border-radius:100px;
+  background:linear-gradient(135deg,#DCA318,#D44010);color:#fff;
+  font-family:var(--font-d,'Geist','Inter',sans-serif);font-weight:700;font-size:13.5px;
+  border:none;cursor:pointer;box-shadow:0 8px 26px rgba(200,138,0,.34);
+  transition:all .28s;letter-spacing:-.02em;
+}
+.cd-btn-p:hover{transform:translateY(-2px);filter:brightness(1.09);}
+.cd-btn-g{
+  display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:100px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.78);font-family:var(--font-b,'Inter',sans-serif);
+  font-weight:600;font-size:13.5px;cursor:pointer;transition:all .28s;
+}
+.cd-btn-g:hover{background:rgba(255,255,255,.13);}
+
+/* countdown timer in section */
+.cd-right{position:relative;z-index:2;}
+.cd-timer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;}
+.cdt-unit{
+  text-align:center;padding:18px 12px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);
+  border-radius:14px;min-width:70px;
+}
+.cdt-num{
+  font-family:var(--font-d,'Geist','Inter',sans-serif);
+  font-size:clamp(28px,3.8vw,42px);font-weight:700;
+  color:#fff;line-height:1;margin-bottom:6px;
+  font-variant-numeric:tabular-nums;letter-spacing:-.03em;
+}
+.cdt-lbl{
+  font-family:var(--font-b,'Inter',sans-serif);font-size:9px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.24);
+}
+.cd-dep-note{text-align:center;margin-top:14px;}
+.cd-dep-main{font-family:var(--font-b,'Inter',sans-serif);font-size:11.5px;color:rgba(255,255,255,.26);}
+.cd-dep-price{font-family:var(--font-d,'Geist','Inter',sans-serif);font-weight:700;font-size:14px;color:#DCA318;margin-top:3px;}
+
+/* ════════════════════════════════════════
+   TOUR CARDS
+   ════════════════════════════════════════ */
+.tours-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+@media(max-width:940px){.tours-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.tours-grid{grid-template-columns:1fr;gap:14px}}
+.tour-card{
+  border-radius:22px;overflow:hidden;background:#fff;
+  border:1px solid rgba(8,14,9,.09);
+  display:flex;flex-direction:column;cursor:pointer;
+  transition:all .44s cubic-bezier(.22,1,.36,1);
+  text-decoration:none;color:inherit;
+}
+.tour-card:hover{transform:translateY(-8px);box-shadow:0 32px 80px rgba(8,14,9,.16);border-color:transparent;}
+.tc-img{position:relative;height:224px;overflow:hidden;background:#EFF5EC;}
+.tc-img img{width:100%;height:100%;object-fit:cover;transition:transform .65s cubic-bezier(.22,1,.36,1);}
+.tour-card:hover .tc-img img{transform:scale(1.07);}
+.tc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(3,16,6,.60) 0%,transparent 55%);}
+.tc-badge{
+  position:absolute;top:12px;left:12px;
+  font-family:var(--font-b,'Inter',sans-serif);font-size:10px;font-weight:700;
+  padding:5px 11px;border-radius:100px;backdrop-filter:blur(8px);letter-spacing:.04em;
+}
+.badge-urgent{background:rgba(212,64,16,.90);color:#fff;}
+.badge-soon{background:rgba(200,138,0,.90);color:#fff;}
+.badge-open{background:rgba(10,59,30,.90);color:#4EE0A8;}
+.tc-fav{
+  position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;
+  background:rgba(255,255,255,.90);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:#5E7A63;transition:all .22s;
+}
+.tc-fav:hover{transform:scale(1.12);}
+.tc-fav.saved{color:#E11D48;}
+.tc-rating{
+  position:absolute;bottom:12px;right:12px;
+  display:flex;align-items:center;gap:4px;padding:4px 9px;
+  border-radius:100px;background:rgba(3,16,6,.75);color:#fff;
+  font-family:var(--font-b,'Inter',sans-serif);font-size:10.5px;font-weight:600;
+}
+.tc-body{padding:18px 20px 20px;flex:1;display:flex;flex-direction:column;}
+.tc-cat{
+  font-family:var(--font-b,'Inter',sans-serif);font-size:10px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:#2E9E54;margin-bottom:7px;
+}
+.tc-name{
+  font-family:var(--font-d,'Geist','Inter',sans-serif);font-size:17.5px;font-weight:600;
+  color:#070D08;margin-bottom:10px;line-height:1.25;flex:1;
+  letter-spacing:-.025em;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.tc-meta{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;}
+.tc-pill{
+  font-family:var(--font-b,'Inter',sans-serif);font-size:10.5px;color:#5E7A63;
+  padding:4px 10px;border-radius:100px;background:#EFF5EC;border:1px solid rgba(8,14,9,.09);
+}
+.tc-pill.hot{background:rgba(212,64,16,.07);border-color:rgba(212,64,16,.18);color:#D44010;font-weight:600;}
+.tc-foot{display:flex;align-items:flex-end;justify-content:space-between;padding-top:14px;border-top:1px solid rgba(8,14,9,.06);}
+.tc-price-lbl{font-family:var(--font-b,'Inter',sans-serif);font-size:10px;color:#96B09A;margin-bottom:2px;}
+.tc-price{font-family:var(--font-d,'Geist','Inter',sans-serif);font-weight:700;font-size:21px;color:#070D08;letter-spacing:-.03em;}
+.tc-price.free{color:#2E9E54;font-size:17px;}
+.tc-per{font-family:var(--font-b,'Inter',sans-serif);font-size:11px;color:#96B09A;}
+.tc-dep{font-family:var(--font-b,'Inter',sans-serif);font-size:10.5px;color:#C48A00;font-weight:600;margin-top:2px;}
+.tc-cta{
+  padding:10px 20px;border-radius:100px;
+  background:linear-gradient(135deg,#0A3B1E,#135C2E);color:#fff;
+  font-family:var(--font-d,'Geist','Inter',sans-serif);font-size:12.5px;font-weight:700;
+  border:none;cursor:pointer;transition:all .24s;
+  box-shadow:0 6px 20px rgba(10,59,30,.26);white-space:nowrap;letter-spacing:-.02em;
+}
+.tc-cta:hover{filter:brightness(1.12);transform:translateY(-1px);}
+.tc-cta.dep{background:linear-gradient(135deg,#DCA318,#D44010);box-shadow:0 6px 20px rgba(200,138,0,.30);}
+
+/* ════════════════════════════════════════
+   DESTINATIONS
+   ════════════════════════════════════════ */
+.dest-grid{
+  display:grid;
+  grid-template-columns:1.35fr 1fr 1fr;
+  grid-template-rows:280px 280px;
+  gap:16px;
+}
+@media(max-width:980px){.dest-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}}
+@media(max-width:540px){.dest-grid{grid-template-columns:1fr}}
+.dest-card{
+  position:relative;border-radius:22px;overflow:hidden;
+  display:block;text-decoration:none;cursor:pointer;
+  transition:transform .48s cubic-bezier(.22,1,.36,1),box-shadow .48s;
+}
+.dest-card.big{grid-row:span 2;}
+@media(max-width:980px){.dest-card.big{grid-row:span 1}}
+.dest-card:hover{transform:translateY(-6px);box-shadow:0 32px 80px rgba(8,14,9,.18);}
+.dest-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.22,1,.36,1);}
+.dest-card:hover .dest-img{transform:scale(1.07);}
+.dest-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(3,16,6,.88) 0%,rgba(3,16,6,.35) 48%,rgba(3,16,6,.08) 78%);}
+.dest-cty{
+  position:absolute;top:14px;left:14px;
+  font-family:var(--font-b,'Inter',sans-serif);font-size:10px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:#DCA318;padding:5px 12px;border-radius:100px;
+  background:rgba(3,16,6,.68);backdrop-filter:blur(8px);
+  border:1px solid rgba(200,138,0,.24);
+}
+.dest-arr{
+  position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,.11);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.65);
+  opacity:0;transform:translateY(5px);transition:all .32s;
+}
+.dest-card:hover .dest-arr{opacity:1;transform:none;}
+.dest-body{position:absolute;bottom:0;left:0;right:0;padding:22px;}
+.dest-name{font-family:var(--font-d,'Geist','Inter',sans-serif);font-size:clamp(18px,2.2vw,24px);font-weight:600;color:#fff;margin-bottom:5px;letter-spacing:-.025em;}
+.dest-count{font-family:var(--font-b,'Inter',sans-serif);font-size:12px;color:rgba(255,255,255,.52);display:flex;align-items:center;gap:5px;}
+
+/* ════════════════════════════════════════
+   HOW IT WORKS (dark section)
+   ════════════════════════════════════════ */
+.how-section{padding:92px 48px;background:#070D08;position:relative;overflow:hidden;}
+@media(max-width:600px){.how-section{padding:68px 24px}}
+.how-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 48% 70% at 8% 50%,rgba(10,59,30,.42),transparent 55%),
+             radial-gradient(ellipse 38% 50% at 92% 30%,rgba(196,138,0,.09),transparent 60%);
+}
+.how-inner{position:relative;z-index:2;max-width:1280px;margin:0 auto;}
+.how-eyebrow{color:#DCA318;}
+.how-headline{color:#fff;}
+.how-headline em{font-style:normal;font-weight:800;color:#F5C430;}
+.how-sub{color:rgba(255,255,255,.38);}
+.how-steps{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:28px;
+  position:relative;
+}
+@media(max-width:860px){.how-steps{grid-template-columns:repeat(2,1fr);gap:18px}}
+@media(max-width:460px){.how-steps{grid-template-columns:1fr}}
+.how-steps::before{
+  content:'';position:absolute;top:22px;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.07) 20%,rgba(255,255,255,.07) 80%,transparent);
+}
+@media(max-width:860px){.how-steps::before{display:none}}
+.step{position:relative;}
+.step-ico{
+  width:44px;height:44px;border-radius:12px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);
+  display:flex;align-items:center;justify-content:center;margin-bottom:18px;position:relative;
+}
+.step-ico svg{color:#DCA318;}
+.step-n{
+  position:absolute;top:-6px;right:-6px;width:17px;height:17px;border-radius:50%;
+  background:linear-gradient(135deg,#DCA318,#D44010);
+  color:#fff;font-family:var(--font-b,'Inter',sans-serif);font-size:9px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+.step-title{font-family:var(--font-d,'Geist','Inter',sans-serif);font-size:18px;font-weight:600;color:#fff;margin-bottom:9px;letter-spacing:-.025em;}
+.step-desc{font-family:var(--font-b,'Inter',sans-serif);font-size:13.5px;color:rgba(255,255,255,.40);line-height:1.70;}
+
+/* ════════════════════════════════════════
+   TESTIMONIALS
+   ════════════════════════════════════════ */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+@media(max-width:840px){.testi-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.testi-grid{grid-template-columns:1fr}}
+.testi-card{
+  border-radius:20px;background:#fff;border:1px solid rgba(8,14,9,.09);padding:26px;
+  transition:all .38s cubic-bezier(.22,1,.36,1);
+}
+.testi-card:hover{transform:translateY(-4px);box-shadow:0 20px 56px rgba(8,14,9,.12);}
+.testi-stars{display:flex;gap:2px;margin-bottom:13px;color:#C48A00;font-size:14px;}
+.testi-quote{
+  font-family:var(--font-d,'Geist','Inter',sans-serif);
+  font-size:15px;font-weight:400;color:#070D08;
+  line-height:1.70;margin-bottom:18px;letter-spacing:-.015em;
+}
+.testi-author{display:flex;align-items:center;gap:11px;}
+.testi-av{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,#0A3B1E,#135C2E);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-d,'Geist','Inter',sans-serif);font-size:13px;font-weight:700;color:#F2BE2E;
+}
+.testi-name{font-family:var(--font-d,'Geist','Inter',sans-serif);font-size:13.5px;font-weight:600;color:#070D08;margin-bottom:1px;letter-spacing:-.02em;}
+.testi-meta{font-family:var(--font-b,'Inter',sans-serif);font-size:11.5px;color:#96B09A;}
+
+/* ════════════════════════════════════════
+   FINAL CTA
+   ════════════════════════════════════════ */
+.final{
+  padding:112px 48px;background:#0A3B1E;
+  position:relative;overflow:hidden;text-align:center;
+}
+@media(max-width:600px){.final{padding:76px 24px}}
+.final-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 55% 80% at 18% 50%,rgba(10,59,30,.85),transparent 55%),
+             radial-gradient(ellipse 50% 65% at 82% 25%,rgba(30,122,64,.28),transparent 60%),
+             radial-gradient(ellipse 40% 50% at 50% 100%,rgba(3,16,6,.85),transparent 55%);
+}
+.final-noise{
+  position:absolute;inset:0;opacity:.022;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.final-inner{position:relative;z-index:2;max-width:680px;margin:0 auto;}
+.final-title{
+  font-family:var(--font-d,'Geist','Inter',sans-serif);
+  font-size:clamp(34px,5.2vw,64px);font-weight:700;
+  color:#fff;line-height:1.02;letter-spacing:-.035em;margin-bottom:18px;
+}
+.final-title em{font-style:normal;font-weight:800;color:#F5C430;}
+.final-sub{font-family:var(--font-b,'Inter',sans-serif);font-size:16.5px;color:rgba(255,255,255,.44);margin-bottom:40px;line-height:1.65;font-weight:300;}
+.final-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-prim{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:15px 32px;border-radius:100px;
+  background:linear-gradient(135deg,#DCA318,#D44010);color:#fff;
+  font-family:var(--font-d,'Geist','Inter',sans-serif);font-weight:700;font-size:15px;
+  text-decoration:none;border:none;cursor:pointer;letter-spacing:-.02em;
+  box-shadow:0 10px 36px rgba(200,138,0,.40);transition:all .28s;
+}
+.btn-prim:hover{transform:translateY(-2px);filter:brightness(1.09);box-shadow:0 18px 48px rgba(200,138,0,.52);}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:15px 26px;border-radius:100px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.17);
+  color:rgba(255,255,255,.82);font-family:var(--font-b,'Inter',sans-serif);
+  font-weight:600;font-size:15px;text-decoration:none;transition:all .28s;
+}
+.btn-ghost:hover{background:rgba(255,255,255,.14);color:#fff;}
+
+/* ════════════════════════════════════════
+   FOOTER
+   ════════════════════════════════════════ */
+.footer{background:#030C05;border-top:1px solid rgba(255,255,255,.06);padding:60px 48px 0;}
+@media(max-width:600px){.footer{padding:44px 24px 0}}
+.footer-grid{
+  max-width:1280px;margin:0 auto;
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;
+}
+@media(max-width:880px){.footer-grid{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:560px){.footer-grid{grid-template-columns:1fr 1fr;gap:28px}}
+@media(max-width:380px){.footer-grid{grid-template-columns:1fr}}
+.fb-logo{display:flex;align-items:center;gap:9px;text-decoration:none;margin-bottom:15px;}
+.fb-icon{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#0A3B1E,#135C2E);display:flex;align-items:center;justify-content:center;}
+.fb-icon svg{width:14px;height:14px;color:#F2BE2E;}
+.fb-name{font-family:var(--font-d,'Geist','Inter',sans-serif);font-weight:700;font-size:15.5px;color:#fff;letter-spacing:-.025em;}
+.footer-tag{font-family:var(--font-b,'Inter',sans-serif);font-size:12.5px;color:rgba(255,255,255,.26);line-height:1.70;max-width:220px;margin-bottom:20px;}
+.footer-soc{display:flex;gap:7px;}
+.footer-soc a{
+  width:32px;height:32px;border-radius:8px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.36);text-decoration:none;transition:all .22s;
+}
+.footer-soc a:hover{background:rgba(255,255,255,.12);color:rgba(255,255,255,.72);}
+.footer-col h4{
+  font-family:var(--font-b,'Inter',sans-serif);font-size:10px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.20);margin-bottom:13px;
+}
+.footer-col a{
+  display:block;font-family:var(--font-b,'Inter',sans-serif);font-size:13px;
+  color:rgba(255,255,255,.34);text-decoration:none;padding:4px 0;transition:color .2s;
+}
+.footer-col a:hover{color:rgba(255,255,255,.68);}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.06);padding:20px 0;
+  max-width:1280px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+.footer-copy{font-family:var(--font-b,'Inter',sans-serif);font-size:11.5px;color:rgba(255,255,255,.18);}
+.footer-legal{display:flex;gap:18px;}
+.footer-legal a{font-family:var(--font-b,'Inter',sans-serif);font-size:11.5px;color:rgba(255,255,255,.18);text-decoration:none;transition:color .2s;}
+.footer-legal a:hover{color:rgba(255,255,255,.48);}
+
+/* ── Urgency ticker (social proof) ── */
+#wb-ticker{
   position:fixed;bottom:0;left:0;right:0;z-index:700;
-  transform:translateY(100%);
-  transition:transform .45s var(--ease);
+  transform:translateY(100%);transition:transform .44s cubic-bezier(.22,1,.36,1);
   pointer-events:none;
 }
 #wb-ticker.show{transform:translateY(0);}
-.ticker-inner{
-  max-width:420px;margin:0 0 82px 20px; /* above WA fab */
-  pointer-events:all;
-}
+.ticker-inner{max-width:380px;margin:0 0 86px 24px;pointer-events:all;}
 .ticker-card{
   display:flex;align-items:center;gap:11px;
-  padding:12px 16px 12px 14px;
-  background:#fff;border:1px solid var(--line-2);
-  border-radius:14px;box-shadow:var(--shadow-lg);
-  animation:tickerSlide .45s var(--ease);
+  padding:11px 15px;background:#fff;border:1px solid rgba(8,14,9,.10);
+  border-radius:14px;box-shadow:0 12px 40px rgba(8,14,9,.14);
+  animation:tickIn .44s cubic-bezier(.22,1,.36,1);
 }
-@keyframes tickerSlide{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:none}}
-.ticker-avatar{
-  width:36px;height:36px;border-radius:50%;flex-shrink:0;
-  background:var(--gf);display:flex;align-items:center;justify-content:center;
-  color:var(--gold-3);font-family:var(--font-d);font-size:14px;font-weight:700;
+@keyframes tickIn{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
+.tick-av{
+  width:34px;height:34px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,#0A3B1E,#135C2E);
+  display:flex;align-items:center;justify-content:center;
+  color:#F2BE2E;font-family:var(--font-d,'Geist','Inter',sans-serif);font-size:13px;font-weight:700;
 }
-.ticker-text{flex:1;min-width:0;}
-.ticker-name{font-family:var(--font-b);font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:1px;}
-.ticker-action{font-family:var(--font-b);font-size:11.5px;color:var(--ink-muted);}
-.ticker-time{font-family:var(--font-b);font-size:10px;color:var(--ink-ghost);white-space:nowrap;}
+.tick-name{font-family:var(--font-b,'Inter',sans-serif);font-size:12.5px;font-weight:600;color:#070D08;margin-bottom:1px;}
+.tick-action{font-family:var(--font-b,'Inter',sans-serif);font-size:11.5px;color:#6B8A72;}
+.tick-time{font-family:var(--font-b,'Inter',sans-serif);font-size:10px;color:#96B09A;white-space:nowrap;margin-left:auto;}
 
-/* ═══════════════════════════════════════
-   SECTION REFINEMENTS
-   ═══════════════════════════════════════ */
-/* tighter subhead */
-.subhead{margin-bottom:40px;}
-
-/* award badge on tour card */
-.tc-award {
-  position:absolute;bottom:14px;left:14px;
-  font-family:var(--font-b);font-size:10px;font-weight:700;
-  padding:4px 10px;border-radius:100px;
-  background:rgba(200,144,10,.88);color:#fff;
-  backdrop-filter:blur(6px);letter-spacing:.04em;
+/* ── modal overlay (tour detail) ── */
+.modal-overlay{
+  position:fixed;inset:0;z-index:9800;
+  background:rgba(3,16,6,.58);backdrop-filter:blur(6px);
+  opacity:0;visibility:hidden;transition:all .38s;
+  display:flex;align-items:flex-end;justify-content:center;
 }
+@media(min-width:680px){.modal-overlay{align-items:center;padding:28px}}
+.modal-overlay.open{opacity:1;visibility:visible;}
+.modal-box{
+  width:100%;max-width:660px;background:#F8FBF6;
+  border-radius:26px 26px 0 0;max-height:92vh;overflow-y:auto;
+  transform:translateY(48px);opacity:0;
+  transition:all .48s cubic-bezier(.22,1,.36,1);pointer-events:all;
+}
+@media(min-width:680px){.modal-box{border-radius:26px;transform:translateY(22px)}}
+.modal-overlay.open .modal-box{transform:none;opacity:1;}
+.m-img{height:236px;position:relative;overflow:hidden;border-radius:26px 26px 0 0;}
+@media(min-width:680px){.m-img{border-radius:22px 22px 0 0}}
+.m-img img{width:100%;height:100%;object-fit:cover;}
+.m-img-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(3,16,6,.74) 0%,transparent 55%);}
+.m-x{
+  position:absolute;top:14px;right:14px;width:37px;height:37px;border-radius:50%;
+  background:rgba(248,251,246,.92);backdrop-filter:blur(8px);
+  border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#070D08;
+  transition:transform .2s;
+}
+.m-x:hover{transform:scale(1.08)rotate(90deg);}
+.m-body{padding:24px 28px}
+@media(max-width:480px){.m-body{padding:18px 18px}}
+.m-eye{font-family:var(--font-b,'Inter',sans-serif);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#2E9E54;margin-bottom:7px;}
+.m-title{font-family:var(--font-d,'Geist','Inter',sans-serif);font-size:clamp(20px,3vw,27px);font-weight:600;color:#070D08;margin-bottom:13px;line-height:1.2;letter-spacing:-.030em;}
+.m-quick{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px;}
+.mq{padding:11px 13px;border-radius:13px;background:#EFF5EC;border:1px solid rgba(8,14,9,.08);}
+.mq-l{font-family:var(--font-b,'Inter',sans-serif);font-size:9px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:#96B09A;margin-bottom:3px;}
+.mq-v{font-family:var(--font-d,'Geist','Inter',sans-serif);font-size:13.5px;font-weight:600;color:#070D08;letter-spacing:-.02em;}
+.m-alert{
+  display:flex;align-items:flex-start;gap:9px;padding:11px 13px;
+  border-radius:13px;background:rgba(212,64,16,.06);
+  border:1px solid rgba(212,64,16,.16);margin-bottom:14px;
+}
+.m-alert svg{color:#D44010;flex-shrink:0;margin-top:1px;}
+.m-alert p{font-family:var(--font-b,'Inter',sans-serif);font-size:12.5px;color:#D44010;font-weight:600;line-height:1.5;}
+.m-desc{font-family:var(--font-b,'Inter',sans-serif);font-size:14px;color:#5E7A63;line-height:1.75;margin-bottom:16px;}
+.m-sh{font-family:var(--font-d,'Geist','Inter',sans-serif);font-size:13.5px;font-weight:600;color:#070D08;margin-bottom:9px;margin-top:16px;letter-spacing:-.02em;}
+.m-stops{display:flex;flex-direction:column;gap:7px;}
+.m-stop{display:flex;align-items:flex-start;gap:10px;}
+.m-sn{
+  width:20px;height:20px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,#0A3B1E,#135C2E);
+  color:#fff;font-family:var(--font-b,'Inter',sans-serif);font-size:9px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;margin-top:2px;
+}
+.m-st{font-family:var(--font-b,'Inter',sans-serif);font-size:13px;color:#5E7A63;line-height:1.6;}
+.m-incs{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.m-inc{display:flex;align-items:flex-start;gap:7px;font-family:var(--font-b,'Inter',sans-serif);font-size:12.5px;color:#5E7A63;}
+.m-chk{color:#2E9E54;flex-shrink:0;margin-top:2px;}
+.m-cta-box{
+  position:sticky;bottom:0;background:#F8FBF6;
+  border-top:1px solid rgba(8,14,9,.09);
+  padding:15px 28px 18px;margin:0 -28px -24px;
+}
+@media(max-width:480px){.m-cta-box{margin:0 -18px -18px;padding:13px 18px 16px}}
+.m-top-row{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
+.m-plbl{font-family:var(--font-b,'Inter',sans-serif);font-size:10px;color:#96B09A;margin-bottom:2px;}
+.m-price{font-family:var(--font-d,'Geist','Inter',sans-serif);font-size:28px;font-weight:700;color:#070D08;letter-spacing:-.035em;}
+.m-price.free{color:#2E9E54;font-size:22px;}
+.m-pper{font-family:var(--font-b,'Inter',sans-serif);font-size:12px;color:#96B09A;}
+.m-dep-note{font-family:var(--font-b,'Inter',sans-serif);font-size:11px;color:#C48A00;font-weight:600;margin-top:3px;}
+.m-rat{font-family:var(--font-b,'Inter',sans-serif);font-size:12px;color:#96B09A;text-align:right;}
+.m-rat strong{color:#C48A00;font-size:14px;}
+.m-btns{display:flex;gap:9px;}
+.m-book{
+  flex:1;padding:14px;border-radius:13px;
+  background:linear-gradient(135deg,#0A3B1E,#135C2E);color:#fff;
+  font-family:var(--font-d,'Geist','Inter',sans-serif);font-weight:700;font-size:14.5px;
+  border:none;cursor:pointer;transition:all .26s;
+  box-shadow:0 8px 24px rgba(10,59,30,.26);letter-spacing:-.02em;
+}
+.m-book:hover{filter:brightness(1.12);transform:translateY(-2px);}
+.m-book.dep{background:linear-gradient(135deg,#DCA318,#D44010);box-shadow:0 8px 24px rgba(200,138,0,.30);}
+.m-save{
+  width:48px;height:48px;border-radius:13px;flex-shrink:0;
+  background:#EFF5EC;border:1px solid rgba(8,14,9,.10);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:18px;color:#96B09A;transition:all .22s;
+}
+.m-save:hover{background:#E3EFE0;}
+.m-save.saved{color:#E11D48;}
 
+/* reveal */
+.reveal{opacity:0;transform:translateY(20px);}
+.reveal.in{opacity:1;transform:none;transition:opacity .80s cubic-bezier(.22,1,.36,1),transform .80s cubic-bezier(.22,1,.36,1);}
+.reveal-d1{transition-delay:.08s}.reveal-d2{transition-delay:.16s}.reveal-d3{transition-delay:.24s}.reveal-d4{transition-delay:.32s}
 </style>
 </head>
 <body>
@@ -1232,7 +1014,6 @@ body { font-family: var(--sans); background: var(--canvas); color: var(--ink); -
     </div>
     <span class="nav-wordmark">Wildbosses</span>
   </a>
-
   <div class="nav-links">
     <a href="tours.html">Tours</a>
     <a href="tours.html#destinations">Destinations</a>
@@ -1240,69 +1021,59 @@ body { font-family: var(--sans); background: var(--canvas); color: var(--ink); -
     <a href="guides.html">Our Guides</a>
     <a href="about.html">About</a>
   </div>
-
   <div class="nav-right">
-    <a href="mailto:hello@wildbosses.co" class="nav-enquire">Enquire</a>
+    <a href="about.html#contact" class="nav-enquire">Enquire</a>
     <a href="tours.html" class="nav-book">Book a tour</a>
-    <button class="nav-hamburger" onclick="openMobileMenu()" aria-label="Menu">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
-      </svg>
+    <button class="nav-ham" onclick="openMM()" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
   </div>
 </nav>
 
 <!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <div class="mm-overlay" onclick="closeMobileMenu()"></div>
+<div class="mm" id="mm">
+  <div class="mm-ov" onclick="closeMM()"></div>
   <div class="mm-panel">
-    <button class="mm-close" onclick="closeMobileMenu()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
-    </button>
+    <button class="mm-x" onclick="closeMM()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
     <a href="tours.html">Tours & Safaris</a>
     <a href="tours.html#destinations">Destinations</a>
     <a href="tours.html?cat=safari">Wildlife Safaris</a>
-    <a href="guides.html">Our Guides</a>
-    <a href="about.html">About</a>
-    <a href="mailto:hello@wildbosses.co" style="color:var(--forest);font-weight:700;margin-top:12px;border:none">Enquire now →</a>
+    <a href="guides.html">Meet Our Guides</a>
+    <a href="about.html">About Wildbosses</a>
+    <a href="about.html#contact" class="mm-cta">Enquire now →</a>
   </div>
 </div>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
-  <div class="hero-texture"></div>
-  <div class="hero-orb orb-1"></div>
-  <div class="hero-orb orb-2"></div>
-  <div class="hero-orb orb-3"></div>
-  <div class="hero-orb orb-4"></div>
-  <div class="hero-particles" id="heroParticles"></div>
+  <div class="hero-noise"></div>
+  <div class="orb o1"></div><div class="orb o2"></div>
+  <div class="orb o3"></div><div class="orb o4"></div>
+  <div class="hero-stars" id="heroStars"></div>
 
   <div class="hero-inner">
 
-    <!-- LEFT COL -->
+    <!-- LEFT -->
     <div class="hero-left">
       <div class="hero-eyebrow">
-        <span class="eyebrow-dot"></span>
-        Kenya's Premier Boutique Tour Company
+        <span class="ew-dot"></span>Kenya's Premier Boutique Tour Company
       </div>
 
       <h1 class="hero-title">
-        <span class="line">Where the</span>
-        <span class="line"><em class="accent">wild</em> calls</span>
-        <span class="line">your name.</span>
+        <span class="ln">Where the</span>
+        <span class="ln"><em class="hl">wild</em> calls</span>
+        <span class="ln">your name.</span>
       </h1>
 
-      <p class="hero-sub">
-        Private safaris, cultural expeditions, Kilimanjaro treks and coastal adventures across Kenya and Tanzania — curated and led by Wildbosses.
-      </p>
+      <p class="hero-sub">Private safaris, cultural expeditions, Kilimanjaro treks and coastal adventures across Kenya and Tanzania — curated by Wildbosses.</p>
 
-      <!-- SEARCH BAR — always visible above the fold -->
+      <!-- SEARCH — always above the fold -->
       <div class="hero-search">
-        <div class="search-box">
-          <div class="sb-field" id="sfDest">
-            <div class="sb-label">Destination</div>
-            <select class="sb-select" id="sbDestSel" onchange="syncDestTag()">
+        <div class="sbox">
+          <div class="sbox-field">
+            <div class="sbox-label">Destination</div>
+            <select class="sbox-sel" id="selDest" onchange="syncTag()">
               <option value="">Where are you going?</option>
               <option value="masai-mara">🦁 Masai Mara</option>
               <option value="nairobi">🏙 Nairobi</option>
@@ -1314,215 +1085,159 @@ body { font-family: var(--sans); background: var(--canvas); color: var(--ink); -
               <option value="naivasha">🚴 Naivasha</option>
             </select>
           </div>
-          <div class="sb-divider"></div>
-          <div class="sb-field" id="sfDate">
-            <div class="sb-label">When</div>
-            <select class="sb-select" id="sbDateSel">
+          <div class="sbox-field">
+            <div class="sbox-label">When</div>
+            <select class="sbox-sel" id="selDate">
               <option value="">Any date</option>
-              <option value="aug-2026">August 2026</option>
-              <option value="sep-2026">September 2026</option>
-              <option value="oct-2026">October 2026</option>
-              <option value="nov-2026">November 2026</option>
-              <option value="dec-2026">December 2026</option>
+              <option value="aug-2026">Aug 2026</option>
+              <option value="sep-2026">Sep 2026</option>
+              <option value="oct-2026">Oct 2026</option>
+              <option value="nov-2026">Nov 2026</option>
+              <option value="dec-2026">Dec 2026</option>
               <option value="2027">2027</option>
             </select>
           </div>
-          <div class="sb-divider"></div>
-          <div class="sb-field" id="sfGroup">
-            <div class="sb-label">Group size</div>
-            <select class="sb-select" id="sbGroupSel">
-              <option value="1">Solo (1 person)</option>
+          <div class="sbox-field">
+            <div class="sbox-label">Group size</div>
+            <select class="sbox-sel" id="selGroup">
+              <option value="1">Solo (1)</option>
               <option value="2">Couple (2)</option>
-              <option value="3-5">Small group (3–5)</option>
-              <option value="6-12" selected>Group (6–12)</option>
-              <option value="12+">Large group (12+)</option>
+              <option value="3-5">Small (3–5)</option>
+              <option value="6-12">Group (6–12)</option>
+              <option value="12+">Large (12+)</option>
             </select>
           </div>
-          <button class="sb-btn" onclick="doSearch()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <button class="sbox-btn" onclick="doSearch()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
             Search
           </button>
         </div>
-
-        <!-- Social proof under search -->
-        <div class="search-proof">
-          <div class="sp-avatars" aria-hidden="true">
-            <span class="spa">S</span><span class="spa">L</span><span class="spa">A</span><span class="spa">F</span>
+        <!-- Social proof -->
+        <div class="sbox-proof">
+          <div class="proof-avatars">
+            <span class="pav">S</span><span class="pav">L</span><span class="pav">A</span><span class="pav">F</span>
           </div>
-          <span class="sp-text"><strong>1,200+ travellers</strong> booked this year · <span class="sp-live">🟢 3 people viewing right now</span></span>
+          <span class="proof-text"><strong>1,200+ travellers</strong> booked this year &nbsp;·&nbsp; <span class="proof-live">🟢 3 browsing now</span></span>
         </div>
       </div>
 
-      <!-- QUICK TAGS -->
+      <!-- TAGS -->
       <div class="hero-tags">
-        <span class="hero-tag active" onclick="pickTag(this,'masai-mara')">🦁 Masai Mara</span>
-        <span class="hero-tag" onclick="pickTag(this,'kilimanjaro')">🏔 Kilimanjaro</span>
-        <span class="hero-tag" onclick="pickTag(this,'nairobi')">🏙 Nairobi</span>
-        <span class="hero-tag" onclick="pickTag(this,'diani')">🌊 Diani</span>
-        <span class="hero-tag" onclick="pickTag(this,'amboseli')">🐘 Amboseli</span>
-        <span class="hero-tag" onclick="pickTag(this,'zanzibar')">🏝 Zanzibar</span>
+        <span class="htag on" onclick="pickTag(this,'masai-mara')">🦁 Masai Mara</span>
+        <span class="htag" onclick="pickTag(this,'kilimanjaro')">🏔 Kilimanjaro</span>
+        <span class="htag" onclick="pickTag(this,'nairobi')">🏙 Nairobi</span>
+        <span class="htag" onclick="pickTag(this,'diani')">🌊 Diani</span>
+        <span class="htag" onclick="pickTag(this,'amboseli')">🐘 Amboseli</span>
+        <span class="htag" onclick="pickTag(this,'zanzibar')">🏝 Zanzibar</span>
       </div>
-    </div>
+    </div><!-- /hero-left -->
 
-    <!-- RIGHT COL — countdown card, visible above fold on desktop -->
-    <div class="hero-right" id="heroCountdownCard">
-      <div class="hc-label">
-        <span class="hc-live-dot"></span>
-        Next departure — filling fast
-      </div>
-      <div class="hc-tour-img">
-        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=600&q=80" alt="Masai Mara Migration Safari" loading="eager"/>
+    <!-- RIGHT — countdown card, above fold on desktop -->
+    <div class="hero-right">
+      <div class="hc-label"><span class="hc-dot"></span>Next departure — filling fast</div>
+      <div class="hc-img">
+        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=700&q=80" alt="Masai Mara Migration Safari — Wildbosses" loading="eager"/>
         <div class="hc-img-grad"></div>
-        <div class="hc-urgency-badge">🔴 2 spots left</div>
+        <div class="hc-urg">🔴 2 spots left</div>
       </div>
       <div class="hc-body">
-        <div class="hc-title">Masai Mara <strong>Migration</strong> Safari</div>
-        <div class="hc-date">📅 14 – 21 August 2026 · 7 days</div>
-
-        <!-- countdown -->
-        <div class="hc-timer-label">Booking closes in</div>
+        <div class="hc-title">Masai Mara <b>Migration</b> Safari</div>
+        <div class="hc-date">📅 14–21 Aug 2026 · 7 days · Max 8 guests</div>
+        <div class="hc-timer-lbl">Booking closes in</div>
         <div class="hc-timer">
-          <div class="hc-unit"><span class="hc-num" id="hcD">00</span><span class="hc-unit-label">Days</span></div>
-          <div class="hc-colon">:</div>
-          <div class="hc-unit"><span class="hc-num" id="hcH">00</span><span class="hc-unit-label">Hrs</span></div>
-          <div class="hc-colon">:</div>
-          <div class="hc-unit"><span class="hc-num" id="hcM">00</span><span class="hc-unit-label">Min</span></div>
-          <div class="hc-colon">:</div>
-          <div class="hc-unit"><span class="hc-num" id="hcS">00</span><span class="hc-unit-label">Sec</span></div>
+          <div class="hcu"><span class="hcn" id="hcD">--</span><span class="hcl">Days</span></div>
+          <span class="hcc">:</span>
+          <div class="hcu"><span class="hcn" id="hcH">--</span><span class="hcl">Hrs</span></div>
+          <span class="hcc">:</span>
+          <div class="hcu"><span class="hcn" id="hcM">--</span><span class="hcl">Min</span></div>
+          <span class="hcc">:</span>
+          <div class="hcu"><span class="hcn" id="hcS">--</span><span class="hcl">Sec</span></div>
         </div>
-
-        <!-- spots bar -->
-        <div class="hc-spots-row">
-          <div class="hc-spots-bar"><div class="hc-spots-fill"></div></div>
+        <div class="hc-spots">
+          <div class="hc-bar"><div class="hc-fill"></div></div>
           <span class="hc-spots-txt"><strong>2</strong> of 8 spots left</span>
         </div>
-
-        <!-- price -->
         <div class="hc-price-row">
           <div>
             <div class="hc-price-lbl">From</div>
-            <div class="hc-price">KES 95,000 <span class="hc-price-per">/person</span></div>
+            <div class="hc-price">KES 95,000 <sub>/person</sub></div>
           </div>
-          <div class="hc-deposit">30% deposit<br>= KES 28,500</div>
+          <div class="hc-dep">30% deposit<br>= KES 28,500</div>
         </div>
-
         <button class="hc-cta" onclick="openTourModal('migration')">
           Secure your spot
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg>
         </button>
-        <a href="https://wa.me/254796818671?text=Hi%20Wildbosses!%20I'd%20like%20to%20book%20the%20Masai%20Mara%20Migration%20Safari%20in%20August%202026." class="hc-wa" target="_blank">
+        <a class="hc-wa" href="https://wa.me/254796818671?text=Hi%20Wildbosses!%20I'd%20like%20to%20book%20the%20Masai%20Mara%20Migration%20Safari%20in%20August%202026." target="_blank">
           <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           WhatsApp to book
         </a>
       </div>
-    </div>
+    </div><!-- /hero-right -->
 
-  </div><!-- /hero-inner -->
+  </div>
 
   <div class="hero-scroll">
     <div class="scroll-line"></div>
-    <span class="scroll-text">Scroll</span>
+    <span class="scroll-txt">Scroll</span>
   </div>
-
-  <div class="hero-marquee">
-    <div class="marquee-track" id="marqueeTrack"></div>
-  </div>
+  <div class="hero-marquee"><div class="mq-track" id="mqTrack"></div></div>
 </section>
 
 <!-- STATS -->
 <div class="stats-bar">
   <div class="stats-inner">
-    <div class="stat-cell">
-      <div class="stat-num"><span>1,200+</span></div>
-      <div class="stat-label">Happy travellers</div>
-    </div>
-    <div class="stat-cell">
-      <div class="stat-num"><span>4.97</span> / 5</div>
-      <div class="stat-label">Average rating</div>
-    </div>
-    <div class="stat-cell">
-      <div class="stat-num"><span>12</span> yrs</div>
-      <div class="stat-label">Guiding East Africa</div>
-    </div>
-    <div class="stat-cell">
-      <div class="stat-num"><span>100%</span></div>
-      <div class="stat-label">Private & personalised</div>
-    </div>
+    <div class="stat-cell reveal"><div class="stat-num"><span>1,200+</span></div><div class="stat-lbl">Happy travellers</div></div>
+    <div class="stat-cell reveal reveal-d1"><div class="stat-num"><span>4.97</span> / 5</div><div class="stat-lbl">Average rating</div></div>
+    <div class="stat-cell reveal reveal-d2"><div class="stat-num"><span>12</span> yrs</div><div class="stat-lbl">Guiding East Africa</div></div>
+    <div class="stat-cell reveal reveal-d3"><div class="stat-num"><span>100%</span></div><div class="stat-lbl">Private & personalised</div></div>
   </div>
 </div>
 
-<!-- TRUST BADGES -->
+<!-- TRUST -->
 <div class="trust-strip reveal">
   <div class="trust-inner">
-    <div class="trust-item">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      <span><strong>KTB Registered</strong> tour operator</span>
-    </div>
-    <div class="trust-item">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      <span>Rated <strong>4.97 / 5</strong> from 1,240 reviews</span>
-    </div>
-    <div class="trust-item">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-      <span><strong>Zero hidden fees</strong> — price shown = price paid</span>
-    </div>
-    <div class="trust-item">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-      <span>Pay <strong>30% deposit</strong> to secure · Balance later</span>
-    </div>
-    <div class="trust-item">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      <span>WhatsApp reply <strong>within 15 mins</strong></span>
-    </div>
+    <div class="trust-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span><strong>KTB Registered</strong> operator</span></div>
+    <div class="trust-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>Rated <strong>4.97 / 5</strong> · 1,240 reviews</span></div>
+    <div class="trust-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Zero hidden fees</strong> — price shown = price paid</span></div>
+    <div class="trust-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg><span><strong>30% deposit</strong> secures your spot</span></div>
+    <div class="trust-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>WhatsApp reply <strong>within 15 mins</strong></span></div>
   </div>
 </div>
 
-<!-- UPCOMING TOUR COUNTDOWN -->
-<section class="countdown-section reveal" style="padding-top:80px;">
-  <div class="countdown-card">
-    <div class="cdc-bg"></div>
-    <div class="cdc-texture"></div>
-    <div class="cdc-left">
-      <div class="cdc-eyebrow"><span class="cdc-pulse"></span>Next departure · Limited seats</div>
-      <div class="cdc-title">Masai Mara <em>Migration</em><br>Safari — Aug 2026</div>
-      <p class="cdc-sub">7 days across the Mara Triangle during the Great Migration. Private 4×4, expert guide, luxury tented camp. One of only 3 departures this season.</p>
-      <div class="cdc-details">
-        <div class="cdc-detail">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          14 – 21 Aug 2026
-        </div>
-        <div class="cdc-detail">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          Max 8 guests
-        </div>
-        <div class="cdc-detail">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          KES 95,000 / person
-        </div>
+<!-- COUNTDOWN SECTION -->
+<section class="cd-section reveal" style="padding-top:76px;">
+  <div class="cd-card">
+    <div class="cd-bg"></div><div class="cd-noise"></div>
+    <div class="cd-left">
+      <div class="cd-eyebrow"><span class="cd-pulse"></span>Next departure · Limited availability</div>
+      <div class="cd-title">Masai Mara <em>Great Migration</em> Safari</div>
+      <p class="cd-sub">7 days across the Mara Triangle during peak migration season. Private 4×4, expert guide, luxury tented camp. One of 3 departures this season.</p>
+      <div class="cd-details">
+        <div class="cd-det"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>14 – 21 Aug 2026</div>
+        <div class="cd-det"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Max 8 guests</div>
+        <div class="cd-det"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>KES 95,000 / person</div>
       </div>
-      <div class="cdc-spots">
-        <div class="spots-bar"><div class="spots-fill" id="spotsFill" style="width:75%"></div></div>
-        <div class="spots-label"><strong id="spotsLeft">2</strong> spots remaining of 8</div>
+      <div class="cd-spots">
+        <div class="cd-spots-bar"><div class="cd-spots-fill"></div></div>
+        <div class="cd-spots-txt"><strong>2</strong> of 8 spots remaining</div>
       </div>
-      <div class="cdc-btns">
-        <button class="cdc-btn-primary" onclick="openTourModal('migration')">
-          Secure your spot
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg>
-        </button>
-        <button class="cdc-btn-ghost" onclick="openTourModal('migration-info')">View itinerary</button>
+      <div class="cd-btns">
+        <button class="cd-btn-p" onclick="openTourModal('migration')">Secure your spot — pay 30% deposit <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></button>
+        <button class="cd-btn-g" onclick="openTourModal('migration')">View itinerary</button>
       </div>
     </div>
-    <div class="cdc-right">
-      <div style="font-family:var(--font-b);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.30);margin-bottom:14px;text-align:center;">Booking closes in</div>
-      <div class="timer-grid">
-        <div class="timer-unit"><div class="timer-num" id="tDays">00</div><div class="timer-label">Days</div></div>
-        <div class="timer-unit"><div class="timer-num" id="tHours">00</div><div class="timer-label">Hours</div></div>
-        <div class="timer-unit"><div class="timer-num" id="tMins">00</div><div class="timer-label">Mins</div></div>
-        <div class="timer-unit"><div class="timer-num" id="tSecs">00</div><div class="timer-label">Secs</div></div>
+    <div class="cd-right">
+      <div style="font-family:'Inter',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.24);margin-bottom:12px;text-align:center">Booking closes in</div>
+      <div class="cd-timer-grid">
+        <div class="cdt-unit"><div class="cdt-num" id="cdD">--</div><div class="cdt-lbl">Days</div></div>
+        <div class="cdt-unit"><div class="cdt-num" id="cdH">--</div><div class="cdt-lbl">Hours</div></div>
+        <div class="cdt-unit"><div class="cdt-num" id="cdM">--</div><div class="cdt-lbl">Mins</div></div>
+        <div class="cdt-unit"><div class="cdt-num" id="cdS">--</div><div class="cdt-lbl">Secs</div></div>
       </div>
-      <div style="text-align:center;margin-top:16px;">
-        <div style="font-family:var(--font-b);font-size:11px;color:rgba(255,255,255,.28);">30% deposit secures your place</div>
-        <div style="font-family:var(--font-d);font-weight:600;font-size:13px;color:var(--gold-2);margin-top:4px;">= KES 28,500 today</div>
+      <div class="cd-dep-note">
+        <div class="cd-dep-main">30% deposit secures your place</div>
+        <div class="cd-dep-price">= KES 28,500 today</div>
       </div>
     </div>
   </div>
@@ -1531,97 +1246,51 @@ body { font-family: var(--sans); background: var(--canvas); color: var(--ink); -
 <!-- FEATURED TOURS -->
 <section class="section reveal">
   <div class="sec-inner">
-    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:52px;">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:44px;">
       <div>
         <div class="eyebrow">Our tours</div>
-        <h2 class="headline">Experiences that<br>stay with you <em>forever.</em></h2>
+        <h2 class="headline">Experiences that stay<br>with you <em>forever.</em></h2>
       </div>
-      <a href="tours.html" style="display:inline-flex;align-items:center;gap:7px;font-family:var(--font-b);font-size:13.5px;font-weight:600;color:var(--forest);text-decoration:none;padding:11px 22px;border-radius:var(--r-pill);border:1.5px solid rgba(11,61,32,.22);transition:all .25s;" onmouseover="this.style.background='var(--forest)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='var(--forest)'">All tours <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+      <a href="tours.html" style="display:inline-flex;align-items:center;gap:7px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#0A3B1E;text-decoration:none;padding:10px 20px;border-radius:100px;border:1.5px solid rgba(10,59,30,.20);transition:all .22s;" onmouseover="this.style.background='#0A3B1E';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='#0A3B1E'">All tours <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
     </div>
     <div class="tours-grid" id="featuredTours"></div>
   </div>
 </section>
 
 <!-- DESTINATIONS -->
-<section class="section" style="padding-top:0;" id="destinations">
+<section class="section" style="padding-top:0;">
   <div class="sec-inner">
     <div class="eyebrow reveal">Where we go</div>
-    <h2 class="headline reveal">East Africa's<br>most <em>iconic places.</em></h2>
-    <p class="subhead reveal">From the Mara's golden plains to Zanzibar's coral coast — we take you where the stories are.</p>
+    <h2 class="headline reveal">East Africa's most <em>iconic places.</em></h2>
+    <p class="subhead reveal">From the Mara's golden plains to Zanzibar's coral coast.</p>
     <div class="dest-grid">
-      <a href="tours.html?dest=masai-mara" class="dest-card span-col reveal">
-        <img class="dest-img" src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=900&q=80" alt="Masai Mara" loading="lazy"/>
-        <div class="dest-grad"></div>
-        <span class="dest-country">Kenya</span>
-        <div class="dest-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></div>
-        <div class="dest-body"><div class="dest-name">Masai Mara</div><div class="dest-count"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 5.5-6-2-6 2.5v13l6-2.5 6 2 6-2.5v-13z"/></svg>14 experiences</div></div>
-      </a>
-      <a href="tours.html?dest=nairobi" class="dest-card reveal reveal-d1">
-        <img class="dest-img" src="https://images.unsplash.com/photo-1611348524140-53c9a25263d6?w=600&q=80" alt="Nairobi" loading="lazy"/>
-        <div class="dest-grad"></div>
-        <span class="dest-country">Kenya</span>
-        <div class="dest-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></div>
-        <div class="dest-body"><div class="dest-name">Nairobi</div><div class="dest-count"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 5.5-6-2-6 2.5v13l6-2.5 6 2 6-2.5v-13z"/></svg>9 experiences</div></div>
-      </a>
-      <a href="tours.html?dest=amboseli" class="dest-card reveal reveal-d2">
-        <img class="dest-img" src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&q=80" alt="Amboseli" loading="lazy"/>
-        <div class="dest-grad"></div>
-        <span class="dest-country">Kenya</span>
-        <div class="dest-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></div>
-        <div class="dest-body"><div class="dest-name">Amboseli</div><div class="dest-count"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 5.5-6-2-6 2.5v13l6-2.5 6 2 6-2.5v-13z"/></svg>6 experiences</div></div>
-      </a>
-      <a href="tours.html?dest=zanzibar" class="dest-card reveal reveal-d1">
-        <img class="dest-img" src="https://images.unsplash.com/photo-1516117172878-fd2c41f4a759?w=600&q=80" alt="Zanzibar" loading="lazy"/>
-        <div class="dest-grad"></div>
-        <span class="dest-country">Tanzania</span>
-        <div class="dest-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></div>
-        <div class="dest-body"><div class="dest-name">Zanzibar</div><div class="dest-count"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 5.5-6-2-6 2.5v13l6-2.5 6 2 6-2.5v-13z"/></svg>7 experiences</div></div>
-      </a>
-      <a href="tours.html?dest=diani" class="dest-card reveal reveal-d2">
-        <img class="dest-img" src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80" alt="Diani Beach" loading="lazy"/>
-        <div class="dest-grad"></div>
-        <span class="dest-country">Kenya Coast</span>
-        <div class="dest-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></div>
-        <div class="dest-body"><div class="dest-name">Diani Beach</div><div class="dest-count"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 5.5-6-2-6 2.5v13l6-2.5 6 2 6-2.5v-13z"/></svg>5 experiences</div></div>
-      </a>
+      <a href="tours.html?dest=masai-mara" class="dest-card big reveal"><img class="dest-img" src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=900&q=80" alt="Masai Mara safari Kenya" loading="lazy"/><div class="dest-grad"></div><span class="dest-cty">Kenya</span><div class="dest-arr"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></div><div class="dest-body"><div class="dest-name">Masai Mara</div><div class="dest-count">14 experiences</div></div></a>
+      <a href="tours.html?dest=nairobi" class="dest-card reveal reveal-d1"><img class="dest-img" src="https://images.unsplash.com/photo-1611348524140-53c9a25263d6?w=600&q=80" alt="Nairobi city tour Kenya" loading="lazy"/><div class="dest-grad"></div><span class="dest-cty">Kenya</span><div class="dest-arr"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></div><div class="dest-body"><div class="dest-name">Nairobi</div><div class="dest-count">9 experiences</div></div></a>
+      <a href="tours.html?dest=amboseli" class="dest-card reveal reveal-d2"><img class="dest-img" src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&q=80" alt="Amboseli elephant safari Kilimanjaro" loading="lazy"/><div class="dest-grad"></div><span class="dest-cty">Kenya</span><div class="dest-arr"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></div><div class="dest-body"><div class="dest-name">Amboseli</div><div class="dest-count">6 experiences</div></div></a>
+      <a href="tours.html?dest=zanzibar" class="dest-card reveal reveal-d1"><img class="dest-img" src="https://images.unsplash.com/photo-1516117172878-fd2c41f4a759?w=600&q=80" alt="Zanzibar Stone Town Tanzania" loading="lazy"/><div class="dest-grad"></div><span class="dest-cty">Tanzania</span><div class="dest-arr"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></div><div class="dest-body"><div class="dest-name">Zanzibar</div><div class="dest-count">7 experiences</div></div></a>
+      <a href="tours.html?dest=diani" class="dest-card reveal reveal-d2"><img class="dest-img" src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80" alt="Diani Beach Kenya coast" loading="lazy"/><div class="dest-grad"></div><span class="dest-cty">Kenya Coast</span><div class="dest-arr"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></div><div class="dest-body"><div class="dest-name">Diani Beach</div><div class="dest-count">5 experiences</div></div></a>
     </div>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="exp-section">
-  <div class="exp-bg"></div>
-  <div class="exp-inner">
-    <div class="eyebrow exp-eyebrow reveal">How it works</div>
-    <h2 class="headline exp-headline reveal">Simple from first click<br>to <em>last sunset.</em></h2>
-    <p class="subhead exp-sub reveal">We handle every detail so you can be fully present for the experience.</p>
-    <div class="exp-steps">
-      <div class="exp-step reveal reveal-d1">
-        <div class="step-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><div class="step-n">1</div></div>
-        <div class="step-title">Choose your adventure</div>
-        <div class="step-desc">Browse our curated catalogue of safaris, walks and expeditions. Every experience is Wildbosses-designed and quality-assured.</div>
-      </div>
-      <div class="exp-step reveal reveal-d2">
-        <div class="step-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><div class="step-n">2</div></div>
-        <div class="step-title">Enquire or book directly</div>
-        <div class="step-desc">WhatsApp, email or book online. We customise every booking — group size, dates, dietary needs, accessibility. Real humans answer.</div>
-      </div>
-      <div class="exp-step reveal reveal-d3">
-        <div class="step-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg><div class="step-n">3</div></div>
-        <div class="step-title">Pay a deposit to confirm</div>
-        <div class="step-desc">Secure your spot with a 30% deposit via M-Pesa, bank transfer or card. Balance due 14 days before departure.</div>
-      </div>
-      <div class="exp-step reveal reveal-d4">
-        <div class="step-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div class="step-n">4</div></div>
-        <div class="step-title">We take care of everything</div>
-        <div class="step-desc">We pick you up, handle park fees, accommodation and meals. You show up and experience East Africa at its finest.</div>
-      </div>
+<section class="how-section">
+  <div class="how-bg"></div>
+  <div class="how-inner">
+    <div class="eyebrow how-eyebrow reveal">How it works</div>
+    <h2 class="headline how-headline reveal">Simple from first click<br>to <em>last sunset.</em></h2>
+    <p class="subhead how-sub reveal">We handle every detail so you can be fully present for the experience.</p>
+    <div class="how-steps">
+      <div class="step reveal reveal-d1"><div class="step-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><div class="step-n">1</div></div><div class="step-title">Choose your adventure</div><div class="step-desc">Browse our curated catalogue of safaris, walks and expeditions. Every experience is Wildbosses-designed.</div></div>
+      <div class="step reveal reveal-d2"><div class="step-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><div class="step-n">2</div></div><div class="step-title">Enquire or book direct</div><div class="step-desc">WhatsApp, email or book online. We customise every booking — group size, dates, dietary needs. Real humans answer.</div></div>
+      <div class="step reveal reveal-d3"><div class="step-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg><div class="step-n">3</div></div><div class="step-title">Pay deposit to confirm</div><div class="step-desc">Secure your spot with a 30% deposit via M-Pesa, bank transfer or card. Balance due 14 days before departure.</div></div>
+      <div class="step reveal reveal-d4"><div class="step-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div class="step-n">4</div></div><div class="step-title">We take care of everything</div><div class="step-desc">We pick you up, handle park fees, accommodation and meals. You show up and experience East Africa at its finest.</div></div>
     </div>
   </div>
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="testi-section reveal">
+<section class="section reveal">
   <div class="sec-inner">
     <div class="eyebrow">What guests say</div>
     <h2 class="headline">Days they'll <em>never forget.</em></h2>
@@ -1631,15 +1300,14 @@ body { font-family: var(--sans); background: var(--canvas); color: var(--ink); -
 </section>
 
 <!-- FINAL CTA -->
-<section class="final-section">
-  <div class="final-bg"></div>
-  <div class="final-texture"></div>
+<section class="final">
+  <div class="final-bg"></div><div class="final-noise"></div>
   <div class="final-inner reveal">
-    <h2 class="final-headline">Your next <em>great</em><br>adventure starts here.</h2>
-    <p class="final-sub">Custom safaris, group expeditions and private tours across Kenya and Tanzania. We make the wild personal.</p>
+    <h2 class="final-title">Your next <em>great</em><br>adventure starts here.</h2>
+    <p class="final-sub">Custom safaris, private expeditions and unforgettable tours across Kenya and Tanzania. We make the wild personal.</p>
     <div class="final-btns">
-      <a href="tours.html" class="btn-primary">Browse all tours <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
-      <a href="https://wa.me/254796818671" class="btn-ghost-light">WhatsApp us now</a>
+      <a href="tours.html" class="btn-prim">Browse all tours <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+      <a href="https://wa.me/254796818671?text=Hi%20Wildbosses!%20I'd%20like%20to%20plan%20a%20tour." class="btn-ghost" target="_blank">WhatsApp us now</a>
     </div>
   </div>
 </section>
@@ -1647,352 +1315,288 @@ body { font-family: var(--sans); background: var(--canvas); color: var(--ink); -
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-grid">
-    <div class="footer-brand">
-      <a href="index.html" class="fb-logo">
-        <div class="fb-logo-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-        <span class="fb-logo-name">Wildbosses</span>
-      </a>
-      <p class="footer-tagline">East Africa's premier boutique tour company. Custom safaris, cultural expeditions and adventures across Kenya and Tanzania since 2013.</p>
-      <div class="footer-socials">
-        <a href="https://wa.me/254796818671" aria-label="WhatsApp">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        </a>
-        <a href="https://instagram.com/wildbosses" aria-label="Instagram">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        </a>
-        <a href="mailto:hello@wildbosses.co" aria-label="Email">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        </a>
+    <div>
+      <a href="index.html" class="fb-logo"><div class="fb-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><span class="fb-name">Wildbosses</span></a>
+      <p class="footer-tag">East Africa's premier boutique tour company. Private safaris, cultural expeditions and adventures since 2013.</p>
+      <div class="footer-soc">
+        <a href="https://wa.me/254796818671" target="_blank" aria-label="WhatsApp"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+        <a href="https://instagram.com/wildbosses" target="_blank" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="mailto:hello@wildbosses.co" aria-label="Email"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
       </div>
     </div>
-    <div class="footer-col">
-      <h4>Experiences</h4>
-      <a href="tours.html?cat=safari">Wildlife Safari</a>
-      <a href="tours.html?cat=walking">Walking Tours</a>
-      <a href="tours.html?cat=mountain">Hiking & Trekking</a>
-      <a href="tours.html?cat=culture">Cultural Tours</a>
-      <a href="tours.html?cat=beach">Beach & Coast</a>
-      <a href="tours.html?cat=photo">Photography</a>
-    </div>
-    <div class="footer-col">
-      <h4>Destinations</h4>
-      <a href="tours.html?dest=masai-mara">Masai Mara</a>
-      <a href="tours.html?dest=nairobi">Nairobi</a>
-      <a href="tours.html?dest=amboseli">Amboseli</a>
-      <a href="tours.html?dest=zanzibar">Zanzibar</a>
-      <a href="tours.html?dest=diani">Diani Beach</a>
-      <a href="tours.html?dest=kilimanjaro">Kilimanjaro</a>
-    </div>
-    <div class="footer-col">
-      <h4>Company</h4>
-      <a href="about.html">About Us</a>
-      <a href="guides.html">Our Guides</a>
-      <a href="mailto:hello@wildbosses.co">Contact</a>
-      <a href="https://wa.me/254796818671">WhatsApp</a>
-      <a href="terms.html">Terms</a>
-      <a href="privacy.html">Privacy</a>
-    </div>
+    <div class="footer-col"><h4>Experiences</h4><a href="tours.html?cat=safari">Wildlife Safari</a><a href="tours.html?cat=walking">Walking Tours</a><a href="tours.html?cat=mountain">Hiking & Trekking</a><a href="tours.html?cat=culture">Cultural Tours</a><a href="tours.html?cat=beach">Beach & Coast</a></div>
+    <div class="footer-col"><h4>Destinations</h4><a href="tours.html?dest=masai-mara">Masai Mara</a><a href="tours.html?dest=nairobi">Nairobi</a><a href="tours.html?dest=amboseli">Amboseli</a><a href="tours.html?dest=zanzibar">Zanzibar</a><a href="tours.html?dest=kilimanjaro">Kilimanjaro</a></div>
+    <div class="footer-col"><h4>Company</h4><a href="about.html">About Us</a><a href="guides.html">Our Guides</a><a href="mailto:hello@wildbosses.co">Contact</a><a href="https://wa.me/254796818671" target="_blank">WhatsApp</a><a href="about.html#contact">Enquire</a></div>
   </div>
   <div class="footer-bottom">
     <span class="footer-copy">© 2026 Wildbosses Tours & Safaris. Nairobi, Kenya. KTB Registered.</span>
-    <div class="footer-legal"><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a></div>
+    <div class="footer-legal"><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></div>
   </div>
 </footer>
 
 <!-- TOUR MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
-  <div class="modal"><div class="modal-box" id="modalBox" onclick="event.stopPropagation()"></div></div>
+<div class="modal-overlay" id="mOverlay" onclick="closeModal()">
+  <div class="modal-box" id="mBox" onclick="event.stopPropagation()"></div>
 </div>
 
-
-
 <script>
-/* ── HERO COUNTDOWN (right card) ── */
-(function heroTimer(){
-  var TARGET = new Date('2026-08-13T23:59:00+03:00');
-  function pad(n){return String(Math.floor(n)).padStart(2,'0');}
-  function tick(){
-    var diff = TARGET - new Date();
-    if(diff<0)diff=0;
-    var hcD=document.getElementById('hcD'),
-        hcH=document.getElementById('hcH'),
-        hcM=document.getElementById('hcM'),
-        hcS=document.getElementById('hcS');
-    if(hcD) hcD.textContent=pad(diff/864e5);
-    if(hcH) hcH.textContent=pad((diff%864e5)/36e5);
-    if(hcM) hcM.textContent=pad((diff%36e5)/6e4);
-    if(hcS) hcS.textContent=pad((diff%6e4)/1e3);
-  }
-  tick(); setInterval(tick,1000);
-})();
-
-/* ── Search select sync ── */
-function syncDestTag(){
-  var sel=document.getElementById('sbDestSel');
-  if(!sel)return;
-  var val=sel.value;
-  document.querySelectorAll('.hero-tag').forEach(function(t){
-    t.classList.toggle('active', t.getAttribute('onclick') && t.getAttribute('onclick').indexOf("'"+val+"'")>-1);
+/* ── COUNTDOWNS (hero card + section) ── */
+var DEADLINE=new Date('2026-08-13T23:59:00+03:00');
+function pad(n){return String(Math.floor(n)).padStart(2,'0');}
+function ticks(){
+  var d=DEADLINE-new Date();if(d<0)d=0;
+  var IDs=[['hcD','cdD'],['hcH','cdH'],['hcM','cdM'],['hcS','cdS']];
+  var vals=[d/864e5,(d%864e5)/36e5,(d%36e5)/6e4,(d%6e4)/1e3];
+  IDs.forEach(function(pair,i){
+    pair.forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=pad(vals[i]);});
   });
 }
-function pickTag(el,dest){
-  document.querySelectorAll('.hero-tag').forEach(function(t){t.classList.remove('active');});
-  el.classList.add('active');
-  var sel=document.getElementById('sbDestSel');
-  if(sel)sel.value=dest;
-}
+ticks(); setInterval(ticks,1000);
 
-/* ── Social proof urgency TICKER ── */
-(function spTicker(){
-  var EVENTS=[
-    {init:'S',name:'Sarah K.',action:'just booked Masai Mara Big Five',time:'2 mins ago'},
-    {init:'L',name:'Luca M.',action:'reserved a spot on the Migration Safari',time:'5 mins ago'},
-    {init:'A',name:'Amara J.',action:'booked Amboseli Elephants & Kilimanjaro',time:'8 mins ago'},
-    {init:'F',name:'Felix H.',action:'enquired about Zanzibar Stone Town tour',time:'11 mins ago'},
-    {init:'P',name:'Priya R.',action:'left a 5★ review for Karura Forest Walk',time:'14 mins ago'},
-    {init:'C',name:'Carlos R.',action:'just paid deposit on Serengeti Safari',time:'18 mins ago'},
-    {init:'Y',name:'Yuki T.',action:'booked Kilimanjaro Marangu Route',time:'22 mins ago'},
-    {init:'D',name:'Daniel O.',action:'reserved the last spot on Diani Dhow Cruise',time:'31 mins ago'},
-  ];
-  var ticker=document.createElement('div');
-  ticker.id='wb-ticker';
-  ticker.innerHTML='<div class="ticker-inner" id="tickerInner"></div>';
-  document.body.appendChild(ticker);
-  var idx=0;
-  function showNext(){
-    var e=EVENTS[idx%EVENTS.length];idx++;
-    var inner=document.getElementById('tickerInner');
-    if(!inner)return;
-    inner.innerHTML=
-      '<div class="ticker-card">'+
-        '<div class="ticker-avatar">'+e.init+'</div>'+
-        '<div class="ticker-text">'+
-          '<div class="ticker-name">'+e.name+'</div>'+
-          '<div class="ticker-action">'+e.action+'</div>'+
-        '</div>'+
-        '<div class="ticker-time">'+e.time+'</div>'+
-      '</div>';
-    ticker.classList.add('show');
-    setTimeout(function(){ticker.classList.remove('show');},4500);
-  }
-  // First show after 8s, then every 18s
-  setTimeout(function(){showNext();setInterval(showNext,18000);},8000);
-})();
-
-/* ── NAV ── */
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50), {passive:true});
+/* ── NAV scroll ── */
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>50);},{passive:true});
 
 /* ── Mobile menu ── */
-function openMobileMenu(){document.getElementById('mobileMenu').classList.add('open');document.body.style.overflow='hidden';}
-function closeMobileMenu(){document.getElementById('mobileMenu').classList.remove('open');document.body.style.overflow='';}
+function openMM(){document.getElementById('mm').classList.add('open');document.body.style.overflow='hidden';}
+function closeMM(){document.getElementById('mm').classList.remove('open');document.body.style.overflow='';}
 
-/* ── Particles ── */
-const pc = document.getElementById('heroParticles');
-for(let i=0;i<70;i++){
-  const p=document.createElement('div');
-  p.className='particle';
-  const s=Math.random()*2.2+.8;
-  p.style.cssText=`width:${s}px;height:${s}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-duration:${2+Math.random()*5}s;animation-delay:${Math.random()*6}s;`;
-  pc.appendChild(p);
+/* ── Stars ── */
+var sc=document.getElementById('heroStars');
+for(var i=0;i<65;i++){
+  var s=document.createElement('div');s.className='star';
+  var sz=Math.random()*2+.6;
+  s.style.cssText='width:'+sz+'px;height:'+sz+'px;top:'+Math.random()*100+'%;left:'+Math.random()*100+'%;animation-duration:'+(2+Math.random()*4.5)+'s;animation-delay:'+Math.random()*5+'s;';
+  sc.appendChild(s);
 }
 
 /* ── Marquee ── */
-const MARQUEE=['🦁 Big Five Safari','🏔 Kilimanjaro Trek','🌊 Diani Dhow Cruise','🐘 Amboseli Elephants','🦒 Hell Gate Cycling','🏝 Zanzibar Spice Tour','🦏 Ol Pejeta Rhinos','🐆 Serengeti Migration','🦅 Nakuru Flamingos','🌋 Mount Kenya Climb','🤿 Watamu Marine Park','🏛 Nairobi City Walk'];
-const t=document.getElementById('marqueeTrack');
-const db=[...MARQUEE,...MARQUEE];
-t.innerHTML=db.map(x=>`<div class="marquee-item"><span class="marquee-gem"></span>${x}</div>`).join('');
+var MQ=['🦁 Big Five Safari','🏔 Kilimanjaro Trek','🌊 Diani Dhow Cruise','🐘 Amboseli Elephants','🚴 Hell Gate Cycling','🏝 Zanzibar Spice Tour','🦏 Ol Pejeta Rhinos','🐆 Serengeti Migration','🦅 Nakuru Flamingos','🌋 Mount Kenya Climb','🤿 Watamu Marine Park','🏛 Nairobi City Walk'];
+var tr=document.getElementById('mqTrack');
+var db=[...MQ,...MQ];
+tr.innerHTML=db.map(function(x){return'<div class="mq-item"><span class="mq-gem"></span>'+x+'</div>';}).join('');
 
-/* ── Hero tags ── */
-function pickTag(el, dest) {
-  document.querySelectorAll('.hero-tag').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
-  const d = document.getElementById('sbDest');
-  d.textContent = el.textContent.replace(/^.\s/,'');
-  d.classList.remove('ph');
+/* ── Tags ── */
+function pickTag(el,dest){
+  document.querySelectorAll('.htag').forEach(function(t){t.classList.remove('on');});
+  el.classList.add('on');
+  var sel=document.getElementById('selDest');
+  if(sel)sel.value=dest;
+}
+function syncTag(){
+  var v=document.getElementById('selDest').value;
+  document.querySelectorAll('.htag').forEach(function(t){
+    t.classList.toggle('on',t.getAttribute('onclick')&&t.getAttribute('onclick').indexOf("'"+v+"'")>-1);
+  });
 }
 
 /* ── Search ── */
 function doSearch(){
-  var sel=document.getElementById('sbDestSel');
-  var val=sel?sel.value:'';
-  window.location.href='tours.html'+(val?'?dest='+encodeURIComponent(val):'');
+  var dest=document.getElementById('selDest').value;
+  window.location.href='tours.html'+(dest?'?dest='+encodeURIComponent(dest):'');
 }
-function goSearch(){window.location.href='tours.html';}
 
-
-
-/* ── TOUR DATA ── */
-const TOURS=[
-  {id:'mara-big5',cat:'Safari',dest:'Masai Mara',img:'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=700&q=80',name:'Masai Mara Big Five Game Drive',dur:'Full day · 10h',group:'Max 6',rating:4.97,reviews:312,price:12500,deposit:3750,countdown:{label:'Fills fast',cls:'urgent',spots:1},
-   tags:['Big Five','Private 4×4','Sunrise Start'],desc:'A private sunrise game drive through the Mara Triangle — the world\'s most dramatic wildlife theatre. We track lions, elephants, leopards, buffalo and rhino across open savanna. Lunch in the bush, sundowner on the way back.',
-   includes:['Private 4×4 + driver-guide','Park entry fees','Bush lunch & drinks','Sundowner','Return Nairobi transfer'],
-   itinerary:['3:30am — Nairobi pickup','6am — Enter Mara at golden hour','Morning — Big Five tracking','12pm — Bush lunch by a waterhole','Afternoon — Continue game viewing','5:30pm — Sundowner on the plains','7pm — Return drive to Nairobi']},
-  {id:'nairobi-walk',cat:'Walking',dest:'Nairobi',img:'https://images.unsplash.com/photo-1611348524140-53c9a25263d6?w=700&q=80',name:'Nairobi City Walking Tour',dur:'2h 30m',group:'Max 16',rating:4.96,reviews:1240,price:0,deposit:0,countdown:{label:'Daily departures',cls:'open',spots:12},
-   tags:['History','Culture','Markets','Parliament'],desc:'Nairobi\'s essential walk — Parliament, KICC, Jamia Mosque, City Market, the August 7th Memorial Park and Maasai Market. Led by our in-house city guide, this tour reveals the soul of Kenya\'s capital.',
+/* ── TOURS DATA ── */
+var TOURS=[
+  {id:'migration',cat:'Safari',dest:'Masai Mara',img:'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=700&q=80',name:'Masai Mara Great Migration Safari — 7 Days',dur:'7 days · 6 nights',group:'Max 8',rating:4.98,reviews:156,price:95000,deposit:28500,spots:2,total:8,
+   tags:['Great Migration','Private 4×4','Luxury Camp','Big Five'],badge:'urgent',badgeLabel:'🔴 2 spots left',
+   desc:'The greatest wildlife spectacle on earth. 1.5 million wildebeest crossing the Mara River, predators in pursuit, private vehicle at first light. Six nights luxury tented camp, full board, guided morning and evening drives.',
+   includes:['All park & conservancy fees','Luxury tented camp × 6 nights','Full board throughout','Private 4×4 + expert guide','All internal transfers','Sundowners daily'],
+   itinerary:['Day 1: Nairobi → Masai Mara, afternoon drive','Days 2–6: Full-day game drives, migration tracking','Day 5: Maasai village + cultural dinner','Day 7: Morning drive, return Nairobi']},
+  {id:'mara-big5',cat:'Safari',dest:'Masai Mara',img:'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=700&q=80',name:'Masai Mara Big Five Game Drive',dur:'Full day · 10h',group:'Max 6',rating:4.97,reviews:312,price:12500,deposit:3750,spots:3,total:6,
+   tags:['Big Five','Private 4×4','Sunrise Start','Bush Lunch'],badge:'soon',badgeLabel:'3 spots left',
+   desc:'A private sunrise game drive through the Mara Triangle. We track lion, elephant, leopard, buffalo and rhino. Lunch in the bush, sundowner on the plains.',
+   includes:['Private 4×4 + guide','Park entry fees','Bush lunch & drinks','Sundowner','Return Nairobi transfer'],
+   itinerary:['3:30am — Nairobi pickup','6am — Enter Mara at golden hour','Morning — Big Five tracking','12pm — Bush lunch','5:30pm — Sundowner','7pm — Return']},
+  {id:'nairobi-walk',cat:'Walking',dest:'Nairobi',img:'https://images.unsplash.com/photo-1611348524140-53c9a25263d6?w=700&q=80',name:'Nairobi City Walking Tour',dur:'2h 30m',group:'Max 16',rating:4.96,reviews:1240,price:0,deposit:0,spots:12,total:16,
+   tags:['History','Culture','Markets','Parliament'],badge:'open',badgeLabel:'Daily departures',
+   desc:'Nairobi\'s essential walk. Parliament, KICC, Jamia Mosque, City Market, August 7th Memorial and Maasai Market — led by our resident city guide.',
    includes:['Expert Wildbosses guide','Walking route map','Photography stops','Maasai Market visit'],
-   itinerary:['9am — Dedan Kimathi Statue','9:30am — Parliament & KICC','10am — Jamia Mosque','10:30am — City Market','11am — August 7th Memorial','11:30am — Maasai Market']},
-  {id:'amboseli',cat:'Safari',dest:'Amboseli',img:'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=700&q=80',name:'Amboseli Elephants & Kilimanjaro Views',dur:'2 days · 1 night',group:'Max 8',rating:4.93,reviews:412,price:28000,deposit:8400,countdown:{label:'3 spots left',cls:'soon',spots:3},
-   tags:['Elephants','Kilimanjaro','Overnight','Photography'],desc:'The most photogenic safari in Kenya — herds of elephants moving across the Amboseli flats with Kilimanjaro dominating the horizon at dawn. We stay overnight in a classic tented camp at the park boundary.',
-   includes:['Return Nairobi transfer','All park entry fees','Overnight tented camp','Full board × 2 days','Sunrise & sunset drives'],
-   itinerary:['Day 1: Nairobi → Amboseli, afternoon game drive','Overnight: Tented camp','Day 2: Pre-dawn sunrise drive with Kilimanjaro, return to Nairobi']},
-  {id:'zanzibar',cat:'Culture',dest:'Zanzibar',img:'https://images.unsplash.com/photo-1516117172878-fd2c41f4a759?w=700&q=80',name:'Zanzibar Stone Town & Spice Farm',dur:'Full day · 8h',group:'Max 12',rating:4.91,reviews:623,price:9500,deposit:2850,countdown:{label:'Open',cls:'open',spots:8},
-   tags:['UNESCO','Spices','History','Food'],desc:'A full immersion into Zanzibar\'s layered history — Arab architecture, carved doors, Swahili cuisine and spice farms where vanilla, cloves and cinnamon grow wild. We finish with a seafood lunch and a dhow ride to Prison Island.',
-   includes:['Local guide','Stone Town walk (3h)','Spice farm visit','Prison Island dhow trip','Seafood lunch'],
-   itinerary:['9am — Stone Town walk','12pm — Forodhani Gardens lunch','2pm — Spice Farm','4pm — Prison Island boat trip','6pm — Return']},
-  {id:'diani',cat:'Beach',dest:'Diani',img:'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=700&q=80',name:'Diani Dhow Sunset Cruise',dur:'3h',group:'Max 14',rating:4.85,reviews:298,price:5500,deposit:1650,countdown:{label:'Selling fast',cls:'soon',spots:4},
-   tags:['Sunset','Dhow','Dolphins','Snorkelling'],desc:'Drift across the Indian Ocean on a traditional wooden dhow. We chase spinner dolphins, snorkel the coral reef, and drift back as the sun sets in fire over the horizon. Fresh coconut and sundowners included.',
-   includes:['Dhow charter','Snorkel gear','Life jackets','Drinks & fresh coconut','Dolphin spotting'],
-   itinerary:['4pm — Diani jetty departure','4:30pm — Dolphin encounter','5pm — Reef snorkel','6pm — Sundowner sail','7pm — Return']},
-  {id:'kilimanjaro',cat:'Adventure',dest:'Kilimanjaro',img:'https://images.unsplash.com/photo-1519923834699-ef0b7cde4712?w=700&q=80',name:'Kilimanjaro — Marangu Route 6 Days',dur:'6 days · 5 nights',group:'Max 8',rating:4.94,reviews:389,price:185000,deposit:55500,countdown:{label:'Next: Sep 2026',cls:'open',spots:6},
-   tags:['Summit','High Altitude','Huts','UNESCO'],desc:'Africa\'s highest peak at 5,895m — the roof of the continent. Our Marangu route ascent has an 89% summit success rate. We provide everything from porters to acclimatisation days, all meals included.',
-   includes:['All park & conservation fees','Hut accommodation × 5 nights','All meals during climb','Porters × 2 per climber','Certified Wildbosses mountain guide','Summit certificate'],
-   itinerary:['Day 1-2: Moshi, briefing & gear check','Day 3: Mandara Huts (2,720m)','Day 4: Horombo Huts (3,720m)','Day 5: Kibo Huts (4,700m)','Day 6: Uhuru Peak summit & descent']},
+   itinerary:['9am — Dedan Kimathi Statue','9:30am — Parliament & KICC','10am — Jamia Mosque & City Market','10:30am — August 7th Memorial','11am — Maasai Market']},
+  {id:'amboseli',cat:'Safari',dest:'Amboseli',img:'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=700&q=80',name:'Amboseli Elephants & Kilimanjaro Views',dur:'2 days · 1 night',group:'Max 8',rating:4.93,reviews:412,price:28000,deposit:8400,spots:3,total:8,
+   tags:['Elephants','Kilimanjaro','Overnight','Photography'],badge:'soon',badgeLabel:'3 spots left',
+   desc:'The most photogenic safari in Kenya. Elephant herds crossing the Amboseli flats with Kilimanjaro above them at dawn. Overnight in a classic tented camp at the park boundary.',
+   includes:['Return Nairobi transfer','All park fees','Tented camp × 1 night','Full board × 2 days','Sunrise & sunset drives'],
+   itinerary:['Day 1: Nairobi → Amboseli, afternoon game drive, overnight camp','Day 2: Pre-dawn Kilimanjaro sunrise, brunch, return']},
+  {id:'zanzibar',cat:'Culture',dest:'Zanzibar',img:'https://images.unsplash.com/photo-1516117172878-fd2c41f4a759?w=700&q=80',name:'Zanzibar Stone Town & Spice Farm',dur:'Full day · 8h',group:'Max 12',rating:4.91,reviews:623,price:9500,deposit:2850,spots:8,total:12,
+   tags:['UNESCO','Spices','History','Seafood Lunch'],badge:'open',badgeLabel:'Open for booking',
+   desc:'Arab architecture, carved doors, Swahili cuisine. The spice farm awakens every sense. We finish with a seafood lunch and a dhow trip to Prison Island.',
+   includes:['Local guide','Stone Town walk (3h)','Spice Farm','Prison Island dhow trip','Seafood lunch'],
+   itinerary:['9am — Stone Town walk','12pm — Forodhani Gardens lunch','2pm — Spice Farm','4pm — Prison Island','6pm — Return']},
+  {id:'kilimanjaro',cat:'Adventure',dest:'Kilimanjaro',img:'https://images.unsplash.com/photo-1519923834699-ef0b7cde4712?w=700&q=80',name:'Kilimanjaro — Marangu Route 6 Days',dur:'6 days · 5 nights',group:'Max 8',rating:4.94,reviews:389,price:185000,deposit:55500,spots:6,total:8,
+   tags:['Summit 5,895m','89% Success Rate','All meals','Porters'],badge:'open',badgeLabel:'Sep 2026 departure',
+   desc:'Africa\'s highest peak. Our Marangu route has an 89% summit success rate. We provide everything — porters, all meals, acclimatisation days, and a certified guide with 400+ successful summits.',
+   includes:['All park & conservation fees','Hut accommodation × 5 nights','All meals on mountain','Porters × 2 per climber','Certified guide','Summit certificate'],
+   itinerary:['Days 1–2: Moshi, briefing & gear','Day 3: Mandara Huts 2,720m','Day 4: Horombo Huts 3,720m','Day 5: Kibo Huts 4,700m','Day 6: Uhuru Peak 5,895m & descent']},
 ];
 
 /* ── Render featured tours ── */
-const FAV_KEY='wb_favs';
-const favs=JSON.parse(localStorage.getItem(FAV_KEY)||'[]');
-function savFavs(){localStorage.setItem(FAV_KEY,JSON.stringify(favs));}
+var favs=JSON.parse(localStorage.getItem('wb_favs')||'[]');
+function savFavs(){localStorage.setItem('wb_favs',JSON.stringify(favs));}
+var badgeCls={urgent:'badge-urgent',soon:'badge-soon',open:'badge-open'};
 
-function buildCountdown(c){
-  const map={urgent:'🔴',soon:'🟡',open:'🟢',full:'⚫'};
-  return `<div class="tc-countdown ${c.cls}">${map[c.cls]||''} ${c.label}</div>`;
-}
-
-document.getElementById('featuredTours').innerHTML=TOURS.map((t,i)=>{
-  const isFree=t.price===0;
-  const isSaved=favs.includes(t.id);
-  return `<div class="tour-card reveal reveal-d${(i%3)+1}" onclick="openTourModal('${t.id}')" style="cursor:pointer;">
-    <div class="tc-img">
-      <img src="${t.img}" alt="${t.name}" loading="lazy"/>
-      <div class="tc-overlay"></div>
-      ${buildCountdown(t.countdown)}
-      <button class="tc-fav${isSaved?' saved':''}" onclick="event.stopPropagation();toggleFav(this,'${t.id}')" aria-label="Save">${isSaved?'♥':'♡'}</button>
-      <div class="tc-rating">★ ${t.rating} <span style="opacity:.5;">(${t.reviews.toLocaleString()})</span></div>
-    </div>
-    <div class="tc-body">
-      <div class="tc-cat">${t.cat} · ${t.dest}</div>
-      <div class="tc-name">${t.name}</div>
-      <div class="tc-meta">
-        <span class="tc-pill">⏱ ${t.dur}</span>
-        <span class="tc-pill">👥 ${t.group}</span>
-        ${t.countdown.spots<=3&&t.countdown.spots>0?`<span class="tc-pill" style="background:rgba(214,62,21,.08);border-color:rgba(214,62,21,.18);color:var(--ember);">🔴 ${t.countdown.spots} spot${t.countdown.spots>1?'s':''} left</span>`:''}
-      </div>
-      <div class="tc-foot">
-        <div>
-          <div class="tc-price-label">${isFree?'Pay what you want':'From'}</div>
-          <div class="tc-price-val${isFree?' free':''}">
-            ${isFree?'Free':`KES ${t.price.toLocaleString()}`}
-          </div>
-          <div class="tc-price-per">${isFree?'Tip appreciated':'/person'}</div>
-        </div>
-        <button class="tc-cta${t.deposit&&!isFree?' deposit':''}">${isFree?'Reserve spot':t.countdown.spots<=3&&t.countdown.spots>0?'Pay deposit':'Book now'}</button>
-      </div>
-    </div>
-  </div>`;
+document.getElementById('featuredTours').innerHTML=TOURS.map(function(t){
+  var isFree=t.price===0,isSaved=favs.indexOf(t.id)>-1;
+  var isUrgent=t.spots<=2&&t.spots>0;
+  return '<div class="tour-card reveal" onclick="openTourModal(\''+t.id+'\')" tabindex="0" role="button" aria-label="'+t.name+'">'+
+    '<div class="tc-img">'+
+      '<img src="'+t.img+'" alt="'+t.name+' — Wildbosses Kenya" loading="lazy"/>'+
+      '<div class="tc-overlay"></div>'+
+      '<div class="tc-badge '+badgeCls[t.badge]+'">'+t.badgeLabel+'</div>'+
+      '<button class="tc-fav'+(isSaved?' saved':'')+'" onclick="event.stopPropagation();toggleFav(this,\''+t.id+'\')" aria-label="Save">'+
+        (isSaved?'♥':'♡')+'</button>'+
+      '<div class="tc-rating">★ '+t.rating+' <span style="opacity:.45;">('+t.reviews.toLocaleString()+')</span></div>'+
+    '</div>'+
+    '<div class="tc-body">'+
+      '<div class="tc-cat">'+t.cat+' · '+t.dest+'</div>'+
+      '<div class="tc-name">'+t.name+'</div>'+
+      '<div class="tc-meta">'+
+        '<span class="tc-pill">⏱ '+t.dur+'</span>'+
+        '<span class="tc-pill">👥 '+t.group+'</span>'+
+        (isUrgent?'<span class="tc-pill hot">🔴 '+t.spots+' spot'+(t.spots>1?'s':'')+' left</span>':'')+
+      '</div>'+
+      '<div class="tc-foot">'+
+        '<div>'+
+          '<div class="tc-price-lbl">'+(isFree?'Pay what you want':'From')+'</div>'+
+          '<div class="tc-price'+(isFree?' free':'')+'">'+
+            (isFree?'Free':'KES '+t.price.toLocaleString())+
+          '</div>'+
+          (!isFree?'<div class="tc-per">/person</div>'+(t.deposit?'<div class="tc-dep">Deposit KES '+t.deposit.toLocaleString()+'</div>':''):'')+
+        '</div>'+
+        '<button class="tc-cta'+(isUrgent&&!isFree?' dep':'')+'" onclick="event.stopPropagation();openTourModal(\''+t.id+'\')">'+(isFree?'Reserve spot':isUrgent?'Pay deposit':'Book now')+'</button>'+
+      '</div>'+
+    '</div>'+
+  '</div>';
 }).join('');
 
-/* ── Favourites ── */
+/* ── Favs ── */
 function toggleFav(btn,id){
-  const idx=favs.indexOf(id);
-  if(idx>-1){favs.splice(idx,1);btn.classList.remove('saved');btn.textContent='♡';}
+  var i=favs.indexOf(id);
+  if(i>-1){favs.splice(i,1);btn.classList.remove('saved');btn.textContent='♡';}
   else{favs.push(id);btn.classList.add('saved');btn.textContent='♥';}
-  savFavs(); showToast(idx>-1?'Removed from wishlist':'Added to wishlist ♥');
+  savFavs();
+  if(window.wbToast)window.wbToast(i>-1?'Removed from wishlist':'Saved to wishlist ♥');
 }
 
-/* ── Tour modal ── */
+/* ── Modal ── */
 function openTourModal(id){
-  const t=TOURS.find(x=>x.id===id);
+  var t=TOURS.find(function(x){return x.id===id;});
   if(!t)return;
-  const isFree=t.price===0;
-  const isSaved=favs.includes(t.id);
-  document.getElementById('modalBox').innerHTML=`
-    <div class="modal-img">
-      <img src="${t.img}" alt="${t.name}" loading="eager"/>
-      <div class="modal-img-overlay"></div>
-      <button class="modal-close" onclick="closeModal()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-    </div>
-    <div class="modal-body">
-      <div class="modal-eyebrow">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/></svg>
-        ${t.cat} · ${t.dest}
-      </div>
-      <div class="modal-title">${t.name}</div>
-      <div class="modal-quick">
-        <div class="mq-cell"><div class="mq-label">Duration</div><div class="mq-val">${t.dur}</div></div>
-        <div class="mq-cell"><div class="mq-label">Group</div><div class="mq-val">${t.group}</div></div>
-        <div class="mq-cell"><div class="mq-label">Rating</div><div class="mq-val" style="color:var(--gold);">★ ${t.rating}</div></div>
-      </div>
-      ${t.countdown.spots<=4&&t.countdown.spots>0?`<div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--r-md);background:rgba(214,62,21,.06);border:1px solid rgba(214,62,21,.16);margin-bottom:16px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D63E15" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span style="font-family:var(--font-b);font-size:13px;color:var(--ember);font-weight:600;">Only ${t.countdown.spots} spot${t.countdown.spots>1?'s':''} remaining — this departure is almost full</span></div>`:''}
-      <div class="modal-desc">${t.desc}</div>
-      ${t.itinerary?`<div style="font-family:var(--font-d);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:10px;">What you'll do</div><div class="modal-itinerary">${t.itinerary.map((s,i)=>`<div class="mit"><div class="mit-num">${i+1}</div><div class="mit-text">${s}</div></div>`).join('')}</div>`:''}
-      ${t.includes?`<div style="font-family:var(--font-d);font-size:14px;font-weight:600;color:var(--ink);margin-bottom:10px;margin-top:18px;">What's included</div><div class="modal-includes">${t.includes.map(x=>`<div class="mi"><svg class="mi-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>${x}</div>`).join('')}</div>`:''}
-      <div class="modal-cta-box">
-        <div class="mcb-row">
-          <div>
-            <div class="mcb-price-note">${isFree?'This tour is free':'Starting from'}</div>
-            <span class="mcb-price${isFree?' free':''}">${isFree?'Free':`KES ${t.price.toLocaleString()}`}</span>
-            ${!isFree?`<span class="mcb-per"> /person</span>`:''}
-            ${!isFree&&t.deposit?`<div class="mcb-deposit">30% deposit = KES ${t.deposit.toLocaleString()} to secure your spot</div>`:''}
-          </div>
-          <div style="text-align:right;font-family:var(--font-b);font-size:12px;color:var(--ink-ghost);">★ ${t.rating} · ${t.reviews.toLocaleString()} reviews</div>
-        </div>
-        <div class="mcb-btns">
-          <button class="mcb-book${!isFree&&t.deposit?' deposit':''}" onclick="bookTour('${t.id}')">${isFree?'Reserve a spot':t.countdown.spots<=3?'Pay deposit — secure your spot':'Book this tour'}</button>
-          <button class="mcb-wish${isSaved?' saved':''}" onclick="toggleFavModal(this,'${t.id}')">${isSaved?'♥':'♡'}</button>
-        </div>
-      </div>
-    </div>`;
-  document.getElementById('modalOverlay').classList.add('open');
+  var isFree=t.price===0,isSaved=favs.indexOf(t.id)>-1,isUrgent=t.spots>0&&t.spots<=4;
+  document.getElementById('mBox').innerHTML=
+    '<div class="m-img">'+
+      '<img src="'+t.img+'" alt="'+t.name+'" loading="eager"/>'+
+      '<div class="m-img-grad"></div>'+
+      '<button class="m-x" onclick="closeModal()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg></button>'+
+    '</div>'+
+    '<div class="m-body">'+
+      '<div class="m-eye">'+t.cat+' · '+t.dest+'</div>'+
+      '<div class="m-title">'+t.name+'</div>'+
+      '<div class="m-quick">'+
+        '<div class="mq"><div class="mq-l">Duration</div><div class="mq-v">'+t.dur+'</div></div>'+
+        '<div class="mq"><div class="mq-l">Group</div><div class="mq-v">'+t.group+'</div></div>'+
+        '<div class="mq"><div class="mq-l">Rating</div><div class="mq-v" style="color:#C48A00">★ '+t.rating+' <span style="font-size:10px;color:#96B09A">('+t.reviews.toLocaleString()+')</span></div></div>'+
+      '</div>'+
+      (isUrgent?'<div class="m-alert"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>Only '+t.spots+' spot'+(t.spots>1?'s':'')+' remaining — this departure is almost full</p></div>':'')+
+      '<div class="m-desc">'+t.desc+'</div>'+
+      (t.itinerary?'<div class="m-sh">What you\'ll do</div><div class="m-stops">'+t.itinerary.map(function(s,i){return'<div class="m-stop"><div class="m-sn">'+(i+1)+'</div><div class="m-st">'+s+'</div></div>';}).join('')+'</div>':'')+
+      (t.includes?'<div class="m-sh" style="margin-top:16px">What\'s included</div><div class="m-incs">'+t.includes.map(function(x){return'<div class="m-inc"><svg class="m-chk" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>'+x+'</div>';}).join('')+'</div>':'')+
+      '<div class="m-cta-box">'+
+        '<div class="m-top-row">'+
+          '<div>'+
+            '<div class="m-plbl">'+(isFree?'This tour is free':'From')+'</div>'+
+            '<span class="m-price'+(isFree?' free':'')+'">'+(isFree?'Free':'KES '+t.price.toLocaleString())+'</span>'+
+            (!isFree?'<span class="m-pper"> /person</span>':'')+
+            (!isFree&&t.deposit?'<div class="m-dep-note">30% deposit = KES '+t.deposit.toLocaleString()+' secures your spot</div>':'')+
+          '</div>'+
+          '<div class="m-rat">★ <strong>'+t.rating+'</strong><br><span>'+t.reviews.toLocaleString()+' reviews</span></div>'+
+        '</div>'+
+        '<div class="m-btns">'+
+          '<button class="m-book'+(isUrgent&&!isFree?' dep':'')+'" onclick="bookTour(\''+t.id+'\')">'+
+            (isFree?'Reserve a spot':isUrgent?'Pay deposit — secure your spot':'Book this tour')+
+          '</button>'+
+          '<button class="m-save'+(isSaved?' saved':'')+'" onclick="toggleFavM(this,\''+t.id+'\')">'+(isSaved?'♥':'♡')+'</button>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  document.getElementById('mOverlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
-function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';}
-function toggleFavModal(btn,id){
-  const idx=favs.indexOf(id);
-  if(idx>-1){favs.splice(idx,1);btn.classList.remove('saved');btn.textContent='♡';}
+function closeModal(){document.getElementById('mOverlay').classList.remove('open');document.body.style.overflow='';}
+function toggleFavM(btn,id){
+  var i=favs.indexOf(id);
+  if(i>-1){favs.splice(i,1);btn.classList.remove('saved');btn.textContent='♡';}
   else{favs.push(id);btn.classList.add('saved');btn.textContent='♥';}
-  savFavs(); showToast(idx>-1?'Removed from wishlist':'Saved to wishlist ♥');
-  // sync card
-  const card=document.querySelector(`[onclick*="${id}"] .tc-fav`);
-  if(card){card.classList.toggle('saved',idx===-1);card.textContent=idx===-1?'♥':'♡';}
+  savFavs();
+  var card=document.querySelector('[data-id="'+id+'"] .tc-fav');
+  if(card){card.classList.toggle('saved',i===-1);card.textContent=i===-1?'♥':'♡';}
+  if(window.wbToast)window.wbToast(i>-1?'Removed from wishlist':'Saved ♥');
 }
 function bookTour(id){
-  const t=TOURS.find(x=>x.id===id);
-  const msg=t?`Hi Wildbosses! I'd like to book "${t.name}".`:'Hi Wildbosses! I\'d like to book a tour.';
-  window.open(`https://wa.me/254796818671?text=${encodeURIComponent(msg)}`,'_blank');
+  var t=TOURS.find(function(x){return x.id===id;});
+  window.open('https://wa.me/254796818671?text='+encodeURIComponent('Hi Wildbosses! I\'d like to book "'+( t?t.name:'a tour')+'".'),'_blank');
 }
 
 /* ── Testimonials ── */
-const TESTIS=[
-  {n:'Sarah K.',from:'London, UK',init:'S',stars:5,tour:'Masai Mara Big Five',q:'Absolutely life-changing. The guide spotted a leopard kill at sunrise that none of the other vehicles even knew was happening. Professional, warm and genuinely passionate.'},
-  {n:'Luca M.',from:'Milan, Italy',init:'L',stars:5,tour:'Nairobi City Walk',q:'The most engaging 2.5 hours I\'ve spent in any city in the world. Our guide brought every building, every story and every market to life. Booked the safari the same day.'},
-  {n:'Amara J.',from:'Toronto, Canada',init:'A',stars:5,tour:'Amboseli Overnight Safari',q:'Watching elephants move across the Amboseli plains with Kilimanjaro above them at dawn. I wept. Wildbosses handled every detail perfectly.'},
-  {n:'Felix H.',from:'Berlin, Germany',init:'F',stars:5,tour:'Zanzibar Stone Town',q:'The spice farm alone justified the trip. Wildbosses didn\'t just show us Stone Town — they connected us to it through stories that go back 200 years.'},
-  {n:'Priya R.',from:'Singapore',init:'P',stars:5,tour:'Karura Forest Walk',q:'A secret world inside Nairobi — waterfalls, monkeys, ancient caves. The guide knew every bird call. We had no idea this existed 20 minutes from our hotel.'},
-  {n:'Carlos R.',from:'Madrid, Spain',init:'C',stars:5,tour:'Serengeti Migration Safari',q:'Three river crossings in one day. The guide had tracked the wildebeest column for hours to position us perfectly. The greatest natural spectacle on earth, flawlessly guided.'},
+var TESTIS=[
+  {n:'Sarah K.',from:'London, UK',init:'S',stars:5,tour:'Masai Mara Big Five',q:'The guide spotted a leopard kill at sunrise that no other vehicle knew about. Professional, warm and genuinely passionate. Nothing I\'ve experienced in travel comes close.'},
+  {n:'Luca M.',from:'Milan, Italy',init:'L',stars:5,tour:'Nairobi City Walk',q:'The most engaging two hours I\'ve spent in any city in the world. Every building, every story, every market brought to life. I booked the Mara safari the same afternoon.'},
+  {n:'Amara J.',from:'Toronto, Canada',init:'A',stars:5,tour:'Amboseli Overnight',q:'Elephants moving across the Amboseli plains with Kilimanjaro above them at dawn. I wept. Wildbosses handled every single detail perfectly. Life-changing.'},
+  {n:'Felix H.',from:'Berlin, Germany',init:'F',stars:5,tour:'Zanzibar Stone Town',q:'The spice farm alone justified the entire trip. Wildbosses didn\'t just show us Stone Town — they connected us to 200 years of history through stories that felt personal.'},
+  {n:'Priya R.',from:'Singapore',init:'P',stars:5,tour:'Karura Forest Walk',q:'A secret world inside Nairobi — waterfalls, monkeys, ancient caves, incredible birds. The guide knew every call. We had no idea this existed 20 minutes from our hotel.'},
+  {n:'Carlos R.',from:'Madrid, Spain',init:'C',stars:5,tour:'Serengeti Migration',q:'Three river crossings in one day. The guide had tracked the wildebeest column for hours to position us perfectly. The greatest natural spectacle on earth, perfectly guided.'},
 ];
-document.getElementById('testiGrid').innerHTML=TESTIS.map(t=>`
-<div class="testi-card">
-  <div class="testi-stars">${'★'.repeat(t.stars)}</div>
-  <div class="testi-quote">"${t.q}"</div>
-  <div class="testi-author">
-    <div class="testi-avatar">${t.init}</div>
-    <div>
-      <div class="testi-name">${t.n}</div>
-      <div class="testi-meta">${t.from} · ${t.tour}</div>
-    </div>
-  </div>
-</div>`).join('');
+document.getElementById('testiGrid').innerHTML=TESTIS.map(function(t){
+  return '<div class="testi-card">'+
+    '<div class="testi-stars">'+'★'.repeat(t.stars)+'</div>'+
+    '<div class="testi-quote">"'+t.q+'"</div>'+
+    '<div class="testi-author">'+
+      '<div class="testi-av">'+t.init+'</div>'+
+      '<div>'+
+        '<div class="testi-name">'+t.n+'</div>'+
+        '<div class="testi-meta">'+t.from+' · '+t.tour+'</div>'+
+      '</div>'+
+    '</div>'+
+  '</div>';
+}).join('');
+
+/* ── Social proof ticker ── */
+var TEVENTS=[
+  {init:'S',name:'Sarah K.',action:'just booked Masai Mara Big Five',time:'2 mins ago'},
+  {init:'L',name:'Luca M.',action:'reserved a spot on the Migration Safari',time:'5 mins ago'},
+  {init:'A',name:'Amara J.',action:'booked Amboseli Elephants & Kilimanjaro',time:'8 mins ago'},
+  {init:'F',name:'Felix H.',action:'enquired about Zanzibar Stone Town',time:'11 mins ago'},
+  {init:'P',name:'Priya R.',action:'left a 5★ review for Karura Forest Walk',time:'14 mins ago'},
+  {init:'C',name:'Carlos R.',action:'just paid deposit on Serengeti Safari',time:'18 mins ago'},
+  {init:'Y',name:'Yuki T.',action:'booked Kilimanjaro Marangu Route',time:'22 mins ago'},
+];
+(function(){
+  var ticker=document.createElement('div');ticker.id='wb-ticker';
+  ticker.innerHTML='<div class="ticker-inner" id="tInner"></div>';
+  document.body.appendChild(ticker);
+  var idx=0;
+  function show(){
+    var e=TEVENTS[idx%TEVENTS.length];idx++;
+    var inner=document.getElementById('tInner');if(!inner)return;
+    inner.innerHTML='<div class="ticker-card">'+
+      '<div class="tick-av">'+e.init+'</div>'+
+      '<div style="flex:1;min-width:0">'+
+        '<div class="tick-name">'+e.name+'</div>'+
+        '<div class="tick-action">'+e.action+'</div>'+
+      '</div>'+
+      '<div class="tick-time">'+e.time+'</div>'+
+    '</div>';
+    ticker.classList.add('show');
+    setTimeout(function(){ticker.classList.remove('show');},4600);
+  }
+  setTimeout(function(){show();setInterval(show,19000);},9000);
+})();
 
 /* ── Reveal observer ── */
-const ro=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target);}});
-},{threshold:.08,rootMargin:'0px 0px -50px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
-
-/* ── Toast ── */
-function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
+if('IntersectionObserver' in window){
+  var ro=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}});},{threshold:.07,rootMargin:'0px 0px -44px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){ro.observe(el);});
+}else{document.querySelectorAll('.reveal').forEach(function(e){e.classList.add('in');});}
 </script>
 <script src="wb-shell.js"></script>
 </body>
