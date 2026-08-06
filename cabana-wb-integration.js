@@ -183,7 +183,7 @@
           '<div class="wb-sec-title">Safaris & Tours with <em>Wildbosses</em></div>' +
           '<div class="wb-sec-sub">Expert-led safaris, city walks and adventures across Kenya & Tanzania</div>' +
         '</div>' +
-        '<a href="https://wildbosses.com" target="_blank" class="wb-sec-link">All tours <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></a>' +
+        '<a href="https://wildbosses.com/tours" target="_blank" class="wb-sec-link">All tours <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></a>' +
       '</div>' +
       '<div class="wb-grid">' +
         tours.map(function(t) {
@@ -479,7 +479,7 @@
     },
   };
 
-  global.WBIntegration = WBIntegration;
+  W.WBIntegration = WBIntegration;
 
   /* ── Render when DOM is ready ── */
   whenReady(function() {
