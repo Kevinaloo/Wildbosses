@@ -211,6 +211,9 @@
     <span class="scroll-txt">Scroll</span>
   </div>
   <div class="hero-marquee"><div class="mq-track" id="mqTrack"></div></div>
+
+  <!-- ══ WB SHOWCASE DOCK — video/photo ad strip, visible above the fold ══ -->
+  <div id="wb-showcase-dock" data-wb-showcase style="position:relative;z-index:6;"></div>
 </section>
 
 <!-- STATS -->
@@ -628,5 +631,6 @@ if('IntersectionObserver' in window){
 }else{document.querySelectorAll('.reveal').forEach(function(e){e.classList.add('in');});}
 </script>
 <script src="wb-shell.js"></script>
+<script src="wb-showcase.js" defer></script>
 </body>
 </html>
