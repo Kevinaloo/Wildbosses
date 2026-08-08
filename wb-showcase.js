@@ -142,14 +142,15 @@
 }
 #wbsc-ticker .tk-sep { color: rgba(255,255,255,.16); font-size: 7px; }
 
-/* push everything below the fixed ticker */
+/* push nav below the fixed ticker */
 body { padding-top: 32px !important; }
-.nav { top: 32px !important; }
+.nav  { top: 32px !important; }
 
-/* ── SHOWCASE BLOCK: cinematic hero + carousel ── */
+/* showcase block sits in normal flow between nav and main hero */
 #wbsc-block {
   width: 100%;
   background: #030F06;
+  margin-top: 64px; /* clear the fixed nav (64px tall) */
 }
 
 /* cinematic hero */
@@ -366,25 +367,14 @@ body { padding-top: 32px !important; }
     if (!ticker.parentNode) document.body.insertAdjacentElement('afterbegin', ticker);
   }
 
-  /* ════════ SHOWCASE BLOCK (after stats bar) ════════ */
+  /* ════════ SHOWCASE BLOCK — renders into #wb-showcase-dock ════════ */
   function buildBlock(heroPool, carPool) {
-    // Find or create the block — insert right after .stats-bar
-    let block = document.getElementById('wbsc-block');
-    if (!block) {
-      block = document.createElement('div');
-      block.id = 'wbsc-block';
-      const statsBar = document.querySelector('.stats-bar');
-      if (statsBar && statsBar.parentNode) {
-        statsBar.parentNode.insertBefore(block, statsBar.nextSibling);
-      } else {
-        // fallback: after stats-bar or after hero section
-        const hero = document.querySelector('section.hero');
-        if (hero) hero.insertAdjacentElement('afterend', block);
-        else document.body.appendChild(block);
-      }
-    }
-    buildHero(block, heroPool);
-    buildCarousel(block, carPool);
+    const dock = document.getElementById('wb-showcase-dock');
+    if (!dock) return;
+    // Use dock as the block container directly
+    dock.id = 'wbsc-block';
+    buildHero(dock, heroPool);
+    buildCarousel(dock, carPool);
   }
 
   /* ════════ CINEMATIC HERO ════════ */
