@@ -27,6 +27,16 @@
     toast._t = setTimeout(function () { t.className = 'adm-toast'; }, 3400);
   }
   function money(n) { return n ? Number(n).toLocaleString('en-KE') : '0'; }
+
+  function ago(iso) {
+    if (!iso) return '';
+    var m = Math.floor((Date.now() - new Date(iso)) / 60000);
+    if (m < 1)    return 'just now';
+    if (m < 60)   return m + ' min ago';
+    if (m < 1440) return Math.floor(m / 60) + ' hr ago';
+    var d = Math.floor(m / 1440);
+    return d === 1 ? 'yesterday' : d + ' days ago';
+  }
   function dateOnly(v) { return v ? String(v).slice(0, 10) : ''; }
 
   /* ── auth ─────────────────────────────────────────────── */
@@ -70,6 +80,9 @@
     $('modal').addEventListener('click', function (e) {
       if (e.target === $('modal')) closeModal();
     });
+    D.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !$('modal').hidden) closeModal();
+    });
   }
 
   function enter(session) {
@@ -110,22 +123,46 @@
         el.innerHTML = '<div class="adm-empty">No hero cards yet. Add one to fill the homepage rail.</div>';
         return;
       }
+      var noPoster = 0;
       el.innerHTML = rows.map(function (v) {
-        var film = v.video_url && v.video_url.trim();
+        var film   = !!(v.video_url && v.video_url.trim());
+        var poster = !!(v.poster_url && v.poster_url.trim());
+        if (film && !poster) noPoster++;
+
+        var state = film && poster ? '<span class="adm-pill ok">Video + poster</span>'
+          : film ? '<span class="adm-pill warn">Video, no poster</span>'
+          : poster ? '<span class="adm-pill gold">Poster only</span>'
+          : '<span class="adm-pill warn">Nothing to show</span>';
+
         return '<div class="adm-card adm-row">' +
-          '<div class="adm-thumb"' + (v.poster_url ? ' style="background-image:url(' + esc(v.poster_url) + ')"' : '') + '></div>' +
+          '<div class="adm-thumb"' +
+            (poster ? ' style="background-image:url(' + esc(v.poster_url) + ')"' : '') + '>' +
+            (poster ? '' : 'no image') + '</div>' +
           '<div class="adm-row-main">' +
             '<b>' + esc(v.title) + '</b>' +
-            '<span>' + esc(v.subtitle || '—') + '</span>' +
-            '<span class="adm-pill' + (film ? ' ok' : '') + '">' +
-              (film ? 'Video uploaded' : 'Poster only — no video yet') + '</span>' +
-            (v.active ? '' : '<span class="adm-pill">Hidden</span>') +
+            '<span class="adm-sub">' + esc(v.subtitle || 'No subtitle') + '</span>' +
+            state +
+            (v.tour_id ? '<span class="adm-pill">Linked to a tour</span>'
+                       : '<span class="adm-pill warn">No countdown</span>') +
+            (v.active ? '' : '<span class="adm-pill warn">Hidden</span>') +
           '</div>' +
           '<div class="adm-row-act">' +
             '<button class="adm-btn adm-btn-ghost" data-edit-rail="' + v.id + '">Edit</button>' +
             '<button class="adm-btn adm-btn-bad" data-del-rail="' + v.id + '">Delete</button>' +
           '</div></div>';
       }).join('');
+
+      // the exact failure the owner just hit: film with no still behind it
+      if (noPoster) {
+        el.insertAdjacentHTML('afterbegin',
+          '<div class="adm-card" style="border-color:var(--ember)">' +
+          '<b style="color:var(--ember);font-size:13px">' + noPoster +
+          ' card' + (noPoster === 1 ? '' : 's') + ' with no poster image</b>' +
+          '<p style="margin:6px 0 0;font-size:13px;color:var(--ink-2);line-height:1.55">' +
+          'Until the film has downloaded enough to play, the card shows its poster. ' +
+          'Without one it shows nothing, which is why those cards look black on a ' +
+          'slow connection. Add a still to each and they will always read.</p></div>');
+      }
       el.querySelectorAll('[data-edit-rail]').forEach(function (b) {
         b.onclick = function () {
           railEditor(rows.filter(function (x) { return x.id === b.dataset.editRail; })[0]);
@@ -157,14 +194,25 @@
         '<form id="railForm" class="adm-form">' +
           field('Title', 'title', v.title, 'text', 'Shown big on the card, e.g. MAASAI MARA') +
           field('Subtitle', 'subtitle', v.subtitle, 'text', 'One short line under the title') +
-          '<label>Linked tour<em>The countdown uses this tour\u2019s departure date</em>' +
+          '<label>Linked tour<em>The countdown on the card reads this tour\u2019s ' +
+            'departure date. Without a linked tour the card shows no countdown.</em>' +
             '<select name="tour_id">' + opts + '</select></label>' +
-          '<label>Video<em>MP4 or WebM. Leave empty and the poster drifts instead.</em>' +
-            '<input type="file" id="vidFile" accept="video/mp4,video/webm,video/quicktime"/></label>' +
-          field('Video URL', 'video_url', v.video_url, 'text', 'Filled automatically after upload') +
-          '<label>Poster image<em>Shown while the video loads, and when there is no video</em>' +
-            '<input type="file" id="posFile" accept="image/*"/></label>' +
-          field('Poster URL', 'poster_url', v.poster_url, 'text') +
+          '<div class="adm-fieldset"><span class="adm-legend">The film</span>' +
+            '<label>Video file<em>MP4 works everywhere. Keep it to a 10\u201320 second ' +
+              'silent loop under 15 MB \u2014 anything heavier is slow for visitors on ' +
+              'mobile data.</em>' +
+              '<input type="file" id="vidFile" accept="video/mp4,video/webm,video/quicktime"/></label>' +
+            '<p class="adm-up" id="vidMsg"></p><div class="adm-bar"><i></i></div>' +
+            field('Video URL', 'video_url', v.video_url, 'text', 'Fills in by itself after upload') +
+          '</div>' +
+          '<div class="adm-fieldset"><span class="adm-legend">The poster \u2014 always add one</span>' +
+            '<label>Poster image<em>This is what visitors see while the film downloads. ' +
+              'A card with a film but no poster looks black until the video is ready.</em>' +
+              '<input type="file" id="posFile" accept="image/*"/></label>' +
+            '<p class="adm-up" id="posMsg"></p><div class="adm-bar"><i></i></div>' +
+            field('Poster URL', 'poster_url', v.poster_url, 'text') +
+            '<div class="adm-preview" id="posPrev"></div>' +
+          '</div>' +
           field('Order', 'sort_order', v.sort_order == null ? 0 : v.sort_order, 'number') +
           '<label class="adm-check"><input type="checkbox" name="active"' +
             (v.active === false ? '' : ' checked') + '/> Show on the homepage</label>' +
@@ -176,8 +224,15 @@
         '</form>'
       );
 
-      wireUpload('vidFile', 'hero-videos', 'video_url');
-      wireUpload('posFile', 'tour-photos', 'poster_url');
+      wireUpload('vidFile', 'hero-videos', 'video_url', 'vidMsg');
+      wireUpload('posFile', 'tour-photos', 'poster_url', 'posMsg');
+
+      var pf = D.querySelector('[name="poster_url"]'), pv = $('posPrev');
+      function drawPrev() {
+        if (pf.value.trim()) { pv.style.backgroundImage = 'url(' + pf.value.trim() + ')'; pv.classList.add('on'); }
+        else pv.classList.remove('on');
+      }
+      pf.addEventListener('input', drawPrev); drawPrev();
 
       $('railForm').addEventListener('submit', function (e) {
         e.preventDefault();
@@ -192,6 +247,11 @@
           active: f.active.checked
         };
         if (!row.title) return toast('A title is needed', true);
+        if (!row.video_url && !row.poster_url)
+          return toast('Add a video or a poster — the card would be blank', true);
+        if (row.video_url && !row.poster_url &&
+            !confirm('This card has a film but no poster.\n\nVisitors will see a blank ' +
+                     'card until the video downloads. Save it anyway?')) return;
         var q = v.id
           ? sb.from('hero_videos').update(row).eq('id', v.id)
           : sb.from('hero_videos').insert(row);
@@ -204,19 +264,49 @@
   }
 
   /* ── uploads ──────────────────────────────────────────── */
-  function wireUpload(inputId, bucket, targetName) {
+  function mb(n) { return (n / 1048576).toFixed(1) + ' MB'; }
+
+  function wireUpload(inputId, bucket, targetName, msgId) {
     var input = $(inputId); if (!input) return;
     input.addEventListener('change', function () {
       var file = input.files && input.files[0]; if (!file) return;
-      var msg = $('upMsg');
-      msg.textContent = 'Uploading ' + file.name + '…';
-      var path = Date.now() + '-' + file.name.replace(/[^\w.\-]/g, '_');
+      var msg = $(msgId || 'upMsg');
+      var bar = msg && msg.parentNode.querySelector('.adm-bar i');
+
+      // A phone recording can easily be 300MB. Say so before the upload
+      // rather than after it fails on the bucket limit.
+      var cap = bucket === 'hero-videos' ? 200 : 15;
+      if (file.size > cap * 1048576) {
+        msg.className = 'adm-up bad';
+        msg.textContent = file.name + ' is ' + mb(file.size) + '. The limit is ' +
+          cap + ' MB — please compress it first.';
+        input.value = '';
+        return;
+      }
+      if (bucket === 'hero-videos' && file.size > 40 * 1048576) {
+        msg.className = 'adm-up bad';
+        msg.textContent = 'Uploading ' + mb(file.size) + '. That is large — it will be ' +
+          'slow for visitors. A 10–20 second clip under 15 MB looks best.';
+      } else {
+        msg.className = 'adm-up';
+        msg.textContent = 'Uploading ' + file.name + ' (' + mb(file.size) + ')…';
+      }
+      if (bar) bar.style.width = '12%';
+
+      var path = Date.now() + '-' + file.name.replace(/[^\w.\-]/g, '_').slice(-70);
       sb.storage.from(bucket).upload(path, file, { cacheControl: '31536000', upsert: false })
         .then(function (r) {
-          if (r.error) { msg.textContent = 'Upload failed: ' + r.error.message; return; }
+          if (r.error) {
+            msg.className = 'adm-up bad';
+            msg.textContent = 'Upload failed: ' + r.error.message;
+            if (bar) bar.style.width = '0';
+            return;
+          }
           var url = sb.storage.from(bucket).getPublicUrl(path).data.publicUrl;
           var field = D.querySelector('[name="' + targetName + '"]');
-          if (field) field.value = url;
+          if (field) { field.value = url; field.dispatchEvent(new Event('input')); }
+          if (bar) bar.style.width = '100%';
+          msg.className = 'adm-up';
           msg.textContent = 'Uploaded. Press Save to publish it.';
         });
     });
@@ -298,7 +388,7 @@
         '</div><p class="adm-up" id="upMsg"></p>' +
       '</form>'
     );
-    wireUpload('tourImg', 'tour-photos', 'image');
+    wireUpload('tourImg', 'tour-photos', 'image', 'upMsg');
 
     $('tourForm').addEventListener('submit', function (e) {
       e.preventDefault();
@@ -337,21 +427,53 @@
     sb.from('bookings').select('*').order('created_at', { ascending: false }).limit(200)
       .then(function (r) {
         var rows = r.data || [], el = $('bookList');
+
+        var pending = rows.filter(function (b) { return b.status === 'pending'; }).length;
+        var unpaid  = rows.filter(function (b) { return b.payment_status !== 'paid'
+                                                     && b.status !== 'cancelled'; }).length;
+        var heads   = rows.filter(function (b) { return b.status === 'confirmed'; })
+                          .reduce(function (a, b) { return a + (b.guests || 0); }, 0);
+
+        var tab = D.querySelector('[data-tab="bookings"]');
+        if (tab) {
+          var old = tab.querySelector('.adm-badge');
+          if (old) old.remove();
+          if (pending) tab.insertAdjacentHTML('beforeend',
+            '<span class="adm-badge">' + pending + '</span>');
+        }
+
+        var stats = '<div class="adm-stats">' +
+          '<div class="adm-stat' + (pending ? ' warn' : '') + '"><b>' + pending + '</b>' +
+            '<span>Awaiting reply</span></div>' +
+          '<div class="adm-stat"><b>' + unpaid + '</b><span>Not yet paid</span></div>' +
+          '<div class="adm-stat"><b>' + heads + '</b><span>Confirmed guests</span></div>' +
+          '<div class="adm-stat"><b>' + rows.length + '</b><span>Total enquiries</span></div>' +
+          '</div>';
+
         if (!rows.length) {
-          el.innerHTML = '<div class="adm-empty">No bookings yet.</div>';
+          el.innerHTML = stats +
+            '<div class="adm-empty"><b>No enquiries yet</b>' +
+            'Bookings made from the site land here the moment they are sent.</div>';
           return;
         }
-        el.innerHTML = rows.map(function (b) {
+        el.innerHTML = stats + rows.map(function (b) {
           return '<div class="adm-card adm-row">' +
             '<div class="adm-row-main">' +
-              '<b>' + esc(b.guest_name) + ' · ' + esc(b.tour_name) + '</b>' +
-              '<span>' + esc(b.guest_phone) + (b.guest_email ? ' · ' + esc(b.guest_email) : '') + '</span>' +
-              '<span>' + b.guests + ' guest' + (b.guests === 1 ? '' : 's') +
-                ' · KES ' + money(b.total_amount) + ' · ' + esc(b.booking_ref) + '</span>' +
-              '<span class="adm-pill' + (b.status === 'confirmed' ? ' ok' : '') + '">' + esc(b.status) + '</span>' +
-              '<span class="adm-pill' + (b.payment_status === 'paid' ? ' ok' : '') + '">' + esc(b.payment_status) + '</span>' +
+              '<b>' + esc(b.guest_name) + ' &middot; ' + esc(b.tour_name) + '</b>' +
+              '<span class="adm-sub">' + ago(b.created_at) + ' &middot; ' +
+                b.guests + ' guest' + (b.guests === 1 ? '' : 's') +
+                ' &middot; KES ' + money(b.total_amount) +
+                ' &middot; ' + esc(b.booking_ref) + '</span>' +
+              '<span class="adm-pill' + (b.status === 'confirmed' ? ' ok'
+                : b.status === 'cancelled' ? '' : ' warn') + '">' + esc(b.status) + '</span>' +
+              '<span class="adm-pill' + (b.payment_status === 'paid' ? ' ok' : ' warn') + '">' +
+                esc(b.payment_status) + '</span>' +
+              (b.notes ? '<span class="adm-sub" style="font-style:italic">&ldquo;' +
+                esc(b.notes) + '&rdquo;</span>' : '') +
             '</div>' +
             '<div class="adm-row-act">' +
+              '<a class="adm-btn adm-btn-go" target="_blank" rel="noopener" href="https://wa.me/' +
+                esc(String(b.guest_phone).replace(/[^0-9]/g, '')) + '">WhatsApp</a>' +
               (b.status !== 'confirmed'
                 ? '<button class="adm-btn adm-btn-go" data-confirm="' + b.id + '">Confirm</button>' : '') +
               (b.payment_status !== 'paid'
@@ -401,7 +523,7 @@
             '<button class="adm-btn adm-btn-go" type="submit">Save</button>' +
           '</div><p class="adm-up" id="upMsg"></p>' +
         '</form>';
-      wireUpload('logoFile', 'brand', 'logo_url');
+      wireUpload('logoFile', 'brand', 'logo_url', 'upMsg');
 
       $('brandFm').addEventListener('submit', function (e) {
         e.preventDefault();

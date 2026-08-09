@@ -1,35 +1,34 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/list-tour.html", "destination": "/admin.html", "permanent": true },
+    { "source": "/list-tour",      "destination": "/admin.html", "permanent": true }
+  ],
   "headers": [
-    {
-      "source": "/(.*)\\.css",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
-        { "key": "Content-Type", "value": "text/css; charset=utf-8" }
-      ]
-    },
-    {
-      "source": "/(.*)\\.js",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400" },
-        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" }
-      ]
-    },
     {
       "source": "/(.*)\\.html",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" },
-        { "key": "Content-Type", "value": "text/html; charset=utf-8" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
       ]
     },
     {
-      "source": "/(.*)",
+      "source": "/",
       "headers": [
-        { "key": "X-DNS-Prefetch-Control", "value": "on" }
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/(.*)\\.(js|css)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/fonts/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     }
-  ],
-  "cleanUrls": true,
-  "trailingSlash": false
+  ]
 }

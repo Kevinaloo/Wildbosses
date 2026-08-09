@@ -53,7 +53,8 @@
   margin: 0 clamp(12px, 1.6vw, 26px);
   border-radius: var(--r-lg);
   overflow: hidden;
-  background: #14120F;
+  background:
+    linear-gradient(150deg, #2A2318 0%, #14120F 55%, #1B1710 100%);
   box-shadow: 0 8px 30px -8px rgba(0,0,0,.7);
   transform: scale(.9) translateZ(0);
   opacity: .62;
@@ -80,9 +81,11 @@
   background-size: cover;
   background-position: center;
 }
-/* the film only appears once it can actually play */
-.rail-film { opacity: 0; transition: opacity .55s var(--ease); }
-.rail-film.ready { opacity: 1; }
+/* The film is visible immediately; its poster attribute covers the gap
+   before the first frame. Hiding it until an event fired was one more
+   way for a card to end up blank. */
+.rail-film { opacity: 1; }
+.rail-film.film-failed { display: none; }
 
 /* a card with no film yet drifts its poster rather than sitting dead */
 .rail-card.is-live .rail-still { animation: railDrift 22s ease-in-out infinite alternate; }

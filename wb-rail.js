@@ -36,9 +36,9 @@
     var still = '<div class="rail-still" style="background-image:url(' +
                 esc(v.poster_url || '') + ')"></div>';
     var media = still + (hasFilm
-      ? '<video class="rail-film" playsinline muted loop preload="metadata"' +
+      ? '<video class="rail-film" playsinline muted loop autoplay preload="metadata"' +
         (v.poster_url ? ' poster="' + esc(v.poster_url) + '"' : '') +
-        '><source src="' + esc(v.video_url) + '"></video>'
+        ' src="' + esc(v.video_url) + '"></video>'
       : '');
 
     var price = (v.price_kes === 0)
@@ -135,6 +135,32 @@
       requestAnimationFrame(frame);
     }
 
+    /* ── playback ───────────────────────────────────────────
+       Keep asking. A muted, playsinline video is allowed to autoplay
+       everywhere that matters, but the first play() often lands before
+       any data has arrived and rejects. Retrying on the events that mean
+       "there is something to show now" is what makes it reliable.     */
+    function arm(v) {
+      if (!v) return;
+      function go() {
+        if (v.readyState < 2) return;
+        var pr = v.play();
+        if (pr && pr.catch) pr.catch(function () {});
+      }
+      if (!v.dataset.wired) {
+        v.dataset.wired = '1';
+        v.muted = true;                 // property, not just the attribute
+        ['loadeddata', 'canplay', 'canplaythrough'].forEach(function (ev) {
+          v.addEventListener(ev, go);
+        });
+        v.addEventListener('error', function () { v.classList.add('film-failed'); });
+      }
+      go();
+      // one late nudge for slow connections
+      clearTimeout(v._nudge);
+      v._nudge = setTimeout(go, 900);
+    }
+
     /* ── centre stage: exactly one card live at a time ──────── */
     var live = null;
     function stage() {
@@ -156,15 +182,7 @@
       live.classList.add('is-live');
 
       var v = live.querySelector('video');
-      if (v) {
-        if (!v.dataset.armed) {
-          v.dataset.armed = '1';
-          v.addEventListener('canplay', function () { v.classList.add('ready'); });
-          v.load();
-        }
-        var pr = v.play();
-        if (pr && pr.catch) pr.catch(function () {});
-      }
+      if (v) arm(v);
 
       /* pull the next film's metadata in early so the hand-off is seamless */
       var i = cards.indexOf(live), nx = cards[i + 1];
@@ -173,6 +191,11 @@
     }
 
     requestAnimationFrame(function (t) { last = t; frame(t); });
+
+    D.addEventListener('visibilitychange', function () {
+      if (D.hidden || !live) return;
+      arm(live.querySelector('video'));
+    });
 
     /* ── drag to scrub ──────────────────────────────────────── */
     var moved = 0;

@@ -192,6 +192,8 @@
 
     if (!root) return;
 
+    if (D.documentElement.classList.contains('wb-intro-done')) { kill(); return; }
+
     // Skip must work from the very first paint, before anything else runs.
     var skipBtn = root.querySelector('.wb-intro-skip');
     if (skipBtn) skipBtn.addEventListener('click', function (e) {
@@ -199,7 +201,16 @@
     });
 
     // Last-resort failsafe: however this goes wrong, the curtain lifts.
-    var deadman = setTimeout(function () { finish(root); }, 9000);
+    var deadman = setTimeout(function () { finish(root); }, 6000);
+
+    /* Back/forward navigation restores the page from bfcache: the DOM
+       comes back exactly as it was and no script re-runs. If the visitor
+       left while the curtain was up, it returns still up, with every
+       timer that would have taken it down already discarded. pageshow is
+       the only event that fires in that case, so it has to do the work. */
+    W.addEventListener('pageshow', function (e) {
+      if (e.persisted) kill();
+    });
 
     var reduce = W.matchMedia && W.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
