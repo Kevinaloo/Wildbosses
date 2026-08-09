@@ -16,7 +16,7 @@
 .wb-rail::after {
   content: '';
   position: absolute; left: 0; right: 0; bottom: 0;
-  height: 74px; pointer-events: none; z-index: 3;
+  height: 44px; pointer-events: none; z-index: 3;
   background: linear-gradient(to bottom, transparent, var(--bg));
 }
 
@@ -57,8 +57,8 @@
     linear-gradient(150deg, #2A2318 0%, #14120F 55%, #1B1710 100%);
   box-shadow: 0 8px 30px -8px rgba(0,0,0,.7);
   transform: scale(.9) translateZ(0);
-  opacity: .62;
-  filter: saturate(.85) brightness(.82);
+  opacity: .78;
+  filter: saturate(.94) brightness(.9);
   transition: transform .7s var(--ease), opacity .7s var(--ease), filter .7s var(--ease);
   -webkit-user-drag: none;
   user-select: none;
@@ -220,3 +220,19 @@
   .rail-viewport { height: clamp(420px, 66vh, 560px); }
   .rail-card { width: min(74vw, 300px); }
 }
+
+/* shown only when a film genuinely will not run, so a card is never an
+   unexplained black rectangle */
+.rail-play {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 4; cursor: pointer;
+  background: rgba(10,10,9,.72);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.28);
+  color: #F3EEE4; font-size: 11px; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 11px 20px; border-radius: 999px;
+  display: none; max-width: 82%; text-align: center; line-height: 1.4;
+}
+.rail-card.film-stuck .rail-play { display: block; }

@@ -36,7 +36,7 @@
     var still = '<div class="rail-still" style="background-image:url(' +
                 esc(v.poster_url || '') + ')"></div>';
     var media = still + (hasFilm
-      ? '<video class="rail-film" playsinline muted loop autoplay preload="metadata"' +
+      ? '<video class="rail-film" playsinline muted loop autoplay preload="auto"' +
         (v.poster_url ? ' poster="' + esc(v.poster_url) + '"' : '') +
         ' src="' + esc(v.video_url) + '"></video>'
       : '');
@@ -142,23 +142,71 @@
        "there is something to show now" is what makes it reliable.     */
     function arm(v) {
       if (!v) return;
-      function go() {
-        if (v.readyState < 2) return;
+
+      /* Never gate play() on readyState. With preload="metadata" the browser
+         stops at readyState 1 and fetches nothing further, while loadeddata
+         and canplay only fire at readyState 2 — so waiting for them is a
+         deadlock the video can never leave. Calling play() is itself what
+         starts the download. */
+      function attempt() {
         var pr = v.play();
         if (pr && pr.catch) pr.catch(function () {});
       }
+
       if (!v.dataset.wired) {
         v.dataset.wired = '1';
-        v.muted = true;                 // property, not just the attribute
-        ['loadeddata', 'canplay', 'canplaythrough'].forEach(function (ev) {
-          v.addEventListener(ev, go);
+        v.muted = true;          // property, not merely the attribute
+        v.playsInline = true;
+        v.loop = true;
+        ['loadedmetadata', 'loadeddata', 'canplay', 'playing'].forEach(function (ev) {
+          v.addEventListener(ev, function () {
+            v.parentNode.parentNode.classList.remove('film-stuck');
+            if (ev !== 'playing') attempt();
+          });
         });
-        v.addEventListener('error', function () { v.classList.add('film-failed'); });
+        v.addEventListener('error', function () { fail(v, v.error); });
       }
-      go();
-      // one late nudge for slow connections
-      clearTimeout(v._nudge);
-      v._nudge = setTimeout(go, 900);
+
+      v.preload = 'auto';
+      if (v.readyState === 0) { try { v.load(); } catch (e) {} }
+      attempt();
+
+      /* Watchdog. If it still is not running, say so on the card instead of
+         leaving a black rectangle nobody can explain. */
+      clearTimeout(v._watch);
+      v._watch = setTimeout(function () {
+        if (!v.paused && v.readyState >= 2) return;
+        attempt();
+        setTimeout(function () {
+          if (v.paused || v.readyState < 2) fail(v, v.error);
+        }, 2200);
+      }, 1800);
+    }
+
+    function fail(v, err) {
+      var card = v.closest ? v.closest('.rail-card') : null;
+      if (!card) return;
+      card.classList.add('film-stuck');
+      /* code 4 is MEDIA_ERR_SRC_NOT_SUPPORTED: the container is fine but this
+         browser cannot decode the codec inside it — typically HEVC/H.265,
+         which phones decode in hardware and desktop browsers do not. */
+      var why = err && err.code === 4
+        ? 'This browser cannot play that video file'
+        : 'Tap to play';
+      var b = card.querySelector('.rail-play');
+      if (!b) {
+        b = D.createElement('button');
+        b.className = 'rail-play';
+        b.type = 'button';
+        card.appendChild(b);
+        b.addEventListener('click', function (e) {
+          e.preventDefault(); e.stopPropagation();
+          v.muted = true;
+          var pr = v.play();
+          if (pr && pr.catch) pr.catch(function () {});
+        });
+      }
+      b.textContent = why;
     }
 
     /* ── centre stage: exactly one card live at a time ──────── */

@@ -77,6 +77,7 @@
 
     $('addRail').addEventListener('click', function () { railEditor(null); });
     $('addTour').addEventListener('click', function () { tourEditor(null); });
+    $('addGuide').addEventListener('click', function () { guideEditor(null); });
     $('modal').addEventListener('click', function (e) {
       if (e.target === $('modal')) closeModal();
     });
@@ -98,7 +99,7 @@
       $('gate').hidden = true;
       $('app').hidden = false;
       $('who').textContent = ME.email;
-      loadRail(); loadTours(); loadBookings(); loadBrand();
+      loadRail(); loadTours(); loadGuides(); loadBookings(); loadBrand();
     });
   }
 
@@ -294,21 +295,57 @@
       if (bar) bar.style.width = '12%';
 
       var path = Date.now() + '-' + file.name.replace(/[^\w.\-]/g, '_').slice(-70);
-      sb.storage.from(bucket).upload(path, file, { cacheControl: '31536000', upsert: false })
-        .then(function (r) {
-          if (r.error) {
-            msg.className = 'adm-up bad';
-            msg.textContent = 'Upload failed: ' + r.error.message;
-            if (bar) bar.style.width = '0';
-            return;
-          }
-          var url = sb.storage.from(bucket).getPublicUrl(path).data.publicUrl;
-          var field = D.querySelector('[name="' + targetName + '"]');
-          if (field) { field.value = url; field.dispatchEvent(new Event('input')); }
-          if (bar) bar.style.width = '100%';
-          msg.className = 'adm-up';
-          msg.textContent = 'Uploaded. Press Save to publish it.';
-        });
+
+      /* Decode the file in this browser before it is uploaded. A phone can
+         play HEVC in hardware; desktop browsers largely cannot, and the file
+         still arrives as a perfectly valid video/mp4 — so the mime type tells
+         you nothing. The only honest test is whether it actually decodes. */
+      function proceed() {
+        sb.storage.from(bucket).upload(path, file, { cacheControl: '31536000', upsert: false })
+          .then(function (r) {
+            if (r.error) {
+              msg.className = 'adm-up bad';
+              msg.textContent = 'Upload failed: ' + r.error.message;
+              if (bar) bar.style.width = '0';
+              return;
+            }
+            var url = sb.storage.from(bucket).getPublicUrl(path).data.publicUrl;
+            var fld = D.querySelector('[name="' + targetName + '"]');
+            if (fld) { fld.value = url; fld.dispatchEvent(new Event('input')); }
+            if (bar) bar.style.width = '100%';
+            msg.className = 'adm-up';
+            msg.textContent = 'Uploaded. Press Save to publish it.';
+          });
+      }
+
+      if (bucket !== 'hero-videos') { proceed(); return; }
+
+      var probe = D.createElement('video');
+      probe.muted = true; probe.playsInline = true; probe.preload = 'auto';
+      var blobUrl = URL.createObjectURL(file);
+      var settled = false;
+
+      function done(ok, why) {
+        if (settled) return; settled = true;
+        URL.revokeObjectURL(blobUrl);
+        if (ok) { proceed(); return; }
+        input.value = '';
+        if (bar) bar.style.width = '0';
+        msg.className = 'adm-up bad';
+        msg.textContent = why;
+      }
+
+      probe.addEventListener('loadeddata', function () { done(true); });
+      probe.addEventListener('error', function () {
+        done(false, 'This browser cannot decode ' + file.name + '. It is most likely ' +
+          'H.265/HEVC, which phones play but desktop browsers do not. Re-export it ' +
+          'as H.264 MP4 and it will play everywhere.');
+      });
+      setTimeout(function () {
+        done(probe.readyState >= 2, 'Could not decode ' + file.name + ' in time. ' +
+          'If it was recorded on a phone, re-export it as H.264 MP4.');
+      }, 6000);
+      probe.src = blobUrl;
     });
   }
 
@@ -418,6 +455,115 @@
       q.then(function (r) {
         if (r.error) return toast(r.error.message, true);
         toast('Tour saved'); closeModal(); loadTours(); loadRail();
+      });
+    });
+  }
+
+  /* ── guides ───────────────────────────────────────────── */
+  function loadGuides() {
+    sb.from('guides').select('*').order('name').then(function (r) {
+      var rows = r.data || [], el = $('guideList');
+      if (!rows.length) {
+        el.innerHTML = '<div class="adm-empty"><b>No guides yet</b>' +
+          'Add the people who run your trips and they appear on the Guides page.</div>';
+        return;
+      }
+      el.innerHTML = rows.map(function (g) {
+        var initials = String(g.name || '?').split(/\s+/).slice(0, 2)
+          .map(function (w) { return w[0]; }).join('').toUpperCase();
+        return '<div class="adm-card adm-row">' +
+          '<div class="adm-thumb" style="border-radius:50%;width:56px' +
+            (g.photo ? ';background-image:url(' + esc(g.photo) + ')' : '') + '">' +
+            (g.photo ? '' : esc(initials)) + '</div>' +
+          '<div class="adm-row-main">' +
+            '<b>' + esc(g.name) + '</b>' +
+            '<span class="adm-sub">' + esc(g.bio ? g.bio.slice(0, 90) : 'No bio yet') + '</span>' +
+            (g.years_exp ? '<span class="adm-pill">' + g.years_exp + ' yrs</span>' : '') +
+            (g.languages && g.languages.length
+              ? '<span class="adm-pill">' + esc(g.languages.join(', ')) + '</span>' : '') +
+            (g.active ? '' : '<span class="adm-pill warn">Hidden</span>') +
+          '</div>' +
+          '<div class="adm-row-act">' +
+            '<button class="adm-btn adm-btn-ghost" data-edit-guide="' + g.id + '">Edit</button>' +
+            '<button class="adm-btn adm-btn-bad" data-del-guide="' + g.id + '">Delete</button>' +
+          '</div></div>';
+      }).join('');
+
+      el.querySelectorAll('[data-edit-guide]').forEach(function (b) {
+        b.onclick = function () {
+          guideEditor(rows.filter(function (x) { return x.id === b.dataset.editGuide; })[0]);
+        };
+      });
+      el.querySelectorAll('[data-del-guide]').forEach(function (b) {
+        b.onclick = function () {
+          if (!confirm('Delete this guide?')) return;
+          sb.from('guides').delete().eq('id', b.dataset.delGuide).then(function (r) {
+            if (r.error) return toast(r.error.message, true);
+            toast('Guide deleted'); loadGuides();
+          });
+        };
+      });
+    });
+  }
+
+  function guideEditor(g) {
+    g = g || {};
+    openModal(
+      '<h3>' + (g.id ? 'Edit guide' : 'New guide') + '</h3>' +
+      '<p class="adm-modal-note">Guides show on the Guides page and can be attached ' +
+        'to a tour. A guide with no photo shows their initials rather than a broken frame.</p>' +
+      '<form id="guideForm" class="adm-form">' +
+        field('Name', 'name', g.name) +
+        field('Web address', 'slug', g.slug, 'text',
+              'Lowercase with hyphens, e.g. kevin-aloo') +
+        '<label>Photo<input type="file" id="guidePhoto" accept="image/*"/></label>' +
+        '<p class="adm-up" id="upMsg"></p><div class="adm-bar"><i></i></div>' +
+        field('Photo URL', 'photo', g.photo) +
+        '<label>Short bio<em>Two or three sentences. This is what visitors read.</em>' +
+          '<textarea name="bio" rows="4">' + esc(g.bio || '') + '</textarea></label>' +
+        '<div class="adm-two">' +
+          field('Years guiding', 'years_exp', g.years_exp == null ? 0 : g.years_exp, 'number') +
+          field('Phone', 'phone', g.phone) +
+        '</div>' +
+        field('Specialities', 'specialities', (g.specialities || []).join(', '), 'text',
+              'Separated by commas, e.g. Big cats, Birding, Photography') +
+        field('Languages', 'languages', (g.languages || ['en']).join(', '), 'text',
+              'Separated by commas, e.g. English, Swahili') +
+        '<label class="adm-check"><input type="checkbox" name="active"' +
+          (g.active === false ? '' : ' checked') + '/> Show on the Guides page</label>' +
+        '<div class="adm-modal-act">' +
+          '<button type="button" class="adm-btn adm-btn-ghost" onclick="admClose()">Cancel</button>' +
+          '<button class="adm-btn adm-btn-go" type="submit">Save</button>' +
+        '</div>' +
+      '</form>'
+    );
+    wireUpload('guidePhoto', 'tour-photos', 'photo', 'upMsg');
+
+    function list(v) {
+      return String(v || '').split(',').map(function (x) { return x.trim(); })
+        .filter(Boolean);
+    }
+
+    $('guideForm').addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var f = ev.target;
+      var row = {
+        name: f.name.value.trim(),
+        slug: f.slug.value.trim().toLowerCase().replace(/[^a-z0-9\-]/g, '-'),
+        photo: f.photo.value.trim() || null,
+        bio: f.bio.value.trim() || null,
+        years_exp: parseInt(f.years_exp.value, 10) || 0,
+        phone: f.phone.value.trim() || null,
+        specialities: list(f.specialities.value),
+        languages: list(f.languages.value),
+        active: f.active.checked
+      };
+      if (!row.name) return toast('A name is needed', true);
+      if (!row.slug) row.slug = row.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      var q = g.id ? sb.from('guides').update(row).eq('id', g.id) : sb.from('guides').insert(row);
+      q.then(function (r) {
+        if (r.error) return toast(r.error.message, true);
+        toast('Guide saved'); closeModal(); loadGuides();
       });
     });
   }
