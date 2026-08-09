@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Admin — Wild Bosses Adventures</title>
+<meta name="robots" content="noindex,nofollow"/>
+<link rel="stylesheet" href="/wb-tokens.css"/>
+<link rel="stylesheet" href="/wb-admin.css"/>
+</head>
+<body class="adm">
+
+<!-- ══ sign in ══════════════════════════════════════════ -->
+<div class="adm-gate" id="gate">
+  <form class="adm-gate-box" id="loginForm">
+    <b class="adm-gate-brand">WILD BOSSES</b>
+    <i class="adm-gate-sub">ADVENTURES · ADMIN</i>
+    <label>Email<input type="email" id="email" autocomplete="username" required/></label>
+    <label>Password<input type="password" id="password" autocomplete="current-password" required/></label>
+    <button class="adm-btn adm-btn-go" type="submit" id="loginBtn">Sign in</button>
+    <p class="adm-gate-msg" id="loginMsg" role="alert"></p>
+  </form>
+</div>
+
+<!-- ══ console ═════════════════════════════════════════ -->
+<div class="adm-app" id="app" hidden>
+  <header class="adm-top">
+    <div class="adm-brand"><b>WILD BOSSES</b><i>ADMIN</i></div>
+    <nav class="adm-tabs" id="tabs">
+      <button class="on" data-tab="rail">Hero videos</button>
+      <button data-tab="tours">Tours</button>
+      <button data-tab="bookings">Bookings</button>
+      <button data-tab="brand">Brand</button>
+    </nav>
+    <div class="adm-top-end">
+      <span class="adm-who" id="who"></span>
+      <a class="adm-link" href="/" target="_blank" rel="noopener">View site</a>
+      <button class="adm-btn adm-btn-ghost" id="signOut">Sign out</button>
+    </div>
+  </header>
+
+  <main class="adm-main">
+
+    <!-- ── hero videos ── -->
+    <section class="adm-pane on" data-pane="rail">
+      <div class="adm-pane-head">
+        <div>
+          <h2>Hero videos</h2>
+          <p>The cards drifting across the top of the homepage. A card with no
+             video drifts its poster instead, so nothing ever looks broken.</p>
+        </div>
+        <button class="adm-btn adm-btn-go" id="addRail">Add a card</button>
+      </div>
+      <div class="adm-list" id="railList"></div>
+    </section>
+
+    <!-- ── tours ── -->
+    <section class="adm-pane" data-pane="tours">
+      <div class="adm-pane-head">
+        <div>
+          <h2>Tours</h2>
+          <p>Only tours set to <b>Open</b> appear on the site. Drafts stay private.</p>
+        </div>
+        <button class="adm-btn adm-btn-go" id="addTour">Add a tour</button>
+      </div>
+      <div class="adm-list" id="tourList"></div>
+    </section>
+
+    <!-- ── bookings ── -->
+    <section class="adm-pane" data-pane="bookings">
+      <div class="adm-pane-head">
+        <div>
+          <h2>Bookings</h2>
+          <p>Every enquiry arrives as pending. You confirm it and record payment —
+             the website is never allowed to mark a booking paid by itself.</p>
+        </div>
+      </div>
+      <div class="adm-list" id="bookList"></div>
+    </section>
+
+    <!-- ── brand ── -->
+    <section class="adm-pane" data-pane="brand">
+      <div class="adm-pane-head">
+        <div><h2>Brand &amp; contact</h2><p>Your logo and details, used across the site.</p></div>
+      </div>
+      <div class="adm-card adm-form" id="brandForm"></div>
+    </section>
+
+  </main>
+</div>
+
+<div class="adm-toast" id="toast" role="status" aria-live="polite"></div>
+<div class="adm-modal" id="modal" hidden><div class="adm-modal-box" id="modalBox"></div></div>
+
+<script src="/vendor-supabase.js"></script>
+<script src="/wb-data.js"></script>
+<script src="/wb-admin.js"></script>
+</body>
+</html>
