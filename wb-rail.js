@@ -82,9 +82,11 @@
     var html = rows.map(cardHTML).join('');
     root.innerHTML =
       '<div class="rail-viewport">' +
-        '<div class="rail-track" style="--tilt:' + TILT + 'deg">' +
-          '<div class="rail-run">' + html + '</div>' +
-          '<div class="rail-run" aria-hidden="true">' + html + '</div>' +
+        '<div class="rail-tilt" style="--tilt:' + TILT + 'deg">' +
+          '<div class="rail-track">' +
+            '<div class="rail-run">' + html + '</div>' +
+            '<div class="rail-run" aria-hidden="true">' + html + '</div>' +
+          '</div>' +
         '</div>' +
       '</div>' +
       '<div class="rail-hint"><span>Drag to explore</span></div>';
@@ -124,8 +126,7 @@
         x -= (W.innerWidth * SPEED) * (dt / 1000);
         if (x <= -runW) x += runW;
       }
-      track.style.transform =
-        'rotate(var(--tilt)) translate3d(' + x.toFixed(2) + 'px,0,0)';
+      track.style.transform = 'translate3d(' + x.toFixed(2) + 'px,0,0)';
       stage();
       requestAnimationFrame(frame);
     }

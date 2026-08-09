@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Claw intro — preview</title>
+<link rel="stylesheet" href="/wb-tokens.css"/><link rel="stylesheet" href="/wb-intro.css"/>
+<style>body{min-height:100vh;display:grid;place-items:center}
+.again{font:500 11px/1 var(--body);letter-spacing:.2em;text-transform:uppercase;
+padding:12px 22px;border-radius:999px;background:var(--gold);color:var(--void);border:0;cursor:pointer}</style>
+</head><body>
+<div id="wb-intro" class="wb-intro" role="presentation" aria-hidden="true">
+  <div class="wb-word"><svg viewBox="0 0 1000 250" class="wb-word-svg" aria-hidden="true"><defs>
+    <filter id="wbWordRough" x="-10%" y="-30%" width="120%" height="160%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.82 0.5" numOctaves="3" seed="11" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter></defs>
+    <g class="wb-rip wb-rip-1">
+      <text class="wb-word-tear" x="500" y="130" text-anchor="middle">WILD BOSSES</text>
+      <text class="wb-word-main" x="500" y="130" text-anchor="middle">WILD BOSSES</text></g>
+    <g class="wb-rip wb-rip-2">
+      <text class="wb-word-sub" x="491" y="192" text-anchor="middle">ADVENTURES</text></g>
+  </svg></div>
+  <button class="wb-intro-skip" type="button">Skip</button>
+</div>
+<button class="again" onclick="WBIntro.replay()">Play it again</button>
+<script src="/wb-intro.js"></script></body></html>

@@ -1,0 +1,205 @@
+/* ═══════════════════════════════════════════════════════════════════
+   WILDBOSSES · DIAGONAL VIDEO RAIL
+   The tilt lives on .rail-tilt, the motion on .rail-track. Keeping them
+   on separate elements means the transform origin of a very wide flex
+   row never has to be reasoned about.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.wb-rail {
+  position: relative;
+  background: var(--void);
+  isolation: isolate;
+}
+
+.rail-viewport {
+  position: relative;
+  overflow: hidden;
+  height: clamp(440px, 66vh, 690px);
+  cursor: grab;
+}
+.wb-rail.is-dragging .rail-viewport { cursor: grabbing; }
+
+/* oversized so the rotated row still covers the corners */
+.rail-tilt {
+  position: absolute;
+  top: 50%;
+  left: -18%;
+  width: 136%;
+  transform: translateY(-50%) rotate(var(--tilt, -8deg));
+  transform-origin: center;
+}
+
+.rail-track {
+  display: flex;
+  will-change: transform;
+}
+.rail-run { display: flex; flex: 0 0 auto; }
+
+/* ── card ───────────────────────────────────────────────── */
+.rail-card {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(276px, 29vw, 440px);
+  aspect-ratio: 3 / 4;
+  margin: 0 clamp(12px, 1.6vw, 26px);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--soot);
+  box-shadow: var(--shadow-card);
+  transform: scale(.9) translateZ(0);
+  opacity: .74;
+  filter: saturate(.88);
+  transition: transform .7s var(--ease), opacity .7s var(--ease), filter .7s var(--ease);
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* only the card at centre stage is fully present */
+.rail-card.is-live {
+  transform: scale(1.06) translateZ(0);
+  opacity: 1;
+  filter: none;
+  box-shadow: var(--shadow-lift), 0 0 0 1px rgba(200,146,47,.28);
+}
+
+.rail-media { position: absolute; inset: 0; }
+.rail-film,
+.rail-still {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+}
+
+/* a card with no film yet drifts its poster rather than sitting dead */
+.rail-card.is-live .rail-still { animation: railDrift 22s ease-in-out infinite alternate; }
+@keyframes railDrift {
+  from { transform: scale(1.02) translate3d(-1.2%, 0.8%, 0); }
+  to   { transform: scale(1.13) translate3d(1.4%, -1.2%, 0); }
+}
+
+.rail-scrim {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top,
+    rgba(7,9,8,.94) 0%, rgba(7,9,8,.72) 26%,
+    rgba(7,9,8,.16) 58%, rgba(7,9,8,.34) 100%);
+}
+
+.rail-body {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: clamp(18px, 2vw, 30px);
+  display: grid;
+  gap: 10px;
+}
+
+.rail-title {
+  font-family: var(--display);
+  font-size: clamp(26px, 2.5vw, 44px);
+  line-height: .96;
+  letter-spacing: .01em;
+  margin: 0;
+  color: var(--bone);
+  text-shadow: 0 2px 22px rgba(0,0,0,.6);
+}
+
+.rail-sub {
+  margin: 0;
+  font-size: clamp(12px, .95vw, 14px);
+  color: var(--dust);
+  line-height: 1.45;
+}
+
+/* ── countdown ──────────────────────────────────────────── */
+.rail-count {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(8px, .8vw, 14px);
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+.rail-count-lab {
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  align-self: center;
+}
+.rail-count-wait {
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--dust);
+}
+.rail-unit { display: grid; justify-items: center; gap: 1px; }
+.rail-unit b {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(17px, 1.5vw, 25px);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--bone);
+}
+.rail-unit i {
+  font-style: normal;
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--dust);
+}
+
+.rail-foot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 6px;
+  border-top: 1px solid rgba(237,230,216,.12);
+  margin-top: 4px;
+}
+.rail-price {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--bone);
+}
+.rail-spots {
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 3px 9px;
+  border: 1px solid rgba(200,146,47,.4);
+  border-radius: 999px;
+}
+
+/* ── hint ───────────────────────────────────────────────── */
+.rail-hint {
+  position: absolute;
+  bottom: clamp(10px, 1.6vh, 18px);
+  right: clamp(16px, 4vw, 46px);
+  z-index: 4;
+  pointer-events: none;
+}
+.rail-hint span {
+  font-size: 10px;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: rgba(237,230,216,.42);
+}
+.wb-rail.is-dragging .rail-hint { opacity: 0; transition: opacity .3s; }
+
+/* ── no motion: a plain readable row, no drift, no autoplay ── */
+.wb-rail.rail-static .rail-tilt { transform: translateY(-50%); }
+.wb-rail.rail-static .rail-viewport { overflow-x: auto; height: auto; padding: 24px 0; }
+.wb-rail.rail-static .rail-card { transform: none; opacity: 1; filter: none; }
+.wb-rail.rail-static .rail-hint { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rail-card { transition: none; }
+  .rail-card.is-live .rail-still { animation: none; }
+}
+
+@media (max-width: 640px) {
+  .rail-viewport { height: clamp(420px, 66vh, 560px); }
+  .rail-card { width: min(74vw, 300px); }
+}

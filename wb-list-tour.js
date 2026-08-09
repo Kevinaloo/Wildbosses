@@ -270,7 +270,7 @@ async function submitListing() {
       '💰 Price: ' + (priceKes === 0 ? 'Free' : 'KES ' + priceKes.toLocaleString()),'',
       '👤 Guide: ' + [fname,lname].filter(Boolean).join(' '),
       '📞 Phone: ' + phone,'📧 Email: ' + email,'',
-      '✅ Live on Cabana & Wildbosses instantly',
+      '✅ Live on partner & Wildbosses instantly',
     ].filter(Boolean).join('\n');
     const iframe = document.createElement('iframe');
     iframe.style.display='none';
