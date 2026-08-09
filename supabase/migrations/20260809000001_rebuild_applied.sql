@@ -1,0 +1,9 @@
+-- Applied live to project uhoqbticmkeufuxnrate on 2026-08-09.
+-- Kept here so the schema is version-controlled alongside the code.
+-- See PROGRESS.md. Full statements were applied in four migrations:
+--   core_schema_guides_tours_bookings
+--   hero_videos_settings_admins
+--   rls_admin_allowlist
+--   storage_buckets_media
+--   seed_starter_catalogue
+-- Pull the authoritative copy with:  supabase db pull

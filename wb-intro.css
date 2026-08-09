@@ -1,0 +1,204 @@
+/* ═══════════════════════════════════════════════════════════════════
+   WILDBOSSES · CLAW INTRO
+   Every beat is derived from six custom properties set by wb-intro.js,
+   so retiming the whole sequence means touching one object, not 40
+   keyframe blocks.
+   ═══════════════════════════════════════════════════════════════════ */
+
+html.wb-intro-live,
+html.wb-intro-live body { overflow: hidden; height: 100%; }
+
+.wb-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #070908;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  /* beat offsets — computed once, reused by every child */
+  --t-b:      calc(var(--tear) + var(--gap));
+  --t-fade-a: calc(var(--tear) + var(--hold));
+  --t-fade-b: calc(var(--t-b) + var(--tear) + var(--hold));
+  --t-word:   calc(var(--t-fade-b) + 120ms);
+  --t-out:    calc(var(--t-word) + var(--word));
+}
+
+/* faint dust so the void isn't a dead flat fill */
+.wb-intro::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(ellipse 60% 45% at 30% 35%, rgba(200,146,47,.07), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 72% 68%, rgba(214,82,31,.05), transparent 70%);
+  opacity: 0;
+  animation: wbDust 1.4s ease-out forwards;
+}
+@keyframes wbDust { to { opacity: 1; } }
+
+.wb-intro-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ── the rips ───────────────────────────────────────────────── */
+.wb-swipe { opacity: 1; }
+
+.wb-swipe-a { animation: wbBleed var(--fade) ease-in forwards; animation-delay: var(--t-fade-a); }
+.wb-swipe-b { animation: wbBleed var(--fade) ease-in forwards; animation-delay: var(--t-fade-b); }
+@keyframes wbBleed { to { opacity: 0; filter: blur(7px); } }
+
+/* leading edge travels just past both claw tips (cx = 800 in viewBox) */
+.wb-wipe-fwd {
+  transform: translateX(-210px);
+  animation: wbWipeFwd var(--tear) cubic-bezier(.45,.06,.22,1) forwards;
+}
+.wb-wipe-rev {
+  transform: translateX(1810px);
+  animation: wbWipeRev var(--tear) cubic-bezier(.45,.06,.22,1) forwards;
+  animation-delay: var(--t-b);
+}
+@keyframes wbWipeFwd { to { transform: translateX(1810px); } }
+@keyframes wbWipeRev { to { transform: translateX(-210px); } }
+
+/* the claw point, riding the tearing front */
+.wb-spark-fwd {
+  transform: translateX(-210px);
+  animation: wbWipeFwd var(--tear) cubic-bezier(.45,.06,.22,1) forwards,
+             wbFlare   var(--tear) linear forwards;
+}
+.wb-spark-rev {
+  transform: translateX(1810px);
+  opacity: 0;
+  animation: wbWipeRev var(--tear) cubic-bezier(.45,.06,.22,1) forwards,
+             wbFlare   var(--tear) linear forwards;
+  animation-delay: var(--t-b);
+}
+@keyframes wbFlare {
+  0%   { opacity: 0; }
+  10%  { opacity: 1; }
+  84%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* impact kick — the room takes the hit, briefly */
+.wb-intro.hit { animation: wbHit 340ms cubic-bezier(.36,.07,.19,.97); }
+@keyframes wbHit {
+  0%   { transform: translate(0,0); }
+  14%  { transform: translate(-9px, 5px); }
+  28%  { transform: translate(7px, -6px); }
+  44%  { transform: translate(-5px, -3px); }
+  62%  { transform: translate(4px, 3px); }
+  80%  { transform: translate(-2px, 1px); }
+  100% { transform: translate(0,0); }
+}
+
+/* ── wordmark ───────────────────────────────────────────────── */
+.wb-word {
+  position: relative;
+  z-index: 3;
+  width: min(92vw, 1080px);
+  opacity: 0;
+  animation: wbWordIn var(--word) cubic-bezier(.16,.9,.3,1) forwards;
+  animation-delay: var(--t-word);
+}
+@keyframes wbWordIn {
+  0%   { opacity: 0; transform: scale(1.09); filter: blur(14px); }
+  55%  { opacity: 1; }
+  100% { opacity: 1; transform: scale(1);    filter: blur(0); }
+}
+
+.wb-word-svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+.wb-word-main {
+  font-family: 'Anton', 'Geist', system-ui, sans-serif;
+  font-size: 132px;
+  letter-spacing: .012em;
+  fill: #EDE6D8;
+}
+.wb-word-sub {
+  font-family: 'Geist', system-ui, sans-serif;
+  font-size: 31px;
+  font-weight: 500;
+  letter-spacing: .58em;
+  fill: #C8922F;
+}
+
+/* the torn lip that traces the letterforms */
+.wb-word-tear {
+  font-family: 'Anton', 'Geist', system-ui, sans-serif;
+  font-size: 132px;
+  letter-spacing: .012em;
+  fill: none;
+  stroke: #D6521F;
+  stroke-width: 2.4;
+  filter: url(#wbWordRough);
+  opacity: .92;
+}
+
+/* each word gets clawed open left-to-right, staggered */
+.wb-rip { clip-path: inset(0 100% 0 0); animation: wbRip 460ms cubic-bezier(.2,.75,.3,1) forwards; }
+.wb-rip-1 { animation-delay: calc(var(--t-word) + 40ms); }
+.wb-rip-2 { animation-delay: calc(var(--t-word) + 190ms); }
+.wb-rip-3 { animation-delay: calc(var(--t-word) + 400ms); }
+@keyframes wbRip { to { clip-path: inset(0 -4% 0 0); } }
+
+/* ── skip ───────────────────────────────────────────────────── */
+.wb-intro-skip {
+  position: absolute;
+  right: clamp(16px, 4vw, 40px);
+  bottom: clamp(16px, 4vw, 36px);
+  z-index: 5;
+  background: none;
+  border: 1px solid rgba(237,230,216,.28);
+  color: rgba(237,230,216,.72);
+  font: 500 11px/1 'Geist', system-ui, sans-serif;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  padding: 11px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  opacity: 0;
+  animation: wbSkipIn .5s ease forwards 900ms;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.wb-intro-skip:hover  { color: #070908; background: #C8922F; border-color: #C8922F; }
+.wb-intro-skip:focus-visible { outline: 2px solid #C8922F; outline-offset: 3px; }
+@keyframes wbSkipIn { to { opacity: 1; } }
+
+/* ── curtain up ─────────────────────────────────────────────── */
+.wb-intro.out {
+  animation: wbOut var(--out) cubic-bezier(.7,0,.3,1) forwards;
+  pointer-events: none;
+}
+@keyframes wbOut {
+  to { opacity: 0; transform: scale(1.06); filter: blur(10px); }
+}
+
+/* ── smaller screens ────────────────────────────────────────── */
+@media (max-width: 820px) {
+  .wb-word-main, .wb-word-tear { font-size: 104px; }
+  .wb-word-sub  { font-size: 24px; letter-spacing: .42em; }
+}
+@media (max-width: 520px) {
+  .wb-word-main, .wb-word-tear { font-size: 78px; }
+  .wb-word-sub  { font-size: 17px; letter-spacing: .34em; }
+}
+
+/* ── reduced motion: no rips, just the mark, briefly ────────── */
+@media (prefers-reduced-motion: reduce) {
+  .wb-intro::before,
+  .wb-swipe, .wb-wipe-fwd, .wb-wipe-rev,
+  .wb-spark-fwd, .wb-spark-rev,
+  .wb-word, .wb-rip, .wb-intro-skip { animation: none !important; }
+  .wb-intro-svg { display: none; }
+  .wb-word { opacity: 1; }
+  .wb-rip  { clip-path: none; }
+  .wb-intro-skip { opacity: 1; }
+  .wb-intro.hit { animation: none !important; }
+}

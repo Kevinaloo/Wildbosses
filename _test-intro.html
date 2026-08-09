@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Claw intro — harness</title>
+<link rel="stylesheet" href="/wb-tokens.css"/>
+<link rel="stylesheet" href="/wb-intro.css"/>
+<style>
+  body { min-height: 200vh; background: var(--void); }
+  .under { padding: 120px 40px; font-family: var(--body); color: var(--dust); }
+  .under h2 { font-family: var(--display); font-size: 64px; color: var(--bone); margin: 0 0 16px; }
+</style>
+</head>
+<body>
+
+<div id="wb-intro" class="wb-intro" role="presentation" aria-hidden="true">
+  <div class="wb-word">
+    <svg viewBox="0 0 1000 250" class="wb-word-svg" aria-hidden="true">
+      <defs>
+        <filter id="wbWordRough" x="-10%" y="-30%" width="120%" height="160%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.82 0.5" numOctaves="3" seed="11" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+      </defs>
+      <g class="wb-rip wb-rip-1">
+        <text class="wb-word-tear" x="500" y="130" text-anchor="middle">WILD BOSSES</text>
+        <text class="wb-word-main" x="500" y="130" text-anchor="middle">WILD BOSSES</text>
+      </g>
+      <g class="wb-rip wb-rip-2">
+        <text class="wb-word-sub" x="491" y="192" text-anchor="middle">ADVENTURES</text>
+      </g>
+    </svg>
+  </div>
+  <button class="wb-intro-skip" type="button">Skip</button>
+</div>
+
+<div class="under">
+  <h2>Page content sits under the curtain</h2>
+  <p>If you can read this without the intro lifting, the overlay failed.</p>
+</div>
+
+<script src="/wb-intro.js"></script>
+</body>
+</html>
