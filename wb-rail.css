@@ -5,10 +5,19 @@
    row never has to be reasoned about.
    ═══════════════════════════════════════════════════════════════════ */
 
+/* The rail is a cinema stage: it stays dark in both themes so film and
+   photography carry, and so the dimmed cards recede instead of washing
+   out against a pale page. It fades into whatever theme is below it. */
 .wb-rail {
   position: relative;
   background: var(--void);
   isolation: isolate;
+}
+.wb-rail::after {
+  content: '';
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 74px; pointer-events: none; z-index: 3;
+  background: linear-gradient(to bottom, transparent, var(--bg));
 }
 
 .rail-viewport {
@@ -44,11 +53,11 @@
   margin: 0 clamp(12px, 1.6vw, 26px);
   border-radius: var(--r-lg);
   overflow: hidden;
-  background: var(--soot);
-  box-shadow: var(--shadow-card);
+  background: #14120F;
+  box-shadow: 0 8px 30px -8px rgba(0,0,0,.7);
   transform: scale(.9) translateZ(0);
-  opacity: .74;
-  filter: saturate(.88);
+  opacity: .62;
+  filter: saturate(.85) brightness(.82);
   transition: transform .7s var(--ease), opacity .7s var(--ease), filter .7s var(--ease);
   -webkit-user-drag: none;
   user-select: none;
@@ -59,17 +68,21 @@
   transform: scale(1.06) translateZ(0);
   opacity: 1;
   filter: none;
-  box-shadow: var(--shadow-lift), 0 0 0 1px rgba(200,146,47,.28);
+  box-shadow: 0 22px 60px -14px rgba(0,0,0,.8), 0 0 0 1px var(--gold-soft);
 }
 
 .rail-media { position: absolute; inset: 0; }
 .rail-film,
 .rail-still {
+  position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
   background-size: cover;
   background-position: center;
 }
+/* the film only appears once it can actually play */
+.rail-film { opacity: 0; transition: opacity .55s var(--ease); }
+.rail-film.ready { opacity: 1; }
 
 /* a card with no film yet drifts its poster rather than sitting dead */
 .rail-card.is-live .rail-still { animation: railDrift 22s ease-in-out infinite alternate; }
@@ -93,20 +106,21 @@
   gap: 10px;
 }
 
+.rail-card * { color: #F3EEE4; }
 .rail-title {
   font-family: var(--display);
   font-size: clamp(26px, 2.5vw, 44px);
   line-height: .96;
   letter-spacing: .01em;
   margin: 0;
-  color: var(--bone);
-  text-shadow: 0 2px 22px rgba(0,0,0,.6);
+  color: #F6F1E7;
+  text-shadow: 0 2px 22px rgba(0,0,0,.7);
 }
 
 .rail-sub {
   margin: 0;
   font-size: clamp(12px, .95vw, 14px);
-  color: var(--dust);
+  color: rgba(243,238,228,.8);
   line-height: 1.45;
 }
 
@@ -122,14 +136,14 @@
   font-size: 10px;
   letter-spacing: .2em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: #E8B650;
   align-self: center;
 }
 .rail-count-wait {
   font-size: 11px;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: var(--dust);
+  color: rgba(243,238,228,.72);
 }
 .rail-unit { display: grid; justify-items: center; gap: 1px; }
 .rail-unit b {
@@ -138,14 +152,14 @@
   font-size: clamp(17px, 1.5vw, 25px);
   font-weight: 600;
   line-height: 1;
-  color: var(--bone);
+  color: #F6F1E7;
 }
 .rail-unit i {
   font-style: normal;
   font-size: 9px;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: var(--dust);
+  color: rgba(243,238,228,.66);
 }
 
 .rail-foot {
@@ -154,28 +168,28 @@
   gap: 12px;
   flex-wrap: wrap;
   padding-top: 6px;
-  border-top: 1px solid rgba(237,230,216,.12);
+  border-top: 1px solid rgba(255,255,255,.16);
   margin-top: 4px;
 }
 .rail-price {
   font-size: 13px;
   font-weight: 600;
-  color: var(--bone);
+  color: #F6F1E7;
 }
 .rail-spots {
   font-size: 10px;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: #E8B650;
   padding: 3px 9px;
-  border: 1px solid rgba(200,146,47,.4);
+  border: 1px solid rgba(232,182,80,.5);
   border-radius: 999px;
 }
 
 /* ── hint ───────────────────────────────────────────────── */
 .rail-hint {
   position: absolute;
-  bottom: clamp(10px, 1.6vh, 18px);
+  bottom: clamp(16px, 2.4vh, 26px);
   right: clamp(16px, 4vw, 46px);
   z-index: 4;
   pointer-events: none;
@@ -184,7 +198,7 @@
   font-size: 10px;
   letter-spacing: .24em;
   text-transform: uppercase;
-  color: rgba(237,230,216,.42);
+  color: rgba(243,238,228,.44);
 }
 .wb-rail.is-dragging .rail-hint { opacity: 0; transition: opacity .3s; }
 

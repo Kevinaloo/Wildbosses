@@ -177,16 +177,39 @@
 
   /* ── mount ───────────────────────────────────────────────────── */
   function run() {
+    var root = D.getElementById('wb-intro');
+
+    /* Nothing below this line may return without taking the curtain down.
+       The overlay is a fixed, full-screen, top-of-stack element: if it is
+       left in the DOM it silently blocks the entire site, and the Skip
+       button is inert because its handler is attached further down. That
+       is a trap, so every exit path calls kill(). */
+    function kill() {
+      D.documentElement.classList.remove('wb-intro-live');
+      D.documentElement.classList.add('wb-intro-done');
+      if (root && root.parentNode) root.parentNode.removeChild(root);
+    }
+
+    if (!root) return;
+
+    // Skip must work from the very first paint, before anything else runs.
+    var skipBtn = root.querySelector('.wb-intro-skip');
+    if (skipBtn) skipBtn.addEventListener('click', function (e) {
+      e.stopPropagation(); finish(root);
+    });
+
+    // Last-resort failsafe: however this goes wrong, the curtain lifts.
+    var deadman = setTimeout(function () { finish(root); }, 9000);
+
     var reduce = W.matchMedia && W.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (CFG.replay === 'never') return;
+    if (CFG.replay === 'never') { clearTimeout(deadman); kill(); return; }
     if (CFG.replay === 'session') {
-      try { if (sessionStorage.getItem('wb_intro_seen')) return; } catch (e) {}
+      var seen = false;
+      try { seen = !!sessionStorage.getItem('wb_intro_seen'); } catch (e) {}
+      if (seen) { clearTimeout(deadman); kill(); return; }
     }
     try { sessionStorage.setItem('wb_intro_seen', '1'); } catch (e) {}
-
-    var root = D.getElementById('wb-intro');
-    if (!root) return;
 
     D.documentElement.classList.add('wb-intro-live');
 
@@ -225,7 +248,7 @@
     var total = CFG.tearMs * 2 + CFG.gapMs + CFG.holdMs + 120 + CFG.wordMs + CFG.outMs;
     var done  = setTimeout(function () { finish(root); }, total);
 
-    function skip() { clearTimeout(done); finish(root); }
+    function skip() { clearTimeout(done); clearTimeout(deadman); finish(root); }
     root.addEventListener('click', skip);
     D.addEventListener('keydown', function onKey(e) {
       if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {

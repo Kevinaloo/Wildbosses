@@ -30,12 +30,16 @@
 
   function cardHTML(v) {
     var hasFilm = !!(v.video_url && v.video_url.trim());
-    var media = hasFilm
-      ? '<video class="rail-film" playsinline muted loop preload="none"' +
+    /* The poster sits underneath as a still. The film fades over it once
+       it can actually play, so a slow connection shows a photograph
+       rather than a black rectangle. */
+    var still = '<div class="rail-still" style="background-image:url(' +
+                esc(v.poster_url || '') + ')"></div>';
+    var media = still + (hasFilm
+      ? '<video class="rail-film" playsinline muted loop preload="metadata"' +
         (v.poster_url ? ' poster="' + esc(v.poster_url) + '"' : '') +
-        '><source src="' + esc(v.video_url) + '" type="video/mp4"></video>'
-      : '<div class="rail-still" style="background-image:url(' +
-        esc(v.poster_url || '') + ')"></div>';
+        '><source src="' + esc(v.video_url) + '"></video>'
+      : '');
 
     var price = (v.price_kes === 0)
       ? 'Pay what you want'
@@ -148,15 +152,24 @@
         if (pv) { pv.pause(); }
       }
       live = best;
-      if (live) {
-        live.classList.add('is-live');
-        var v = live.querySelector('video');
-        if (v) {
-          if (!v.dataset.armed) { v.dataset.armed = '1'; v.load(); }
-          var p = v.play();
-          if (p && p.catch) p.catch(function () {});
+      if (!live) return;
+      live.classList.add('is-live');
+
+      var v = live.querySelector('video');
+      if (v) {
+        if (!v.dataset.armed) {
+          v.dataset.armed = '1';
+          v.addEventListener('canplay', function () { v.classList.add('ready'); });
+          v.load();
         }
+        var pr = v.play();
+        if (pr && pr.catch) pr.catch(function () {});
       }
+
+      /* pull the next film's metadata in early so the hand-off is seamless */
+      var i = cards.indexOf(live), nx = cards[i + 1];
+      var nv = nx && nx.querySelector('video');
+      if (nv && !nv.dataset.armed) { nv.dataset.armed = '1'; nv.load(); }
     }
 
     requestAnimationFrame(function (t) { last = t; frame(t); });

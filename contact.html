@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Wild Bosses Adventures — Safaris and journeys across Kenya</title>
-<meta name="description" content="Small-group safaris, coast escapes and walking tours across Kenya. Real departures, real dates."/>
+<title>Contact — Wild Bosses Adventures</title>
+<meta name="description" content="Talk to Wild Bosses Adventures about a trip."/>
 <meta name="theme-color" content="#EFEBE3"/>
-<meta property="og:title" content="Wild Bosses Adventures — Safaris and journeys across Kenya"/>
-<meta property="og:description" content="Small-group safaris, coast escapes and walking tours across Kenya. Real departures, real dates."/>
+<meta property="og:title" content="Contact — Wild Bosses Adventures"/>
+<meta property="og:description" content="Talk to Wild Bosses Adventures about a trip."/>
 <meta property="og:type" content="website"/>
 <link rel="preload" href="/fonts/anton-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
 <link rel="preload" href="/fonts/geist-sans-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin/>
@@ -17,8 +17,7 @@
 <script src="/wb-theme.js"></script>
 <link rel="stylesheet" href="/wb-tokens.css"/>
 <link rel="stylesheet" href="/wb-site.css"/>
-<link rel="stylesheet" href="/wb-intro.css"/>
-<link rel="stylesheet" href="/wb-rail.css"/>
+<link rel="stylesheet" href="/wb-page.css"/>
 
 </head>
 <body>
@@ -49,47 +48,49 @@
   </div>
 </header>
 
-<div id="wb-intro" class="wb-intro" role="presentation" aria-hidden="true">
-  <div class="wb-word">
-    <svg viewBox="0 0 1000 250" class="wb-word-svg" aria-hidden="true">
-      <defs>
-        <filter id="wbWordRough" x="-10%" y="-30%" width="120%" height="160%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.82 0.5" numOctaves="3" seed="11" result="n"/>
-          <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
-        </filter>
-      </defs>
-      <g class="wb-rip wb-rip-1">
-        <text class="wb-word-tear" x="500" y="130" text-anchor="middle">WILD BOSSES</text>
-        <text class="wb-word-main" x="500" y="130" text-anchor="middle">WILD BOSSES</text>
-      </g>
-      <g class="wb-rip wb-rip-2">
-        <text class="wb-word-sub" x="491" y="192" text-anchor="middle">ADVENTURES</text>
-      </g>
-    </svg>
-  </div>
-  <button class="wb-intro-skip" type="button">Skip</button>
-</div>
-
 <main>
-  <section class="wb-rail" id="wb-rail" aria-label="Upcoming departures">
-    <div class="wb-boot">Loading departures…</div>
-  </section>
+  <section class="wb-hero"><div class="wb-wrap">
+    <p class="wb-eyebrow">Talk to a person</p>
+    <h1>Get in touch</h1>
+    <p>Tell us when you want to travel and what you want to see. We answer every message.</p>
+  </div></section>
 
-  <section class="wb-sec">
-    <div class="wb-wrap">
-      <header class="wb-sec-head" data-reveal>
-        <p class="wb-eyebrow">Every trip on the books</p>
-        <h2 class="wb-sec-title">Choose your departure</h2>
-        <p class="wb-sec-lede">Fixed dates, small groups, and a place held the moment you book.</p>
-      </header>
-      <div class="wb-grid" id="wb-grid" aria-live="polite">
-        <div class="wb-boot">Loading trips…</div>
+  <section class="wb-sec" style="padding-top:0"><div class="wb-wrap">
+    <div class="wb-contact">
+      <div class="wb-contact-form glass">
+        <form id="contactForm">
+          <label>Your name<input name="name" required autocomplete="name"/></label>
+          <label>Phone<input name="phone" required autocomplete="tel" inputmode="tel"/></label>
+          <label>Email <span>optional</span><input name="email" type="email" autocomplete="email"/></label>
+          <label>Which trip?<select name="tour" id="contactTour"><option value="">Not sure yet</option></select></label>
+          <label>How many of you?<input name="guests" type="number" min="1" value="2"/></label>
+          <label>Roughly when?<input name="travel_date" placeholder="e.g. mid September"/></label>
+          <label>Anything else<textarea name="notes" rows="4" placeholder="Dietary needs, mobility, what you most want to see…"></textarea></label>
+          <button class="wb-btn wb-btn-gold wb-btn-lg" type="submit" id="contactBtn">Send enquiry</button>
+          <p class="wb-form-msg" id="contactMsg" role="status"></p>
+        </form>
       </div>
-      <p style="text-align:center;margin-top:34px">
-        <a class="wb-btn wb-btn-ghost wb-btn-lg" href="/tours.html">See every trip</a>
-      </p>
+      <aside class="wb-contact-side">
+        <div class="glass wb-contact-card">
+          <b>WhatsApp</b>
+          <p>Fastest way to reach us.</p>
+          <a class="wb-btn wb-btn-ghost" data-wa href="https://wa.me/254796818671" target="_blank" rel="noopener">Open WhatsApp</a>
+        </div>
+        <div class="glass wb-contact-card">
+          <b>Phone</b>
+          <p><a data-tel="text" href="tel:+254796818671">+254 796 818 671</a></p>
+        </div>
+        <div class="glass wb-contact-card">
+          <b>Email</b>
+          <p><a data-mail="text" href="mailto:hello@wildbosses.co">hello@wildbosses.co</a></p>
+        </div>
+        <div class="glass wb-contact-card">
+          <b>Where we are</b>
+          <p>Nairobi, Kenya. Trips depart from Nairobi unless the trip says otherwise.</p>
+        </div>
+      </aside>
     </div>
-  </section>
+  </div></section>
 </main>
 
 <footer class="wb-foot">
@@ -110,9 +111,7 @@
 </footer>
 <script src="/wb-data.js"></script>
 <script src="/wb-site.js"></script>
-<script src="/wb-intro.js"></script>
-<script src="/wb-rail.js"></script>
-<script src="/wb-home.js"></script>
+<script src="/wb-contact.js"></script>
 
 </body>
 </html>

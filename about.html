@@ -1,366 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"/>
-<link rel="stylesheet" href="wb-about.css"/>
-<link rel="stylesheet" href="wb-shell.css"/>
-<title>About Wildbosses | Kenya's Best Tour Company Since 2013</title>
-<meta name="description" content="Wildbosses was founded in Nairobi in 2013. 12 years of award-winning safaris, city walks and mountain expeditions. Rated 4.97/5 from 1,200+ guests. KTB registered. Zero hidden fees."/>
-<meta name="keywords" content="Wildbosses Kenya, Kenya tour company, Nairobi tour operator, best Kenya safari company, KTB registered tour operator"/>
-<link rel="canonical" href="https://wildbosses.com/about"/>
-<meta name="robots" content="index, follow"/>
-<meta name="theme-color" content="#0B3D20"/>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>About — Wild Bosses Adventures</title>
+<meta name="description" content="Why Wild Bosses exists and how we run trips across Kenya."/>
+<meta name="theme-color" content="#EFEBE3"/>
+<meta property="og:title" content="About — Wild Bosses Adventures"/>
+<meta property="og:description" content="Why Wild Bosses exists and how we run trips across Kenya."/>
+<meta property="og:type" content="website"/>
+<link rel="preload" href="/fonts/anton-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="preload" href="/fonts/geist-sans-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="preconnect" href="https://uhoqbticmkeufuxnrate.supabase.co"/>
+<!-- runs before first paint: picks the theme and decides on the intro,
+     so the page never flashes the wrong face -->
+<script src="/wb-theme.js"></script>
+<link rel="stylesheet" href="/wb-tokens.css"/>
+<link rel="stylesheet" href="/wb-site.css"/>
+<link rel="stylesheet" href="/wb-page.css"/>
+
 </head>
 <body>
 
-<!-- TOPBAR -->
-<div class="topbar">
-  <a href="index.html" class="tb-back" aria-label="Home">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+<header class="wb-nav">
+  <a class="wb-brand" href="/">
+    <span class="wb-logo" id="wb-logo" aria-hidden="true"></span>
+    <span class="wb-brand-txt"><b>WILD BOSSES</b><i>ADVENTURES</i></span>
   </a>
-  <a href="index.html" class="tb-brand">
-    <div class="tb-logo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-    <span class="tb-name">Wildbosses</span>
-  </a>
-</div>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-texture"></div>
-  <div class="hero-orb o1"></div>
-  <div class="hero-orb o2"></div>
-  <div class="hero-inner">
-    <div class="hero-eyebrow"><span class="eyebrow-dot"></span>Nairobi, Kenya · Est. 2013</div>
-    <h1 class="hero-title">We don't just show<br>you <em>Kenya.</em><br>We take you inside it.</h1>
-    <p class="hero-sub">Wildbosses was built on one belief: the best way to experience Africa is through the people who call it home. Since 2013, we have been crafting private tours, safaris and expeditions that go deeper than any guidebook.</p>
+  <nav class="wb-links" id="wb-links" aria-label="Primary">
+    <a href="/tours.html">Tours</a>
+    <a href="/guides.html">Guides</a>
+    <a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a>
+  </nav>
+  <div class="wb-nav-end">
+    <button class="wb-theme" data-theme-toggle type="button" aria-label="Switch theme">
+      <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+           stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+      <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+           stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+    <a class="wb-btn wb-btn-gold" href="/tours.html">Book a trip</a>
+    <button class="wb-burger" id="wb-burger" type="button" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
   </div>
-</section>
+</header>
 
-<!-- STORY -->
-<section class="section">
-  <div class="sec-inner">
-    <div class="story-grid">
-      <div class="story-img-wrap reveal">
-        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80" alt="Safari at sunrise" loading="lazy"/>
-        <div class="story-img-badge">
-          <div class="sib-num"><em>12</em></div>
-          <div class="sib-lbl">years guiding East Africa</div>
-        </div>
-      </div>
-      <div class="story-body reveal reveal-d2">
-        <div class="eyebrow">Our story</div>
-        <h2 class="headline">Born from a<br><em>deep love</em> of this land.</h2>
-        <p>Wildbosses was founded in Nairobi in 2013 by a team of local guides, naturalists and storytellers who believed that tourism could be more personal, more honest and more meaningful.</p>
-        <p>We started with a single city walking tour of Nairobi CBD. Within two years we had added Masai Mara game drives, Kilimanjaro climbs and Zanzibar cultural expeditions. Today we operate across Kenya and Tanzania with a team of 12 specialist guides — each a world-class expert in their field.</p>
-        <p>What hasn't changed: we still run every tour personally. No subcontracting. No third parties. When you book Wildbosses, you get Wildbosses.</p>
-      </div>
-    </div>
-  </div>
-</section>
+<main>
+  <section class="wb-hero"><div class="wb-wrap">
+    <p class="wb-eyebrow">Nairobi, Kenya</p>
+    <h1>We don't just show<br/>you Kenya</h1>
+    <p>We take you inside it.</p>
+  </div></section>
 
-<!-- VALUES -->
-<section class="values-section">
-  <div class="sec-inner">
-    <div class="eyebrow reveal">What we stand for</div>
-    <h2 class="headline reveal">Our principles,<br><em>not just our policies.</em></h2>
-    <div class="values-grid">
-      <div class="value-card reveal reveal-d1">
-        <div class="vc-icon">🌍</div>
-        <div class="vc-title">Depth over breadth</div>
-        <div class="vc-desc">We run fewer tours than most companies. Each one is carefully designed and personally led. We'd rather do a small number of things brilliantly than a large number of things adequately.</div>
-      </div>
-      <div class="value-card reveal reveal-d2">
-        <div class="vc-icon">🤝</div>
-        <div class="vc-title">Genuinely local</div>
-        <div class="vc-desc">Every Wildbosses guide was born and raised in the region they lead. No outsiders reading scripts. You get authentic knowledge, real stories and genuine connections.</div>
-      </div>
-      <div class="value-card reveal reveal-d3">
-        <div class="vc-icon">🦁</div>
-        <div class="vc-title">Wildlife first</div>
-        <div class="vc-desc">We operate strict vehicle limits and off-road policies. Your experience should never come at the expense of the animals. We train every guide in ethical wildlife interaction.</div>
-      </div>
-      <div class="value-card reveal reveal-d1">
-        <div class="vc-icon">💚</div>
-        <div class="vc-title">Community benefit</div>
-        <div class="vc-desc">5% of every booking goes directly to the Wildbosses Community Fund — supporting conservation education, anti-poaching rangers and wildlife corridor preservation across Kenya.</div>
-      </div>
-      <div class="value-card reveal reveal-d2">
-        <div class="vc-icon">🔍</div>
-        <div class="vc-title">Radical transparency</div>
-        <div class="vc-desc">Every price on our website is the price you pay. No hidden fees, no "park fee supplements", no last-minute additions. What you see is what you pay.</div>
-      </div>
-      <div class="value-card reveal reveal-d3">
-        <div class="vc-icon">⭐</div>
-        <div class="vc-title">Small groups, always</div>
-        <div class="vc-desc">Our safaris cap at 6 guests per vehicle. Our city walks cap at 16. If a tour is full, it's full — we don't squeeze in extra people to earn more. Your experience matters more than our revenue.</div>
-      </div>
+  <section class="wb-sec" style="padding-top:0"><div class="wb-wrap">
+    <div class="wb-prose glass" data-reveal>
+      <p class="wb-lead">Wild Bosses was built on one belief: the best way to experience
+      Kenya is through the people who call it home.</p>
+      <p>We run private and small-group tours, safaris and expeditions. Groups stay small
+      because a full vehicle is a worse day out than a half-empty one — everyone gets a
+      window, everyone hears the guide, and the driver can stop when something is worth
+      stopping for.</p>
+      <p>Every departure on this site is a real date with real places on it. When a trip
+      fills, it says full. We would rather show you four honest departures than forty
+      that need a phone call to find out whether they exist.</p>
     </div>
-  </div>
-</section>
 
-<!-- MILESTONES -->
-<section class="milestones-section">
-  <div class="ms-bg"></div>
-  <div class="ms-inner">
-    <div class="eyebrow ms-eyebrow reveal">Our journey</div>
-    <h2 class="ms-headline reveal">Twelve years of<br><em>remarkable</em> mornings.</h2>
-    <div class="timeline reveal">
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-year">2013</div>
-        <div class="tl-title">First steps in Nairobi</div>
-        <div class="tl-desc">Founded with a single Nairobi walking tour. First month: 8 guests. First review: 5 stars. James Mwangi, our founding guide, still leads every city walk personally.</div>
+    <div class="wb-pillars">
+      <div class="wb-pillar glass" data-reveal>
+        <b>Small groups</b>
+        <p>Most trips cap at six to eight. Everyone gets a window seat and the guide's attention.</p>
       </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-year">2015</div>
-        <div class="tl-title">Into the Mara</div>
-        <div class="tl-desc">Launched Masai Mara safaris with our first private Land Cruiser. Grace Wanjiku joined as safari director. Our first year: 64 guests. Average rating: 4.94.</div>
+      <div class="wb-pillar glass" data-reveal>
+        <b>Local guides</b>
+        <p>The people leading your trip live in the places you are visiting, and are paid properly for it.</p>
       </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-year">2017</div>
-        <div class="tl-title">Roof of Africa</div>
-        <div class="tl-desc">Added Kilimanjaro climbs under Felix Massawe, our mountain director. First season: 12 successful summits from 13 attempts — a remarkable debut success rate.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-year">2019</div>
-        <div class="tl-title">Zanzibar & the Coast</div>
-        <div class="tl-desc">Expanded to Tanzania with Ali Hassan leading Stone Town tours, and Omar Salim bringing Diani dhow experiences. Now a true East Africa operation.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-year">2021</div>
-        <div class="tl-title">Rebuilding after COVID</div>
-        <div class="tl-desc">With the world closed, we used 2020–21 to retrain, recertify, and rebuild our fleet. We returned stronger, with every guide holding new wildlife & first aid certifications.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-year">2024</div>
-        <div class="tl-title">1,000th tour milestone</div>
-        <div class="tl-desc">Completed our 1,000th Wildbosses tour. Average rating across all: 4.97 / 5. 847 five-star reviews on Google. Featured in Lonely Planet's Best of Kenya guide.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-year">2026</div>
-        <div class="tl-title">Today — and tomorrow</div>
-        <div class="tl-desc">Over 1,200 happy travellers and growing. We remain committed to small group sizes, personal guiding, and the belief that the best adventures are the ones you didn't expect.</div>
+      <div class="wb-pillar glass" data-reveal>
+        <b>Honest dates</b>
+        <p>Departures, prices and remaining places come straight from our booking system.</p>
       </div>
     </div>
-    <div class="numbers-strip">
-      <div class="ns-cell reveal reveal-d1"><div class="ns-num"><em>1,200+</em></div><div class="ns-lbl">Happy travellers</div></div>
-      <div class="ns-cell reveal reveal-d2"><div class="ns-num"><em>4.97</em> ★</div><div class="ns-lbl">Average rating</div></div>
-      <div class="ns-cell reveal reveal-d3"><div class="ns-num"><em>0</em></div><div class="ns-lbl">Hidden fees, ever</div></div>
-      <div class="ns-cell reveal reveal-d4"><div class="ns-num"><em>12</em></div><div class="ns-lbl">Specialist guides</div></div>
-    </div>
-  </div>
-</section>
 
-<!-- TEAM -->
-<section class="team-section">
-  <div class="sec-inner">
-    <div class="eyebrow reveal">The team</div>
-    <h2 class="headline reveal">Every person on this team<br>is the <em>best</em> at what they do.</h2>
-    <div class="team-grid">
-      <div class="team-card reveal reveal-d1">
-        <div class="team-img">
-          <img src="https://images.unsplash.com/photo-1611348524140-53c9a25263d6?w=500&q=80" alt="James Mwangi" loading="lazy"/>
-          <div class="team-img-grad"></div>
-        </div>
-        <div class="team-body">
-          <div class="team-name">James Mwangi</div>
-          <div class="team-role">Founder & City Guide Director</div>
-          <div class="team-spec">🚶 Nairobi · 15 years</div>
-        </div>
+    <div class="wb-cta-band glass" data-reveal>
+      <div>
+        <h2>Ready when you are</h2>
+        <p>Tell us roughly when you want to travel and we will tell you what is running.</p>
       </div>
-      <div class="team-card reveal reveal-d2">
-        <div class="team-img">
-          <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=500&q=80" alt="Grace Wanjiku" loading="lazy"/>
-          <div class="team-img-grad"></div>
-        </div>
-        <div class="team-body">
-          <div class="team-name">Grace Wanjiku</div>
-          <div class="team-role">Safari Director</div>
-          <div class="team-spec">🦁 Masai Mara · 12 years</div>
-        </div>
-      </div>
-      <div class="team-card reveal reveal-d3">
-        <div class="team-img">
-          <img src="https://images.unsplash.com/photo-1519923834699-ef0b7cde4712?w=500&q=80" alt="Felix Massawe" loading="lazy"/>
-          <div class="team-img-grad"></div>
-        </div>
-        <div class="team-body">
-          <div class="team-name">Felix Massawe</div>
-          <div class="team-role">Mountain Director</div>
-          <div class="team-spec">⛰ Kilimanjaro · 18 years</div>
-        </div>
-      </div>
-      <div class="team-card reveal reveal-d4">
-        <div class="team-img">
-          <img src="https://images.unsplash.com/photo-1516117172878-fd2c41f4a759?w=500&q=80" alt="Ali Hassan" loading="lazy"/>
-          <div class="team-img-grad"></div>
-        </div>
-        <div class="team-body">
-          <div class="team-name">Ali Hassan</div>
-          <div class="team-role">Tanzania & Coast Director</div>
-          <div class="team-spec">🏝 Zanzibar · 10 years</div>
-        </div>
-      </div>
+      <a class="wb-btn wb-btn-gold wb-btn-lg" href="/contact.html">Talk to us</a>
     </div>
-    <div style="text-align:center;margin-top:28px">
-      <a href="guides.html" style="display:inline-flex;align-items:center;gap:7px;font-family:var(--font-b);font-size:13.5px;font-weight:600;color:var(--forest);text-decoration:none;padding:12px 24px;border-radius:var(--r-pill);border:1.5px solid rgba(11,61,32,.22);transition:all .25s" onmouseover="this.style.background='var(--forest)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='var(--forest)'">Meet all our guides <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
-    </div>
-  </div>
-</section>
+  </div></section>
+</main>
 
-<!-- PRESS -->
-<section class="press-section">
-  <div class="press-inner">
-    <div class="press-eyebrow">As featured in</div>
-    <div class="press-logos">
-      <span class="press-logo">Lonely Planet</span>
-      <span class="press-logo">The Guardian Travel</span>
-      <span class="press-logo">Condé Nast Traveller</span>
-      <span class="press-logo">National Geographic</span>
-      <span class="press-logo">CNN Travel</span>
+<footer class="wb-foot">
+  <div class="wb-wrap wb-foot-in">
+    <div>
+      <b class="wb-foot-brand">WILD BOSSES ADVENTURES</b>
+      <p class="wb-foot-note">Small-group journeys across Kenya.</p>
     </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact-section">
-  <div class="contact-bg"></div>
-  <div class="contact-texture"></div>
-  <div class="contact-inner">
-    <div class="contact-left reveal">
-      <div class="c-eyebrow">Get in touch</div>
-      <h2 class="c-title">Ready to plan your<br><em>next adventure?</em></h2>
-      <p class="c-sub">Tell us where you want to go, when you want to travel, and how many people are joining. We'll design the perfect itinerary and get back to you within 2 hours.</p>
-      <div class="contact-channels">
-        <a href="https://wa.me/254796818671" class="c-channel" target="_blank">
-          <div class="c-channel-icon" style="background:#25D366">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          </div>
-          <div>
-            <div class="c-channel-title">WhatsApp</div>
-            <div class="c-channel-sub">+254 716 206 494 · Fastest response</div>
-          </div>
-          <svg class="c-channel-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
-        </a>
-        <a href="mailto:hello@wildbosses.co" class="c-channel">
-          <div class="c-channel-icon" style="background:rgba(200,144,10,.20);border:1px solid rgba(200,144,10,.30)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E0A818" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          </div>
-          <div>
-            <div class="c-channel-title">Email</div>
-            <div class="c-channel-sub">hello@wildbosses.co · Reply within 2 hours</div>
-          </div>
-          <svg class="c-channel-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
-        </a>
-        <a href="tel:+254796818671" class="c-channel">
-          <div class="c-channel-icon" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.70)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          </div>
-          <div>
-            <div class="c-channel-title">Phone / Call</div>
-            <div class="c-channel-sub">+254 716 206 494 · Mon–Sun 7am–8pm</div>
-          </div>
-          <svg class="c-channel-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
-        </a>
-      </div>
-    </div>
-    <div class="contact-form reveal reveal-d2">
-      <div class="cf-title">Send us a quick enquiry</div>
-      <div class="cf-row">
-        <div class="cf-field"><label class="cf-label">First name</label><input class="cf-input" type="text" placeholder="Your name"/></div>
-        <div class="cf-field"><label class="cf-label">Email address</label><input class="cf-input" type="email" placeholder="your@email.com"/></div>
-      </div>
-      <div class="cf-field"><label class="cf-label">Phone / WhatsApp</label><input class="cf-input" type="tel" placeholder="+254 ..."/></div>
-      <div class="cf-row">
-        <div class="cf-field"><label class="cf-label">Interested in</label>
-          <select class="cf-select">
-            <option value="">Select a tour type</option>
-            <option>Wildlife Safari</option>
-            <option>City Walking Tour</option>
-            <option>Mountain Trekking</option>
-            <option>Cultural Tour</option>
-            <option>Beach & Coast</option>
-            <option>Custom Itinerary</option>
-          </select>
-        </div>
-        <div class="cf-field"><label class="cf-label">Group size</label>
-          <select class="cf-select">
-            <option>Just me (1)</option>
-            <option>2 people</option>
-            <option>3–5 people</option>
-            <option>6–10 people</option>
-            <option>10+ people</option>
-          </select>
-        </div>
-      </div>
-      <div class="cf-field"><label class="cf-label">Tell us more</label><textarea class="cf-textarea" placeholder="Dates, destinations, any special requirements…"></textarea></div>
-      <button class="cf-submit" onclick="submitForm()">Send enquiry — we reply within 2 hours</button>
-      <div class="cf-note">We'll never share your details with third parties. By submitting, you agree to our privacy policy.</div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <a href="index.html" class="fb-logo">
-        <div class="fb-logo-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-        <span class="fb-name">Wildbosses</span>
-      </a>
-      <p class="footer-tagline">Kenya's premier boutique tour company. Private safaris, city walks and adventures since 2013.</p>
-      <div class="footer-socials">
-        <a href="https://wa.me/254796818671" aria-label="WhatsApp"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
-        <a href="https://instagram.com/wildbosses" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-        <a href="mailto:hello@wildbosses.co" aria-label="Email"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
-      </div>
-    </div>
-    <div class="footer-col">
-      <h4>Experiences</h4>
-      <a href="tours.html?cat=safari">Wildlife Safari</a>
-      <a href="tours.html?cat=walking">Walking Tours</a>
-      <a href="tours.html?cat=mountain">Hiking & Trekking</a>
-      <a href="tours.html?cat=culture">Cultural Tours</a>
-      <a href="tours.html?cat=beach">Beach & Coast</a>
-    </div>
-    <div class="footer-col">
-      <h4>Destinations</h4>
-      <a href="tours.html?dest=masai-mara">Masai Mara</a>
-      <a href="tours.html?dest=nairobi">Nairobi</a>
-      <a href="tours.html?dest=amboseli">Amboseli</a>
-      <a href="tours.html?dest=zanzibar">Zanzibar</a>
-      <a href="tours.html?dest=kilimanjaro">Kilimanjaro</a>
-    </div>
-    <div class="footer-col">
-      <h4>Company</h4>
-      <a href="about.html">About Us</a>
-      <a href="guides.html">Our Guides</a>
-      <a href="mailto:hello@wildbosses.co">Contact</a>
-      <a href="https://wa.me/254796818671">WhatsApp</a>
-      <a href="terms.html">Terms</a>
-      <a href="privacy.html">Privacy</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span class="footer-copy">© 2026 Wildbosses Tours & Safaris. Nairobi, Kenya. KTB Registered.</span>
-    <div class="footer-legal"><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></div>
+    <nav class="wb-foot-links" aria-label="Footer">
+      <a href="/tours.html">Tours</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/admin.html">Admin</a>
+    </nav>
+    <p class="wb-foot-legal">&copy; <span id="wb-year"></span> Wild Bosses Adventures</p>
   </div>
 </footer>
+<script src="/wb-data.js"></script>
+<script src="/wb-site.js"></script>
 
-
-
-<script src="wb-about.js"></script>
-<script src="wb-shell.js"></script>
 </body>
 </html>

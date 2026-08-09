@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Wild Bosses Adventures — Safaris and journeys across Kenya</title>
-<meta name="description" content="Small-group safaris, coast escapes and walking tours across Kenya. Real departures, real dates."/>
+<title>Trip — Wild Bosses Adventures</title>
+<meta name="description" content="Trip details and booking."/>
 <meta name="theme-color" content="#EFEBE3"/>
-<meta property="og:title" content="Wild Bosses Adventures — Safaris and journeys across Kenya"/>
-<meta property="og:description" content="Small-group safaris, coast escapes and walking tours across Kenya. Real departures, real dates."/>
+<meta property="og:title" content="Trip — Wild Bosses Adventures"/>
+<meta property="og:description" content="Trip details and booking."/>
 <meta property="og:type" content="website"/>
 <link rel="preload" href="/fonts/anton-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
 <link rel="preload" href="/fonts/geist-sans-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin/>
@@ -17,8 +17,7 @@
 <script src="/wb-theme.js"></script>
 <link rel="stylesheet" href="/wb-tokens.css"/>
 <link rel="stylesheet" href="/wb-site.css"/>
-<link rel="stylesheet" href="/wb-intro.css"/>
-<link rel="stylesheet" href="/wb-rail.css"/>
+<link rel="stylesheet" href="/wb-page.css"/>
 
 </head>
 <body>
@@ -49,48 +48,7 @@
   </div>
 </header>
 
-<div id="wb-intro" class="wb-intro" role="presentation" aria-hidden="true">
-  <div class="wb-word">
-    <svg viewBox="0 0 1000 250" class="wb-word-svg" aria-hidden="true">
-      <defs>
-        <filter id="wbWordRough" x="-10%" y="-30%" width="120%" height="160%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.82 0.5" numOctaves="3" seed="11" result="n"/>
-          <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
-        </filter>
-      </defs>
-      <g class="wb-rip wb-rip-1">
-        <text class="wb-word-tear" x="500" y="130" text-anchor="middle">WILD BOSSES</text>
-        <text class="wb-word-main" x="500" y="130" text-anchor="middle">WILD BOSSES</text>
-      </g>
-      <g class="wb-rip wb-rip-2">
-        <text class="wb-word-sub" x="491" y="192" text-anchor="middle">ADVENTURES</text>
-      </g>
-    </svg>
-  </div>
-  <button class="wb-intro-skip" type="button">Skip</button>
-</div>
-
-<main>
-  <section class="wb-rail" id="wb-rail" aria-label="Upcoming departures">
-    <div class="wb-boot">Loading departures…</div>
-  </section>
-
-  <section class="wb-sec">
-    <div class="wb-wrap">
-      <header class="wb-sec-head" data-reveal>
-        <p class="wb-eyebrow">Every trip on the books</p>
-        <h2 class="wb-sec-title">Choose your departure</h2>
-        <p class="wb-sec-lede">Fixed dates, small groups, and a place held the moment you book.</p>
-      </header>
-      <div class="wb-grid" id="wb-grid" aria-live="polite">
-        <div class="wb-boot">Loading trips…</div>
-      </div>
-      <p style="text-align:center;margin-top:34px">
-        <a class="wb-btn wb-btn-ghost wb-btn-lg" href="/tours.html">See every trip</a>
-      </p>
-    </div>
-  </section>
-</main>
+<main id="tour-root"><div class="wb-wrap"><div class="wb-boot">Loading trip…</div></div></main>
 
 <footer class="wb-foot">
   <div class="wb-wrap wb-foot-in">
@@ -110,9 +68,7 @@
 </footer>
 <script src="/wb-data.js"></script>
 <script src="/wb-site.js"></script>
-<script src="/wb-intro.js"></script>
-<script src="/wb-rail.js"></script>
-<script src="/wb-home.js"></script>
+<script src="/wb-tour.js"></script>
 
 </body>
 </html>

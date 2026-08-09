@@ -1,19 +1,17 @@
 /* ═══════════════════════════════════════════════════════════════════
    WILDBOSSES · FOUNDATION
-   Self-hosted faces (no third-party request on the critical path) and
-   the token set every other stylesheet derives from.
+   Self-hosted faces and a two-theme token set.
 
-   Palette is drawn from the subject rather than a swatch library:
-   the void of a savanna night, sun-bleached bone, lion-mane gold, and
-   the ember that only ever shows on a torn edge.
+   Light is the daytime face: warm off-white, never paper-white, so
+   photographs of dust and grass sit on it without glare. Dark is night.
+   Both share one gold, adjusted for contrast against each background.
+
+   Surfaces are glass — translucent, blurred, saturated slightly past
+   their backdrop, with a bright top edge. The blur is what makes it
+   read as glass rather than as flat white.
    ═══════════════════════════════════════════════════════════════════ */
 
-@font-face {
-  font-family: 'Anton';
-  src: url('/fonts/anton-latin-400-normal.woff2') format('woff2');
-  font-weight: 400; font-style: normal; font-display: swap;
-}
-
+@font-face { font-family:'Anton'; src:url('/fonts/anton-latin-400-normal.woff2') format('woff2'); font-weight:400; font-display:swap; }
 @font-face { font-family:'Geist'; src:url('/fonts/geist-sans-latin-300-normal.woff2') format('woff2'); font-weight:300; font-display:swap; }
 @font-face { font-family:'Geist'; src:url('/fonts/geist-sans-latin-400-normal.woff2') format('woff2'); font-weight:400; font-display:swap; }
 @font-face { font-family:'Geist'; src:url('/fonts/geist-sans-latin-500-normal.woff2') format('woff2'); font-weight:500; font-display:swap; }
@@ -21,75 +19,106 @@
 @font-face { font-family:'Geist'; src:url('/fonts/geist-sans-latin-700-normal.woff2') format('woff2'); font-weight:700; font-display:swap; }
 @font-face { font-family:'Geist'; src:url('/fonts/geist-sans-latin-800-normal.woff2') format('woff2'); font-weight:800; font-display:swap; }
 @font-face { font-family:'Geist'; src:url('/fonts/geist-sans-latin-900-normal.woff2') format('woff2'); font-weight:900; font-display:swap; }
-
 @font-face { font-family:'Geist Mono'; src:url('/fonts/geist-mono-latin-400-normal.woff2') format('woff2'); font-weight:400; font-display:swap; }
 @font-face { font-family:'Geist Mono'; src:url('/fonts/geist-mono-latin-500-normal.woff2') format('woff2'); font-weight:500; font-display:swap; }
 @font-face { font-family:'Geist Mono'; src:url('/fonts/geist-mono-latin-600-normal.woff2') format('woff2'); font-weight:600; font-display:swap; }
 
 :root {
-  /* ── colour ── */
-  --void:   #070908;   /* savanna night, green-black not blue-black */
-  --char:   #12100D;   /* raised surface */
-  --soot:   #1C1916;   /* card face */
-  --ash:    #2A2621;   /* hairline / border */
-  --bone:   #EDE6D8;   /* primary text, sun-bleached not white */
-  --dust:   #9C948A;   /* secondary text */
-  --gold:   #C8922F;   /* lion mane — the one accent that carries brand */
-  --gold-lo:#8E6720;
-  --ember:  #D6521F;   /* torn edge only. never a button. */
-  --moss:   #3B4A34;   /* acacia, used quietly */
+  --display:'Anton','Geist',system-ui,sans-serif;
+  --body:'Geist',system-ui,-apple-system,sans-serif;
+  --mono:'Geist Mono',ui-monospace,SFMono-Regular,monospace;
 
-  /* ── type ── */
-  --display: 'Anton', 'Geist', system-ui, sans-serif;
-  --body:    'Geist', system-ui, -apple-system, sans-serif;
-  --mono:    'Geist Mono', ui-monospace, SFMono-Regular, monospace;
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px;
+  --sp-6:32px; --sp-7:48px; --sp-8:64px; --sp-9:96px; --sp-10:128px;
+  --r-sm:8px; --r-md:14px; --r-lg:22px; --r-xl:30px;
+  --ease:cubic-bezier(.2,.75,.3,1);
+  --max:1280px;
 
-  /* ── scale ── */
-  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
-  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
-  --sp-9: 96px; --sp-10: 128px;
-
-  --r-sm: 6px; --r-md: 12px; --r-lg: 20px; --r-xl: 28px;
-
-  --shadow-lift: 0 18px 50px -12px rgba(0,0,0,.72);
-  --shadow-card: 0 8px 28px -8px rgba(0,0,0,.6);
-
-  --ease: cubic-bezier(.2,.75,.3,1);
-  --max: 1280px;
+  --void:#070908;    /* the intro's black. never themed. */
+  --ember:#D6521F;
 }
 
-*, *::before, *::after { box-sizing: border-box; }
+/* ── DAY ─────────────────────────────────────────────────── */
+:root, [data-theme="light"] {
+  color-scheme: light;
+  --bg:#EFEBE3;  --bg-deep:#E4DED3;
+  --ink:#17140F; --ink-2:#5C5449; --ink-3:#8A8177;
+  --gold:#8F6212; --gold-soft:#C8922F;
+  --line:rgba(23,20,15,.11); --line-2:rgba(23,20,15,.06);
+  --glass:rgba(255,253,249,.62); --glass-2:rgba(255,253,249,.42);
+  --glass-edge:rgba(255,255,255,.85);
+  --glass-blur:saturate(165%) blur(22px);
+  --shadow-card:0 2px 6px rgba(23,20,15,.05), 0 12px 32px -12px rgba(23,20,15,.16);
+  --shadow-lift:0 4px 12px rgba(23,20,15,.07), 0 28px 60px -20px rgba(23,20,15,.26);
+  --mesh-1:rgba(200,146,47,.17); --mesh-2:rgba(118,140,108,.15); --mesh-3:rgba(214,82,31,.08);
+  --on-gold:#FFFFFF;
+}
 
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+/* ── NIGHT ───────────────────────────────────────────────── */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg:#0B0D0C;  --bg-deep:#070908;
+  --ink:#EDE6D8; --ink-2:#9C948A; --ink-3:#6E675E;
+  --gold:#C8922F; --gold-soft:#DDA641;
+  --line:rgba(237,230,216,.13); --line-2:rgba(237,230,216,.07);
+  --glass:rgba(30,28,25,.58); --glass-2:rgba(30,28,25,.40);
+  --glass-edge:rgba(237,230,216,.14);
+  --glass-blur:saturate(150%) blur(22px);
+  --shadow-card:0 8px 28px -8px rgba(0,0,0,.62);
+  --shadow-lift:0 18px 50px -12px rgba(0,0,0,.76);
+  --mesh-1:rgba(200,146,47,.11); --mesh-2:rgba(70,90,64,.12); --mesh-3:rgba(214,82,31,.07);
+  --on-gold:#0B0D0C;
+}
+
+*,*::before,*::after { box-sizing:border-box; }
+html { -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
 
 body {
-  margin: 0;
-  background: var(--void);
-  color: var(--bone);
-  font-family: var(--body);
-  font-size: 16px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  margin:0; min-height:100vh;
+  background:var(--bg); color:var(--ink);
+  font-family:var(--body); font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  transition:background-color .5s var(--ease), color .5s var(--ease);
 }
 
-img, video, svg { max-width: 100%; display: block; }
-a { color: inherit; text-decoration: none; }
-button { font: inherit; }
+/* the liquid behind the glass: slow-drifting colour fields */
+body::before {
+  content:''; position:fixed; inset:-25%; z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(ellipse 46% 38% at 18% 22%, var(--mesh-1), transparent 68%),
+    radial-gradient(ellipse 40% 44% at 82% 30%, var(--mesh-2), transparent 68%),
+    radial-gradient(ellipse 52% 36% at 50% 88%, var(--mesh-3), transparent 70%);
+  animation:wbMesh 34s ease-in-out infinite alternate;
+}
+@keyframes wbMesh {
+  from{ transform:translate3d(-1.5%,-1%,0) scale(1) }
+  to  { transform:translate3d(2%,1.5%,0) scale(1.07) }
+}
+@media (prefers-reduced-motion: reduce){ body::before{animation:none} }
 
-/* a visible, branded focus ring everywhere — not the browser default */
-:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 3px;
-  border-radius: 3px;
+img,video,svg { max-width:100%; display:block; }
+a { color:inherit; text-decoration:none; }
+button { font:inherit; }
+:focus-visible { outline:2px solid var(--gold); outline-offset:3px; border-radius:4px; }
+
+/* ── glass primitive ─────────────────────────────────────── */
+.glass {
+  background:var(--glass);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--line);
+  border-top-color:var(--glass-edge);
+  box-shadow:var(--shadow-card);
+}
+/* Blur is expensive and some engines drop it. Without it the panel is a
+   flat wash, so fall back to an opaque fill that still separates. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass { background:var(--bg-deep); }
 }
 
-.wb-only-sr {
-  position: absolute; width: 1px; height: 1px;
-  padding: 0; margin: -1px; overflow: hidden;
-  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
-}
+.wb-only-sr { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0 }
+.wb-num { font-family:var(--mono); font-variant-numeric:tabular-nums }
 
-/* tabular figures wherever a number ticks, so digits never dance */
-.wb-num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+/* the intro is always black, whatever the hour */
+.wb-no-intro .wb-intro { display:none !important }

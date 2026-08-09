@@ -1,150 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"/>
-<link rel="stylesheet" href="wb-tours.css"/>
-<link rel="stylesheet" href="wb-shell.css"/>
-<title>Kenya Safaris & Tours | Masai Mara, Kilimanjaro, Zanzibar — Wildbosses</title>
-<meta name="description" content="Browse all Wildbosses tours and safaris across Kenya and Tanzania. Wildlife safaris, walking tours, mountain treks, cultural expeditions and beach adventures."/>
-<meta name="robots" content="index, follow"/>
-<meta name="theme-color" content="#0B3D20"/>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Tours — Wild Bosses Adventures</title>
+<meta name="description" content="Every Wild Bosses departure: safaris, coast escapes, walking and culture tours across Kenya."/>
+<meta name="theme-color" content="#EFEBE3"/>
+<meta property="og:title" content="Tours — Wild Bosses Adventures"/>
+<meta property="og:description" content="Every Wild Bosses departure: safaris, coast escapes, walking and culture tours across Kenya."/>
+<meta property="og:type" content="website"/>
+<link rel="preload" href="/fonts/anton-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="preload" href="/fonts/geist-sans-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="preconnect" href="https://uhoqbticmkeufuxnrate.supabase.co"/>
+<!-- runs before first paint: picks the theme and decides on the intro,
+     so the page never flashes the wrong face -->
+<script src="/wb-theme.js"></script>
+<link rel="stylesheet" href="/wb-tokens.css"/>
+<link rel="stylesheet" href="/wb-site.css"/>
+<link rel="stylesheet" href="/wb-page.css"/>
+
 </head>
 <body>
 
-<!-- TOPBAR -->
-<div class="topbar">
-  <a href="index.html" class="tb-back" aria-label="Home">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+<header class="wb-nav">
+  <a class="wb-brand" href="/">
+    <span class="wb-logo" id="wb-logo" aria-hidden="true"></span>
+    <span class="wb-brand-txt"><b>WILD BOSSES</b><i>ADVENTURES</i></span>
   </a>
-  <a href="index.html" class="tb-brand">
-    <div class="tb-logo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-    <span class="tb-name">Wildbosses</span>
-  </a>
-  <div class="tb-sep"></div>
-  <span class="tb-title">Tours & Safaris</span>
-  <div class="tb-right">
-    <a href="https://wa.me/254796818671?text=Hi%20Wildbosses!%20I'd%20like%20to%20enquire%20about%20a%20tour." class="tb-wa" target="_blank">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      <span>WhatsApp us</span>
-    </a>
+  <nav class="wb-links" id="wb-links" aria-label="Primary">
+    <a href="/tours.html">Tours</a>
+    <a href="/guides.html">Guides</a>
+    <a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a>
+  </nav>
+  <div class="wb-nav-end">
+    <button class="wb-theme" data-theme-toggle type="button" aria-label="Switch theme">
+      <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+           stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+      <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+           stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+    <a class="wb-btn wb-btn-gold" href="/tours.html">Book a trip</a>
+    <button class="wb-burger" id="wb-burger" type="button" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
   </div>
-</div>
+</header>
 
-<!-- HERO STRIP -->
-<div class="page-hero">
-  <div class="ph-bg"></div>
-  <div class="ph-texture"></div>
-  <div class="ph-inner">
-    <div class="ph-eyebrow"><span class="ph-dot"></span>1,200+ happy travellers</div>
-    <h1 class="ph-title">Days you'll <em>never forget.</em></h1>
-    <p class="ph-sub">Curated safaris, cultural expeditions and adventures — every experience personally designed by Wildbosses.</p>
-    <div class="ph-search">
-      <div class="phs-input-wrap">
-        <svg class="phs-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-        <input class="phs-input" id="searchInput" type="text" placeholder="Search tours, destinations…" oninput="render()"/>
-      </div>
-      <div class="phs-sep"></div>
-      <select class="phs-sel" id="destSel" onchange="render()">
-        <option value="">All destinations</option>
-        <option value="nairobi">Nairobi</option>
-        <option value="masai-mara">Masai Mara</option>
-        <option value="amboseli">Amboseli</option>
-        <option value="zanzibar">Zanzibar</option>
-        <option value="diani">Diani Beach</option>
-        <option value="serengeti">Serengeti</option>
-        <option value="kilimanjaro">Kilimanjaro</option>
-        <option value="naivasha">Naivasha</option>
-      </select>
-      <button class="phs-btn" onclick="render()">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-        Search
-      </button>
+<main>
+  <section class="wb-hero"><div class="wb-wrap">
+    <p class="wb-eyebrow">The full catalogue</p>
+    <h1>Every trip we run</h1>
+    <p>Filter by the kind of journey you want. Every date shown is a real departure with places still open.</p>
+  </div></section>
+
+  <section class="wb-sec" style="padding-top:0">
+    <div class="wb-wrap">
+      <div class="wb-filters" id="wb-filters" role="group" aria-label="Filter tours"></div>
+      <div class="wb-grid" id="wb-grid" aria-live="polite"><div class="wb-boot">Loading trips…</div></div>
     </div>
-  </div>
-</div>
+  </section>
+</main>
 
-<!-- FILTER CHIPS -->
-<div class="filter-strip" id="filterStrip">
-  <div class="fchip on" onclick="setFilter('all',this)">🗺 All experiences</div>
-  <div class="fchip" onclick="setFilter('safari',this)">🦁 Wildlife Safari</div>
-  <div class="fchip" onclick="setFilter('walking',this)">🚶 Walking Tours</div>
-  <div class="fchip" onclick="setFilter('culture',this)">🎭 Cultural</div>
-  <div class="fchip" onclick="setFilter('adventure',this)">⛰ Adventure & Trekking</div>
-  <div class="fchip" onclick="setFilter('beach',this)">🌊 Beach & Coast</div>
-  <div class="fchip" onclick="setFilter('birding',this)">🦅 Birding</div>
-  <div class="fchip" onclick="setFilter('photo',this)">📷 Photography</div>
-  <div class="fchip" onclick="setFilter('night',this)">🌙 Night Safari</div>
-  <div class="fchip" onclick="setFilter('free',this)">✨ Free tours</div>
-</div>
-
-<!-- META BAR -->
-<div class="meta-bar">
-  <div class="meta-count"><strong id="resultCount">0</strong> experiences</div>
-  <div class="meta-sort">
-    <span class="sort-lbl">Sort by</span>
-    <select class="sort-sel" id="sortSel" onchange="render()">
-      <option value="rec">Recommended</option>
-      <option value="rating">Highest rated</option>
-      <option value="price-asc">Price: Low → High</option>
-      <option value="price-desc">Price: High → Low</option>
-      <option value="reviews">Most reviewed</option>
-      <option value="spots">Fewest spots left</option>
-    </select>
-  </div>
-</div>
-
-<!-- CONTENT -->
-<div class="content">
-  <!-- Upcoming countdown -->
-  <div class="countdown-card" id="countdownCard">
-    <div class="cc-bg"></div>
-    <div class="cc-texture"></div>
-    <div class="cc-left">
-      <div class="cc-eyebrow"><span class="cc-pulse"></span>Next departure · Limited availability</div>
-      <div class="cc-title">Masai Mara <em>Great Migration</em> Safari</div>
-      <p class="cc-sub">7 days across the Mara Triangle. Private 4×4, expert guide, luxury tented camp. One of 3 departures this season.</p>
-      <div class="cc-details">
-        <div class="cc-det"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>14 – 21 Aug 2026</div>
-        <div class="cc-det"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Max 8 guests</div>
-        <div class="cc-det"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>KES 95,000 / person</div>
-      </div>
-      <div class="cc-spots">
-        <div class="spots-bar"><div class="spots-fill" style="width:75%"></div></div>
-        <div class="spots-txt"><strong>2</strong> of 8 spots remaining</div>
-      </div>
-      <div class="cc-btns">
-        <button class="cc-btn-p" onclick="bookNow('migration')">Secure your spot — pay 30% deposit <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M7 7h10v10"/></svg></button>
-        <button class="cc-btn-g" onclick="openModal('migration')">View full itinerary</button>
-      </div>
+<footer class="wb-foot">
+  <div class="wb-wrap wb-foot-in">
+    <div>
+      <b class="wb-foot-brand">WILD BOSSES ADVENTURES</b>
+      <p class="wb-foot-note">Small-group journeys across Kenya.</p>
     </div>
-    <div class="cc-right">
-      <div style="font-family:var(--font-b);font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:12px;text-align:center">Booking closes in</div>
-      <div class="timer-grid">
-        <div class="timer-unit"><div class="timer-num" id="tD">00</div><div class="timer-lbl">Days</div></div>
-        <div class="timer-unit"><div class="timer-num" id="tH">00</div><div class="timer-lbl">Hours</div></div>
-        <div class="timer-unit"><div class="timer-num" id="tM">00</div><div class="timer-lbl">Mins</div></div>
-        <div class="timer-unit"><div class="timer-num" id="tS">00</div><div class="timer-lbl">Secs</div></div>
-      </div>
-      <div class="timer-deposit">30% deposit secures your place<br><strong>= KES 28,500 today</strong></div>
-    </div>
+    <nav class="wb-foot-links" aria-label="Footer">
+      <a href="/tours.html">Tours</a>
+      <a href="/guides.html">Guides</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/admin.html">Admin</a>
+    </nav>
+    <p class="wb-foot-legal">&copy; <span id="wb-year"></span> Wild Bosses Adventures</p>
   </div>
+</footer>
+<script src="/wb-data.js"></script>
+<script src="/wb-site.js"></script>
+<script src="/wb-tours.js"></script>
 
-  <!-- Grid -->
-  <div class="tours-grid" id="toursGrid"></div>
-</div>
-
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
-  <div class="modal-box" id="modalBox" onclick="event.stopPropagation()"></div>
-</div>
-
-
-
-<script src="wb-tours.js"></script>
-<script src="wb-shell.js"></script>
 </body>
 </html>

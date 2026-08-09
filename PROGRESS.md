@@ -1,55 +1,76 @@
-# Wild Bosses Adventures — rebuild
+# Wild Bosses Adventures
 
-## Live now
+## Pages
 
-- **Homepage** — claw intro → diagonal video rail → tour grid. Every word
-  and price comes from the database. Nothing is hardcoded.
-- **Admin** at **`/admin.html`** — real Supabase Auth sign-in.
-- **Intro preview** at `/_preview-intro.html` (replays on demand).
-
-## Signing in
-
-    /admin.html
-    admin@wildbosses.co
-
-The temporary password was given separately. **Change it on first sign-in.**
-
-Four tabs: **Hero videos**, **Tours**, **Bookings**, **Brand**. Videos and
-photos upload straight from the forms into Supabase Storage.
-
-## What was removed
-
-| Removed | Why |
+| Page | What it does |
 |---|---|
-| `wb-showcase.js` | An ad server — `advertiser`, `campaign_id`, `ad_impression`, hardcoded `DEMOS`. Cabana graft. Also leaked live Supabase keys in client JS. |
-| `cabana-wb-integration.js` | The Cabana coupling. |
-| `wildbosses-api.js` | Cabana bridge plus a static fallback catalogue. |
-| `wb-db.js` | Dead data layer. Never loaded by any page, credentials never filled in. |
-| `list-tour.html` form | Was a **public, unauthenticated** form — anyone could post a tour. Now redirects to the admin. |
+| `/` | Claw intro → diagonal video rail → featured departures |
+| `/tours.html` | Full catalogue, filtered by category |
+| `/tour.html?t=slug` | Trip detail + live countdown + booking form |
+| `/guides.html` | The guides |
+| `/about.html` | The story |
+| `/contact.html` | Enquiry form + WhatsApp / phone / email |
+| `/admin.html` | Sign-in and run the whole site |
+| `/_preview-intro.html` | Replay the claw intro on demand |
 
-## Security fixes
+## Theme
 
-1. Writes are gated on a `public.admins` allow-list via `is_admin()`, not on
-   "is signed in". The earlier draft used `to authenticated using (true)`,
-   which would hand the catalogue to anyone who created an account.
-2. Bookings have **no anonymous SELECT**. Guest names and phone numbers are
-   unreadable without an admin session.
-3. A booking cannot arrive already marked paid or confirmed. Only an admin
-   moves it to those states.
-4. The Supabase JS SDK is self-hosted rather than pulled from a public CDN.
+Light by day, dark at night, decided in this order:
 
-## Deliberate choices
+1. what the visitor last chose (persists)
+2. the operating system, if it asks for dark
+3. the clock where the visitor is — dark from 18:30 to 06:30
 
-- **Ratings and review counts start at 0.** Invented social proof is what
-  made the old site feel fake.
-- **Hero cards ship with posters and no video.** The rail drifts the poster
-  until real film is uploaded, so the page never shows a stand-in pretending
-  to be the client's work. Upload video in the admin and it plays.
-- The intro plays **once per session**, not on every navigation.
-- Fonts are self-hosted (312K) — no render-blocking Google Fonts request.
+There is a toggle in the nav. `wb-theme.js` runs in `<head>` before first
+paint, so the page never flashes the wrong face. An open tab rolls over on
+its own at dusk.
+
+The claw intro is **always black**, whatever the hour, so the tear marks
+stay pronounced. The video rail is also a permanently dark stage — film and
+photography carry on black, and dimmed cards recede instead of washing out
+against a pale page. It fades into the light page below it.
+
+## The bug in the screenshots
+
+The intro guard returned early on a repeat visit **before** attaching the
+skip handler. The overlay is fixed, full-screen and top-of-stack, so it
+stayed in the DOM and silently blocked the entire site with a dead Skip
+button. Any second visit or back-navigation was a dead end.
+
+Fixed with four layers, because one was clearly not enough:
+
+1. `wb-theme.js` stamps `wb-no-intro` in `<head>` — the overlay never paints
+2. every exit path in `run()` now calls `kill()`, which removes the element
+3. the Skip button is wired on the very first line, before anything can fail
+4. a 9-second failsafe lifts the curtain no matter what went wrong
+
+## Hero videos
+
+Upload MP4 or WebM in **Admin → Hero videos**. The poster shows underneath
+and the film fades in only once it can actually play, so a slow connection
+shows a photograph rather than a black rectangle. Only the card at centre
+stage decodes; the next one's metadata is pulled early so the hand-off is
+seamless. Four videos decoding at once drops frames on a mid-range phone.
+
+Keep files under ~200MB. Short loops of 10–20 seconds, muted, look best.
+
+## Removed
+
+The old green pages and their stylesheets, the Cabana ad engine
+(`wb-showcase.js` — `advertiser`, `campaign_id`, `ad_impression`),
+`cabana-wb-integration.js`, `wildbosses-api.js`, the dead `wb-db.js`, and the
+public unauthenticated `list-tour.html` form.
+
+## Security
+
+- Writes gated on a `public.admins` allow-list via `is_admin()`, not on
+  "is signed in"
+- No anonymous SELECT on bookings — guest phone numbers are not public
+- A booking cannot arrive already marked paid or confirmed
+- Supabase SDK and all fonts self-hosted; no third-party requests
 
 ## Still to do
 
-- `tours.html` detail view + booking flow wired to `WB.createBooking()`
-- `guides.html` and `about.html` onto the live data layer
-- M-Pesa / payment gateway
+- Payment gateway (M-Pesa / card)
+- Itinerary day-by-day on the trip page
+- Guide profiles linked to trips
