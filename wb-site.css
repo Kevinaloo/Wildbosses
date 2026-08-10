@@ -167,9 +167,11 @@
 .wb-slide-wrap {
   position: relative; overflow: hidden;
 }
+/* No transition here on purpose: the script sets it per move so it can
+   rewind the loop with animation off, which is what keeps the seam
+   invisible. */
 .wb-slide-track {
   display: flex; gap: clamp(12px, 1.6vw, 20px);
-  transition: transform .55s cubic-bezier(.4,0,.2,1);
   will-change: transform;
 }
 /* Each slide card fixed width so N cards are visible */
@@ -189,7 +191,6 @@
   transition: border-color .2s, color .2s, background .2s;
 }
 .wb-slide-btn:hover { border-color: var(--gold); color: var(--gold); }
-.wb-slide-btn:disabled { opacity: .3; cursor: default; }
 .wb-slide-btn svg { width: 16px; height: 16px; }
 .wb-slide-dots { display: flex; gap: 7px; }
 .wb-slide-dot {

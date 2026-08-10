@@ -5,7 +5,12 @@
 (function (W, D) {
   'use strict';
 
-  /* ── slideshow ─────────────────────────────────────────── */
+  /* ── slideshow ─────────────────────────────────────────────
+     An endless one-card-at-a-time drift. The real card list is
+     duplicated so there is always something entering from the right;
+     once the track has travelled exactly one full set it snaps back
+     with the transition off, which is invisible and means the loop
+     never runs out — even with only three or four trips on the books. */
   function initSlideshow(rows) {
     var track   = D.getElementById('wb-slide-track') || D.getElementById('wb-grid');
     var navWrap = D.getElementById('wb-slide-nav');
@@ -22,91 +27,108 @@
       return;
     }
 
-    track.innerHTML = rows.map(W.WBSite.tourCard).join('');
+    var real = rows.length;
+    var one  = rows.map(W.WBSite.tourCard).join('');
 
-    /* Cards render fine on their own; the carousel controls are a
-       progressive enhancement. If the slideshow markup is missing
-       (e.g. a stale cached page) the trips still show as a plain row. */
+    /* Enough copies that the row is never half empty at any offset. */
+    var copies = real <= 2 ? 4 : real <= 4 ? 3 : 2;
+    var html = '';
+    for (var c = 0; c < copies; c++) html += one;
+    track.innerHTML = html;
+
+    /* Controls are an enhancement — without them the cards still
+       render as a plain row rather than nothing at all. */
     if (!navWrap || !dotsEl || !prevBtn || !nextBtn) return;
-    var cards = track.querySelectorAll('.wb-card');
-    var n = cards.length;
 
-    /* How many cards fit in view? Compute from first card width. */
-    function perPage() {
-      if (!cards[0]) return 3;
-      var cw  = cards[0].offsetWidth + parseInt(
-        getComputedStyle(track).gap || '20', 10);
-      var vw  = track.parentElement.offsetWidth;
-      return Math.max(1, Math.floor(vw / cw));
+    var idx = 0, timer = null, paused = false;
+    var REDUCED = W.matchMedia &&
+      W.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function cardStep() {
+      var card = track.querySelector('.wb-card');
+      if (!card) return 0;
+      var gap = parseFloat(getComputedStyle(track).gap) || 20;
+      return card.offsetWidth + gap;
     }
 
-    var step = 0, pages, pp;
-
-    function totalPages() {
-      pp = perPage();
-      return Math.max(1, Math.ceil(n / pp));
+    function paint(animate) {
+      track.style.transition = animate
+        ? 'transform .6s cubic-bezier(.4,0,.2,1)' : 'none';
+      track.style.transform = 'translateX(-' + (idx * cardStep()) + 'px)';
+      Array.prototype.forEach.call(dotsEl.children, function (d, i) {
+        d.classList.toggle('on', i === ((idx % real) + real) % real);
+      });
     }
 
-    function buildDots() {
-      pages = totalPages();
-      dotsEl.innerHTML = '';
-      for (var i = 0; i < pages; i++) {
-        var b = D.createElement('button');
-        b.className = 'wb-slide-dot' + (i === 0 ? ' on' : '');
-        b.setAttribute('aria-label', 'Go to page ' + (i + 1));
-        b.dataset.idx = i;
-        dotsEl.appendChild(b);
+    function go(delta) {
+      if (!delta) return;
+      idx += delta;
+      if (idx < 0) {
+        /* hop forward a full set unseen, then step back visibly */
+        idx += real;
+        paint(false);
+        void track.offsetWidth;      /* flush so the next paint animates */
+        idx -= 1;
+      }
+      paint(true);
+      if (idx >= real) {             /* rewind silently once a set has passed */
+        setTimeout(function () { idx -= real; paint(false); }, 620);
       }
     }
 
-    function goTo(idx) {
-      pages = totalPages();
-      step  = Math.max(0, Math.min(idx, pages - 1));
-      /* pixel offset: move by (step * perPage) card widths */
-      var cw = cards[0] ? (cards[0].offsetWidth +
-        parseInt(getComputedStyle(track).gap || '20', 10)) : 0;
-      track.style.transform = 'translateX(-' + (step * pp * cw) + 'px)';
-      /* dots */
-      Array.prototype.forEach.call(dotsEl.children, function (d, i) {
-        d.classList.toggle('on', i === step);
-      });
-      prevBtn.disabled = step === 0;
-      nextBtn.disabled = step >= pages - 1;
+    /* one dot per real trip */
+    dotsEl.innerHTML = '';
+    for (var i = 0; i < real; i++) {
+      var b = D.createElement('button');
+      b.className = 'wb-slide-dot' + (i === 0 ? ' on' : '');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Show trip ' + (i + 1));
+      b.dataset.idx = i;
+      dotsEl.appendChild(b);
     }
-
-    buildDots();
     navWrap.hidden = false;
 
-    prevBtn.addEventListener('click', function () { goTo(step - 1); });
-    nextBtn.addEventListener('click', function () { goTo(step + 1); });
+    function start() {
+      if (REDUCED || timer) return;
+      timer = setInterval(function () { if (!paused) go(1); }, 3200);
+    }
+    function bump() {                /* hold still after a manual nudge */
+      paused = true;
+      clearTimeout(bump._t);
+      bump._t = setTimeout(function () { paused = false; }, 6000);
+    }
+
+    prevBtn.addEventListener('click', function () { bump(); go(-1); });
+    nextBtn.addEventListener('click', function () { bump(); go(1); });
     dotsEl.addEventListener('click', function (e) {
       var b = e.target.closest('[data-idx]'); if (!b) return;
-      goTo(parseInt(b.dataset.idx, 10));
+      bump();
+      go(parseInt(b.dataset.idx, 10) - (((idx % real) + real) % real));
     });
 
-    /* Rebuild on resize */
-    var resizeTm;
-    W.addEventListener('resize', function () {
-      clearTimeout(resizeTm);
-      resizeTm = setTimeout(function () {
-        buildDots(); goTo(Math.min(step, totalPages() - 1));
-      }, 160);
-    });
+    track.addEventListener('mouseenter', function () { paused = true; });
+    track.addEventListener('mouseleave', function () { paused = false; });
+    D.addEventListener('visibilitychange', function () { paused = D.hidden; });
 
-    goTo(0);
-
-    /* Touch/swipe support */
     var touchX = null;
     track.addEventListener('touchstart', function (e) {
-      touchX = e.touches[0].clientX;
+      touchX = e.touches[0].clientX; paused = true;
     }, { passive: true });
     track.addEventListener('touchend', function (e) {
       if (touchX === null) return;
       var dx = e.changedTouches[0].clientX - touchX;
-      touchX = null;
-      if (Math.abs(dx) < 40) return;
-      goTo(dx < 0 ? step + 1 : step - 1);
+      touchX = null; bump();
+      if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
     }, { passive: true });
+
+    var resizeTm;
+    W.addEventListener('resize', function () {
+      clearTimeout(resizeTm);
+      resizeTm = setTimeout(function () { paint(false); }, 160);
+    });
+
+    paint(false);
+    start();
   }
 
   /* ── photo gallery strip ───────────────────────────────── */
