@@ -180,7 +180,8 @@ form textarea { resize:vertical; line-height:1.55 }
 .wb-trust{margin:0;text-align:center;font-size:.78rem;color:var(--muted);line-height:1.5}
 
 /* confirmation */
-.wb-done{border-radius:var(--r-lg);padding:34px 26px;margin-top:16px;text-align:center;display:grid;gap:8px;justify-items:center}
+.wb-done{border-radius:var(--r-lg);padding:34px 26px;margin-top:16px;text-align:center;display:grid;gap:10px;justify-items:center}
+.wb-done .wb-btn{margin-top:4px}
 .wb-done-tick{
   width:52px;height:52px;border-radius:50%;display:grid;place-items:center;
   font-size:1.5rem;color:#0b0b0b;background:var(--gold);margin-bottom:6px}
@@ -225,6 +226,16 @@ body.wb-locked{overflow:hidden}
 .wb-pay-amt span{font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
 .wb-pay-amt b{font-size:1.42rem;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
 
+.wb-pay-breakdown{
+  border-radius:var(--r-md);overflow:hidden;
+  border:1px solid rgba(212,175,55,.28)}
+.wb-pay-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 16px;font-size:.9rem}
+.wb-pay-row:first-child{background:rgba(212,175,55,.1)}
+.wb-pay-row:first-child b{font-size:1.18rem;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
+.wb-pay-row+.wb-pay-row{border-top:1px solid rgba(212,175,55,.15)}
+.wb-pay-row-muted{color:var(--muted);font-size:.82rem}
 .wb-pay-go{width:100%;justify-content:center}
 .wb-pay-go.is-paid{background:#16a34a!important;color:#fff!important}
 .wb-pay-go:disabled{opacity:.62;cursor:default}

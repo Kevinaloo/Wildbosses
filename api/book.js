@@ -1,8 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════════
    WILDBOSSES · CREATE BOOKING
    Runs server-side with the service role key so it bypasses RLS.
-   The browser never writes to Postgres directly — that avoids the
-   anon-policy dead ends and lets us validate properly.
+   The browser never writes to Postgres directly.
    ═══════════════════════════════════════════════════════════════════ */
 
 function json(res, status, body) {
@@ -11,24 +10,30 @@ function json(res, status, body) {
   res.status(status).end(JSON.stringify(body));
 }
 
+function corsOk(res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.status(204).end();
+}
+
 function makeRef() {
   return 'WB' + Date.now().toString(36).toUpperCase() +
          Math.random().toString(36).slice(2, 5).toUpperCase();
 }
 
 module.exports = async function handler(req, res) {
-  if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    return res.status(204).end();
-  }
-  if (req.method !== 'POST') return json(res, 405, { error: 'Method not allowed' });
+  if (req.method === 'OPTIONS') return corsOk(res);
+  if (req.method !== 'POST')   return json(res, 405, { error: 'Method not allowed' });
 
   const SB_URL = process.env.SUPABASE_URL;
   const SB_KEY = process.env.SUPABASE_SERVICE_KEY;
+
   if (!SB_URL || !SB_KEY) {
-    return json(res, 500, { error: 'Server not configured' });
+    console.error('[book] MISSING ENV VARS — SUPABASE_URL:', !!SB_URL, 'SUPABASE_SERVICE_KEY:', !!SB_KEY);
+    return json(res, 500, {
+      error: 'Server not configured. Please contact Wild Bosses directly on WhatsApp.'
+    });
   }
 
   try {
@@ -41,34 +46,50 @@ module.exports = async function handler(req, res) {
     const travellers = Math.max(1, parseInt(b.travellers, 10) || 1);
     const intent = ['deposit', 'full', 'enquiry'].includes(b.intent) ? b.intent : 'enquiry';
 
-    /* ── 1 · Load the trip server-side. Never trust client pricing. ── */
+    /* ── 1 · Load the trip server-side. Never trust client pricing ── */
     const tRes = await fetch(
-      SB_URL + '/rest/v1/tours?select=id,name,price_kes,deposit_pct,spots_left,status' +
+      SB_URL + '/rest/v1/tours?select=id,name,price_kes,deposit_pct,spots_left,status,slug' +
       '&slug=eq.' + encodeURIComponent(b.tour_slug) + '&limit=1',
-      { headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY } }
+      {
+        headers: {
+          apikey:        SB_KEY,
+          Authorization: 'Bearer ' + SB_KEY,
+          Accept:        'application/json'
+        }
+      }
     );
-    if (!tRes.ok) throw new Error('Could not load trip');
-    const tours = await tRes.json();
-    const tour = tours[0];
-    if (!tour) return json(res, 404, { error: 'Trip not found' });
 
-    if (tour.spots_left != null && travellers > tour.spots_left) {
+    if (!tRes.ok) {
+      const txt = await tRes.text();
+      console.error('[book] Supabase tour fetch failed:', tRes.status, txt);
+      throw new Error('Could not load trip details. Please try again.');
+    }
+
+    const tours = await tRes.json();
+    const tour  = tours[0];
+    if (!tour) return json(res, 404, { error: 'Trip not found. It may have been removed.' });
+    if (tour.status === 'closed') {
+      return json(res, 409, { error: 'This departure is no longer accepting bookings.' });
+    }
+
+    if (tour.spots_left != null && tour.spots_left > 0 && travellers > tour.spots_left) {
       return json(res, 409, {
-        error: 'Only ' + tour.spots_left + ' place(s) left on this departure.'
+        error: 'Only ' + tour.spots_left + ' place' + (tour.spots_left === 1 ? '' : 's') + ' left on this departure.'
       });
     }
 
-    /* ── 2 · Compute money on the server ── */
+    /* ── 2 · Compute money server-side ── */
     const unit       = Number(tour.price_kes) || 0;
     const total      = unit * travellers;
     const depositPct = Number(tour.deposit_pct) || 30;
-    const deposit    = Math.ceil(total * depositPct / 100);
+    const depositAmt = Math.ceil(total * depositPct / 100);
 
-    const payNow = intent === 'full'    ? total
-                 : intent === 'deposit' ? deposit
+    const payNow = unit === 0          ? 0
+                 : intent === 'full'   ? total
+                 : intent === 'deposit'? depositAmt
                  : 0;
 
-    /* ── 3 · Insert ── */
+    /* ── 3 · Insert booking ── */
     const ref = makeRef();
     const row = {
       booking_ref:    ref,
@@ -88,7 +109,7 @@ module.exports = async function handler(req, res) {
     };
 
     const iRes = await fetch(SB_URL + '/rest/v1/bookings', {
-      method: 'POST',
+      method:  'POST',
       headers: {
         apikey:         SB_KEY,
         Authorization:  'Bearer ' + SB_KEY,
@@ -100,15 +121,21 @@ module.exports = async function handler(req, res) {
 
     if (!iRes.ok) {
       const txt = await iRes.text();
-      console.error('booking insert failed:', txt);
-      return json(res, 502, { error: 'Could not save your booking. Please try again.' });
+      console.error('[book] insert failed:', iRes.status, txt);
+      /* Check for duplicate ref (extremely rare) and retry once */
+      if (iRes.status === 409) {
+        return json(res, 409, { error: 'A conflict occurred. Please try again.' });
+      }
+      throw new Error('Could not save your booking. Please try again.');
     }
+
+    console.log('[book] created:', ref, 'tour:', tour.name, 'intent:', intent, 'payNow:', payNow);
 
     return json(res, 200, {
       ok:         true,
       ref:        ref,
       total:      total,
-      deposit:    deposit,
+      deposit:    depositAmt,
       pay_now:    payNow,
       intent:     intent,
       tour_name:  tour.name,
@@ -116,7 +143,9 @@ module.exports = async function handler(req, res) {
     });
 
   } catch (err) {
-    console.error('book handler error:', err);
-    return json(res, 500, { error: 'Something went wrong. Please try again.' });
+    console.error('[book] handler error:', err.message);
+    return json(res, 500, {
+      error: err.message || 'Something went wrong. Please try again or contact us on WhatsApp.'
+    });
   }
 };
