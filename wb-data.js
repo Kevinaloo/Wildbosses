@@ -128,8 +128,8 @@
   /* Poll payment status — resolves when paid/failed or after timeout */
   API.pollPayment = function (ref, opts) {
     opts = opts || {};
-    var interval = opts.interval || 3000;   /* ms between polls */
-    var timeout  = opts.timeout  || 90000;  /* give up after 90 s */
+    var interval = opts.interval || 3000;
+    var timeout  = opts.timeout  || 120000;
     var started  = Date.now();
 
     return new Promise(function (resolve, reject) {
@@ -137,17 +137,32 @@
         fetch('/api/pay-status?ref=' + encodeURIComponent(ref))
           .then(function (r) { return r.json(); })
           .then(function (d) {
-            if (d.payment_status === 'paid')   return resolve({ status: 'paid' });
-            if (d.payment_status === 'failed') return reject(new Error('Payment declined by M-Pesa'));
-            if (Date.now() - started >= timeout) return reject(new Error('Payment timed out'));
+            if (d.payment_status === 'paid') return resolve({ status: 'paid' });
+
+            if (d.payment_status === 'failed') {
+              /* How quickly it failed tells us what happened:
+                 < 8s = rejected before prompt reached phone (PayHero/channel issue)
+                 >= 8s = user cancelled or insufficient funds */
+              var elapsed = Date.now() - started;
+              var msg = elapsed < 8000
+                ? 'The payment could not be initiated. Check your PayHero channel settings or try a different number.'
+                : 'Payment was cancelled or declined. Check your M-Pesa balance and try again.';
+              return reject(new Error(msg));
+            }
+
+            if (Date.now() - started >= timeout) {
+              return reject(new Error('No response from M-Pesa after 2 minutes. Your booking is saved — try the payment again.'));
+            }
             setTimeout(check, interval);
           })
           .catch(function () {
-            if (Date.now() - started >= timeout) return reject(new Error('Payment timed out'));
+            if (Date.now() - started >= timeout) {
+              return reject(new Error('Network timeout. Your booking is saved — try the payment again.'));
+            }
             setTimeout(check, interval);
           });
       }
-      setTimeout(check, interval); /* first check after one interval */
+      setTimeout(check, interval);
     });
   };
 

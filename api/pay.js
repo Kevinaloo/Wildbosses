@@ -15,8 +15,7 @@ function corsOk(res) {
 }
 
 function normalisePhone(raw) {
-  /* Accept: 07xx / 01xx / +2547xx / 2547xx → always 2547xxxxxxxx (12 digits) */
-  let n = String(raw).replace(/\D/g, '');   /* strip everything non-digit */
+  let n = String(raw).replace(/\D/g, '');
   if (n.startsWith('0'))    n = '254' + n.slice(1);
   if (!n.startsWith('254')) n = '254' + n;
   return n;
@@ -27,12 +26,16 @@ async function patchBooking(ref, patch) {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) return;
   try {
-    await fetch(url + '/rest/v1/bookings?booking_ref=eq.' + encodeURIComponent(ref), {
+    const r = await fetch(url + '/rest/v1/bookings?booking_ref=eq.' + encodeURIComponent(ref), {
       method: 'PATCH',
-      headers: { apikey: key, Authorization: 'Bearer ' + key, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+      headers: {
+        apikey: key, Authorization: 'Bearer ' + key,
+        'Content-Type': 'application/json', Prefer: 'return=minimal'
+      },
       body: JSON.stringify(patch)
     });
-  } catch(e) { console.warn('[pay] patchBooking non-fatal:', e.message); }
+    if (!r.ok) console.warn('[pay] patchBooking', r.status, await r.text());
+  } catch(e) { console.warn('[pay] patchBooking error:', e.message); }
 }
 
 async function stkPush({ phone, amount, reference, customerName }) {
@@ -51,41 +54,54 @@ async function stkPush({ phone, amount, reference, customerName }) {
     throw new Error('Invalid M-Pesa number. Please use format 0712 345 678.');
   }
 
+  /* PayHero v2 — canonical payload.
+     network_code is required by some channel types (63902 = M-Pesa Kenya).
+     We send both provider and network_code to cover all channel configs. */
   const payload = {
     amount:             Math.round(amount),
     phone_number:       cleaned,
     channel_id:         chanId,
     provider:           'M-Pesa',
+    network_code:       '63902',        /* Safaricom Kenya */
     external_reference: reference,
-    customer_name:      customerName || 'Wild Bosses Guest',
+    customer_name:      (customerName || 'Wild Bosses Guest').slice(0, 100),
     callback_url:       'https://wildbosses.vercel.app/api/pay-callback'
   };
 
-  console.log('[pay] STK push →', JSON.stringify({ phone: cleaned, amount: payload.amount, ref: reference, chan: chanId }));
+  console.log('[pay] STK push payload:', JSON.stringify({
+    phone: cleaned, amount: payload.amount, ref: reference,
+    chan: chanId, provider: payload.provider
+  }));
 
   const resp = await fetch('https://backend.payhero.co.ke/api/v2/payments', {
     method:  'POST',
-    headers: { Authorization: 'Basic ' + token, 'Content-Type': 'application/json', Accept: 'application/json' },
-    body:    JSON.stringify(payload)
+    headers: {
+      Authorization:  'Basic ' + token,
+      'Content-Type': 'application/json',
+      Accept:         'application/json'
+    },
+    body: JSON.stringify(payload)
   });
 
   let data;
-  try   { data = await resp.json(); }
-  catch (e) { throw new Error('PayHero returned an unreadable response (status ' + resp.status + ')'); }
+  const rawText = await resp.text();
+  try   { data = JSON.parse(rawText); }
+  catch (e) {
+    console.error('[pay] PayHero non-JSON response:', resp.status, rawText.slice(0, 400));
+    throw new Error('PayHero returned an unexpected response (HTTP ' + resp.status + '). Please try again.');
+  }
 
   console.log('[pay] PayHero response:', resp.status, JSON.stringify(data));
 
   if (!resp.ok) {
-    /* Surface the most useful field from PayHero's error response */
     const msg = data.message || data.error || data.detail
-      || (data.errors && JSON.stringify(data.errors))
-      || 'PayHero error ' + resp.status;
+      || (data.errors ? JSON.stringify(data.errors) : null)
+      || ('PayHero error ' + resp.status);
     throw new Error(msg);
   }
 
-  /* PayHero returns success=true when STK is queued */
   if (data.success === false) {
-    throw new Error(data.message || 'STK push was rejected by PayHero');
+    throw new Error(data.message || 'STK push was rejected by PayHero. Please try again.');
   }
 
   return data;
@@ -105,11 +121,14 @@ module.exports = async function handler(req, res) {
     const amountInt = Math.max(1, Math.round(Number(amount)));
     if (isNaN(amountInt)) return json(res, 400, { error: 'Invalid amount' });
 
-    const ph = await stkPush({ phone, amount: amountInt, reference: booking_ref, customerName: guest_name });
+    const ph = await stkPush({
+      phone, amount: amountInt, reference: booking_ref,
+      customerName: guest_name
+    });
 
-    const checkoutId = ph.CheckoutRequestID || ph.checkout_request_id || ph.reference || null;
+    const checkoutId = ph.CheckoutRequestID || ph.checkout_request_id
+                    || ph.reference          || null;
 
-    /* Update booking with pending payment ref */
     await patchBooking(booking_ref, {
       payment_ref:    checkoutId,
       payment_status: 'pending',
@@ -124,6 +143,8 @@ module.exports = async function handler(req, res) {
 
   } catch (err) {
     console.error('[pay] error:', err.message);
-    return json(res, 502, { error: err.message || 'Payment request failed. Please try again.' });
+    return json(res, 502, {
+      error: err.message || 'Payment request failed. Please try again.'
+    });
   }
 };
