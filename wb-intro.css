@@ -98,10 +98,39 @@ html.wb-intro-live body { overflow: hidden; height: 100%; }
   100% { transform: translate(0,0); }
 }
 
+/* ── intro logo + wordmark wrapper ──────────────────────────── */
+.wb-word-group {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(14px, 2.4vw, 26px);
+}
+
+/* ── intro lion logo ─────────────────────────────────────────── */
+.wb-intro-logo {
+  flex: 0 0 auto;
+  opacity: 0;
+  filter: drop-shadow(0 0 28px rgba(200,146,47,.45)) drop-shadow(0 0 8px rgba(200,146,47,.25));
+  animation: wbLogoIn var(--word) cubic-bezier(.16,.9,.3,1) forwards;
+  animation-delay: calc(var(--t-word) - 80ms);
+}
+.wb-intro-logo img {
+  width: clamp(76px, 11vw, 134px);
+  height: clamp(76px, 11vw, 134px);
+  object-fit: contain;
+  display: block;
+}
+@keyframes wbLogoIn {
+  0%   { opacity: 0; transform: scale(.68) translateY(-16px); filter: blur(20px) drop-shadow(0 0 4px rgba(200,146,47,.0)); }
+  50%  { opacity: 1; }
+  100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0) drop-shadow(0 0 28px rgba(200,146,47,.45)) drop-shadow(0 0 8px rgba(200,146,47,.25)); }
+}
+
 /* ── wordmark ───────────────────────────────────────────────── */
 .wb-word {
   position: relative;
-  z-index: 3;
   width: min(92vw, 1080px);
   opacity: 0;
   animation: wbWordIn var(--word) cubic-bezier(.16,.9,.3,1) forwards;
@@ -195,9 +224,10 @@ html.wb-intro-live body { overflow: hidden; height: 100%; }
   .wb-intro::before,
   .wb-swipe, .wb-wipe-fwd, .wb-wipe-rev,
   .wb-spark-fwd, .wb-spark-rev,
-  .wb-word, .wb-rip, .wb-intro-skip { animation: none !important; }
+  .wb-word, .wb-intro-logo, .wb-rip, .wb-intro-skip { animation: none !important; }
   .wb-intro-svg { display: none; }
   .wb-word { opacity: 1; }
+  .wb-intro-logo { opacity: 1; }
   .wb-rip  { clip-path: none; }
   .wb-intro-skip { opacity: 1; }
   .wb-intro.hit { animation: none !important; }

@@ -81,8 +81,16 @@
     W.WB.settings().then(function (s) {
       var b = s.brand || {}, c = s.contact || {};
       var slot = D.getElementById('wb-logo');
+      /* If Supabase has a custom logo URL use it, otherwise the static
+         wb-logo.png already baked into the HTML takes over.           */
       if (slot && b.logo_url) {
-        slot.style.backgroundImage = 'url(' + b.logo_url + ')';
+        var img = slot.querySelector('img');
+        if (img) {
+          img.src = b.logo_url;
+        } else {
+          /* Legacy: slot used to be a background-image div */
+          slot.style.backgroundImage = 'url(' + b.logo_url + ')';
+        }
         slot.classList.add('has-logo');
       }
       Array.prototype.forEach.call(D.querySelectorAll('[data-wa]'), function (a) {
