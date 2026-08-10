@@ -1,33 +1,80 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "functions": {
+    "api/pay.js": {
+      "memory": 256,
+      "maxDuration": 15
+    },
+    "api/pay-callback.js": {
+      "memory": 128,
+      "maxDuration": 10
+    },
+    "api/pay-status.js": {
+      "memory": 128,
+      "maxDuration": 10
+    }
+  },
   "redirects": [
-    { "source": "/list-tour.html", "destination": "/admin.html", "permanent": true },
-    { "source": "/list-tour",      "destination": "/admin.html", "permanent": true }
+    {
+      "source": "/list-tour.html",
+      "destination": "/admin.html",
+      "permanent": true
+    },
+    {
+      "source": "/list-tour",
+      "destination": "/admin.html",
+      "permanent": true
+    }
   ],
   "headers": [
     {
       "source": "/(.*)\\.html",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
       ]
     },
     {
       "source": "/",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
       ]
     },
     {
       "source": "/(.*)\\.(js|css)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
       ]
     },
     {
       "source": "/fonts/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
       ]
     }
   ]

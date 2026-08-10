@@ -114,6 +114,49 @@
     }
   };
 
+  /* ── payment: STK push via Vercel serverless ─────────────────────
+     Calls our own /api/pay so the request always originates from
+     wildbosses.vercel.app — satisfying PayHero's domain restriction. */
+  API.stkPush = function (opts) {
+    /* opts: { phone, amount, booking_ref, guest_name } */
+    return fetch('/api/pay', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(opts)
+    }).then(function (r) {
+      return r.json().then(function (d) {
+        if (!r.ok) throw new Error(d.error || 'Payment request failed');
+        return d; /* { ok, checkout_request_id, message } */
+      });
+    });
+  };
+
+  /* Poll payment status — resolves when paid/failed or after timeout */
+  API.pollPayment = function (ref, opts) {
+    opts = opts || {};
+    var interval = opts.interval || 3000;   /* ms between polls */
+    var timeout  = opts.timeout  || 90000;  /* give up after 90 s */
+    var started  = Date.now();
+
+    return new Promise(function (resolve, reject) {
+      function check() {
+        fetch('/api/pay-status?ref=' + encodeURIComponent(ref))
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (d.payment_status === 'paid')   return resolve({ status: 'paid' });
+            if (d.payment_status === 'failed') return reject(new Error('Payment declined by M-Pesa'));
+            if (Date.now() - started >= timeout) return reject(new Error('Payment timed out'));
+            setTimeout(check, interval);
+          })
+          .catch(function () {
+            if (Date.now() - started >= timeout) return reject(new Error('Payment timed out'));
+            setTimeout(check, interval);
+          });
+      }
+      setTimeout(check, interval); /* first check after one interval */
+    });
+  };
+
   /* ── formatting shared by every surface ── */
   API.money = function (kes) {
     if (kes === 0 || kes === null || kes === undefined) return 'Pay what you want';
