@@ -102,14 +102,13 @@
         headers: {
           apikey: KEY, Authorization: 'Bearer ' + KEY,
           'Content-Type': 'application/json',
-          Prefer: 'return=representation'
+          Prefer: 'return=minimal'   /* anon has no SELECT policy — don't ask for the row back */
         },
         body: JSON.stringify(row)
       }).then(function (r) {
+        /* 201 Created = success; anything else is an error */
         if (!r.ok) return r.text().then(function (t) { throw new Error(t); });
-        return r.json();
-      }).then(function (rows) {
-        return { ok: true, ref: ref, row: (rows && rows[0]) || null };
+        return { ok: true, ref: ref, row: null };
       });
     }
   };

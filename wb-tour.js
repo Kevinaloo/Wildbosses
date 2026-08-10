@@ -321,10 +321,11 @@
             showPayModal(r.ref, guestPhone, guestName, totalAmount);
           }, 800);
         }
-      }).catch(function () {
+      }).catch(function (err) {
+        console.error('[WB] booking failed:', err);
         btn.disabled = false; btn.textContent = 'Book & Pay via M-Pesa';
         msg.className = 'wb-form-msg bad';
-        msg.textContent = 'That did not send. Please try WhatsApp instead.';
+        msg.textContent = 'Booking failed — please check your details and try again.';
       });
     });
   }
