@@ -27,10 +27,10 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST')   return json(res, 405, { error: 'Method not allowed' });
 
   const SB_URL = process.env.SUPABASE_URL;
-  const SB_KEY = process.env.SUPABASE_SERVICE_KEY;
+  const SB_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!SB_URL || !SB_KEY) {
-    console.error('[book] MISSING ENV VARS — SUPABASE_URL:', !!SB_URL, 'SUPABASE_SERVICE_KEY:', !!SB_KEY);
+    console.error('[book] MISSING ENV VARS — SUPABASE_URL:', !!SB_URL, 'SUPABASE_SERVICE_ROLE_KEY:', !!SB_KEY);
     return json(res, 500, {
       error: 'Server not configured. Please contact Wild Bosses directly on WhatsApp.'
     });

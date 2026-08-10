@@ -20,7 +20,7 @@ module.exports = async function handler(req, res) {
   if (!ref) return res.status(400).json({ error: 'ref is required' });
 
   const SB_URL = process.env.SUPABASE_URL;
-  const SB_KEY = process.env.SUPABASE_SERVICE_KEY;
+  const SB_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!SB_URL || !SB_KEY) {
     return res.status(500).json({ error: 'Server not configured' });

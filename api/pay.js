@@ -10,7 +10,7 @@
      PAYHERO_PASSWORD   — PayHero API password
      PAYHERO_CHANNEL_ID — PayHero channel_id (integer)
      SUPABASE_URL       — Supabase project URL
-     SUPABASE_SERVICE_KEY — Supabase service role key
+     SUPABASE_SERVICE_ROLE_KEY — Supabase service role key
    ═══════════════════════════════════════════════════════════════════ */
 
 function json(res, status, body) {
@@ -38,7 +38,7 @@ function normalisePhone(raw) {
 /* ── supabase patch ──────────────────────────────────────────────── */
 async function patchBooking(ref, patch) {
   const url  = process.env.SUPABASE_URL + '/rest/v1/bookings';
-  const key  = process.env.SUPABASE_SERVICE_KEY;
+  const key  = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) return; /* non-fatal if Supabase not configured */
 
   const resp = await fetch(url + '?booking_ref=eq.' + encodeURIComponent(ref), {

@@ -11,7 +11,7 @@
 
 async function patchBooking(ref, patch) {
   const url = process.env.SUPABASE_URL + '/rest/v1/bookings';
-  const key = process.env.SUPABASE_SERVICE_KEY;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const resp = await fetch(url + '?booking_ref=eq.' + encodeURIComponent(ref), {
     method:  'PATCH',
     headers: {
