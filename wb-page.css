@@ -109,3 +109,141 @@ form textarea { resize:vertical; line-height:1.55 }
 .wb-form-ok b { display:block; font-family:var(--display); font-size:27px; color:var(--ink); margin-bottom:10px }
 .wb-form-ok p { color:var(--ink-2); margin:0 0 6px; font-size:14.5px }
 .wb-ref { font-family:var(--mono); color:var(--gold); font-size:15px; letter-spacing:.06em }
+
+/* ═══════════════════════════════════════════════════════════════════
+   BOOKING PANEL · TRAVELLERS · INTENT · M-PESA MODAL
+   ═══════════════════════════════════════════════════════════════════ */
+
+.wb-bookform{border-radius:var(--r-lg);padding:26px;margin-top:16px;display:grid;gap:22px}
+.wb-fset{display:grid;gap:12px}
+
+.wb-flabel,.wb-f>span{
+  display:block;font-size:.72rem;font-weight:700;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.wb-f>span>i{font-style:normal;opacity:.6;letter-spacing:.04em;text-transform:none;font-weight:500}
+.wb-f{display:block}
+.wb-f input,.wb-f textarea{
+  width:100%;box-sizing:border-box;padding:13px 14px;font:inherit;font-size:.95rem;
+  color:var(--fg);background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:var(--r-md);transition:border-color .16s,box-shadow .16s}
+.wb-f input::placeholder,.wb-f textarea::placeholder{color:var(--muted);opacity:.65}
+.wb-f input:focus,.wb-f textarea:focus{
+  outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.16)}
+.wb-f textarea{resize:vertical;min-height:84px}
+
+/* travellers stepper */
+.wb-stepper{display:flex;align-items:center;gap:14px}
+.wb-stepper button{
+  width:44px;height:44px;flex:none;border-radius:50%;cursor:pointer;
+  font-size:1.35rem;line-height:1;font-weight:400;
+  color:var(--fg);background:var(--glass);border:1px solid var(--glass-border);
+  transition:border-color .16s,background .16s,transform .1s}
+.wb-stepper button:hover{border-color:var(--gold);color:var(--gold)}
+.wb-stepper button:active{transform:scale(.93)}
+.wb-stepper>b{min-width:2ch;text-align:center;font-size:1.5rem;font-weight:700;
+  font-variant-numeric:tabular-nums}
+.wb-stepper>small{color:var(--muted);font-size:.82rem;margin-left:2px}
+
+/* intent choices */
+.wb-choices{display:grid;gap:10px}
+.wb-choice{display:block;cursor:pointer;position:relative}
+.wb-choice input{position:absolute;opacity:0;pointer-events:none}
+.wb-choice-in{
+  display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 16px;
+  padding:15px 17px;border-radius:var(--r-md);
+  border:1px solid var(--glass-border);background:var(--glass);
+  transition:border-color .16s,background .16s}
+.wb-choice-in>b{grid-column:1;font-size:.98rem;font-weight:650}
+.wb-choice-in>i{grid-column:1;grid-row:2;font-style:normal;font-size:.82rem;color:var(--muted);line-height:1.4}
+.wb-choice-in>em{
+  grid-column:2;grid-row:1/3;font-style:normal;font-weight:750;font-size:1rem;
+  white-space:nowrap;color:var(--muted);font-variant-numeric:tabular-nums}
+.wb-choice:hover .wb-choice-in{border-color:rgba(212,175,55,.5)}
+.wb-choice.is-on .wb-choice-in{
+  border-color:var(--gold);background:rgba(212,175,55,.09);
+  box-shadow:0 0 0 1px var(--gold) inset}
+.wb-choice.is-on .wb-choice-in>em{color:var(--gold)}
+.wb-choice input:focus-visible+.wb-choice-in{box-shadow:0 0 0 3px rgba(212,175,55,.3)}
+
+/* running total */
+.wb-summary{
+  display:grid;gap:9px;padding:16px 18px;border-radius:var(--r-md);
+  background:var(--glass);border:1px dashed var(--glass-border)}
+.wb-summary>div{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.wb-summary span{color:var(--muted);font-size:.88rem}
+.wb-summary b{font-variant-numeric:tabular-nums;font-weight:650}
+.wb-summary-now{padding-top:9px;border-top:1px solid var(--glass-border)}
+.wb-summary-now span{color:var(--fg);font-weight:600;font-size:.9rem}
+.wb-summary-now b{color:var(--gold);font-size:1.22rem;font-weight:800}
+
+.wb-submit{width:100%;justify-content:center}
+.wb-trust{margin:0;text-align:center;font-size:.78rem;color:var(--muted);line-height:1.5}
+
+/* confirmation */
+.wb-done{border-radius:var(--r-lg);padding:34px 26px;margin-top:16px;text-align:center;display:grid;gap:8px;justify-items:center}
+.wb-done-tick{
+  width:52px;height:52px;border-radius:50%;display:grid;place-items:center;
+  font-size:1.5rem;color:#0b0b0b;background:var(--gold);margin-bottom:6px}
+.wb-done>b{font-size:1.22rem}
+.wb-done>p{margin:0;color:var(--muted);font-size:.92rem;max-width:38ch;line-height:1.55}
+.wb-done-ref{
+  margin:12px 0 4px!important;font-size:.7rem!important;letter-spacing:.11em;text-transform:uppercase}
+.wb-done-ref span{
+  display:block;margin-top:6px;font-family:var(--mono,ui-monospace,monospace);
+  font-size:1.08rem;letter-spacing:.06em;color:var(--gold);font-weight:700}
+
+/* ── modal ──────────────────────────────────────────────────────── */
+body.wb-locked{overflow:hidden}
+.wb-modal{
+  position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;
+  padding:18px;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);
+  opacity:0;transition:opacity .2s ease}
+.wb-modal.is-in{opacity:1}
+.wb-modal-card{
+  position:relative;width:100%;max-width:400px;border-radius:var(--r-lg);
+  padding:30px 26px;display:grid;gap:16px;
+  background:var(--bg);box-shadow:0 28px 90px rgba(0,0,0,.45);
+  transform:translateY(10px) scale(.985);transition:transform .22s cubic-bezier(.2,.8,.3,1)}
+.wb-modal.is-in .wb-modal-card{transform:none}
+.wb-modal-x{
+  position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;
+  border:none;background:none;color:var(--muted);cursor:pointer;font-size:15px;line-height:1}
+.wb-modal-x:hover{background:var(--glass);color:var(--fg)}
+
+.wb-pay-head{display:grid;gap:6px;justify-items:start}
+.wb-pay-badge{
+  font-size:.62rem;font-weight:800;letter-spacing:.16em;padding:5px 9px;border-radius:4px;
+  background:#1c8b3f;color:#fff}
+.wb-pay-head h3{margin:4px 0 0;font-size:1.16rem}
+.wb-pay-head p{margin:0;font-size:.82rem;color:var(--muted)}
+.wb-pay-head p b{color:var(--fg);font-family:var(--mono,ui-monospace,monospace);letter-spacing:.04em}
+
+.wb-pay-amt{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:16px 18px;border-radius:var(--r-md);
+  background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.34)}
+.wb-pay-amt span{font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.wb-pay-amt b{font-size:1.42rem;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
+
+.wb-pay-go{width:100%;justify-content:center}
+.wb-pay-go.is-paid{background:#16a34a!important;color:#fff!important}
+.wb-pay-go:disabled{opacity:.62;cursor:default}
+
+.wb-pay-state{margin:0;font-size:.86rem;text-align:center;line-height:1.5;min-height:1.2em;color:var(--muted)}
+.wb-pay-state.is-wait{display:flex;align-items:center;justify-content:center;gap:9px}
+.wb-pay-state.is-good{color:#16a34a;font-weight:600}
+.wb-pay-state.is-bad{color:#e0533d;font-weight:600}
+.wb-spin{
+  width:14px;height:14px;flex:none;border-radius:50%;
+  border:2px solid var(--glass-border);border-top-color:var(--gold);
+  animation:wbspin .7s linear infinite}
+@keyframes wbspin{to{transform:rotate(360deg)}}
+
+.wb-pay-foot{margin:0;font-size:.74rem;text-align:center;color:var(--muted);line-height:1.5}
+
+@media (max-width:560px){
+  .wb-bookform{padding:20px}
+  .wb-choice-in{grid-template-columns:1fr;gap:3px}
+  .wb-choice-in>em{grid-column:1;grid-row:3;margin-top:4px}
+  .wb-modal-card{padding:26px 20px}
+}

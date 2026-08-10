@@ -1,227 +1,360 @@
 /* ═══════════════════════════════════════════════════════════════════
-   WILDBOSSES · Trip detail + booking + M-Pesa STK push payment
+   WILDBOSSES · Trip detail + booking + M-Pesa
+   ─────────────────────────────────────────────────────────────────
+   The booking panel is one clear decision at a time:
+     who you are → how many of you → how you want to proceed.
+   Price updates live as travellers change, so nobody is surprised
+   by the number on the M-Pesa prompt.
    ═══════════════════════════════════════════════════════════════════ */
 (function (W, D) {
   'use strict';
-  var e, T = null, timer = null;
+  var e, T = null, state = { travellers: 1, intent: 'deposit' };
 
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function ksh(n) { return 'KES ' + Number(n || 0).toLocaleString('en-KE'); }
 
+  function depositPct() { return Number(T && T.deposit_pct) || 30; }
+  function unitPrice()  { return Number(T && T.price_kes) || 0; }
+  function total()      { return unitPrice() * state.travellers; }
+  function deposit()    { return Math.ceil(total() * depositPct() / 100); }
+  function payNow()     {
+    return state.intent === 'full'    ? total()
+         : state.intent === 'deposit' ? deposit()
+         : 0;
+  }
+
+  /* ── countdown ─────────────────────────────────────────────────── */
   function countBox(iso) {
     var c = W.WB.countdown(iso);
-    if (!c) return '<div class="wb-book-fact"><span>Departs</span><b>On request</b></div>';
-    if (c.past) return '<div class="wb-book-fact"><span>Departs</span><b>Departed</b></div>';
+    if (!c)      return '<div class="wb-book-fact"><span>Departs</span><b>On request</b></div>';
+    if (c.past)  return '<div class="wb-book-fact"><span>Departs</span><b>Departed</b></div>';
     return '<div class="wb-count" id="cd">' +
-      '<div><b>' + c.d  + '</b><i>days</i></div>' +
+      '<div><b>' + c.d + '</b><i>days</i></div>' +
       '<div><b>' + pad(c.h) + '</b><i>hrs</i></div>' +
       '<div><b>' + pad(c.m) + '</b><i>min</i></div>' +
       '<div><b>' + pad(c.s) + '</b><i>sec</i></div></div>';
   }
-
   function tick() {
     if (!T || !T.departure_date) return;
     var box = D.getElementById('cd'); if (!box) return;
     var c = W.WB.countdown(T.departure_date); if (!c || c.past) return;
     var b = box.querySelectorAll('b');
-    b[0].textContent = c.d; b[1].textContent = pad(c.h);
+    b[0].textContent = c.d;      b[1].textContent = pad(c.h);
     b[2].textContent = pad(c.m); b[3].textContent = pad(c.s);
   }
 
-  /* ── payment modal ─────────────────────────────────────────────── */
-  function showPayModal(bookingRef, guestPhone, guestName, totalAmount) {
-    /* Remove any existing modal */
-    var old = D.getElementById('wb-pay-modal');
-    if (old) old.parentNode.removeChild(old);
+  /* ── the booking panel ─────────────────────────────────────────── */
+  function bookingPanel() {
+    var maxT = T.spots_left != null && T.spots_left > 0 ? T.spots_left : 1;
+    var free = unitPrice() === 0;
 
-    var overlay = D.createElement('div');
-    overlay.id = 'wb-pay-modal';
-    overlay.setAttribute('role', 'dialog');
-    overlay.setAttribute('aria-modal', 'true');
-    overlay.setAttribute('aria-label', 'Complete payment');
-    overlay.style.cssText = [
-      'position:fixed', 'inset:0', 'z-index:9000',
-      'display:flex', 'align-items:center', 'justify-content:center',
-      'background:rgba(0,0,0,.55)', 'backdrop-filter:blur(4px)',
-      'padding:16px'
-    ].join(';');
+    return '' +
+    '<h2>Reserve your place</h2>' +
+    '<form id="bookForm" class="glass wb-bookform" novalidate>' +
 
-    var depositAmount = Math.ceil(totalAmount * 0.3);
+      /* who */
+      '<div class="wb-fset">' +
+        '<label class="wb-f"><span>Full name</span>' +
+          '<input name="guest_name" required autocomplete="name" placeholder="As it appears on your ID"/></label>' +
+        '<label class="wb-f"><span>M-Pesa phone</span>' +
+          '<input name="guest_phone" required autocomplete="tel" inputmode="tel" ' +
+            'placeholder="07xx xxx xxx"/></label>' +
+        '<label class="wb-f"><span>Email <i>optional</i></span>' +
+          '<input name="guest_email" type="email" autocomplete="email" ' +
+            'placeholder="For your confirmation and itinerary"/></label>' +
+      '</div>' +
 
-    overlay.innerHTML =
-      '<div class="glass" style="' + [
-        'max-width:380px', 'width:100%', 'border-radius:var(--r-lg)',
-        'padding:28px 24px', 'position:relative',
-        'background:var(--bg)', 'box-shadow:0 24px 80px rgba(0,0,0,.3)'
-      ].join(';') + '">' +
-
-        /* Close btn */
-        '<button id="wb-pay-close" type="button" aria-label="Close" style="' + [
-          'position:absolute', 'top:14px', 'right:14px',
-          'background:none', 'border:none', 'cursor:pointer',
-          'color:var(--muted)', 'font-size:20px', 'line-height:1', 'padding:4px'
-        ].join(';') + '">✕</button>' +
-
-        /* Header */
-        '<div style="margin-bottom:20px">' +
-          '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">' +
-            '<span style="font-size:24px">📲</span>' +
-            '<h2 style="margin:0;font-size:1.1rem;font-weight:700">Pay via M-Pesa</h2>' +
-          '</div>' +
-          '<p style="margin:0;font-size:.85rem;color:var(--muted)">Ref: <b style="color:var(--fg)">' + e(bookingRef) + '</b></p>' +
+      /* how many */
+      '<div class="wb-fset">' +
+        '<span class="wb-flabel">Travellers</span>' +
+        '<div class="wb-stepper" role="group" aria-label="Number of travellers">' +
+          '<button type="button" id="tMinus" aria-label="One fewer traveller">−</button>' +
+          '<b id="tCount" aria-live="polite">1</b>' +
+          '<button type="button" id="tPlus" aria-label="One more traveller">+</button>' +
+          '<small id="tLeft">' + maxT + ' place' + (maxT === 1 ? '' : 's') + ' left</small>' +
         '</div>' +
+      '</div>' +
 
-        /* Amount selector */
-        '<div id="wb-pay-amount-wrap" style="margin-bottom:18px">' +
-          '<label style="display:block;margin-bottom:6px;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)">Amount to pay</label>' +
-          '<div style="display:grid;gap:8px">' +
-            '<label class="wb-pay-opt" style="' + optStyle() + '">' +
-              '<input type="radio" name="wb_pay_amt" value="deposit" checked style="accent-color:var(--gold)"/>' +
-              '<span>' +
-                '<b>30% deposit — KES ' + Number(depositAmount).toLocaleString('en-KE') + '</b>' +
-                '<small style="display:block;color:var(--muted);font-size:.8rem">Secures your place</small>' +
-              '</span>' +
-            '</label>' +
-            '<label class="wb-pay-opt" style="' + optStyle() + '">' +
-              '<input type="radio" name="wb_pay_amt" value="full" style="accent-color:var(--gold)"/>' +
-              '<span>' +
-                '<b>Full payment — KES ' + Number(totalAmount).toLocaleString('en-KE') + '</b>' +
-                '<small style="display:block;color:var(--muted);font-size:.8rem">Best value</small>' +
-              '</span>' +
-            '</label>' +
-          '</div>' +
+      /* how you want to proceed */
+      (free ? '' :
+      '<div class="wb-fset">' +
+        '<span class="wb-flabel">How would you like to proceed?</span>' +
+        '<div class="wb-choices" id="intentGroup">' +
+
+          '<label class="wb-choice is-on" data-intent="deposit">' +
+            '<input type="radio" name="intent" value="deposit" checked/>' +
+            '<span class="wb-choice-in">' +
+              '<b>Pay a deposit</b>' +
+              '<i>Hold your place now, settle the rest before departure</i>' +
+              '<em id="amtDeposit">' + ksh(deposit()) + '</em>' +
+            '</span>' +
+          '</label>' +
+
+          '<label class="wb-choice" data-intent="full">' +
+            '<input type="radio" name="intent" value="full"/>' +
+            '<span class="wb-choice-in">' +
+              '<b>Pay in full</b>' +
+              '<i>Everything settled today, nothing left to do</i>' +
+              '<em id="amtFull">' + ksh(total()) + '</em>' +
+            '</span>' +
+          '</label>' +
+
+          '<label class="wb-choice" data-intent="enquiry">' +
+            '<input type="radio" name="intent" value="enquiry"/>' +
+            '<span class="wb-choice-in">' +
+              '<b>Enquire first</b>' +
+              '<i>Ask a question — we will call you back, no payment</i>' +
+              '<em>No payment</em>' +
+            '</span>' +
+          '</label>' +
+
         '</div>' +
+      '</div>') +
 
-        /* Phone */
-        '<div style="margin-bottom:18px">' +
-          '<label style="display:block;margin-bottom:6px;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)">M-Pesa phone</label>' +
-          '<input id="wb-pay-phone" type="tel" inputmode="tel" autocomplete="tel" ' +
-            'value="' + e(guestPhone) + '" ' +
-            'placeholder="07xxxxxxxx or +2547xxxxxxxx" ' +
-            'style="' + inputStyle() + '"/>' +
-        '</div>' +
+      '<label class="wb-f"><span>Anything we should know <i>optional</i></span>' +
+        '<textarea name="notes" rows="3" ' +
+          'placeholder="Dietary needs, mobility, questions, who you are travelling with…"></textarea></label>' +
 
-        /* CTA */
-        '<button id="wb-pay-btn" type="button" style="' + [
-          'width:100%', 'padding:14px 0', 'border-radius:var(--r-md)',
-          'background:var(--gold)', 'color:#000',
-          'font-weight:700', 'font-size:1rem', 'border:none',
-          'cursor:pointer', 'transition:opacity .15s'
-        ].join(';') + '">' +
-          'Send M-Pesa prompt' +
-        '</button>' +
+      /* running total */
+      (free ? '' :
+      '<div class="wb-summary" id="summary">' +
+        '<div><span>' + ksh(unitPrice()) + ' × <b id="sT">1</b> traveller</span>' +
+          '<b id="sTotal">' + ksh(total()) + '</b></div>' +
+        '<div class="wb-summary-now"><span id="sNowLabel">Due today</span>' +
+          '<b id="sNow">' + ksh(deposit()) + '</b></div>' +
+      '</div>') +
 
-        /* Status */
-        '<p id="wb-pay-msg" role="status" style="' + [
-          'margin:12px 0 0', 'font-size:.85rem', 'text-align:center',
-          'min-height:1.2em', 'color:var(--muted)'
-        ].join(';') + '"></p>' +
+      '<button class="wb-btn wb-btn-gold wb-btn-lg wb-submit" type="submit" id="bookBtn">' +
+        (free ? 'Request this place' : 'Continue to M-Pesa · <span id="btnAmt">' + ksh(deposit()) + '</span>') +
+      '</button>' +
+      '<p class="wb-form-msg" id="bookMsg" role="status"></p>' +
+      '<p class="wb-trust">Your place is held the moment payment clears. ' +
+        'Full refund if we cancel the departure.</p>' +
+    '</form>';
+  }
 
-        /* Footer note */
-        '<p style="' + [
-          'margin:14px 0 0', 'font-size:.75rem', 'text-align:center',
-          'color:var(--muted)'
-        ].join(';') + '">' +
-          'A push notification will appear on your phone. Enter your M-Pesa PIN to confirm.' +
-        '</p>' +
+  /* keep every number on screen agreeing with every other number */
+  function refresh() {
+    var free = unitPrice() === 0;
+    var set = function (id, v) { var n = D.getElementById(id); if (n) n.textContent = v; };
+
+    set('tCount', state.travellers);
+    if (free) return;
+
+    set('sT', state.travellers);
+    set('sTotal', ksh(total()));
+    set('amtDeposit', ksh(deposit()));
+    set('amtFull', ksh(total()));
+
+    var nowLabel = state.intent === 'enquiry' ? 'Due today' : 'Due today';
+    set('sNowLabel', nowLabel);
+    set('sNow', state.intent === 'enquiry' ? 'Nothing' : ksh(payNow()));
+
+    var btn = D.getElementById('bookBtn');
+    if (btn) {
+      btn.innerHTML = state.intent === 'enquiry'
+        ? 'Send my enquiry'
+        : 'Continue to M-Pesa · <span id="btnAmt">' + ksh(payNow()) + '</span>';
+    }
+  }
+
+  function wireForm() {
+    var f = D.getElementById('bookForm');
+    var maxT = T.spots_left != null && T.spots_left > 0 ? T.spots_left : 1;
+
+    /* travellers stepper */
+    var minus = D.getElementById('tMinus'), plus = D.getElementById('tPlus');
+    if (minus) minus.addEventListener('click', function () {
+      if (state.travellers > 1) { state.travellers--; refresh(); }
+    });
+    if (plus) plus.addEventListener('click', function () {
+      if (state.travellers < maxT) { state.travellers++; refresh(); }
+      else {
+        var m = D.getElementById('bookMsg');
+        m.className = 'wb-form-msg bad';
+        m.textContent = 'That is every place left on this departure.';
+      }
+    });
+
+    /* intent choices */
+    var group = D.getElementById('intentGroup');
+    if (group) group.addEventListener('change', function (ev) {
+      if (ev.target.name !== 'intent') return;
+      state.intent = ev.target.value;
+      Array.prototype.forEach.call(group.querySelectorAll('.wb-choice'), function (c) {
+        c.classList.toggle('is-on', c.getAttribute('data-intent') === state.intent);
+      });
+      refresh();
+    });
+
+    /* submit */
+    f.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var btn = D.getElementById('bookBtn'), msg = D.getElementById('bookMsg');
+      msg.className = 'wb-form-msg'; msg.textContent = '';
+
+      var name  = f.guest_name.value.trim();
+      var phone = f.guest_phone.value.trim();
+      if (!name)  { msg.className = 'wb-form-msg bad'; msg.textContent = 'Please tell us your name.'; f.guest_name.focus(); return; }
+      if (!phone) { msg.className = 'wb-form-msg bad'; msg.textContent = 'We need a phone number to reach you.'; f.guest_phone.focus(); return; }
+
+      var prev = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = 'Reserving…';
+
+      W.WB.createBooking({
+        tour_slug:   T.slug,
+        guest_name:  name,
+        guest_phone: phone,
+        guest_email: f.guest_email.value.trim(),
+        travellers:  state.travellers,
+        intent:      unitPrice() === 0 ? 'enquiry' : state.intent,
+        notes:       f.notes.value.trim()
+      }).then(function (r) {
+        if (r.intent === 'enquiry' || !r.pay_now) {
+          done(r, false);
+        } else {
+          done(r, true);
+          setTimeout(function () {
+            showPayModal(r.ref, phone, name, r.pay_now, r.total, r.deposit);
+          }, 500);
+        }
+      }).catch(function (err) {
+        console.error('[WB] booking failed:', err);
+        btn.disabled = false; btn.innerHTML = prev;
+        msg.className = 'wb-form-msg bad';
+        msg.textContent = err.message || 'That did not go through. Please try again.';
+      });
+    });
+  }
+
+  function done(r, paying) {
+    var host = D.getElementById('bookForm');
+    if (!host) return;
+    host.outerHTML =
+      '<div class="glass wb-done">' +
+        '<div class="wb-done-tick">✓</div>' +
+        '<b>' + (paying ? 'Place reserved' : 'Enquiry received') + '</b>' +
+        '<p>' + (paying
+          ? 'Complete payment on your phone to confirm it.'
+          : 'We will call you back shortly on the number you gave us.') + '</p>' +
+        '<p class="wb-done-ref">Reference<span>' + e(r.ref) + '</span></p>' +
+        (paying ? '<button class="wb-btn wb-btn-ghost" type="button" id="reopenPay">' +
+                    'Reopen payment</button>' : '') +
       '</div>';
 
-    D.body.appendChild(overlay);
-    D.body.style.overflow = 'hidden';
+    var re = D.getElementById('reopenPay');
+    if (re) re.addEventListener('click', function () {
+      showPayModal(r.ref, r._phone || '', r._name || '', r.pay_now, r.total, r.deposit);
+    });
+    if (re) { r._phone = r._phone; }
+  }
 
-    /* Close handlers */
-    function closeModal() {
-      var m = D.getElementById('wb-pay-modal');
-      if (m) { m.parentNode.removeChild(m); D.body.style.overflow = ''; }
+  /* ── payment modal ─────────────────────────────────────────────── */
+  function showPayModal(ref, phone, name, amount, totalAmt, depositAmt) {
+    var old = D.getElementById('wb-pay'); if (old) old.remove();
+
+    var ov = D.createElement('div');
+    ov.id = 'wb-pay';
+    ov.className = 'wb-modal';
+    ov.setAttribute('role', 'dialog');
+    ov.setAttribute('aria-modal', 'true');
+    ov.setAttribute('aria-label', 'Pay with M-Pesa');
+
+    ov.innerHTML =
+      '<div class="wb-modal-card glass">' +
+        '<button class="wb-modal-x" id="payX" type="button" aria-label="Close">✕</button>' +
+
+        '<div class="wb-pay-head">' +
+          '<span class="wb-pay-badge">M-PESA</span>' +
+          '<h3>Confirm your place</h3>' +
+          '<p>Reference <b>' + e(ref) + '</b></p>' +
+        '</div>' +
+
+        '<div class="wb-pay-amt">' +
+          '<span>Amount</span>' +
+          '<b id="payAmt">' + ksh(amount) + '</b>' +
+        '</div>' +
+
+        '<label class="wb-f"><span>M-Pesa number</span>' +
+          '<input id="payPhone" type="tel" inputmode="tel" value="' + e(phone) + '" ' +
+            'placeholder="07xx xxx xxx"/></label>' +
+
+        '<button class="wb-btn wb-btn-gold wb-btn-lg wb-pay-go" id="payGo" type="button">' +
+          'Send prompt to my phone</button>' +
+
+        '<div class="wb-pay-state" id="payState" role="status"></div>' +
+
+        '<p class="wb-pay-foot">Safaricom will ask for your M-Pesa PIN on this number. ' +
+          'We never see or store your PIN.</p>' +
+      '</div>';
+
+    D.body.appendChild(ov);
+    D.body.classList.add('wb-locked');
+    requestAnimationFrame(function () { ov.classList.add('is-in'); });
+
+    function close() {
+      ov.classList.remove('is-in');
+      D.body.classList.remove('wb-locked');
+      setTimeout(function () { ov.remove(); }, 200);
     }
-    D.getElementById('wb-pay-close').addEventListener('click', closeModal);
-    overlay.addEventListener('click', function (ev) {
-      if (ev.target === overlay) closeModal();
-    });
+    D.getElementById('payX').addEventListener('click', close);
+    ov.addEventListener('click', function (ev) { if (ev.target === ov) close(); });
     D.addEventListener('keydown', function esc(ev) {
-      if (ev.key === 'Escape') { closeModal(); D.removeEventListener('keydown', esc); }
+      if (ev.key === 'Escape' && D.getElementById('wb-pay')) { close(); D.removeEventListener('keydown', esc); }
     });
 
-    /* Pay button */
-    D.getElementById('wb-pay-btn').addEventListener('click', function () {
-      triggerSTK(bookingRef, guestName, totalAmount, depositAmount, closeModal);
+    D.getElementById('payGo').addEventListener('click', function () {
+      pay(ref, name, amount, close);
     });
+    setTimeout(function () { var i = D.getElementById('payPhone'); if (i) i.focus(); }, 260);
   }
 
-  function optStyle() {
-    return [
-      'display:flex', 'align-items:center', 'gap:10px',
-      'padding:10px 12px', 'border-radius:var(--r-md)',
-      'border:1px solid var(--glass-border)',
-      'cursor:pointer', 'user-select:none'
-    ].join(';');
-  }
-
-  function inputStyle() {
-    return [
-      'width:100%', 'box-sizing:border-box',
-      'padding:10px 12px', 'border-radius:var(--r-md)',
-      'border:1px solid var(--glass-border)',
-      'background:var(--glass)', 'color:var(--fg)',
-      'font-size:.95rem'
-    ].join(';');
-  }
-
-  function triggerSTK(bookingRef, guestName, totalAmount, depositAmount, closeModal) {
-    var btn   = D.getElementById('wb-pay-btn');
-    var msg   = D.getElementById('wb-pay-msg');
-    var phone = (D.getElementById('wb-pay-phone') || {}).value || '';
-    var choice = D.querySelector('input[name="wb_pay_amt"]:checked');
-    var amount = choice && choice.value === 'full' ? totalAmount : depositAmount;
-
-    /* Floor at 1 KES for testing without showing it obviously */
-    amount = Math.max(1, Math.round(amount));
+  function pay(ref, name, amount, close) {
+    var go    = D.getElementById('payGo');
+    var st    = D.getElementById('payState');
+    var phone = (D.getElementById('payPhone') || {}).value || '';
 
     phone = phone.trim();
     if (!phone) {
-      msg.style.color = 'var(--bad, #e03)';
-      msg.textContent = 'Please enter a phone number.';
+      st.className = 'wb-pay-state is-bad';
+      st.textContent = 'Please enter the number to charge.';
       return;
     }
 
-    btn.disabled = true;
-    btn.style.opacity = '.6';
-    btn.textContent = 'Sending prompt…';
-    msg.style.color = 'var(--muted)';
-    msg.textContent = 'Connecting to M-Pesa…';
+    go.disabled = true;
+    go.textContent = 'Sending…';
+    st.className = 'wb-pay-state is-wait';
+    st.innerHTML = '<span class="wb-spin"></span> Asking Safaricom to prompt your phone…';
 
     W.WB.stkPush({
-      phone:       phone,
-      amount:      amount,
-      booking_ref: bookingRef,
-      guest_name:  guestName
-    }).then(function (r) {
-      btn.textContent = 'Waiting for PIN…';
-      msg.textContent = r.message || 'Check your phone and enter your M-Pesa PIN.';
-
-      /* Poll for payment confirmation */
-      return W.WB.pollPayment(bookingRef, { interval: 3000, timeout: 90000 });
+      phone: phone, amount: amount, booking_ref: ref, guest_name: name
     }).then(function () {
-      /* Paid ✓ */
-      btn.style.background = '#16a34a';
-      btn.style.opacity    = '1';
-      btn.textContent      = '✓ Payment received';
-      msg.style.color      = '#16a34a';
-      msg.textContent      = 'Your payment was confirmed. We will contact you soon.';
-      setTimeout(closeModal, 3500);
+      go.textContent = 'Waiting for your PIN';
+      st.innerHTML = '<span class="wb-spin"></span> Check your phone and enter your M-Pesa PIN.';
+      return W.WB.pollPayment(ref, { interval: 3000, timeout: 120000 });
+    }).then(function () {
+      go.classList.add('is-paid');
+      go.textContent = '✓ Payment received';
+      st.className = 'wb-pay-state is-good';
+      st.textContent = 'You are confirmed. A receipt is on its way.';
+      setTimeout(close, 3200);
     }).catch(function (err) {
-      btn.disabled = false;
-      btn.style.opacity = '1';
-      btn.textContent = 'Try again';
-      msg.style.color = 'var(--bad, #e03)';
-      msg.textContent = err.message || 'Payment failed. Please try again.';
+      go.disabled = false;
+      go.textContent = 'Try again';
+      st.className = 'wb-pay-state is-bad';
+      st.textContent = err.message || 'That did not complete. You can try again.';
     });
   }
 
-  /* ── page render ───────────────────────────────────────────────── */
+  /* ── page ──────────────────────────────────────────────────────── */
   function render(t) {
     T = t;
-    var w = W.WBSite.whenLabel(t.departure_date);
-    var p = W.WBSite.money(t.price_kes);
+    state.travellers = 1;
+    state.intent = (Number(t.price_kes) || 0) === 0 ? 'enquiry' : 'deposit';
+
+    var w   = W.WBSite.whenLabel(t.departure_date);
+    var p   = W.WBSite.money(t.price_kes);
     var inc = (t.includes || []).map(function (i) { return '<li>' + e(i) + '</li>'; }).join('');
 
     D.getElementById('tour-root').innerHTML =
@@ -235,18 +368,7 @@
           '<div class="wb-trip-body">' +
             (t.description ? '<h2>About this trip</h2><p>' + e(t.description) + '</p>' : '') +
             (inc ? '<h2>What is included</h2><ul class="wb-inc">' + inc + '</ul>' : '') +
-            '<h2>Book a place</h2>' +
-            '<form id="bookForm" class="glass" style="border-radius:var(--r-lg);padding:24px;margin-top:14px">' +
-              '<label>Your name<input name="guest_name" required autocomplete="name"/></label>' +
-              '<label>Phone<input name="guest_phone" required autocomplete="tel" inputmode="tel"/></label>' +
-              '<label>Email <span>optional</span><input name="guest_email" type="email" autocomplete="email"/></label>' +
-              '<label>How many places?<input name="guests" type="number" min="1" max="' +
-                (t.spots_left || 1) + '" value="1" id="guests"/></label>' +
-              '<label>Anything we should know<textarea name="notes" rows="3"></textarea></label>' +
-              '<button class="wb-btn wb-btn-gold wb-btn-lg" type="submit" id="bookBtn">' +
-                'Book &amp; Pay via M-Pesa</button>' +
-              '<p class="wb-form-msg" id="bookMsg" role="status"></p>' +
-            '</form>' +
+            bookingPanel() +
           '</div>' +
           '<aside class="wb-book glass">' +
             '<div class="wb-book-price">' + e(p.main) +
@@ -266,68 +388,9 @@
       '</div>';
 
     D.title = t.name + ' — Wild Bosses Adventures';
-    timer = setInterval(tick, 1000);
-    wireForm(t);
-  }
-
-  function wireForm(t) {
-    var f = D.getElementById('bookForm');
-    f.addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      var btn = D.getElementById('bookBtn'), msg = D.getElementById('bookMsg');
-      msg.className = 'wb-form-msg'; msg.textContent = '';
-      var g = parseInt(f.guests.value, 10) || 1;
-
-      if (t.spots_left != null && g > t.spots_left) {
-        msg.className = 'wb-form-msg bad';
-        msg.textContent = 'Only ' + t.spots_left + ' place(s) left on this departure.';
-        return;
-      }
-
-      btn.disabled = true; btn.textContent = 'Submitting…';
-
-      var totalAmount = (t.price_kes || 0) * g;
-
-      W.WB.createBooking({
-        tour_id:      t.id,
-        tour_name:    t.name,
-        guest_name:   f.guest_name.value.trim(),
-        guest_phone:  f.guest_phone.value.trim(),
-        guest_email:  f.guest_email.value.trim(),
-        guests:       g,
-        notes:        f.notes.value.trim(),
-        base_amount:  t.price_kes || 0,
-        total_amount: totalAmount
-      }).then(function (r) {
-        /* Replace form with confirmation + trigger payment if there's an amount */
-        var guestPhone = f.guest_phone.value.trim();
-        var guestName  = f.guest_name.value.trim();
-
-        var payNote = totalAmount > 0
-          ? '<p style="margin-top:10px;font-size:.9rem;color:var(--muted)">Opening payment…</p>'
-          : '';
-
-        f.parentNode.innerHTML =
-          '<div class="glass wb-form-ok" style="border-radius:var(--r-lg)">' +
-            '<b>Booking confirmed!</b>' +
-            '<p>Your place has been reserved. We will be in touch to confirm details.</p>' +
-            '<p>Reference</p><p class="wb-ref">' + e(r.ref) + '</p>' +
-            payNote +
-          '</div>';
-
-        /* Auto-open payment modal if there's an amount to pay */
-        if (totalAmount > 0) {
-          setTimeout(function () {
-            showPayModal(r.ref, guestPhone, guestName, totalAmount);
-          }, 800);
-        }
-      }).catch(function (err) {
-        console.error('[WB] booking failed:', err);
-        btn.disabled = false; btn.textContent = 'Book & Pay via M-Pesa';
-        msg.className = 'wb-form-msg bad';
-        msg.textContent = 'Booking failed — please check your details and try again.';
-      });
-    });
+    setInterval(tick, 1000);
+    wireForm();
+    refresh();
   }
 
   function init() {

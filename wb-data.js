@@ -36,6 +36,17 @@
     });
   }
 
+  /* Any request that has not answered in time is a failure, not a
+     spinner that runs forever. */
+  function withTimeout(promise, ms) {
+    return Promise.race([
+      promise,
+      new Promise(function (_, rej) {
+        setTimeout(function () { rej(new Error('The request timed out. Please try again.')); }, ms);
+      })
+    ]);
+  }
+
   var API = {
     url: URL,
     key: KEY,
@@ -78,37 +89,19 @@
     /* ── booking ────────────────────────────────────────────
        Arrives as pending/pending by policy. An admin confirms it and
        records payment; the browser is never trusted to say "paid".  */
+    /* Booking now goes through our own serverless endpoint, which
+       holds the service key, prices the trip server-side and writes
+       past RLS. The browser never touches the bookings table. */
     createBooking: function (b) {
-      var ref = 'WB' + Date.now().toString(36).toUpperCase() +
-                Math.random().toString(36).slice(2, 5).toUpperCase();
-      var row = {
-        booking_ref: ref,
-        tour_id:     b.tour_id,
-        tour_name:   b.tour_name,
-        guest_name:  b.guest_name,
-        guest_phone: b.guest_phone,
-        guest_email: b.guest_email || null,
-        guests:      b.guests || 1,
-        travel_date: b.travel_date || null,
-        notes:       b.notes || null,
-        base_amount: b.base_amount || 0,
-        total_amount: b.total_amount || 0,
-        source: 'direct',
-        payment_status: 'pending',
-        status: 'pending'
-      };
-      return fetch(REST + 'bookings', {
+      return withTimeout(fetch('/api/book', {
         method: 'POST',
-        headers: {
-          apikey: KEY, Authorization: 'Bearer ' + KEY,
-          'Content-Type': 'application/json',
-          Prefer: 'return=minimal'   /* anon has no SELECT policy — don't ask for the row back */
-        },
-        body: JSON.stringify(row)
-      }).then(function (r) {
-        /* 201 Created = success; anything else is an error */
-        if (!r.ok) return r.text().then(function (t) { throw new Error(t); });
-        return { ok: true, ref: ref, row: null };
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(b)
+      }), 20000).then(function (r) {
+        return r.json().then(function (d) {
+          if (!r.ok) throw new Error(d.error || 'Booking failed');
+          return d;
+        });
       });
     }
   };
@@ -118,11 +111,11 @@
      wildbosses.vercel.app — satisfying PayHero's domain restriction. */
   API.stkPush = function (opts) {
     /* opts: { phone, amount, booking_ref, guest_name } */
-    return fetch('/api/pay', {
+    return withTimeout(fetch('/api/pay', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(opts)
-    }).then(function (r) {
+    }), 25000).then(function (r) {
       return r.json().then(function (d) {
         if (!r.ok) throw new Error(d.error || 'Payment request failed');
         return d; /* { ok, checkout_request_id, message } */
