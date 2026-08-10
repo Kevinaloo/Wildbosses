@@ -65,7 +65,7 @@ async function stkPush({ phone, amount, reference, customerName }) {
     network_code:       '63902',        /* Safaricom Kenya */
     external_reference: reference,
     customer_name:      (customerName || 'Wild Bosses Guest').slice(0, 100),
-    callback_url:       'https://wildbosses.vercel.app/api/pay-callback'
+    callback_url:       'https://uhoqbticmkeufuxnrate.supabase.co/functions/v1/pay-callback'
   };
 
   console.log('[pay] STK push payload:', JSON.stringify({

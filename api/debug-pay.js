@@ -50,7 +50,7 @@ module.exports = async function handler(req, res) {
       provider:           provider,
       external_reference: 'TEST-' + Date.now(),
       customer_name:      'Test User',
-      callback_url:       'https://wildbosses.vercel.app/api/pay-callback'
+      callback_url:       'https://uhoqbticmkeufuxnrate.supabase.co/functions/v1/pay-callback'
     };
 
     try {
