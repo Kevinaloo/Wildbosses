@@ -33,7 +33,7 @@
   </a>
   <nav class="wb-links" id="wb-links" aria-label="Primary">
     <a href="/tours.html">Tours</a>
-    <a href="/guides.html">Guides</a>
+    <a href="/gallery.html">Gallery</a>
     <a href="/about.html">About</a>
     <a href="/contact.html">Contact</a>
   </nav>
@@ -78,6 +78,7 @@
     <div class="wb-boot">Loading departures…</div>
   </section>
 
+  <!-- ── departures slideshow ── -->
   <section class="wb-sec">
     <div class="wb-wrap">
       <header class="wb-sec-head" data-reveal>
@@ -85,14 +86,48 @@
         <h2 class="wb-sec-title">Choose your departure</h2>
         <p class="wb-sec-lede">Fixed dates, small groups, and a place held the moment you book.</p>
       </header>
-      <div class="wb-grid" id="wb-grid" aria-live="polite">
-        <div class="wb-boot">Loading trips…</div>
+      <div class="wb-slide-wrap">
+        <div class="wb-slide-track" id="wb-slide-track" aria-live="polite">
+          <div class="wb-boot">Loading trips…</div>
+        </div>
       </div>
-      <p style="text-align:center;margin-top:34px">
+      <div class="wb-slide-nav" id="wb-slide-nav" hidden>
+        <button class="wb-slide-btn" id="wb-prev" aria-label="Previous trips">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="wb-slide-dots" id="wb-slide-dots"></div>
+        <button class="wb-slide-btn" id="wb-next" aria-label="Next trips">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      <p style="text-align:center;margin-top:28px">
         <a class="wb-btn wb-btn-ghost wb-btn-lg" href="/tours.html">See every trip</a>
       </p>
     </div>
   </section>
+
+  <!-- ── photo gallery ── -->
+  <section class="wb-gallery-sec" id="wb-gallery-sec" aria-label="Tour photo gallery">
+    <div class="wb-gallery-head" data-reveal>
+      <p class="wb-eyebrow">Moments in the field</p>
+      <h2 class="wb-sec-title">From past adventures</h2>
+      <p class="wb-sec-lede">Real moments, real Kenya — photos from our tours.</p>
+    </div>
+    <div class="wb-gallery-runner" id="wb-gallery-runner">
+      <div class="wb-gallery-run" id="wb-gallery-run-1"></div>
+      <div class="wb-gallery-run" id="wb-gallery-run-2"></div>
+    </div>
+    <p id="wb-gallery-empty" style="text-align:center;color:var(--ink-3);font-size:13px;padding:20px 0;display:none">
+      Photos from past tours will appear here.
+    </p>
+  </section>
+
+  <!-- lightbox -->
+  <div class="wb-lightbox" id="wb-lightbox" role="dialog" aria-modal="true" aria-label="Photo">
+    <button class="wb-lightbox-close" id="wb-lightbox-close" aria-label="Close">&times;</button>
+    <img class="wb-lightbox-img" id="wb-lightbox-img" src="" alt=""/>
+    <p class="wb-lightbox-cap" id="wb-lightbox-cap"></p>
+  </div>
 </main>
 
 <footer class="wb-foot">
@@ -103,7 +138,7 @@
     </div>
     <nav class="wb-foot-links" aria-label="Footer">
       <a href="/tours.html">Tours</a>
-      <a href="/guides.html">Guides</a>
+      <a href="/gallery.html">Gallery</a>
       <a href="/about.html">About</a>
       <a href="/contact.html">Contact</a>
       <a href="/admin.html">Admin</a>

@@ -78,6 +78,13 @@
         .catch(function () { return []; });
     },
 
+    photos: function (opts) {
+      opts = opts || {};
+      var q = 'photos?select=*&active=eq.true&order=sort_order.asc,created_at.desc';
+      if (opts.limit) q += '&limit=' + opts.limit;
+      return get(q).catch(function () { return []; });
+    },
+
     settings: function () {
       return get('site_settings?select=key,value').then(function (rows) {
         var out = {};

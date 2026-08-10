@@ -77,7 +77,7 @@
 
     $('addRail').addEventListener('click', function () { railEditor(null); });
     $('addTour').addEventListener('click', function () { tourEditor(null); });
-    $('addGuide').addEventListener('click', function () { guideEditor(null); });
+    $('addPhoto').addEventListener('click', function () { photoEditor(null); });
     $('modal').addEventListener('click', function (e) {
       if (e.target === $('modal')) closeModal();
     });
@@ -99,7 +99,7 @@
       $('gate').hidden = true;
       $('app').hidden = false;
       $('who').textContent = ME.email;
-      loadRail(); loadTours(); loadGuides(); loadBookings(); loadBrand();
+      loadRail(); loadTours(); loadPhotos(); loadBookings(); loadBrand();
     });
   }
 
@@ -459,111 +459,106 @@
     });
   }
 
-  /* ── guides ───────────────────────────────────────────── */
-  function loadGuides() {
-    sb.from('guides').select('*').order('name').then(function (r) {
-      var rows = r.data || [], el = $('guideList');
-      if (!rows.length) {
-        el.innerHTML = '<div class="adm-empty"><b>No guides yet</b>' +
-          'Add the people who run your trips and they appear on the Guides page.</div>';
-        return;
-      }
-      el.innerHTML = rows.map(function (g) {
-        var initials = String(g.name || '?').split(/\s+/).slice(0, 2)
-          .map(function (w) { return w[0]; }).join('').toUpperCase();
-        return '<div class="adm-card adm-row">' +
-          '<div class="adm-thumb" style="border-radius:50%;width:56px' +
-            (g.photo ? ';background-image:url(' + esc(g.photo) + ')' : '') + '">' +
-            (g.photo ? '' : esc(initials)) + '</div>' +
-          '<div class="adm-row-main">' +
-            '<b>' + esc(g.name) + '</b>' +
-            '<span class="adm-sub">' + esc(g.bio ? g.bio.slice(0, 90) : 'No bio yet') + '</span>' +
-            (g.years_exp ? '<span class="adm-pill">' + g.years_exp + ' yrs</span>' : '') +
-            (g.languages && g.languages.length
-              ? '<span class="adm-pill">' + esc(g.languages.join(', ')) + '</span>' : '') +
-            (g.active ? '' : '<span class="adm-pill warn">Hidden</span>') +
-          '</div>' +
-          '<div class="adm-row-act">' +
-            '<button class="adm-btn adm-btn-ghost" data-edit-guide="' + g.id + '">Edit</button>' +
-            '<button class="adm-btn adm-btn-bad" data-del-guide="' + g.id + '">Delete</button>' +
-          '</div></div>';
-      }).join('');
+  /* ── photos ───────────────────────────────────────────── */
+  function loadPhotos() {
+    sb.from('photos').select('*').order('sort_order').order('created_at', { ascending: false })
+      .then(function (r) {
+        var rows = r.data || [], el = $('photoList');
+        if (!rows.length) {
+          el.innerHTML = '<div class="adm-empty"><b>No photos yet</b>' +
+            'Add photos from past tours and they appear on the Gallery page and homepage strip.</div>';
+          return;
+        }
+        el.innerHTML = rows.map(function (p) {
+          var cap = p.caption || p.location || '—';
+          return '<div class="adm-card adm-row">' +
+            '<div class="adm-thumb"' +
+              (p.url ? ' style="background-image:url(' + esc(p.url) + ')"' : '') + '>' +
+              (p.url ? '' : 'no image') + '</div>' +
+            '<div class="adm-row-main">' +
+              '<b>' + esc(cap) + '</b>' +
+              (p.location ? '<span class="adm-sub">' + esc(p.location) + '</span>' : '') +
+              '<span class="adm-pill">Order: ' + (p.sort_order || 0) + '</span>' +
+              (p.active ? '' : '<span class="adm-pill warn">Hidden</span>') +
+            '</div>' +
+            '<div class="adm-row-act">' +
+              '<button class="adm-btn adm-btn-ghost" data-edit-photo="' + p.id + '">Edit</button>' +
+              '<button class="adm-btn adm-btn-bad" data-del-photo="' + p.id + '">Delete</button>' +
+            '</div></div>';
+        }).join('');
 
-      el.querySelectorAll('[data-edit-guide]').forEach(function (b) {
-        b.onclick = function () {
-          guideEditor(rows.filter(function (x) { return x.id === b.dataset.editGuide; })[0]);
-        };
+        el.querySelectorAll('[data-edit-photo]').forEach(function (b) {
+          b.onclick = function () {
+            photoEditor(rows.filter(function (x) { return x.id === b.dataset.editPhoto; })[0]);
+          };
+        });
+        el.querySelectorAll('[data-del-photo]').forEach(function (b) {
+          b.onclick = function () {
+            if (!confirm('Delete this photo?')) return;
+            sb.from('photos').delete().eq('id', b.dataset.delPhoto).then(function (r) {
+              if (r.error) return toast(r.error.message, true);
+              toast('Photo deleted'); loadPhotos();
+            });
+          };
+        });
       });
-      el.querySelectorAll('[data-del-guide]').forEach(function (b) {
-        b.onclick = function () {
-          if (!confirm('Delete this guide?')) return;
-          sb.from('guides').delete().eq('id', b.dataset.delGuide).then(function (r) {
-            if (r.error) return toast(r.error.message, true);
-            toast('Guide deleted'); loadGuides();
-          });
-        };
-      });
-    });
   }
 
-  function guideEditor(g) {
-    g = g || {};
+  function photoEditor(p) {
+    p = p || {};
     openModal(
-      '<h3>' + (g.id ? 'Edit guide' : 'New guide') + '</h3>' +
-      '<p class="adm-modal-note">Guides show on the Guides page and can be attached ' +
-        'to a tour. A guide with no photo shows their initials rather than a broken frame.</p>' +
-      '<form id="guideForm" class="adm-form">' +
-        field('Name', 'name', g.name) +
-        field('Web address', 'slug', g.slug, 'text',
-              'Lowercase with hyphens, e.g. kevin-aloo') +
-        '<label>Photo<input type="file" id="guidePhoto" accept="image/*"/></label>' +
+      '<h3>' + (p.id ? 'Edit photo' : 'Add photo') + '</h3>' +
+      '<p class="adm-modal-note">Photos appear on the Gallery page and scroll across the homepage. ' +
+        'Add a caption and location so visitors know what they are looking at.</p>' +
+      '<form id="photoForm" class="adm-form">' +
+        '<label>Photo<em>Upload from your camera roll or computer.</em>' +
+          '<input type="file" id="photoFile" accept="image/*"/></label>' +
         '<p class="adm-up" id="upMsg"></p><div class="adm-bar"><i></i></div>' +
-        field('Photo URL', 'photo', g.photo) +
-        '<label>Short bio<em>Two or three sentences. This is what visitors read.</em>' +
-          '<textarea name="bio" rows="4">' + esc(g.bio || '') + '</textarea></label>' +
-        '<div class="adm-two">' +
-          field('Years guiding', 'years_exp', g.years_exp == null ? 0 : g.years_exp, 'number') +
-          field('Phone', 'phone', g.phone) +
-        '</div>' +
-        field('Specialities', 'specialities', (g.specialities || []).join(', '), 'text',
-              'Separated by commas, e.g. Big cats, Birding, Photography') +
-        field('Languages', 'languages', (g.languages || ['en']).join(', '), 'text',
-              'Separated by commas, e.g. English, Swahili') +
+        field('Photo URL', 'url', p.url, 'text', 'Fills in automatically after upload') +
+        '<div class="adm-preview" id="photoPrev"></div>' +
+        field('Caption', 'caption', p.caption, 'text', 'Short description e.g. "Sunrise over the Mara"') +
+        field('Location', 'location', p.location, 'text', 'e.g. Maasai Mara, Amboseli') +
+        field('Alt text', 'alt_text', p.alt_text, 'text', 'Describe the image for accessibility') +
+        field('Order', 'sort_order', p.sort_order == null ? 0 : p.sort_order, 'number',
+              'Lower numbers appear first') +
         '<label class="adm-check"><input type="checkbox" name="active"' +
-          (g.active === false ? '' : ' checked') + '/> Show on the Guides page</label>' +
+          (p.active === false ? '' : ' checked') + '/> Show on the gallery &amp; homepage</label>' +
         '<div class="adm-modal-act">' +
           '<button type="button" class="adm-btn adm-btn-ghost" onclick="admClose()">Cancel</button>' +
           '<button class="adm-btn adm-btn-go" type="submit">Save</button>' +
         '</div>' +
       '</form>'
     );
-    wireUpload('guidePhoto', 'tour-photos', 'photo', 'upMsg');
+    wireUpload('photoFile', 'tour-photos', 'url', 'upMsg');
 
-    function list(v) {
-      return String(v || '').split(',').map(function (x) { return x.trim(); })
-        .filter(Boolean);
+    /* live preview */
+    var urlFld = D.querySelector('[name="url"]'), prev = $('photoPrev');
+    function drawPrev() {
+      if (urlFld && urlFld.value.trim()) {
+        prev.style.backgroundImage = 'url(' + urlFld.value.trim() + ')';
+        prev.classList.add('on');
+      } else {
+        prev.classList.remove('on');
+      }
     }
+    if (urlFld) { urlFld.addEventListener('input', drawPrev); drawPrev(); }
 
-    $('guideForm').addEventListener('submit', function (ev) {
+    $('photoForm').addEventListener('submit', function (ev) {
       ev.preventDefault();
       var f = ev.target;
       var row = {
-        name: f.name.value.trim(),
-        slug: f.slug.value.trim().toLowerCase().replace(/[^a-z0-9\-]/g, '-'),
-        photo: f.photo.value.trim() || null,
-        bio: f.bio.value.trim() || null,
-        years_exp: parseInt(f.years_exp.value, 10) || 0,
-        phone: f.phone.value.trim() || null,
-        specialities: list(f.specialities.value),
-        languages: list(f.languages.value),
+        url: f.url.value.trim(),
+        caption: f.caption.value.trim() || null,
+        location: f.location.value.trim() || null,
+        alt_text: f.alt_text.value.trim() || null,
+        sort_order: parseInt(f.sort_order.value, 10) || 0,
         active: f.active.checked
       };
-      if (!row.name) return toast('A name is needed', true);
-      if (!row.slug) row.slug = row.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-      var q = g.id ? sb.from('guides').update(row).eq('id', g.id) : sb.from('guides').insert(row);
+      if (!row.url) return toast('A photo URL is needed — upload a photo first', true);
+      var q = p.id ? sb.from('photos').update(row).eq('id', p.id) : sb.from('photos').insert(row);
       q.then(function (r) {
         if (r.error) return toast(r.error.message, true);
-        toast('Guide saved'); closeModal(); loadGuides();
+        toast('Photo saved'); closeModal(); loadPhotos();
       });
     });
   }
