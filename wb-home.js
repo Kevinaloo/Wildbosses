@@ -7,7 +7,7 @@
 
   /* ── slideshow ─────────────────────────────────────────── */
   function initSlideshow(rows) {
-    var track   = D.getElementById('wb-slide-track');
+    var track   = D.getElementById('wb-slide-track') || D.getElementById('wb-grid');
     var navWrap = D.getElementById('wb-slide-nav');
     var dotsEl  = D.getElementById('wb-slide-dots');
     var prevBtn = D.getElementById('wb-prev');
@@ -23,6 +23,11 @@
     }
 
     track.innerHTML = rows.map(W.WBSite.tourCard).join('');
+
+    /* Cards render fine on their own; the carousel controls are a
+       progressive enhancement. If the slideshow markup is missing
+       (e.g. a stale cached page) the trips still show as a plain row. */
+    if (!navWrap || !dotsEl || !prevBtn || !nextBtn) return;
     var cards = track.querySelectorAll('.wb-card');
     var n = cards.length;
 
@@ -165,9 +170,29 @@
 
   /* ── init ──────────────────────────────────────────────── */
   function init() {
-    if (!W.WB) return;
-    W.WB.tours({ limit: 12 }).then(initSlideshow);
-    W.WB.photos().then(initGallery);
+    var track = D.getElementById('wb-slide-track') || D.getElementById('wb-grid');
+
+    if (!W.WB) {
+      if (track) track.innerHTML = '<div class="wb-empty"><b>Could not load trips</b>' +
+        'Please refresh the page.</div>';
+      return;
+    }
+
+    W.WB.tours({ limit: 12 })
+      .then(initSlideshow)
+      .catch(function (err) {
+        if (track) track.innerHTML = '<div class="wb-empty"><b>Could not load trips</b>' +
+          'Please refresh the page.</div>';
+        if (W.console) console.error('[wb-home] tours failed', err);
+      });
+
+    W.WB.photos()
+      .then(initGallery)
+      .catch(function (err) {
+        var sec = D.getElementById('wb-gallery-sec');
+        if (sec) sec.style.display = 'none';
+        if (W.console) console.error('[wb-home] photos failed', err);
+      });
   }
 
   if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', init);

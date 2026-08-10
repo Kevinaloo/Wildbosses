@@ -73,11 +73,6 @@
         .catch(function () { return null; });
     },
 
-    guides: function () {
-      return get('guides?select=*&active=eq.true&order=name.asc')
-        .catch(function () { return []; });
-    },
-
     photos: function (opts) {
       opts = opts || {};
       var q = 'photos?select=*&active=eq.true&order=sort_order.asc,created_at.desc';
