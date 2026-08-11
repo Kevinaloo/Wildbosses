@@ -65,8 +65,8 @@
   /* capped against viewport HEIGHT as well as width: the card is 3/4
      portrait and the row is rotated, so on a short laptop screen a card
      sized only by width is taller than the stage and loses its price. */
-  width: min(clamp(258px, 26vw, 400px), 40vh);
-  aspect-ratio: 3 / 4;
+  width: min(clamp(266px, 26vw, 400px), 44vh);
+  aspect-ratio: 3 / 4.35;
   margin: 0 clamp(12px, 1.6vw, 26px);
   border-radius: var(--r-lg);
   overflow: hidden;
@@ -124,16 +124,19 @@
 .rail-body {
   position: absolute;
   left: 0; right: 0; bottom: 0;
-  padding: clamp(18px, 2vw, 30px);
+  padding: clamp(16px, 1.7vw, 24px);
   display: grid;
-  gap: 10px;
+  gap: 8px;
+  /* its own wash, so the block stays legible no matter how tall it grows
+     and never relies on the card scrim reaching far enough up */
+  background: linear-gradient(to top, rgba(4,21,15,.96) 62%, rgba(4,21,15,.72) 86%, transparent);
 }
 
 .rail-card * { color: var(--pollen); }
 .rail-title {
   font-family: var(--display);
-  font-size: clamp(26px, 2.5vw, 44px);
-  line-height: .96;
+  font-size: clamp(22px, 1.9vw, 32px);
+  line-height: 1;
   letter-spacing: .01em;
   margin: 0;
   color: var(--pollen);
@@ -142,25 +145,33 @@
 
 .rail-sub {
   margin: 0;
-  font-size: clamp(12px, .95vw, 14px);
+  /* one line only; a two-line subtitle was the other half of the overlap */
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-size: clamp(11.5px, .85vw, 13px);
   color: rgba(243,238,228,.8);
   line-height: 1.45;
 }
 
 /* ── countdown ──────────────────────────────────────────── */
-.rail-count {
-  display: flex;
-  align-items: flex-end;
-  gap: clamp(8px, .8vw, 14px);
-  flex-wrap: wrap;
-  padding-top: 4px;
+/* The label and four units used to sit in one wrapping flex row. At card
+   width the seconds could not fit, wrapped to a line of their own, and the
+   body — which is anchored to the bottom of the card — grew upwards THROUGH
+   the title. That is the overlap on the Nairobi and Diani cards.
+
+   The label now has its own line and the four units are a fixed 4-column
+   grid, so the block's height is the same on every card at every width and
+   nothing can wrap. */
+.rail-count { display: grid; gap: 6px; padding-top: 2px; }
+.rail-count-units {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(4px, .5vw, 8px);
 }
 .rail-count-lab {
-  font-size: 10px;
+  font-size: 9.5px;
   letter-spacing: .2em;
   text-transform: uppercase;
   color: var(--citrine);
-  align-self: center;
 }
 .rail-count-wait {
   font-size: 11px;
@@ -168,11 +179,16 @@
   text-transform: uppercase;
   color: rgba(243,238,228,.72);
 }
-.rail-unit { display: grid; justify-items: center; gap: 1px; }
+.rail-unit {
+  display: grid; justify-items: center; gap: 2px;
+  padding: 7px 2px; border-radius: 9px;
+  background: rgba(255,249,227,.09);
+  border: 1px solid rgba(180,255,200,.15);
+}
 .rail-unit b {
   font-family: var(--mono);
   font-variant-numeric: tabular-nums;
-  font-size: clamp(17px, 1.5vw, 25px);
+  font-size: clamp(15px, 1.25vw, 21px);
   font-weight: 600;
   line-height: 1;
   color: var(--pollen);
@@ -287,7 +303,6 @@
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
 }
 .wb-next.is-on { display: block; }
-@media (max-width: 999px) { .wb-next { display: none !important; } }
 .wb-next-media { position: absolute; inset: 0; }
 .wb-next-media img { width: 100%; height: 100%; object-fit: cover; opacity: .34; }
 .wb-next-in { position: relative; padding: clamp(22px, 2vw, 30px); display: grid; gap: 14px; }
@@ -341,27 +356,31 @@
   color: #A9CBB2; font-size: clamp(15px, 1.5vw, 17.5px); line-height: 1.6;
 }
 .wb-rail-acts { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 26px; }
-/* three claims, each one already true and already stated elsewhere on the
-   site — nothing here is a new promise */
-.wb-rail-trust {
-  display: flex; flex-wrap: wrap; gap: 8px 20px;
-  margin: 26px 0 0; padding: 0; list-style: none;
+/* ways to pay — set as chips rather than a tick list, because these are
+   options to choose between, not claims being made */
+.wb-rail-pay {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  margin: 24px 0 0; padding: 0; list-style: none;
 }
-.wb-rail-trust li {
-  display: flex; align-items: center; gap: 7px;
-  font-size: 12px; letter-spacing: .04em; color: #96BCA1;
+.wb-rail-pay::before {
+  content: 'Pay with';
+  font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase;
+  color: #7FA98B; margin-right: 2px;
 }
-.wb-rail-trust li::before {
-  content: ''; width: 9px; height: 5px; flex: 0 0 auto;
-  border-left: 2px solid var(--citrine); border-bottom: 2px solid var(--citrine);
-  transform: rotate(-45deg) translateY(-1px);
+.wb-rail-pay li {
+  font-size: 12px; font-weight: 600; letter-spacing: .05em;
+  color: var(--leaf-white);
+  padding: 7px 14px; border-radius: 999px;
+  background: rgba(255,249,227,.08);
+  border: 1px solid rgba(180,255,200,.22);
 }
 
 @media (max-width: 640px) {
   .wb-rail-copy { max-width: none; }
+  .wb-rail-copy h1 { max-width: none; }
   .wb-rail-acts .wb-btn { flex: 1 1 auto; justify-content: center; }
-  .wb-rail-trust { gap: 6px 16px; }
-  .wb-rail-trust li { font-size: 11.5px; }
+  .wb-rail-pay { gap: 7px; }
+  .wb-rail-pay li { font-size: 11.5px; padding: 6px 12px; }
 }
 
 @media (max-width: 640px) {
@@ -415,3 +434,23 @@
   display: none; max-width: 82%; text-align: center; line-height: 1.4;
 }
 .rail-card.film-stuck .rail-play { display: block; }
+
+
+/* ── the panel on a phone ────────────────────────────────────────────
+   Shown at every width now, not just above 1000px. Everything the desktop
+   card carries is here — label, name, subtitle, live countdown, price and
+   the link through — just stacked under the copy instead of beside it. */
+@media (max-width: 999px) {
+  .wb-next { margin-top: 4px; }
+  .wb-next-in { padding: 20px; gap: 12px; }
+  .wb-next-name { font-size: 26px; }
+  .wb-next-count { gap: 7px; }
+  .wb-next-count div { padding: 8px 2px; }
+  .wb-next-count b { font-size: 19px; }
+  .wb-next-foot { padding-top: 12px; }
+  .wb-next-foot .wb-btn { flex: 1 1 auto; justify-content: center; }
+}
+@media (max-width: 380px) {
+  .wb-next-count b { font-size: 17px; }
+  .wb-next-count i { font-size: 8px; letter-spacing: .1em; }
+}

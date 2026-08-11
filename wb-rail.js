@@ -81,11 +81,16 @@
   function countMarkup(c) {
     if (!c) return '<span class="rail-count-wait">Dates on request</span>';
     if (c.past) return '<span class="rail-count-wait">Departed</span>';
+    /* the four units are wrapped so they can be a fixed 4-column grid; as a
+       bare wrapping flex row the seconds dropped to their own line and the
+       body grew up through the title */
     return '<span class="rail-count-lab">Departs in</span>' +
-      '<span class="rail-unit"><b class="wb-num">' + c.d + '</b><i>days</i></span>' +
-      '<span class="rail-unit"><b class="wb-num">' + pad(c.h) + '</b><i>hrs</i></span>' +
-      '<span class="rail-unit"><b class="wb-num">' + pad(c.m) + '</b><i>min</i></span>' +
-      '<span class="rail-unit"><b class="wb-num">' + pad(c.s) + '</b><i>sec</i></span>';
+      '<span class="rail-count-units">' +
+        '<span class="rail-unit"><b class="wb-num">' + c.d + '</b><i>days</i></span>' +
+        '<span class="rail-unit"><b class="wb-num">' + pad(c.h) + '</b><i>hrs</i></span>' +
+        '<span class="rail-unit"><b class="wb-num">' + pad(c.m) + '</b><i>min</i></span>' +
+        '<span class="rail-unit"><b class="wb-num">' + pad(c.s) + '</b><i>sec</i></span>' +
+      '</span>';
   }
 
   function mount(root, rows) {
