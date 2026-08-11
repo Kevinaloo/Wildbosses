@@ -36,11 +36,11 @@
 <link rel="preconnect" href="https://uhoqbticmkeufuxnrate.supabase.co"/>
 <!-- runs before first paint: decides on the intro, so a repeat
      visitor never sees the overlay paint at all -->
-<script src="/wb-theme.js?v=202608111530"></script>
-<link rel="stylesheet" href="/wb-tokens.css?v=202608111530"/>
-<link rel="stylesheet" href="/wb-site.css?v=202608111530"/>
-<link rel="stylesheet" href="/wb-intro.css?v=202608111530"/>
-<link rel="stylesheet" href="/wb-rail.css?v=202608111530"/>
+<script src="/wb-theme.js?v=202608111710"></script>
+<link rel="stylesheet" href="/wb-tokens.css?v=202608111710"/>
+<link rel="stylesheet" href="/wb-site.css?v=202608111710"/>
+<link rel="stylesheet" href="/wb-intro.css?v=202608111710"/>
+<link rel="stylesheet" href="/wb-rail.css?v=202608111710"/>
 
 </head>
 <body>
@@ -100,6 +100,7 @@
        needs one sentence telling them what is on offer. -->
   <section class="wb-rail-top">
     <div class="wb-wrap">
+     <div class="wb-rail-grid">
       <div class="wb-rail-copy">
         <p class="wb-eyebrow">Wild Bosses Adventures</p>
         <h1>Every trip here <em>already has a date.</em></h1>
@@ -116,6 +117,11 @@
           <li>Full refund if we cancel</li>
         </ul>
       </div>
+
+      <!-- filled by wb-rail.js from the soonest open departure; stays
+           hidden if there is nothing on the books -->
+      <aside class="wb-next" id="wb-next" aria-label="Next departure"></aside>
+     </div>
     </div>
   </section>
 
@@ -194,11 +200,11 @@
     <p class="wb-foot-legal">&copy; <span id="wb-year"></span> Wild Bosses Adventures</p>
   </div>
 </footer>
-<script src="/wb-data.js?v=202608111530"></script>
-<script src="/wb-site.js?v=202608111530"></script>
-<script src="/wb-intro.js?v=202608111530"></script>
-<script src="/wb-rail.js?v=202608111530"></script>
-<script src="/wb-home.js?v=202608111530"></script>
+<script src="/wb-data.js?v=202608111710"></script>
+<script src="/wb-site.js?v=202608111710"></script>
+<script src="/wb-intro.js?v=202608111710"></script>
+<script src="/wb-rail.js?v=202608111710"></script>
+<script src="/wb-home.js?v=202608111710"></script>
 
 <a class="wb-wa" id="wb-wa" href="https://wa.me/254796818671" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" data-wa>
   <span class="wb-wa-tip">Chat with us</span>

@@ -314,9 +314,59 @@
     });
   }
 
+  /* ── the soonest departure, beside the headline ──────────────────
+     The headline claims every trip already has a date. This stands the
+     proof next to the claim, and fills a column that was otherwise ~800px
+     of empty green on a laptop. Renders nothing if there is no upcoming
+     trip, so an empty catalogue degrades to the single-column layout. */
+  function nextDeparture(tours) {
+    var host = D.getElementById('wb-next');
+    if (!host || !tours || !tours.length) return;
+
+    var now = Date.now();
+    var soon = tours
+      .filter(function (t) { return t.departure_date && new Date(t.departure_date).getTime() > now; })
+      .sort(function (a, b) { return new Date(a.departure_date) - new Date(b.departure_date); })[0];
+    if (!soon) return;
+
+    var price = soon.price_kes === 0
+      ? 'Pay what you want'
+      : (soon.price_kes ? 'KES ' + Number(soon.price_kes).toLocaleString('en-KE') : 'On request');
+
+    host.innerHTML =
+      (soon.image ? '<div class="wb-next-media"><img src="' + esc(soon.image) +
+        '" alt="" loading="lazy" decoding="async"/></div>' : '') +
+      '<div class="wb-next-in">' +
+        '<p class="wb-next-lab">Next departure</p>' +
+        '<h2 class="wb-next-name">' + esc(soon.name) + '</h2>' +
+        (soon.subtitle ? '<p class="wb-next-sub">' + esc(soon.subtitle) + '</p>' : '') +
+        '<div class="wb-next-count" data-next-count></div>' +
+        '<div class="wb-next-foot">' +
+          '<span class="wb-next-price">' + esc(price) +
+            (soon.price_kes ? '<small>per person</small>' : '') + '</span>' +
+          '<a class="wb-btn wb-btn-gold" href="/tour.html?t=' +
+            encodeURIComponent(soon.slug) + '">View this trip</a>' +
+        '</div>' +
+      '</div>';
+    host.classList.add('is-on');
+
+    var slot = host.querySelector('[data-next-count]');
+    function tickNext() {
+      var c = W.WB && W.WB.countdown ? W.WB.countdown(soon.departure_date) : null;
+      if (!c || c.past) { slot.innerHTML = ''; return; }
+      slot.innerHTML =
+        '<div><b>' + c.d + '</b><i>days</i></div>' +
+        '<div><b>' + pad(c.h) + '</b><i>hrs</i></div>' +
+        '<div><b>' + pad(c.m) + '</b><i>min</i></div>' +
+        '<div><b>' + pad(c.s) + '</b><i>sec</i></div>';
+    }
+    tickNext();
+    setInterval(tickNext, 1000);
+  }
+
   function init() {
     var root = D.getElementById('wb-rail');
-    if (!root || !W.WB) return;
+    if (!W.WB) return;
 
     /* Join each rail row to its tour so a row with no poster_url can borrow
        the trip's own photograph. Both reads fail soft to [], and the join is
@@ -338,9 +388,10 @@
           if (!r.departs_at && t.departure_date) r.departs_at = t.departure_date;
         }
       });
-      mount(root, rows);
+      nextDeparture(tours);
+      if (root) mount(root, rows);
     }).catch(function () {
-      W.WB.heroRail().then(function (rows) { mount(root, rows); });
+      if (root) W.WB.heroRail().then(function (rows) { mount(root, rows); });
     });
   }
 

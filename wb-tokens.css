@@ -193,7 +193,12 @@ body {
 /* Long destination names and single-word trip titles are the two things
    that break a display face. Let headings wrap on sense rather than on
    whatever fits, and let long words break instead of pushing the box wide. */
-h1,h2,h3 { text-wrap:balance; overflow-wrap:break-word; }
+/* `overflow-wrap:break-word` here was a mistake: it lets a display face
+   snap a word in half ("alrea / dy") the moment a container is too narrow,
+   which hides the real bug behind an uglier one. Headings should overflow
+   visibly so the width problem is obvious and gets fixed. Only genuinely
+   unbreakable strings — a URL, a long slug — get to break. */
+h1,h2,h3 { text-wrap:balance; overflow-wrap:normal; word-break:normal; }
 p { text-wrap:pretty; }
 
 /* ── the signature: light through the canopy ──────────────
