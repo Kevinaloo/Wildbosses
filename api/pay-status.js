@@ -43,7 +43,7 @@ module.exports = async function handler(req, res) {
 
   try {
     const qs = '?booking_ref=eq.' + encodeURIComponent(ref) +
-               '&select=payment_status,status,payment_ref,paid_amount&limit=1';
+               '&select=payment_status,status,payment_ref,checkout_id,paid_amount&limit=1';
 
     const resp = await fetch(SB_URL + '/rest/v1/bookings' + qs, {
       headers: {
@@ -64,7 +64,7 @@ module.exports = async function handler(req, res) {
 
     /* Also query PayHero directly if we have a checkout_request_id stored */
     let payheroStatus = null;
-    const checkoutId  = row.payment_ref;
+    const checkoutId  = row.checkout_id || row.payment_ref;  /* checkout_id is authoritative; payment_ref kept for legacy rows */
 
     if (checkoutId && process.env.PAYHERO_USERNAME && process.env.PAYHERO_PASSWORD) {
       try {
@@ -88,23 +88,26 @@ module.exports = async function handler(req, res) {
           console.log('[pay-status] PayHero direct status:', JSON.stringify(phData));
           payheroStatus = phData.status || null;
 
-          /* If PayHero says SUCCESS but Supabase hasn't been updated yet by
-             callback, update it now so the poll resolves immediately */
+          /* Settle through the same atomic RPC the callback uses.
+             This poll and the callback race constantly — a direct PATCH
+             here would let both apply, crediting the booking twice.
+             confirm_payment() is idempotent on the M-Pesa receipt, so
+             whichever arrives second is a no-op. */
           if ((payheroStatus || '').toUpperCase() === 'SUCCESS' &&
                row.payment_status !== 'paid') {
-            await fetch(SB_URL + '/rest/v1/bookings?booking_ref=eq.' + encodeURIComponent(ref), {
-              method: 'PATCH',
+            await fetch(SB_URL + '/rest/v1/rpc/confirm_payment', {
+              method: 'POST',
               headers: {
                 apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY,
-                'Content-Type': 'application/json', Prefer: 'return=minimal'
+                'Content-Type': 'application/json'
               },
               body: JSON.stringify({
-                payment_status: 'paid',
-                status:         'confirmed',
-                payment_ref:    phData.mpesa_receipt_number || checkoutId,
-                updated_at:     new Date().toISOString()
+                p_ref:      ref,
+                p_receipt:  phData.mpesa_receipt_number || null,
+                p_amount:   Math.round(Number(phData.amount) || 0),
+                p_checkout: checkoutId
               })
-            }).catch(e => console.warn('[pay-status] auto-patch failed:', e.message));
+            }).catch(e => console.warn('[pay-status] confirm_payment failed:', e.message));
 
             row.payment_status = 'paid';
           }

@@ -15,3 +15,10 @@ enabled = true
 site_url = "https://wildbosses.vercel.app"
 additional_redirect_urls = ["https://wildbosses.vercel.app"]
 jwt_expiry = 3600
+
+[functions.pay-callback]
+# PayHero posts here unauthenticated — it has no Supabase JWT to send.
+# JWT verification must stay off. The endpoint is protected instead by
+# the ?k= shared secret AND by verifying every payment against
+# PayHero's transaction-status API before anything is written.
+verify_jwt = false
