@@ -53,8 +53,19 @@ semantic tokens to the dark set, so a section can go deep green without a
 second palette existing anywhere. Applied to `.wb-nav`, `.wb-foot`,
 `.wb-hero` and `.wb-rail`.
 
-`--ground` deliberately does **not** flip inside it — the rail's bottom
-fade has to reach the light page below it, not the band it is standing in.
+`--ground` deliberately does **not** flip inside it, for anything needing
+the light page colour while standing in a dark band.
+
+The rail's bottom fade is a vignette into the stage's **own** darkness, not
+a transition to the page. Pointing it at the light page put a milky white
+band straight across the card content. The seam to the page is the gold
+hairline instead, the same one under the masthead.
+
+The rail card is capped by viewport **height** as well as width. It is 3/4
+portrait inside a rotated row, so sized by width alone it stands taller
+than the stage on a short laptop screen and every card loses its price and
+countdown. The row also rides above centre, because `.rail-body` sits at
+the bottom of each card and a centred row puts all of it under the fade.
 
 `--focus` also flips per surface. Lime is 7:1 on green and 1.7:1 on white,
 so a single focus colour cannot serve both.

@@ -74,9 +74,9 @@
 
   /* ── semantic · the light ground ──────────────────────── */
   --ground:#F5FAF1;      /* the page ground, and it stays the page ground
-                            inside .wb-inverse too — the rail's bottom fade
-                            has to reach the light page below it, not the
-                            band it is standing in */
+                            inside .wb-inverse too, for anything that needs
+                            the light page colour while standing in a dark
+                            band */
   --bg:var(--ground);    /* warm white with a green whisper — not paper,
                             and deliberately not the cream everyone ships */
   --bg-deep:#E9F2E4;     /* the recessed band */

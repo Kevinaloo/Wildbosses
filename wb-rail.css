@@ -7,7 +7,14 @@
 
 /* The rail is a cinema stage: it stays dark in both themes so film and
    photography carry, and so the dimmed cards recede instead of washing
-   out against a pale page. It fades into whatever theme is below it. */
+   out against a pale page.
+
+   The bottom of the stage is a vignette into the stage's OWN darkness,
+   not a transition to the page below. The tilted row is clipped by the
+   viewport, so cards get sliced mid-countdown; sinking them into black
+   reads as depth. Pointing this gradient at the light page instead put
+   a milky white band straight across the card content. The seam to the
+   page is the gold hairline, the same one under the masthead. */
 .wb-rail {
   position: relative;
   background: var(--void);
@@ -16,14 +23,17 @@
 .wb-rail::after {
   content: '';
   position: absolute; left: 0; right: 0; bottom: 0;
-  height: 44px; pointer-events: none; z-index: 3;
-  background: linear-gradient(to bottom, transparent, var(--ground));
+  height: 56px; pointer-events: none; z-index: 3;
+  background:
+    linear-gradient(90deg, transparent, var(--sun) 22%, var(--citrine) 50%, var(--sun) 78%, transparent)
+      bottom / 100% 2px no-repeat,
+    linear-gradient(to bottom, transparent, var(--void) 82%);
 }
 
 .rail-viewport {
   position: relative;
   overflow: hidden;
-  height: clamp(440px, 66vh, 690px);
+  height: clamp(470px, 72vh, 720px);
   cursor: grab;
 }
 .wb-rail.is-dragging .rail-viewport { cursor: grabbing; }
@@ -34,7 +44,11 @@
   top: 50%;
   left: -18%;
   width: 136%;
-  transform: translateY(-50%) rotate(var(--tilt, -8deg));
+  /* lifted off centre: .rail-body sits at the bottom of each card, so a
+     row centred in the viewport puts every price and countdown right where
+     the vignette lands. Riding high leaves the bottom of the stage empty
+     for the fade to work in. */
+  transform: translateY(calc(-50% - clamp(20px, 3.4vh, 42px))) rotate(var(--tilt, -8deg));
   transform-origin: center;
 }
 
@@ -48,7 +62,10 @@
 .rail-card {
   position: relative;
   flex: 0 0 auto;
-  width: clamp(276px, 29vw, 440px);
+  /* capped against viewport HEIGHT as well as width: the card is 3/4
+     portrait and the row is rotated, so on a short laptop screen a card
+     sized only by width is taller than the stage and loses its price. */
+  width: min(clamp(258px, 26vw, 400px), 40vh);
   aspect-ratio: 3 / 4;
   margin: 0 clamp(12px, 1.6vw, 26px);
   border-radius: var(--r-lg);
@@ -217,8 +234,8 @@
 }
 
 @media (max-width: 640px) {
-  .rail-viewport { height: clamp(420px, 66vh, 560px); }
-  .rail-card { width: min(74vw, 300px); }
+  .rail-viewport { height: clamp(430px, 68vh, 580px); }
+  .rail-card { width: min(70vw, 286px); }
 }
 
 /* shown only when a film genuinely will not run, so a card is never an

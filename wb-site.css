@@ -13,14 +13,14 @@
 .wb-nav {
   position: sticky; top: 0; z-index: 200;
   display: flex; align-items: center; gap: var(--sp-5);
-  padding: 12px clamp(16px, 4vw, 46px);
+  padding: 13px clamp(16px, 4vw, 46px);
   background: var(--forest);
   border-bottom: 1px solid rgba(234,247,228,.10);
 }
 
-.wb-brand { display: flex; align-items: center; gap: 11px; flex: 0 0 auto; }
+.wb-brand { display: flex; align-items: center; gap: 14px; flex: 0 0 auto; }
 .wb-logo {
-  width: 38px; height: 38px; border-radius: 10px; display: none;
+  width: 52px; height: 52px; border-radius: 13px; display: none;
   background-size: cover; background-position: center;
   overflow: hidden;
   flex: 0 0 auto;
@@ -34,12 +34,13 @@
 .wb-logo.has-logo { display: block; }
 .wb-brand-txt { display: grid; line-height: 1; }
 .wb-brand-txt b {
-  font-family: var(--display); font-size: 19px;
-  letter-spacing: .03em; color: var(--ink);
+  font-family: var(--display); font-size: 28px;
+  letter-spacing: .035em; color: var(--ink);
 }
 .wb-brand-txt i {
-  font-style: normal; font-size: 8.5px; letter-spacing: .42em;
-  color: var(--label); margin-top: 3px;
+  font-style: normal; font-size: 10.5px; letter-spacing: .404em;
+  color: var(--label); margin-top: 5px;
+  /* tracked so ADVENTURES measures the same as the wordmark above it */
 }
 
 .wb-links { display: flex; gap: clamp(12px, 1.8vw, 28px); margin-left: auto; }
@@ -347,14 +348,20 @@
      device most likely to take it. It shrinks instead. */
   .wb-nav-end .wb-btn { padding: 9px 15px; font-size: 11.5px; }
   .wb-nav { gap: var(--sp-3); }
+  .wb-logo { width: 42px; height: 42px; border-radius: 11px; }
+  .wb-brand { gap: 11px; }
+  .wb-brand-txt b { font-size: 22px; }
+  .wb-brand-txt i { font-size: 9px; letter-spacing: .36em; margin-top: 4px; }
 }
 @media (max-width: 400px) {
   /* last to go is the button: the tagline yields first, then the wordmark */
   .wb-brand-txt i { display: none; }
+  .wb-logo { width: 36px; height: 36px; border-radius: 9px; }
+  .wb-brand-txt b { font-size: 19px; }
   .wb-nav-end .wb-btn { padding: 8px 13px; font-size: 11px; }
 }
 @media (max-width: 340px) {
-  .wb-brand-txt b { font-size: 16px; }
+  .wb-brand-txt b { font-size: 17px; }
 }
 
 /* ── WhatsApp floating action button ────────────────────── */
