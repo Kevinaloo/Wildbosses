@@ -17,7 +17,7 @@
   content: '';
   position: absolute; left: 0; right: 0; bottom: 0;
   height: 44px; pointer-events: none; z-index: 3;
-  background: linear-gradient(to bottom, transparent, var(--bg));
+  background: linear-gradient(to bottom, transparent, var(--ground));
 }
 
 .rail-viewport {
@@ -54,7 +54,7 @@
   border-radius: var(--r-lg);
   overflow: hidden;
   background:
-    linear-gradient(150deg, #2A2318 0%, #14120F 55%, #1B1710 100%);
+    var(--grad-canopy);
   box-shadow: 0 8px 30px -8px rgba(0,0,0,.7);
   transform: scale(.9) translateZ(0);
   opacity: .78;
@@ -109,14 +109,14 @@
   gap: 10px;
 }
 
-.rail-card * { color: #F3EEE4; }
+.rail-card * { color: var(--pollen); }
 .rail-title {
   font-family: var(--display);
   font-size: clamp(26px, 2.5vw, 44px);
   line-height: .96;
   letter-spacing: .01em;
   margin: 0;
-  color: #F6F1E7;
+  color: var(--pollen);
   text-shadow: 0 2px 22px rgba(0,0,0,.7);
 }
 
@@ -139,7 +139,7 @@
   font-size: 10px;
   letter-spacing: .2em;
   text-transform: uppercase;
-  color: #E8B650;
+  color: var(--citrine);
   align-self: center;
 }
 .rail-count-wait {
@@ -155,7 +155,7 @@
   font-size: clamp(17px, 1.5vw, 25px);
   font-weight: 600;
   line-height: 1;
-  color: #F6F1E7;
+  color: var(--pollen);
 }
 .rail-unit i {
   font-style: normal;
@@ -177,13 +177,13 @@
 .rail-price {
   font-size: 13px;
   font-weight: 600;
-  color: #F6F1E7;
+  color: var(--pollen);
 }
 .rail-spots {
   font-size: 10px;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: #E8B650;
+  color: var(--citrine);
   padding: 3px 9px;
   border: 1px solid rgba(232,182,80,.5);
   border-radius: 999px;
@@ -230,7 +230,7 @@
   background: rgba(10,10,9,.72);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255,255,255,.28);
-  color: #F3EEE4; font-size: 11px; font-weight: 600;
+  color: var(--pollen); font-size: 11px; font-weight: 600;
   letter-spacing: .1em; text-transform: uppercase;
   padding: 11px 20px; border-radius: 999px;
   display: none; max-width: 82%; text-align: center; line-height: 1.4;

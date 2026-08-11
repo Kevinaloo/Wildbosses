@@ -154,16 +154,16 @@
        the path's own bounding box, so every claw gets the same profile
        regardless of how long it is. */
     var g1 = el('linearGradient', { id: 'wbTearFill', x1: '0', y1: '0', x2: '1', y2: '0' });
-    [['0%','#C8922F','0'], ['7%','#C8922F','.85'], ['24%','#F0BE72','1'],
-     ['48%','#FFF6E2','1'], ['72%','#F0BE72','1'], ['93%','#C8922F','.85'],
-     ['100%','#C8922F','0']
+    [['0%','#F7BE18','0'], ['7%','#F7BE18','.85'], ['24%','#FFD84D','1'],
+     ['48%','#FFF9E3','1'], ['72%','#FFD84D','1'], ['93%','#F7BE18','.85'],
+     ['100%','#F7BE18','0']
     ].forEach(function (st) {
       g1.appendChild(el('stop', { offset: st[0], 'stop-color': st[1], 'stop-opacity': st[2] }));
     });
     d.appendChild(g1);
 
     var g3 = el('radialGradient', { id: 'wbSpark', cx: '50%', cy: '50%', r: '50%' });
-    g3.appendChild(el('stop', { offset: '0%',   'stop-color': '#FFF6E2', 'stop-opacity': '.95' }));
+    g3.appendChild(el('stop', { offset: '0%',   'stop-color': '#FFF9E3', 'stop-opacity': '.95' }));
     g3.appendChild(el('stop', { offset: '38%',  'stop-color': '#D6521F', 'stop-opacity': '.45' }));
     g3.appendChild(el('stop', { offset: '100%', 'stop-color': '#D6521F', 'stop-opacity': '0' }));
     d.appendChild(g3);

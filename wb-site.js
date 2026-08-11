@@ -106,11 +106,16 @@
   }
 
   function reveal() {
-    if (!W.IntersectionObserver) return;
+    W.__wbRevealRan = true;                  // claim the promise made in <head>
+    var all = D.querySelectorAll('[data-reveal]');
+    if (!W.IntersectionObserver) {           // nothing to observe with: just show it
+      Array.prototype.forEach.call(all, function (n) { n.classList.add('in'); });
+      return;
+    }
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { rootMargin: '0px 0px -8% 0px' });
-    Array.prototype.forEach.call(D.querySelectorAll('[data-reveal]'), function (n) { io.observe(n); });
+    Array.prototype.forEach.call(all, function (n) { io.observe(n); });
   }
 
   function init() {

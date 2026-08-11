@@ -1,14 +1,31 @@
 /* ═══════════════════════════════════════════════════════════════════
    WILDBOSSES · FOUNDATION
-   Self-hosted faces and a two-theme token set.
+   Self-hosted faces and one committed palette.
 
-   Light is the daytime face: warm off-white, never paper-white, so
-   photographs of dust and grass sit on it without glare. Dark is night.
-   Both share one gold, adjusted for contrast against each background.
+   PALETTE — "light through leaves"
+   The Mara at the end of the long rains. Three colours doing three
+   jobs, and the split is the whole system:
 
-   Surfaces are glass — translucent, blurred, saturated slightly past
-   their backdrop, with a bright top edge. The blur is what makes it
-   read as glass rather than as flat white.
+     white  reads      the ground under the photographs
+     green  frames     nav, footer, the film rail, every label
+     gold   acts       every button, badge and live state
+
+   The ground is warm white because the product is photography. A
+   saturated wall behind a safari photograph makes the photograph
+   negotiate with it — gold grass, red earth and blue sky all lose.
+   Green is worth more as the frame than as the field: it holds the
+   page at top and bottom and lets the middle carry the pictures.
+
+   ONE palette, not two faces. There is no theme switch — it asked a
+   visitor to have an opinion about something they came here to
+   ignore, and it halved the care that could go into either face.
+   What survives is a surface level, not a preference: .wb-inverse
+   repoints the semantic tokens to the dark set, so a band can go
+   deep green without a second palette existing anywhere.
+
+   Yellow is never type on the light ground. At text size on anything
+   pale it is unreadable at any weight, so it is spent only where it
+   can be loud on purpose — fills, badges, the claw.
    ═══════════════════════════════════════════════════════════════════ */
 
 @font-face { font-family:'Anton'; src:url('/fonts/anton-latin-400-normal.woff2') format('woff2'); font-weight:400; font-display:swap; }
@@ -34,40 +51,108 @@
   --ease:cubic-bezier(.2,.75,.3,1);
   --max:1280px;
 
-  --void:#070908;    /* the intro's black. never themed. */
-  --ember:#D6521F;
-}
-
-/* ── DAY ─────────────────────────────────────────────────── */
-:root, [data-theme="light"] {
   color-scheme: light;
-  --bg:#EFEBE3;  --bg-deep:#E4DED3;
-  --ink:#17140F; --ink-2:#5C5449; --ink-3:#8A8177;
-  --gold:#8F6212; --gold-soft:#C8922F;
-  --line:rgba(23,20,15,.11); --line-2:rgba(23,20,15,.06);
-  --glass:rgba(255,253,249,.78); --glass-2:rgba(255,253,249,.55);
-  --glass-edge:rgba(255,255,255,.85);
-  --glass-blur:saturate(165%) blur(22px);
-  --shadow-card:0 2px 6px rgba(23,20,15,.05), 0 12px 32px -12px rgba(23,20,15,.16);
-  --shadow-lift:0 4px 12px rgba(23,20,15,.07), 0 28px 60px -20px rgba(23,20,15,.26);
-  --mesh-1:rgba(200,146,47,.10); --mesh-2:rgba(118,140,108,.08); --mesh-3:rgba(214,82,31,.05);
-  --on-gold:#FFFFFF;
+
+  /* ── the palette ──────────────────────────────────────────
+     Fixed values. Everything below points at these; no rule
+     anywhere redefines them. Contrast is noted against the
+     ground each colour is actually allowed to sit on. */
+  --forest:#073B29;      /* the frame — nav, footer, rail */
+  --forest-deep:#04281B;
+  --canopy:#04150F;      /* deepest — the film stage and the claw */
+  --wild:#12A05A;        /* brand green — fills */
+  --wild-ink:#0B6B3C;    /* brand green at type size, on white  6.3:1 */
+  --shoot:#6FD943;       /* new growth — interaction, on green  7.0:1 */
+  --sun:#F7BE18;         /* six o'clock gold — the primary fill      */
+  --citrine:#FFE04D;     /* bright pollen — type on green       9.6:1 */
+  --pollen:#FFF9E3;      /* warm white — headline weight on dark     */
+  --leaf-white:#EAF7E4;  /* the reading white, on green        11.4:1 */
+
+  --on-sun:#04241A;      /* deep green is the only safe type on yellow 9.7:1 */
+  --void:#04150F;        /* the intro's black, greened */
+  --ember:#C43A17;       /* destructive / failure only, on white 5.6:1 */
+
+  /* ── semantic · the light ground ──────────────────────── */
+  --ground:#F5FAF1;      /* the page ground, and it stays the page ground
+                            inside .wb-inverse too — the rail's bottom fade
+                            has to reach the light page below it, not the
+                            band it is standing in */
+  --bg:var(--ground);    /* warm white with a green whisper — not paper,
+                            and deliberately not the cream everyone ships */
+  --bg-deep:#E9F2E4;     /* the recessed band */
+  --ink:#06251A;                              /* 15.9:1 */
+  --ink-2:#46614F;                            /*  7.2:1 */
+  --ink-3:#5E7A66;                            /*  4.9:1 */
+  --gold:#8A5D00;        /* gold at type size must be this dark  5.1:1 */
+  --gold-soft:#A87400;
+  --label:var(--wild-ink);   /* green does the words */
+  --focus:var(--wild-ink);   /* the focus ring, dark enough for the light ground */
+  --on-gold:var(--on-sun);
+
+  --line:rgba(6,37,26,.12); --line-2:rgba(6,37,26,.06);
+  --glass:rgba(255,255,255,.82);
+  --glass-2:rgba(255,255,255,.58);
+  --glass-edge:rgba(255,255,255,.96);
+  --glass-blur:saturate(168%) blur(22px);
+
+  --shadow-card:0 2px 6px rgba(6,40,26,.05), 0 12px 32px -12px rgba(6,40,26,.17);
+  --shadow-lift:0 4px 12px rgba(6,40,26,.08), 0 28px 60px -20px rgba(6,40,26,.26);
+  --glow-sun:0 6px 22px rgba(247,190,24,.40);
+  --glow-shoot:0 6px 22px rgba(18,160,90,.30);
+
+  --grad-sun:linear-gradient(135deg,var(--sun) 0%,var(--citrine) 100%);
+  --grad-canopy:linear-gradient(150deg,#0A3A28 0%,#04150F 55%,#072A1D 100%);
+
+  /* ambient light fields — kept to the margins so the middle reads */
+  --mesh-sun:rgba(255,214,64,.30);
+  --mesh-leaf:rgba(18,160,90,.16);
+  --mesh-shoot:rgba(111,217,67,.15);
 }
 
-/* ── NIGHT ───────────────────────────────────────────────── */
-[data-theme="dark"] {
+/* ── the dark band ────────────────────────────────────────
+   Not a theme. A surface level: repoint the semantic tokens and
+   everything inside inherits the dark set without a single rule
+   being duplicated. Used by the nav, the footer and the rail. */
+.wb-inverse,
+.wb-nav,
+.wb-foot,
+.wb-hero,
+.wb-rail {
   color-scheme: dark;
-  --bg:#0B0D0C;  --bg-deep:#070908;
-  --ink:#EDE6D8; --ink-2:#9C948A; --ink-3:#6E675E;
-  --gold:#C8922F; --gold-soft:#DDA641;
-  --line:rgba(237,230,216,.13); --line-2:rgba(237,230,216,.07);
-  --glass:rgba(26,24,21,.76); --glass-2:rgba(26,24,21,.52);
-  --glass-edge:rgba(237,230,216,.14);
-  --glass-blur:saturate(150%) blur(22px);
-  --shadow-card:0 8px 28px -8px rgba(0,0,0,.62);
-  --shadow-lift:0 18px 50px -12px rgba(0,0,0,.76);
-  --mesh-1:rgba(200,146,47,.07); --mesh-2:rgba(70,90,64,.07); --mesh-3:rgba(214,82,31,.04);
-  --on-gold:#0B0D0C;
+  --bg:var(--forest); --bg-deep:var(--forest-deep);
+  --ink:var(--leaf-white);
+  --ink-2:#A9CBB2;                            /*  7.1:1 */
+  --ink-3:#96BCA1;                            /*  6.0:1 */
+  --gold:var(--citrine);
+  --gold-soft:#FFE887;
+  --label:var(--citrine);    /* on green, yellow is finally safe as type */
+  --focus:var(--shoot);      /* lime is 1.7:1 on white and 7:1 here — surface decides */
+
+  --line:rgba(234,247,228,.15); --line-2:rgba(234,247,228,.075);
+  --glass:rgba(16,79,54,.72);
+  --glass-2:rgba(16,79,54,.46);
+  --glass-edge:rgba(180,255,205,.20);
+
+  --shadow-card:0 8px 28px -8px rgba(0,18,10,.55);
+  --shadow-lift:0 18px 50px -12px rgba(0,18,10,.72);
+  --glow-shoot:0 6px 24px rgba(111,217,67,.26);
+
+  background:var(--bg);
+  color:var(--ink);
+}
+
+/* ── aliases ──────────────────────────────────────────────
+   wb-page.css and list-tour.html were written against an older
+   naming scheme. Those names outlived their definitions when the
+   previous stylesheets were removed, which left the booking form
+   drawing unstyled type off dead variables. Mapped, not renamed —
+   a rename means touching 48 call sites for no benefit. */
+:root, .wb-inverse {
+  --fg:var(--ink);
+  --muted:var(--ink-2);
+  --glass-border:var(--line);
+  --bone:var(--ink);
+  --dust:var(--ink-2);
 }
 
 *,*::before,*::after { box-sizing:border-box; }
@@ -82,25 +167,37 @@ body {
   transition:background-color .5s var(--ease), color .5s var(--ease);
 }
 
-/* the liquid behind the glass: slow-drifting colour fields */
+/* ── the signature: light through the canopy ──────────────
+   Three fields, not a scatter. Sun coming over the ridge along the
+   top edge, leaf mass banked down both sides, new growth low and
+   central. The middle of the page stays clear because that is where
+   the reading happens — the colour lives at the margins and the type
+   sits in the calm.
+
+   An earlier pass scattered small radial spots over this to suggest
+   dapple. At the scale a fixed full-bleed layer actually renders,
+   they came out as soft blobs that read as lens smudges, so they are
+   gone. One drifting field, done properly, is the whole effect. */
 body::before {
-  content:''; position:fixed; inset:-25%; z-index:-1; pointer-events:none;
+  content:''; position:fixed; inset:-20%; z-index:-1; pointer-events:none;
   background:
-    radial-gradient(ellipse 46% 38% at 18% 22%, var(--mesh-1), transparent 68%),
-    radial-gradient(ellipse 40% 44% at 82% 30%, var(--mesh-2), transparent 68%),
-    radial-gradient(ellipse 52% 36% at 50% 88%, var(--mesh-3), transparent 70%);
-  animation:wbMesh 34s ease-in-out infinite alternate;
+    radial-gradient(ellipse 76% 30% at 50% -6%,  var(--mesh-sun),   transparent 72%),
+    radial-gradient(ellipse 36% 52% at -4% 38%,  var(--mesh-leaf),  transparent 68%),
+    radial-gradient(ellipse 34% 48% at 104% 46%, var(--mesh-leaf),  transparent 68%),
+    radial-gradient(ellipse 60% 34% at 50% 106%, var(--mesh-shoot), transparent 72%);
+  animation:wbMesh 38s ease-in-out infinite alternate;
 }
 @keyframes wbMesh {
-  from{ transform:translate3d(-1.5%,-1%,0) scale(1) }
-  to  { transform:translate3d(2%,1.5%,0) scale(1.07) }
+  from{ transform:translate3d(-1.2%,-.8%,0) scale(1) }
+  to  { transform:translate3d(1.6%,1.2%,0) scale(1.05) }
 }
-@media (prefers-reduced-motion: reduce){ body::before{animation:none} }
+@media (prefers-reduced-motion: reduce){ body::before{ animation:none } }
 
 img,video,svg { max-width:100%; display:block; }
 a { color:inherit; text-decoration:none; }
 button { font:inherit; }
-:focus-visible { outline:2px solid var(--gold); outline-offset:3px; border-radius:4px; }
+::selection { background:var(--sun); color:var(--on-sun); }
+:focus-visible { outline:2px solid var(--focus); outline-offset:3px; border-radius:4px; }
 
 /* ── glass primitive ─────────────────────────────────────── */
 .glass {

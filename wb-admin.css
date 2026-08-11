@@ -55,7 +55,7 @@
   transition: color .18s, background .18s;
 }
 .adm-tabs button:hover { color: var(--ink); background: var(--glass-2); }
-.adm-tabs button.on { color: var(--on-gold); background: var(--gold); }
+.adm-tabs button.on { color: var(--on-sun); background: var(--grad-sun); }
 .adm-tabs .adm-badge {
   font-size: 10px; font-weight: 700; min-width: 17px; height: 17px;
   padding: 0 5px; border-radius: 999px; display: grid; place-items: center;
@@ -124,10 +124,9 @@
   padding: 3px 9px; border-radius: 999px;
   border: 1px solid var(--line); color: var(--ink-2); white-space: nowrap;
 }
-.adm-pill.ok   { color: #1E7A3E; border-color: rgba(30,122,62,.4);  background: rgba(30,122,62,.09); }
-.adm-pill.warn { color: var(--ember); border-color: rgba(214,82,31,.4); background: rgba(214,82,31,.08); }
+.adm-pill.ok   { color: var(--shoot); border-color: rgba(111,217,67,.38); background: rgba(111,217,67,.11); }
+.adm-pill.warn { color: var(--ember); border-color: rgba(255,107,61,.42); background: rgba(255,107,61,.10); }
 .adm-pill.gold { color: var(--gold); border-color: var(--gold); }
-[data-theme="dark"] .adm-pill.ok { color: #6DD08F; border-color: rgba(109,208,143,.36); background: rgba(109,208,143,.1); }
 
 .adm-empty {
   padding: 52px 22px; text-align: center; color: var(--ink-2);
@@ -144,7 +143,7 @@
 }
 .adm-btn:hover { border-color: var(--ink-3); }
 .adm-btn:active { transform: translateY(1px); }
-.adm-btn-go { background: var(--gold); border-color: var(--gold); color: var(--on-gold); font-weight: 600; }
+.adm-btn-go { background: var(--grad-sun); border-color: transparent; color: var(--on-sun); font-weight: 700; }
 .adm-btn-go:hover { background: var(--gold-soft); border-color: var(--gold-soft); }
 .adm-btn-ghost { color: var(--ink-2); }
 .adm-btn-bad { color: var(--ember); border-color: rgba(214,82,31,.32); }
@@ -165,7 +164,7 @@
 .adm-gate-box label { display: grid; gap: 5px; font-size: 12.5px; font-weight: 600; color: var(--ink); }
 .adm-form textarea { resize: vertical; line-height: 1.55; }
 .adm-form input:focus, .adm-form select:focus, .adm-form textarea:focus,
-.adm-gate-box input:focus { outline: none; border-color: var(--gold); background: var(--glass); }
+.adm-gate-box input:focus { outline: none; border-color: var(--focus); background: var(--glass); }
 .adm-form input[type=file] { font-size: 12px; color: var(--ink-2); padding: 9px 0; }
 .adm-form input:invalid:not(:placeholder-shown) { border-color: var(--ember); }
 
@@ -184,7 +183,7 @@
 .adm-up { margin: 0; font-size: 12px; color: var(--gold); min-height: 16px; }
 .adm-up.bad { color: var(--ember); }
 .adm-bar { height: 4px; border-radius: 99px; background: var(--line); overflow: hidden; margin-top: 6px; }
-.adm-bar i { display: block; height: 100%; width: 0; background: var(--gold); transition: width .25s; }
+.adm-bar i { display: block; height: 100%; width: 0; background: var(--grad-sun); transition: width .25s; }
 
 .adm-preview {
   width: 100%; aspect-ratio: 16/9; border-radius: var(--r-sm);
@@ -201,6 +200,7 @@
   display: grid; place-items: start center; padding: 22px 16px 60px; overflow-y: auto;
 }
 .adm-modal-box {
+  background: #072A1D;
   width: 100%; max-width: 580px; padding: 26px;
   border-radius: var(--r-lg);
   /* opaque on purpose: a form must never sit on a see-through panel */
@@ -208,7 +208,6 @@
   border: 1px solid var(--line);
   box-shadow: 0 30px 80px -20px rgba(0,0,0,.6);
 }
-[data-theme="dark"] .adm-modal-box { background: #161512; }
 .adm-modal-box h3 {
   margin: 0 0 5px; font-family: var(--display); font-size: 25px;
   color: var(--ink); letter-spacing: .01em;
@@ -224,7 +223,7 @@
 .adm-toast {
   position: fixed; left: 50%; bottom: 26px; z-index: 500;
   transform: translate(-50%, 22px);
-  background: var(--gold); color: var(--on-gold);
+  background: var(--grad-sun); color: var(--on-sun);
   font-size: 13.5px; font-weight: 600; padding: 12px 22px; border-radius: 999px;
   opacity: 0; pointer-events: none;
   transition: opacity .25s, transform .25s;

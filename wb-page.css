@@ -3,9 +3,14 @@
    Tours, trip detail, guides, about, contact.
    ═══════════════════════════════════════════════════════════════════ */
 
-[data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
-[data-reveal].in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { [data-reveal]{opacity:1;transform:none;transition:none} }
+/* Scoped to .wb-reveal — a class the head script stamps on <html>. Without
+   it these rules do not exist, so if the script never runs, or the browser
+   has no IntersectionObserver, the content is simply visible. It used to be
+   hidden unconditionally by CSS and revealed only by JS, which meant any
+   failure in that chain silently erased whole sections of the page. */
+.wb-reveal [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.wb-reveal [data-reveal].in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .wb-reveal [data-reveal]{opacity:1;transform:none;transition:none} }
 
 /* ── filters ────────────────────────────────────────────── */
 .wb-filters { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 34px; }
@@ -16,8 +21,8 @@
   border: 1px solid var(--line); text-transform: capitalize;
   transition: background .2s, color .2s, border-color .2s;
 }
-.wb-chip:hover { color: var(--ink); border-color: var(--gold); }
-.wb-chip.on { background: var(--gold); color: var(--on-gold); border-color: var(--gold); }
+.wb-chip:hover { color: var(--ink); border-color: var(--wild-ink); }
+.wb-chip.on { background: var(--grad-sun); color: var(--on-sun); border-color: transparent; font-weight: 700; }
 
 /* ── prose ──────────────────────────────────────────────── */
 .wb-prose { border-radius: var(--r-lg); padding: clamp(24px,4vw,52px); max-width: 78ch; margin: 0 auto; }
@@ -57,7 +62,7 @@
 .wb-trip-hero img { width:100%;height:100%;object-fit:cover }
 .wb-trip-hero-in { position:absolute; inset:auto 0 0 0; padding: clamp(20px,3vw,40px);
   background: linear-gradient(to top, rgba(7,9,8,.92), rgba(7,9,8,.34) 60%, transparent); }
-.wb-trip-hero h1 { margin:0 0 6px; font-family:var(--display); font-size:clamp(30px,5.4vw,64px); line-height:.98; color:#F3EEE4; letter-spacing:.01em }
+.wb-trip-hero h1 { margin:0 0 6px; font-family:var(--display); font-size:clamp(30px,5.4vw,64px); line-height:.98; color:var(--pollen); letter-spacing:.01em }
 .wb-trip-hero p { margin:0; color:rgba(243,238,228,.82); font-size:15px }
 
 .wb-trip { display: grid; gap: 28px; grid-template-columns: minmax(0,1.7fr) minmax(280px,1fr); align-items: start; }
@@ -101,7 +106,7 @@ form input, form select, form textarea {
   border-radius:10px; padding:12px 14px; color:var(--ink);
   font:400 15px var(--body); transition:border-color .2s, background .2s;
 }
-form input:focus, form select:focus, form textarea:focus { outline:none; border-color:var(--gold); background:var(--glass) }
+form input:focus, form select:focus, form textarea:focus { outline:none; border-color:var(--focus); background:var(--glass) }
 form textarea { resize:vertical; line-height:1.55 }
 .wb-form-msg { margin:14px 0 0; font-size:13.5px; min-height:20px; color:var(--gold) }
 .wb-form-msg.bad { color:var(--ember) }
@@ -128,7 +133,7 @@ form textarea { resize:vertical; line-height:1.55 }
   border-radius:var(--r-md);transition:border-color .16s,box-shadow .16s}
 .wb-f input::placeholder,.wb-f textarea::placeholder{color:var(--muted);opacity:.65}
 .wb-f input:focus,.wb-f textarea:focus{
-  outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.16)}
+  outline:none;border-color:var(--focus);box-shadow:0 0 0 3px rgba(18,160,90,.18)}
 .wb-f textarea{resize:vertical;min-height:84px}
 
 /* travellers stepper */
@@ -138,7 +143,7 @@ form textarea { resize:vertical; line-height:1.55 }
   font-size:1.35rem;line-height:1;font-weight:400;
   color:var(--fg);background:var(--glass);border:1px solid var(--glass-border);
   transition:border-color .16s,background .16s,transform .1s}
-.wb-stepper button:hover{border-color:var(--gold);color:var(--gold)}
+.wb-stepper button:hover{border-color:var(--wild-ink);color:var(--wild-ink)}
 .wb-stepper button:active{transform:scale(.93)}
 .wb-stepper>b{min-width:2ch;text-align:center;font-size:1.5rem;font-weight:700;
   font-variant-numeric:tabular-nums}
@@ -158,32 +163,32 @@ form textarea { resize:vertical; line-height:1.55 }
 .wb-choice-in>em{
   grid-column:2;grid-row:1/3;font-style:normal;font-weight:750;font-size:1rem;
   white-space:nowrap;color:var(--muted);font-variant-numeric:tabular-nums}
-.wb-choice:hover .wb-choice-in{border-color:rgba(212,175,55,.5)}
+.wb-choice:hover .wb-choice-in{border-color:rgba(247,190,24,.5)}
 .wb-choice.is-on .wb-choice-in{
-  border-color:var(--gold);background:rgba(212,175,55,.09);
+  border-color:var(--wild-ink);background:rgba(18,160,90,.09);
   box-shadow:0 0 0 1px var(--gold) inset}
 .wb-choice.is-on .wb-choice-in>em{color:var(--gold)}
-.wb-choice input:focus-visible+.wb-choice-in{box-shadow:0 0 0 3px rgba(212,175,55,.3)}
+.wb-choice input:focus-visible+.wb-choice-in{box-shadow:0 0 0 3px rgba(18,160,90,.30)}
 
 /* running total */
 /* ── custom amount block ──────────────────────────────────────────── */
 .wb-custom-amt{
   margin-top:14px;padding:18px 20px;border-radius:var(--r-md);
-  background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.22);
+  background:rgba(247,190,24,.06);border:1px solid rgba(247,190,24,.22);
   display:grid;gap:12px}
 .wb-custom-amt-head{display:flex;justify-content:space-between;align-items:center}
 .wb-custom-pct{
   font-size:.78rem;font-weight:700;letter-spacing:.06em;
-  color:var(--gold);background:rgba(212,175,55,.15);
+  color:var(--gold);background:rgba(247,190,24,.15);
   padding:3px 9px;border-radius:20px}
 .wb-custom-input-wrap{
   display:flex;align-items:center;gap:0;
-  border:1.5px solid rgba(212,175,55,.45);border-radius:var(--r-sm);
+  border:1.5px solid rgba(247,190,24,.45);border-radius:var(--r-sm);
   background:var(--bg);overflow:hidden;transition:border-color .15s}
-.wb-custom-input-wrap:focus-within{border-color:var(--gold)}
+.wb-custom-input-wrap:focus-within{border-color:var(--focus)}
 .wb-custom-prefix{
   padding:0 12px;font-size:.88rem;font-weight:700;color:var(--gold);
-  background:rgba(212,175,55,.1);border-right:1.5px solid rgba(212,175,55,.25);
+  background:rgba(247,190,24,.1);border-right:1.5px solid rgba(247,190,24,.25);
   height:100%;display:flex;align-items:center;white-space:nowrap;line-height:2.8}
 .wb-custom-input-wrap input[type=number]{
   flex:1;border:none;background:transparent;color:var(--fg);
@@ -220,7 +225,8 @@ form textarea { resize:vertical; line-height:1.55 }
 .wb-done .wb-btn{margin-top:4px}
 .wb-done-tick{
   width:52px;height:52px;border-radius:50%;display:grid;place-items:center;
-  font-size:1.5rem;color:#0b0b0b;background:var(--gold);margin-bottom:6px}
+  font-size:1.5rem;color:var(--on-sun);background:var(--grad-sun);
+  box-shadow:var(--glow-sun);margin-bottom:6px}
 .wb-done>b{font-size:1.22rem}
 .wb-done>p{margin:0;color:var(--muted);font-size:.92rem;max-width:38ch;line-height:1.55}
 .wb-done-ref{
@@ -250,7 +256,7 @@ body.wb-locked{overflow:hidden}
 .wb-pay-head{display:grid;gap:6px;justify-items:start}
 .wb-pay-badge{
   font-size:.62rem;font-weight:800;letter-spacing:.16em;padding:5px 9px;border-radius:4px;
-  background:#1c8b3f;color:#fff}
+  background:var(--grad-sun);color:var(--on-sun);font-weight:700}
 .wb-pay-head h3{margin:4px 0 0;font-size:1.16rem}
 .wb-pay-head p{margin:0;font-size:.82rem;color:var(--muted)}
 .wb-pay-head p b{color:var(--fg);font-family:var(--mono,ui-monospace,monospace);letter-spacing:.04em}
@@ -258,31 +264,31 @@ body.wb-locked{overflow:hidden}
 .wb-pay-amt{
   display:flex;justify-content:space-between;align-items:center;gap:12px;
   padding:16px 18px;border-radius:var(--r-md);
-  background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.34)}
+  background:rgba(247,190,24,.1);border:1px solid rgba(247,190,24,.34)}
 .wb-pay-amt span{font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
 .wb-pay-amt b{font-size:1.42rem;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
 
 .wb-pay-breakdown{
   border-radius:var(--r-md);overflow:hidden;
-  border:1px solid rgba(212,175,55,.28)}
+  border:1px solid rgba(247,190,24,.28)}
 .wb-pay-row{
   display:flex;justify-content:space-between;align-items:center;
   padding:12px 16px;font-size:.9rem}
-.wb-pay-row:first-child{background:rgba(212,175,55,.1)}
+.wb-pay-row:first-child{background:rgba(247,190,24,.1)}
 .wb-pay-row:first-child b{font-size:1.18rem;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
-.wb-pay-row+.wb-pay-row{border-top:1px solid rgba(212,175,55,.15)}
+.wb-pay-row+.wb-pay-row{border-top:1px solid rgba(247,190,24,.15)}
 .wb-pay-row-muted{color:var(--muted);font-size:.82rem}
 .wb-pay-go{width:100%;justify-content:center}
-.wb-pay-go.is-paid{background:#16a34a!important;color:#fff!important}
+.wb-pay-go.is-paid{background:var(--shoot)!important;color:var(--on-sun)!important}
 .wb-pay-go:disabled{opacity:.62;cursor:default}
 
 .wb-pay-state{margin:0;font-size:.86rem;text-align:center;line-height:1.5;min-height:1.2em;color:var(--muted)}
 .wb-pay-state.is-wait{display:flex;align-items:center;justify-content:center;gap:9px}
-.wb-pay-state.is-good{color:#16a34a;font-weight:600}
-.wb-pay-state.is-bad{color:#e0533d;font-weight:600}
+.wb-pay-state.is-good{color:var(--shoot);font-weight:600}
+.wb-pay-state.is-bad{color:var(--ember);font-weight:600}
 .wb-spin{
   width:14px;height:14px;flex:none;border-radius:50%;
-  border:2px solid var(--glass-border);border-top-color:var(--gold);
+  border:2px solid var(--glass-border);border-top-color:var(--sun);
   animation:wbspin .7s linear infinite}
 @keyframes wbspin{to{transform:rotate(360deg)}}
 

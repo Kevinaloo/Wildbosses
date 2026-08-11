@@ -13,22 +13,54 @@
 | `/admin.html` | Sign-in and run the whole site |
 | `/_preview-intro.html` | Replay the claw intro on demand |
 
-## Theme
+## Palette
 
-Light by day, dark at night, decided in this order:
+One committed palette. There is no light/dark switch any more — it asked a
+visitor to have an opinion about something they came here to ignore, and it
+halved the care that could go into either face.
 
-1. what the visitor last chose (persists)
-2. the operating system, if it asks for dark
-3. the clock where the visitor is — dark from 18:30 to 06:30
+Three colours, three jobs:
 
-There is a toggle in the nav. `wb-theme.js` runs in `<head>` before first
-paint, so the page never flashes the wrong face. An open tab rolls over on
-its own at dusk.
+| | |
+|---|---|
+| **white** `#F5FAF1` | reads — the ground under the photographs |
+| **green** `#073B29` | frames — nav, masthead, footer, the film rail |
+| **gold** `#F7BE18` | acts — every button, badge and live state |
 
-The claw intro is **always black**, whatever the hour, so the tear marks
-stay pronounced. The video rail is also a permanently dark stage — film and
-photography carry on black, and dimmed cards recede instead of washing out
-against a pale page. It fades into the light page below it.
+The ground is warm white because the product is photography. A saturated
+wall behind a safari photograph makes the photograph negotiate with it —
+gold grass, red earth and blue sky all lose. Green is worth more as the
+frame than as the field.
+
+Every page reads green → white → green: the nav and masthead are one mass
+of forest at the top, the content sits on the light ground, the footer
+closes it. A gold hairline marks the seam.
+
+**Yellow is never type on the light ground.** At text size on anything pale
+it is unreadable at any weight, so it is spent only where it can be loud on
+purpose. Two tokens keep this honest and they are easy to confuse:
+
+- `--gold` is the accent **as type** — dark amber `#8A5D00` on white
+- `--sun` / `--grad-sun` is the accent **as a fill**, always with `--on-sun`
+
+Using `--gold` as a background is the mistake to watch for; it goes muddy
+brown. Seven places were doing it, including the tour filter chips.
+
+### The dark band
+
+`.wb-inverse` is not a second theme, it is a surface level: it repoints the
+semantic tokens to the dark set, so a section can go deep green without a
+second palette existing anywhere. Applied to `.wb-nav`, `.wb-foot`,
+`.wb-hero` and `.wb-rail`.
+
+`--ground` deliberately does **not** flip inside it — the rail's bottom
+fade has to reach the light page below it, not the band it is standing in.
+
+`--focus` also flips per surface. Lime is 7:1 on green and 1.7:1 on white,
+so a single focus colour cannot serve both.
+
+Every text node on the shipped pages clears WCAG AA against the surface it
+actually sits on, checked in the browser rather than on paper.
 
 ## The bug in the screenshots
 
@@ -68,6 +100,26 @@ public unauthenticated `list-tour.html` form.
 - No anonymous SELECT on bookings — guest phone numbers are not public
 - A booking cannot arrive already marked paid or confirmed
 - Supabase SDK and all fonts self-hosted; no third-party requests
+
+## Fixed along the way
+
+Four things that were already broken before the repaint:
+
+- `--muted`, `--fg` and `--glass-border` were used 40+ times in the booking
+  form and defined nowhere. They died with the old stylesheets and left the
+  form drawing unstyled type off dead variables. Now aliased, not renamed.
+- `.wb-hero p` (0,1,1) outranked `.wb-eyebrow` (0,1,0), so the eyebrow on
+  every inner page had silently been taking the lede colour instead of its
+  accent. Resolved with `:not()`.
+- `[data-reveal]` was hidden by CSS and revealed only by JS, and the reveal
+  bailed early on browsers without `IntersectionObserver`. Any break in that
+  chain erased whole sections permanently. Now the hidden state is scoped to
+  a class the head script stamps, the observer-less path shows everything,
+  and a three-second failsafe drops the class if nothing claims it — the
+  same shape as the intro curtain failsafe.
+- The booking CTA was `display:none` below 820px. Most of this traffic is
+  phones, so that removed the one action the page exists for from the device
+  most likely to take it. It shrinks instead.
 
 ## Still to do
 

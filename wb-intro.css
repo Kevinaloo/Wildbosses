@@ -12,7 +12,7 @@ html.wb-intro-live body { overflow: hidden; height: 100%; }
   position: fixed;
   inset: 0;
   z-index: 99999;
-  background: #070908;
+  background: var(--void);
   display: grid;
   place-items: center;
   overflow: hidden;
@@ -31,7 +31,7 @@ html.wb-intro-live body { overflow: hidden; height: 100%; }
   position: absolute;
   inset: -20%;
   background:
-    radial-gradient(ellipse 60% 45% at 30% 35%, rgba(200,146,47,.07), transparent 70%),
+    radial-gradient(ellipse 60% 45% at 30% 35%, rgba(247,190,24,.07), transparent 70%),
     radial-gradient(ellipse 50% 40% at 72% 68%, rgba(214,82,31,.05), transparent 70%);
   opacity: 0;
   animation: wbDust 1.4s ease-out forwards;
@@ -112,7 +112,7 @@ html.wb-intro-live body { overflow: hidden; height: 100%; }
 .wb-intro-logo {
   flex: 0 0 auto;
   opacity: 0;
-  filter: drop-shadow(0 0 28px rgba(200,146,47,.45)) drop-shadow(0 0 8px rgba(200,146,47,.25));
+  filter: drop-shadow(0 0 28px rgba(247,190,24,.45)) drop-shadow(0 0 8px rgba(247,190,24,.25));
   animation: wbLogoIn var(--word) cubic-bezier(.16,.9,.3,1) forwards;
   animation-delay: calc(var(--t-word) - 80ms);
 }
@@ -123,9 +123,9 @@ html.wb-intro-live body { overflow: hidden; height: 100%; }
   display: block;
 }
 @keyframes wbLogoIn {
-  0%   { opacity: 0; transform: scale(.68) translateY(-16px); filter: blur(20px) drop-shadow(0 0 4px rgba(200,146,47,.0)); }
+  0%   { opacity: 0; transform: scale(.68) translateY(-16px); filter: blur(20px) drop-shadow(0 0 4px rgba(247,190,24,.0)); }
   50%  { opacity: 1; }
-  100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0) drop-shadow(0 0 28px rgba(200,146,47,.45)) drop-shadow(0 0 8px rgba(200,146,47,.25)); }
+  100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0) drop-shadow(0 0 28px rgba(247,190,24,.45)) drop-shadow(0 0 8px rgba(247,190,24,.25)); }
 }
 
 /* ── wordmark ───────────────────────────────────────────────── */
@@ -148,14 +148,14 @@ html.wb-intro-live body { overflow: hidden; height: 100%; }
   font-family: 'Anton', 'Geist', system-ui, sans-serif;
   font-size: 132px;
   letter-spacing: .012em;
-  fill: #EDE6D8;
+  fill: var(--pollen);
 }
 .wb-word-sub {
   font-family: 'Geist', system-ui, sans-serif;
   font-size: 31px;
   font-weight: 500;
   letter-spacing: .58em;
-  fill: #C8922F;
+  fill: var(--citrine);
 }
 
 /* the torn lip that traces the letterforms */
@@ -164,7 +164,7 @@ html.wb-intro-live body { overflow: hidden; height: 100%; }
   font-size: 132px;
   letter-spacing: .012em;
   fill: none;
-  stroke: #D6521F;
+  stroke: var(--sun);
   stroke-width: 2.4;
   filter: url(#wbWordRough);
   opacity: .92;
@@ -184,8 +184,8 @@ html.wb-intro-live body { overflow: hidden; height: 100%; }
   bottom: clamp(16px, 4vw, 36px);
   z-index: 5;
   background: none;
-  border: 1px solid rgba(237,230,216,.28);
-  color: rgba(237,230,216,.72);
+  border: 1px solid rgba(255,249,227,.30);
+  color: rgba(255,249,227,.74);
   font: 500 11px/1 'Geist', system-ui, sans-serif;
   letter-spacing: .22em;
   text-transform: uppercase;
@@ -196,8 +196,8 @@ html.wb-intro-live body { overflow: hidden; height: 100%; }
   animation: wbSkipIn .5s ease forwards 900ms;
   transition: color .2s, border-color .2s, background .2s;
 }
-.wb-intro-skip:hover  { color: #070908; background: #C8922F; border-color: #C8922F; }
-.wb-intro-skip:focus-visible { outline: 2px solid #C8922F; outline-offset: 3px; }
+.wb-intro-skip:hover  { color: var(--on-sun); background: var(--sun); border-color: var(--sun); }
+.wb-intro-skip:focus-visible { outline: 2px solid var(--citrine); outline-offset: 3px; }
 @keyframes wbSkipIn { to { opacity: 1; } }
 
 /* ── curtain up ─────────────────────────────────────────────── */
