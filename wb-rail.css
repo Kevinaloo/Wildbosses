@@ -393,6 +393,7 @@
   .rail-viewport {
     height: auto; overflow-x: auto; overflow-y: hidden;
     scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     padding: 4px 0 26px;
@@ -404,8 +405,10 @@
     transform: none;
   }
   .rail-track { transform: none !important; padding-inline: clamp(16px, 4vw, 46px); }
-  /* the duplicate run exists only to hide the desktop loop seam */
-  .rail-run + .rail-run { display: none; }
+  /* the duplicate run is what makes the mobile auto-advance wrap without a
+     visible rewind: at the end of a set, scrollLeft steps back by exactly
+     one run onto an identical card */
+  .rail-run { display: flex; }
   .rail-card {
     width: min(78vw, 320px);
     aspect-ratio: 3 / 4.1;

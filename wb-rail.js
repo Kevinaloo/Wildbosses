@@ -131,23 +131,75 @@
 
     if (reduce) { root.classList.add('rail-static'); return; }
 
-    /* ── phones scroll natively ─────────────────────────────────
+    /* ── phones scroll natively, and drift on their own ─────────
        Below 640px the stylesheet drops the tilt and turns .rail-viewport
-       into a scroll-snap row. Running the drift loop as well would mean a
-       rAF writing transforms every frame that CSS then discards, and drag
-       handlers competing with the browser's own momentum scrolling. Keep
-       only the part that still earns its place: staging, so the card in
-       front of the reader is the one whose film plays. */
+       into a scroll-snap row. Running the desktop rAF drift as well would
+       mean writing transforms every frame that CSS then discards, and drag
+       handlers competing with the browser's momentum scrolling.
+
+       So the movement is driven through the scroller itself instead:
+       scrollBy() one card at a time, which snap handles and which a thumb
+       can interrupt, override and take over at any moment. The second
+       .rail-run stays in the DOM here so the wrap is seamless — once a
+       full set has passed, scrollLeft steps back by exactly one run onto
+       an identical card, which is invisible. */
     var phone = W.matchMedia && W.matchMedia('(max-width: 640px)').matches;
     if (phone) {
       var vp = root.querySelector('.rail-viewport');
+      var runEls = root.querySelectorAll('.rail-run');
       stage();
-      var raf = null;
+
+      var raf = null, settle = null, held = false, holdT = null, onScreen = true;
+
+      function runWidth() {
+        return runEls[0] ? runEls[0].getBoundingClientRect().width : 0;
+      }
+      function cardStep() {
+        var c = vp.querySelector('.rail-card');
+        if (!c) return 0;
+        var cs = W.getComputedStyle(c);
+        return c.getBoundingClientRect().width + (parseFloat(cs.marginRight) || 0);
+      }
+      /* Only once scrolling has actually stopped. Moving scrollLeft while a
+         smooth scroll is in flight cancels it mid-animation. */
+      function wrap() {
+        var rw = runWidth();
+        if (!rw) return;
+        if (vp.scrollLeft >= rw)  vp.scrollLeft -= rw;
+        else if (vp.scrollLeft < 0) vp.scrollLeft += rw;
+      }
       vp.addEventListener('scroll', function () {
-        if (raf) return;
-        raf = requestAnimationFrame(function () { raf = null; stage(); });
+        if (!raf) raf = requestAnimationFrame(function () { raf = null; stage(); });
+        clearTimeout(settle);
+        settle = setTimeout(wrap, 160);
       }, { passive: true });
-      W.addEventListener('resize', function () { if (!W.matchMedia('(max-width: 640px)').matches) location.reload(); });
+
+      /* A touch means the reader is driving. Stop moving under their thumb
+         and stay stopped long enough for them to read what they stopped on. */
+      function hold() {
+        held = true;
+        clearTimeout(holdT);
+        holdT = setTimeout(function () { held = false; }, 7000);
+      }
+      ['touchstart', 'pointerdown', 'wheel'].forEach(function (ev) {
+        vp.addEventListener(ev, hold, { passive: true });
+      });
+
+      /* nothing should be animating off-screen or in a background tab */
+      if (W.IntersectionObserver) {
+        new IntersectionObserver(function (es) { onScreen = es[0].isIntersecting; },
+          { threshold: 0.15 }).observe(root);
+      }
+
+      setInterval(function () {
+        if (held || onScreen === false || D.hidden) return;
+        var s = cardStep();
+        if (s) vp.scrollBy({ left: s, behavior: 'smooth' });
+      }, 3800);
+
+      W.addEventListener('resize', function () {
+        if (!W.matchMedia('(max-width: 640px)').matches) location.reload();
+      });
       D.addEventListener('visibilitychange', function () {
         if (D.hidden || !live) return;
         arm(live.querySelector('video'));
@@ -211,16 +263,27 @@
       if (v.readyState === 0) { try { v.load(); } catch (e) {} }
       attempt();
 
-      /* Watchdog. If it still is not running, say so on the card instead of
-         leaving a black rectangle nobody can explain. */
+      /* Watchdog. The point of this is a card that will never play, not a
+         card that is merely still arriving — these are multi-megabyte MP4s
+         and a phone on mobile data needs far longer than four seconds.
+         Flagging it early put "Tap to play" over a perfectly good poster.
+
+         So: only claim failure on real evidence — a decode error, or a
+         video that has downloaded nothing at all after a generous wait.
+         While it is buffering the poster is already showing, which is the
+         correct thing to be looking at. */
       clearTimeout(v._watch);
       v._watch = setTimeout(function () {
         if (!v.paused && v.readyState >= 2) return;
         attempt();
         setTimeout(function () {
-          if (v.paused || v.readyState < 2) fail(v, v.error);
-        }, 2200);
-      }, 1800);
+          if (!v.paused && v.readyState >= 2) return;
+          /* readyState 0 with no buffered range after 12s means nothing is
+             coming; anything else is still in flight and gets left alone */
+          var arriving = v.readyState > 0 || (v.buffered && v.buffered.length > 0);
+          if (v.error || !arriving) fail(v, v.error);
+        }, 9000);
+      }, 3000);
     }
 
     function fail(v, err) {
