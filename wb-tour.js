@@ -530,6 +530,157 @@
     });
   }
 
+  /* ── day-by-day ─────────────────────────────────────────────────
+     tours.itinerary is jsonb and may be an array of days or absent. It is
+     absent for every trip right now, so this renders nothing — deliberately.
+     Inventing a schedule would put times and places in front of someone
+     about to pay for them. The moment a real itinerary is entered, it
+     appears. Accepts either [{title,body}] or ["plain string"]. */
+  function itineraryHTML(it) {
+    if (!it) return '';
+    var days = Array.isArray(it) ? it : (Array.isArray(it.days) ? it.days : null);
+    if (!days || !days.length) return '';
+
+    var rows = days.map(function (d, i) {
+      var title, body;
+      if (typeof d === 'string') { title = d; body = ''; }
+      else {
+        title = d.title || d.name || d.heading || '';
+        body  = d.body  || d.text || d.description || d.detail || '';
+      }
+      if (!title && !body) return '';
+      var label = (typeof d === 'object' && d.label) ? d.label : 'Day ' + (i + 1);
+      return '<li class="wb-day">' +
+        '<span class="wb-day-n">' + esc(label) + '</span>' +
+        '<b>' + esc(title || label) + '</b>' +
+        (body ? '<p>' + esc(body) + '</p>' : '') +
+        '</li>';
+    }).filter(Boolean).join('');
+
+    if (!rows) return '';
+    return '<h2>Day by day</h2><ol class="wb-days">' + rows + '</ol>';
+  }
+
+  /* ── badges over the hero photograph ───────────────────────────── */
+  function heroTags(t) {
+    var out = [];
+    var w = W.WBSite.whenLabel(t.departure_date);
+    if (w.days != null && w.days > 0 && w.days <= 30) {
+      out.push('<span class="wb-trip-hero-tag is-sun">Leaving in ' + w.days + ' day' + (w.days === 1 ? '' : 's') + '</span>');
+    }
+    if (t.destination) out.push('<span class="wb-trip-hero-tag">' + esc(t.destination) + '</span>');
+    if (t.duration)    out.push('<span class="wb-trip-hero-tag">' + esc(t.duration) + '</span>');
+    if (t.spots_left != null && t.spots_left > 0 && t.spots_left <= 4) {
+      out.push('<span class="wb-trip-hero-tag">Only ' + t.spots_left + ' left</span>');
+    }
+    return out.length ? '<div class="wb-trip-hero-tags">' + out.join('') + '</div>' : '';
+  }
+
+  /* ── the bar that follows the reader down the page on a phone ──── */
+  function bookBar(t) {
+    var p = W.WBSite.money(t.price_kes);
+    var bar = D.createElement('div');
+    bar.className = 'wb-bookbar';
+    bar.id = 'wb-bookbar';
+    bar.innerHTML =
+      '<span class="wb-bookbar-price"><b>' + esc(p.main) + '</b>' +
+        '<span>' + esc(p.sub || 'to reserve') + '</span></span>' +
+      '<a class="wb-btn wb-btn-gold" href="#bookForm">Reserve a place</a>';
+    D.body.appendChild(bar);
+    D.body.classList.add('has-bookbar');
+
+    bar.querySelector('a').addEventListener('click', function (ev) {
+      var form = D.getElementById('bookForm') || D.querySelector('.wb-done');
+      if (!form) return;
+      ev.preventDefault();
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      var name = form.querySelector ? form.querySelector('[name=guest_name]') : null;
+      if (name) setTimeout(function () { name.focus({ preventScroll: true }); }, 620);
+    });
+
+    /* Up once the hero is behind you, down again once the form is on
+       screen — the form has its own button and does not need a second. */
+    var hero = D.querySelector('.wb-trip-hero');
+    var form = D.getElementById('bookForm');
+    if (!W.IntersectionObserver || !hero) { bar.classList.add('is-up'); return; }
+
+    var pastHero = false, atForm = false;
+    function sync() { bar.classList.toggle('is-up', pastHero && !atForm); }
+
+    new IntersectionObserver(function (es) {
+      pastHero = !es[0].isIntersecting; sync();
+    }, { threshold: 0 }).observe(hero);
+
+    if (form) {
+      new IntersectionObserver(function (es) {
+        atForm = es[0].isIntersecting; sync();
+      }, { threshold: 0 }).observe(form);
+    }
+  }
+
+  /* ── tell crawlers and link previews what this page is ──────────
+     The document ships with a placeholder title because the trip is only
+     known after a fetch. Anything that runs scripts — Google, Slack,
+     WhatsApp — reads what is set here rather than "Trip —". */
+  function meta(t) {
+    var title = t.name + ' — Wild Bosses Adventures';
+    var desc  = (t.description || t.subtitle || '')
+                  .replace(/\s+/g, ' ').trim().slice(0, 180) ||
+                'A Wild Bosses departure with a fixed date and places open.';
+    D.title = title;
+
+    function set(sel, attr, val) {
+      var n = D.head.querySelector(sel);
+      if (!n) {
+        n = D.createElement('meta');
+        var m = /^meta\[(property|name)="([^"]+)"\]$/.exec(sel);
+        if (m) n.setAttribute(m[1], m[2]);
+        D.head.appendChild(n);
+      }
+      n.setAttribute(attr, val);
+    }
+    set('meta[name="description"]', 'content', desc);
+    set('meta[property="og:title"]', 'content', title);
+    set('meta[property="og:description"]', 'content', desc);
+    if (t.image) set('meta[property="og:image"]', 'content', t.image);
+    set('meta[name="twitter:title"]', 'content', title);
+    set('meta[name="twitter:description"]', 'content', desc);
+    if (t.image) set('meta[name="twitter:image"]', 'content', t.image);
+
+    var can = D.head.querySelector('link[rel=canonical]');
+    if (!can) { can = D.createElement('link'); can.rel = 'canonical'; D.head.appendChild(can); }
+    can.href = location.origin + '/tour.html?t=' + encodeURIComponent(t.slug);
+
+    /* Only facts already on the page go in the graph. No rating, no review
+       count — the columns are empty and inventing them would be fraud. */
+    var ld = {
+      '@context': 'https://schema.org',
+      '@type': 'TouristTrip',
+      name: t.name,
+      description: desc,
+      url: can.href
+    };
+    if (t.image) ld.image = t.image;
+    if (t.destination) {
+      ld.itinerary = { '@type': 'Place', name: t.destination };
+    }
+    if (t.price_kes) {
+      ld.offers = {
+        '@type': 'Offer', price: String(t.price_kes), priceCurrency: 'KES',
+        availability: (t.spots_left === 0 || t.status === 'closed')
+          ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock',
+        url: can.href
+      };
+    }
+    if (t.departure_date) ld.departureTime = t.departure_date;
+    if (t.return_date)    ld.arrivalTime   = t.return_date;
+    ld.provider = { '@type': 'Organization', name: 'Wild Bosses Adventures', url: location.origin + '/' };
+
+    var s = D.getElementById('wb-ld-trip');
+    if (!s) { s = D.createElement('script'); s.type = 'application/ld+json'; s.id = 'wb-ld-trip'; D.head.appendChild(s); }
+    s.textContent = JSON.stringify(ld);
+  }
+
   /* ── page render ───────────────────────────────────────────────── */
   function render(t) {
     T = t;
@@ -540,18 +691,26 @@
     var w   = W.WBSite.whenLabel(t.departure_date);
     var p   = W.WBSite.money(t.price_kes);
     var inc = (t.includes || []).map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('');
+    var exc = (t.excludes || []).map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('');
 
     D.getElementById('tour-root').innerHTML =
-      '<div class="wb-wrap" style="padding-top:26px;padding-bottom:70px">' +
+      '<div class="wb-wrap" style="padding-top:22px;padding-bottom:70px">' +
+        '<nav class="wb-crumb" aria-label="Breadcrumb">' +
+          '<a href="/">Home</a><span aria-hidden="true">/</span>' +
+          '<a href="/tours.html">Tours</a><span aria-hidden="true">/</span>' +
+          '<b>' + esc(t.name) + '</b>' +
+        '</nav>' +
         '<div class="wb-trip-hero">' +
-          (t.image ? '<img src="' + esc(t.image) + '" alt="' + esc(t.name) + '"/>' : '') +
-          '<div class="wb-trip-hero-in"><h1>' + esc(t.name) + '</h1>' +
+          (t.image ? '<img src="' + esc(t.image) + '" alt="' + esc(t.name) + '" fetchpriority="high" decoding="async"/>' : '') +
+          '<div class="wb-trip-hero-in">' + heroTags(t) + '<h1>' + esc(t.name) + '</h1>' +
           (t.subtitle ? '<p>' + esc(t.subtitle) + '</p>' : '') + '</div>' +
         '</div>' +
         '<div class="wb-trip">' +
           '<div class="wb-trip-body">' +
             (t.description ? '<h2>About this trip</h2><p>' + esc(t.description) + '</p>' : '') +
+            itineraryHTML(t.itinerary) +
             (inc ? '<h2>What is included</h2><ul class="wb-inc">' + inc + '</ul>' : '') +
+            (exc ? '<h2>Not included</h2><ul class="wb-inc wb-exc">' + exc + '</ul>' : '') +
             bookingPanel() +
           '</div>' +
           '<aside class="wb-book glass">' +
@@ -570,10 +729,11 @@
         '</div>' +
       '</div>';
 
-    D.title = t.name + ' — Wild Bosses Adventures';
+    meta(t);
     setInterval(tick, 1000);
     wireForm();
     refresh();
+    bookBar(t);
   }
 
   function init() {

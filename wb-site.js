@@ -61,12 +61,60 @@
 
   function nav() {
     var burger = D.getElementById('wb-burger'), links = D.getElementById('wb-links');
+
     if (burger && links) {
-      burger.addEventListener('click', function () {
-        var open = links.classList.toggle('open');
+      /* A scrim so the sheet reads as the layer in front, and so a tap
+         anywhere else closes it — the old menu could only be dismissed by
+         hitting the same 36x24 button again. */
+      var scrim = D.createElement('div');
+      scrim.className = 'wb-scrim';
+      D.body.appendChild(scrim);
+
+      function setOpen(open) {
+        links.classList.toggle('open', open);
+        scrim.classList.toggle('on', open);
         burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        /* the sheet is inside a sticky bar, so the page behind it can still
+           scroll away underneath; freeze it while the menu is up */
+        D.body.style.overflow = open ? 'hidden' : '';
+        if (open) {
+          var first = links.querySelector('a');
+          if (first) first.focus({ preventScroll: true });
+        }
+      }
+
+      burger.addEventListener('click', function () {
+        setOpen(burger.getAttribute('aria-expanded') !== 'true');
+      });
+      scrim.addEventListener('click', function () { setOpen(false); });
+      /* choosing a destination should close the thing you chose it from */
+      links.addEventListener('click', function (e) {
+        if (e.target.closest('a')) setOpen(false);
+      });
+      D.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && burger.getAttribute('aria-expanded') === 'true') {
+          setOpen(false); burger.focus();
+        }
+      });
+      /* rotating to landscape can cross the 820px line with the sheet open,
+         which would leave the page scroll-locked and the menu invisible */
+      W.addEventListener('resize', function () {
+        if (W.innerWidth > 820) setOpen(false);
       });
     }
+
+    /* lift the bar off the content once the page has moved */
+    var bar = D.querySelector('.wb-nav');
+    if (bar) {
+      var stuck = false;
+      var onScroll = function () {
+        var now = W.scrollY > 8;
+        if (now !== stuck) { stuck = now; bar.classList.toggle('is-stuck', now); }
+      };
+      W.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+
     var path = location.pathname.replace(/\/$/, '') || '/index.html';
     Array.prototype.forEach.call(D.querySelectorAll('.wb-links a'), function (a) {
       var href = a.getAttribute('href').replace(/\/$/, '');

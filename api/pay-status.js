@@ -4,9 +4,25 @@
    Also accepts ?checkout_id= to query PayHero directly for faster confirmation.
    ═══════════════════════════════════════════════════════════════════ */
 
+/* Same-origin only. These endpoints create bookings and trigger real
+   M-Pesa charges, so a wildcard here would let any page on the internet
+   fire them from a visitor's browser. The site's own fetches are
+   same-origin and send no Origin header we need to answer. */
+const ALLOWED = [
+  'https://wildbosses.vercel.app',
+  'http://localhost:3000'
+];
+function setCors(req, res) {
+  const origin = req.headers && req.headers.origin;
+  if (origin && ALLOWED.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Vary', 'Origin');
+  }
+}
+
 module.exports = async function handler(req, res) {
+  setCors(req, res);
   res.setHeader('Content-Type', 'application/json');
-  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Cache-Control', 'no-store');
 
   if (req.method === 'OPTIONS') {

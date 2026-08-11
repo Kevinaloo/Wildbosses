@@ -132,6 +132,71 @@ Four things that were already broken before the repaint:
   phones, so that removed the one action the page exists for from the device
   most likely to take it. It shrinks instead.
 
+## The 700px bug
+
+`.wb-trip-hero` read `aspect-ratio:21/9; min-height:300px` on a box with an
+auto width. CSS resolves that by transferring the minimum height back
+*through* the ratio into a minimum **width** — 300 x 21/9 = 700px. So on a
+390px phone the trip page forced the document to 716px: the sticky nav
+painted only the real viewport while the content scrolled out from under it,
+and the whole site looked broken rather than merely clipped.
+
+21/9 is a cinema crop that only makes sense on a wide screen; on a phone it
+is a 40px letterbox, which is why the min-height was propping it up. Each
+width now gets the ratio it actually wants — 4/5, then 16/10, then 21/9 —
+and `width:100%` makes the inline size definite so nothing can be
+transferred into it again.
+
+`html, body { overflow-x: clip }` is the net under it. `clip` and not
+`hidden`: `overflow-x:hidden` silently turns the element into a scroll
+container, which kills `position:sticky` on the nav. Anything the net
+catches is still a bug.
+
+## Removed for security
+
+- `/api/debug-env` — unauthenticated, and it leaked the ends of
+  `SUPABASE_SERVICE_ROLE_KEY` and `PAYHERO_PASSWORD`, the whole
+  `PAYHERO_CHANNEL_ID`, and 600 characters of a service-role query result.
+- `/api/debug-pay` — an unauthenticated POST fired a **real M-Pesa STK push
+  to any phone number in the body**, billed to the PayHero account.
+
+`/api/book`, `/api/pay` and `/api/pay-status` also answered
+`Access-Control-Allow-Origin: *`, so any site could fire them from a
+visitor's browser. They now answer only this origin.
+
+## The rail had no posters
+
+Every `hero_videos` row has `poster_url` NULL, so `cardHTML` emitted
+`background-image:url()` — invalid — and the homepage opened on four black
+rectangles until the MP4s decoded. Fixed in the `hero_rail` view rather than
+by backfilling the column: the view already joins `tours`, so
+`COALESCE(NULLIF(h.poster_url,''), t.image)` means the trip's own photograph
+stands in and a poster is never missing again, including for rows the admin
+creates later. An explicit poster still wins.
+
+## The homepage had no h1
+
+The whole top of the page was the rail: four dark cards drifting past and
+nowhere a sentence saying what this company sells. The document opened on an
+`h3` inside a card. There is now a copy band above the stage, sharing one
+green mass that sinks into the stage's black, carrying the one thing that
+actually distinguishes this operator: the trips already have dates.
+
+Below 640px the rail drops the -8deg tilt and becomes an upright scroll-snap
+row. Rotated, the leading card was sliced by the viewport edge, so the first
+thing a phone visitor saw was half a title and a price cut down the middle.
+The drift loop and drag handlers are skipped there too — they were a rAF
+writing transforms every frame that CSS then discarded, fighting the
+browser's own momentum scrolling.
+
+## Not done on purpose
+
+`tours.itinerary`, `rating` and `reviews` are empty. The day-by-day renderer
+is built and appears the moment real content is entered, but nothing was
+seeded. Inventing a schedule puts times and places in front of someone about
+to pay for them, and inventing ratings is fabricated social proof on a page
+that takes money.
+
 ## Still to do
 
 - Payment gateway (M-Pesa / card)

@@ -57,13 +57,47 @@
 .wb-guide-tags { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
 .wb-tagpill { font-size: 10px; letter-spacing:.1em; text-transform:uppercase; padding:4px 10px; border-radius:999px; border:1px solid var(--line); color:var(--ink-3) }
 
-/* ── trip detail ────────────────────────────────────────── */
-.wb-trip-hero { position: relative; aspect-ratio: 21/9; min-height: 300px; border-radius: var(--r-lg); overflow: hidden; margin-bottom: 34px; }
+/* ── trip detail ────────────────────────────────────────────────────
+   THE 700px BUG. This box used to read `aspect-ratio:21/9; min-height:300px`
+   with an auto width. CSS resolves that by transferring the minimum height
+   back *through* the ratio into a minimum WIDTH — 300 x 21/9 = 700px — so on
+   a 390px phone the hero forced the document to 716px, the sticky nav only
+   painted the real viewport, and the entire page slid sideways.
+
+   Two guards, because one was clearly not enough:
+   `width:100%` makes the inline size definite so nothing can be transferred
+   into it, and the ratio is chosen per breakpoint instead of being propped
+   up by a min-height. 21/9 is a cinema crop that only makes sense on a wide
+   screen anyway; on a phone it is a 40px-tall letterbox, which is why the
+   min-height was there in the first place. Give each width the ratio it
+   actually wants and the prop is no longer needed. */
+.wb-trip-hero {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;      /* phone: upright, the photograph gets the room */
+  min-height: 0;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  margin-bottom: 28px;
+  background: var(--bg-deep);
+}
+@media (min-width: 560px)  { .wb-trip-hero { aspect-ratio: 16 / 10; margin-bottom: 34px; } }
+@media (min-width: 1000px) { .wb-trip-hero { aspect-ratio: 21 / 9; } }
 .wb-trip-hero img { width:100%;height:100%;object-fit:cover }
-.wb-trip-hero-in { position:absolute; inset:auto 0 0 0; padding: clamp(20px,3vw,40px);
-  background: linear-gradient(to top, rgba(7,9,8,.92), rgba(7,9,8,.34) 60%, transparent); }
-.wb-trip-hero h1 { margin:0 0 6px; font-family:var(--display); font-size:clamp(30px,5.4vw,64px); line-height:.98; color:var(--pollen); letter-spacing:.01em }
-.wb-trip-hero p { margin:0; color:rgba(243,238,228,.82); font-size:15px }
+.wb-trip-hero-in { position:absolute; inset:auto 0 0 0; padding: clamp(18px,3vw,40px);
+  background: linear-gradient(to top, rgba(4,21,15,.94), rgba(4,21,15,.42) 58%, transparent); }
+.wb-trip-hero h1 { margin:0 0 6px; font-family:var(--display); font-size:clamp(30px,7.2vw,64px); line-height:.98; color:var(--pollen); letter-spacing:.01em; text-wrap:balance }
+.wb-trip-hero p { margin:0; color:rgba(243,238,228,.86); font-size:15px }
+
+/* the badge row that sits above the trip title */
+.wb-trip-hero-tags { display:flex; flex-wrap:wrap; gap:7px; margin:0 0 11px }
+.wb-trip-hero-tag {
+  font-size:10px; letter-spacing:.15em; text-transform:uppercase; font-weight:600;
+  padding:5px 11px; border-radius:999px;
+  background:rgba(4,36,26,.58); backdrop-filter:blur(9px); -webkit-backdrop-filter:blur(9px);
+  color:var(--pollen); border:1px solid rgba(180,255,200,.26);
+}
+.wb-trip-hero-tag.is-sun { background:var(--grad-sun); color:var(--on-sun); border-color:transparent }
 
 .wb-trip { display: grid; gap: 28px; grid-template-columns: minmax(0,1.7fr) minmax(280px,1fr); align-items: start; }
 @media (max-width: 900px) { .wb-trip { grid-template-columns: 1fr; } }
@@ -300,3 +334,124 @@ body.wb-locked{overflow:hidden}
   .wb-choice-in>em{grid-column:1;grid-row:3;margin-top:4px}
   .wb-modal-card{padding:26px 20px}
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   TRIP PAGE · MOBILE BOOKING BAR
+   ─────────────────────────────────────────────────────────────────
+   Below 900px the .wb-book aside stops being sticky and drops to the
+   bottom of a very long page, so the price and the one action the page
+   exists for scroll out of reach the moment the reader starts reading.
+   This parks both on the bottom edge instead.
+
+   It appears only once the reader has passed the hero — showing it
+   immediately would cover the photograph they came to look at — and it
+   hides itself again when the booking form is on screen, because at
+   that point the real submit button is right there and two competing
+   calls to action is one too many.
+   ═══════════════════════════════════════════════════════════════════ */
+.wb-bookbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 480;
+  display: none; align-items: center; gap: 14px;
+  padding: 11px clamp(14px, 4vw, 22px);
+  padding-bottom: max(11px, env(safe-area-inset-bottom));
+  background: var(--forest);
+  border-top: 1px solid rgba(247,190,24,.34);
+  box-shadow: 0 -10px 30px -12px rgba(0,18,10,.7);
+  transform: translateY(102%);
+  transition: transform .34s var(--ease);
+}
+.wb-bookbar.is-up { transform: none; }
+.wb-bookbar-price { display: grid; gap: 2px; min-width: 0; }
+.wb-bookbar-price b {
+  font-family: var(--display); font-size: 20px; line-height: 1;
+  color: var(--leaf-white); letter-spacing: .01em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.wb-bookbar-price span {
+  font-size: 10px; letter-spacing: .13em; text-transform: uppercase; color: #96BCA1;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.wb-bookbar .wb-btn { margin-left: auto; flex: 0 0 auto; padding: 13px 22px; font-size: 13px; }
+
+@media (max-width: 900px) { .wb-bookbar { display: flex; } }
+@media (prefers-reduced-motion: reduce) {
+  .wb-bookbar { transition: none; }
+}
+
+/* ── the deposit slider ─────────────────────────────────────────────
+   A 13px-tall range input is a 13px-tall target. The track keeps its
+   weight; the thumb is grown to something a thumb can actually find. */
+.wb-custom-range-wrap input[type=range] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 32px; background: transparent; cursor: pointer;
+}
+.wb-custom-range-wrap input[type=range]::-webkit-slider-runnable-track {
+  height: 6px; border-radius: 3px;
+  background: linear-gradient(90deg, var(--sun), var(--citrine));
+}
+.wb-custom-range-wrap input[type=range]::-moz-range-track {
+  height: 6px; border-radius: 3px;
+  background: linear-gradient(90deg, var(--sun), var(--citrine));
+}
+.wb-custom-range-wrap input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 26px; height: 26px; margin-top: -10px;
+  border-radius: 50%; background: var(--forest);
+  border: 3px solid var(--sun); box-shadow: 0 2px 8px rgba(0,18,10,.4);
+}
+.wb-custom-range-wrap input[type=range]::-moz-range-thumb {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--forest); border: 3px solid var(--sun);
+}
+.wb-custom-range-wrap input[type=range]:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+
+/* the amount field is the number people re-read before paying: give it size */
+.wb-custom-input-wrap input[type=number] { min-height: 48px; }
+.wb-custom-prefix { line-height: normal; align-self: stretch; }
+
+/* ── day-by-day itinerary ───────────────────────────────────────────
+   Renders only when tours.itinerary actually holds days. Nothing here
+   invents a schedule — an absent itinerary shows no section at all. */
+.wb-days { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.wb-day {
+  display: grid; grid-template-columns: auto 1fr; gap: 4px 18px;
+  padding: 18px 0; border-top: 1px solid var(--line);
+}
+.wb-day:last-child { border-bottom: 1px solid var(--line); }
+.wb-day-n {
+  grid-row: 1 / 3; align-self: start;
+  font-family: var(--mono); font-variant-numeric: tabular-nums;
+  font-size: 12px; font-weight: 600; letter-spacing: .1em;
+  color: var(--gold); padding-top: 3px; white-space: nowrap;
+}
+.wb-day b { font-size: 16px; color: var(--ink); font-weight: 600; }
+.wb-day p { margin: 4px 0 0; font-size: 14.5px; color: var(--ink-2); line-height: 1.65; }
+@media (max-width: 520px) {
+  .wb-day { grid-template-columns: 1fr; gap: 3px; }
+  .wb-day-n { grid-row: auto; padding-top: 0; }
+}
+
+/* breadcrumb above the trip hero — also the visible half of the
+   BreadcrumbList that goes into the page graph */
+.wb-crumb {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  margin: 0 0 16px; font-size: 12.5px; color: var(--ink-3);
+}
+.wb-crumb a { color: var(--ink-3); transition: color .2s; display:inline-flex; align-items:center; min-height:32px; }
+.wb-crumb a:hover { color: var(--gold); }
+.wb-crumb span { opacity: .5; }
+.wb-crumb b { color: var(--ink-2); font-weight: 500; }
+
+/* "not included" reuses the tick list with a rule instead of a check */
+.wb-exc li::before {
+  border-left: 0; border-bottom: 2px solid var(--ink-3);
+  transform: none; top: 11px; width: 9px; opacity: .8;
+}
+
+/* the contact cards hold the phone number and the email address — the two
+   links on this site most likely to be tapped, and both were 16px tall */
+.wb-contact-card a {
+  display: inline-flex; align-items: center; min-height: 44px;
+  color: var(--gold); font-weight: 600;
+}
+.wb-contact-card a:hover { text-decoration: underline; }

@@ -117,6 +117,7 @@
 .wb-nav,
 .wb-foot,
 .wb-hero,
+.wb-rail-top,
 .wb-rail {
   color-scheme: dark;
   --bg:var(--forest); --bg-deep:var(--forest-deep);
@@ -156,16 +157,44 @@
 }
 
 *,*::before,*::after { box-sizing:border-box; }
-html { -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+
+/* ── the sideways-scroll guard ────────────────────────────
+   A single box wider than the viewport does not just overflow itself, it
+   widens the whole document: the sticky nav then paints only the real
+   viewport while the content scrolls out from under it, and the site looks
+   broken rather than merely clipped. That is exactly what the trip hero was
+   doing at 700px on every phone.
+
+   `clip` and not `hidden`. `overflow-x:hidden` on html or body silently
+   turns the element into a scroll container, which kills `position:sticky`
+   on the nav. `clip` cuts the overflow without creating one. Older engines
+   that never shipped `clip` fall back to `hidden` on body alone, where the
+   sticky chain survives.
+
+   This is a net, not the fix. Anything caught here is still a bug. */
+html { -webkit-text-size-adjust:100%; scroll-behavior:smooth; overflow-x:clip; }
+body { overflow-x:clip; }
+@supports not (overflow-x: clip) { body { overflow-x:hidden } }
+
 @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+
+/* the nav is sticky, so anything jumped to must clear it */
+html { scroll-padding-top: 84px; }
 
 body {
   margin:0; min-height:100vh;
   background:var(--bg); color:var(--ink);
   font-family:var(--body); font-size:16px; line-height:1.6;
   -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
   transition:background-color .5s var(--ease), color .5s var(--ease);
 }
+
+/* Long destination names and single-word trip titles are the two things
+   that break a display face. Let headings wrap on sense rather than on
+   whatever fits, and let long words break instead of pushing the box wide. */
+h1,h2,h3 { text-wrap:balance; overflow-wrap:break-word; }
+p { text-wrap:pretty; }
 
 /* ── the signature: light through the canopy ──────────────
    Three fields, not a scatter. Sun coming over the ridge along the

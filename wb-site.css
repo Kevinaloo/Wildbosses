@@ -13,10 +13,29 @@
 .wb-nav {
   position: sticky; top: 0; z-index: 200;
   display: flex; align-items: center; gap: var(--sp-5);
-  padding: 13px clamp(16px, 4vw, 46px);
+  padding: 11px clamp(16px, 4vw, 46px);
+  /* landscape on a notched phone puts the cutout in the left inset */
+  padding-left:  max(clamp(16px, 4vw, 46px), env(safe-area-inset-left));
+  padding-right: max(clamp(16px, 4vw, 46px), env(safe-area-inset-right));
   background: var(--forest);
   border-bottom: 1px solid rgba(234,247,228,.10);
+  transition: box-shadow .3s var(--ease), background .3s var(--ease);
 }
+/* Stamped by wb-site.js once the page has left the top. The bar is already
+   opaque forest, so this is a shadow to lift it off the content rather than
+   the usual translucent-blur trick, which would fight the photographs. */
+.wb-nav.is-stuck {
+  box-shadow: 0 1px 0 rgba(247,190,24,.22), 0 12px 32px -16px rgba(0,18,10,.85);
+}
+/* skip link — first tab stop on every page */
+.wb-skip {
+  position: absolute; left: 10px; top: 10px; z-index: 999;
+  padding: 10px 16px; border-radius: 999px;
+  background: var(--grad-sun); color: var(--on-sun);
+  font-size: 13px; font-weight: 700;
+  transform: translateY(-160%); transition: transform .2s var(--ease);
+}
+.wb-skip:focus-visible { transform: translateY(0); }
 
 .wb-brand { display: flex; align-items: center; gap: 14px; flex: 0 0 auto; }
 .wb-logo {
@@ -46,10 +65,11 @@
 .wb-links { display: flex; gap: clamp(12px, 1.8vw, 28px); margin-left: auto; }
 .wb-links a {
   font-size: 13px; font-weight: 500; color: var(--ink-2);
-  padding: 6px 2px; position: relative; transition: color .2s;
+  padding: 13px 2px; position: relative; transition: color .2s;
+  display: inline-flex; align-items: center;
 }
 .wb-links a::after {
-  content: ''; position: absolute; left: 0; right: 100%; bottom: 0;
+  content: ''; position: absolute; left: 0; right: 100%; bottom: 8px;
   height: 2px; border-radius: 2px; background: var(--grad-sun); transition: right .28s var(--ease);
 }
 .wb-links a:hover, .wb-links a[aria-current="page"] { color: var(--ink); }
@@ -80,9 +100,18 @@
 
 .wb-burger {
   display: none; background: none; border: 0; cursor: pointer;
-  padding: 8px; gap: 5px; flex-direction: column;
+  width: 44px; height: 44px; padding: 0; margin-right: -8px;
+  align-items: center; justify-content: center; flex-direction: column;
+  gap: 5px; border-radius: 12px;
 }
-.wb-burger span { width: 20px; height: 1.5px; background: var(--ink); display: block; }
+.wb-burger:hover { background: rgba(234,247,228,.08); }
+.wb-burger span {
+  width: 20px; height: 2px; background: var(--ink); display: block;
+  border-radius: 2px; transition: transform .28s var(--ease), opacity .2s;
+}
+/* the two bars fold into a cross rather than swapping for a glyph */
+.wb-burger[aria-expanded="true"] span:first-child { transform: translateY(3.5px) rotate(45deg); }
+.wb-burger[aria-expanded="true"] span:last-child  { transform: translateY(-3.5px) rotate(-45deg); }
 
 /* ── page furniture ─────────────────────────────────────── */
 .wb-wrap { max-width: var(--max); margin: 0 auto; padding: 0 clamp(16px, 4vw, 46px); }
@@ -218,7 +247,7 @@
   gap: 14px; margin-top: 22px;
 }
 .wb-slide-btn {
-  width: 38px; height: 38px; border-radius: 50%;
+  width: 44px; height: 44px; border-radius: 50%;
   display: grid; place-items: center;
   background: var(--glass-2); border: 1px solid var(--line);
   color: var(--ink-2); cursor: pointer;
@@ -226,14 +255,21 @@
 }
 .wb-slide-btn:hover { border-color: var(--shoot); color: var(--shoot); background: var(--glass); }
 .wb-slide-btn svg { width: 16px; height: 16px; }
-.wb-slide-dots { display: flex; gap: 7px; }
+.wb-slide-dots { display: flex; gap: 2px; }
+/* A 6px dot is honest about its importance and impossible to hit. The ink
+   stays 7px; the button around it is 40px so a thumb can land on it. */
 .wb-slide-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--line); border: none; cursor: pointer;
-  transition: background .2s, transform .2s;
-  padding: 0;
+  width: 26px; height: 40px; border: none; background: none;
+  cursor: pointer; padding: 0; position: relative;
 }
-.wb-slide-dot.on { background: var(--grad-sun); transform: scale(1.35); }
+.wb-slide-dot::before {
+  content: ''; position: absolute; top: 50%; left: 50%;
+  width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px;
+  border-radius: 50%; background: var(--line);
+  transition: background .25s var(--ease), transform .25s var(--ease);
+}
+.wb-slide-dot:hover::before { background: var(--ink-3); }
+.wb-slide-dot.on::before { background: var(--grad-sun); transform: scale(1.45); }
 
 /* ── photo gallery strip ────────────────────────────────── */
 .wb-gallery-sec {
@@ -329,36 +365,71 @@
 }
 .wb-foot-brand { font-family: var(--display); font-size: 17px; letter-spacing: .04em; color: var(--ink); }
 .wb-foot-note { margin: 6px 0 0; font-size: 13px; color: var(--ink-2); }
-.wb-foot-links { display: flex; gap: 18px; flex-wrap: wrap; }
-.wb-foot-links a { font-size: 13px; color: var(--ink-2); transition: color .2s; }
+.wb-foot-links { display: flex; gap: 6px 18px; flex-wrap: wrap; margin: -10px 0; }
+.wb-foot-links a {
+  font-size: 13px; color: var(--ink-2); transition: color .2s;
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 2px;
+}
 .wb-foot-links a:hover { color: var(--shoot); }
 .wb-foot-legal { margin: 0; font-size: 12px; color: var(--ink-3); }
 
 @media (max-width: 820px) {
+  /* Anchored to the nav with top:100% rather than the old `inset:61px 0 auto 0`.
+     That 61px was a guess at the bar's height, and the bar is 68px once the
+     logo is in — so the sheet used to hang 7px over the content it was
+     supposed to sit under. `.wb-nav` is sticky, therefore a positioned
+     ancestor, therefore the containing block: the sheet now measures itself. */
   .wb-links {
-    position: fixed; inset: 61px 0 auto 0; flex-direction: column; gap: 0;
-    background: var(--bg); border-bottom: 1px solid var(--line);
-    padding: 8px 20px 20px; display: none;
+    position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; gap: 0;
+    background: var(--forest);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 18px 40px -18px rgba(0,18,10,.9);
+    padding: 6px clamp(16px, 4vw, 46px) max(18px, env(safe-area-inset-bottom));
+    display: flex;
+    /* animated rather than display:none, so it can leave as well as arrive */
+    visibility: hidden; opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity .24s var(--ease), transform .28s var(--ease), visibility .28s;
   }
-  .wb-links.open { display: flex; }
-  .wb-links a { padding: 13px 0; border-bottom: 1px solid var(--line-2); font-size: 15px; }
+  .wb-links.open { visibility: visible; opacity: 1; transform: none; }
+  .wb-links a {
+    padding: 15px 0; border-bottom: 1px solid var(--line-2);
+    font-size: 16px; min-height: 52px;
+  }
+  .wb-links a:last-child { border-bottom: 0; }
+  .wb-links a::after { display: none; }
+  /* the current page is marked with a gold rule on the leading edge */
+  .wb-links a[aria-current="page"] {
+    color: var(--ink); font-weight: 600;
+    box-shadow: inset 3px 0 0 var(--sun); padding-left: 12px;
+  }
   .wb-burger { display: flex; }
   /* The booking button used to be hidden here. Most of this traffic is
      phones, so that removed the one action the page exists for from the
      device most likely to take it. It shrinks instead. */
-  .wb-nav-end .wb-btn { padding: 9px 15px; font-size: 11.5px; }
+  .wb-nav-end .wb-btn { padding: 10px 15px; font-size: 11.5px; }
   .wb-nav { gap: var(--sp-3); }
   .wb-logo { width: 42px; height: 42px; border-radius: 11px; }
   .wb-brand { gap: 11px; }
   .wb-brand-txt b { font-size: 22px; }
   .wb-brand-txt i { font-size: 9px; letter-spacing: .36em; margin-top: 4px; }
 }
+/* dim the page behind an open sheet so the menu reads as the layer in front */
+.wb-scrim {
+  position: fixed; inset: 0; z-index: 150;
+  background: rgba(2,20,14,.5);
+  opacity: 0; pointer-events: none; transition: opacity .26s var(--ease);
+}
+.wb-scrim.on { opacity: 1; pointer-events: auto; }
+@media (min-width: 821px) { .wb-scrim { display: none; } }
+
 @media (max-width: 400px) {
   /* last to go is the button: the tagline yields first, then the wordmark */
   .wb-brand-txt i { display: none; }
   .wb-logo { width: 36px; height: 36px; border-radius: 9px; }
   .wb-brand-txt b { font-size: 19px; }
-  .wb-nav-end .wb-btn { padding: 8px 13px; font-size: 11px; }
+  .wb-nav-end .wb-btn { padding: 9px 13px; font-size: 11px; }
 }
 @media (max-width: 340px) {
   .wb-brand-txt b { font-size: 17px; }
@@ -367,8 +438,10 @@
 /* ── WhatsApp floating action button ────────────────────── */
 .wb-wa {
   position: fixed;
-  bottom: clamp(20px, 4vw, 32px);
-  right: clamp(20px, 4vw, 32px);
+  /* the iPhone home indicator sits in the bottom inset; without this the
+     button lands under it and the first tap only dismisses the gesture bar */
+  bottom: calc(clamp(18px, 4vw, 32px) + env(safe-area-inset-bottom));
+  right: calc(clamp(18px, 4vw, 32px) + env(safe-area-inset-right));
   z-index: 500;
   width: 56px;
   height: 56px;
@@ -388,6 +461,12 @@
   /* slide in from the right on load */
   animation: wbWaIn .55s cubic-bezier(.16,.9,.3,1) both .9s;
 }
+/* the trip page parks a booking bar along the bottom edge on phones; the
+   button steps up over it rather than sitting on top of the price */
+body.has-bookbar .wb-wa {
+  bottom: calc(clamp(18px, 4vw, 32px) + 68px + env(safe-area-inset-bottom));
+}
+@media (min-width: 901px) { body.has-bookbar .wb-wa { bottom: calc(clamp(18px,4vw,32px) + env(safe-area-inset-bottom)); } }
 @keyframes wbWaIn {
   from { opacity: 0; transform: translateX(24px) scale(.8); }
   to   { opacity: 1; transform: translateX(0)   scale(1);   }

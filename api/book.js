@@ -4,14 +4,28 @@
    The browser never writes to Postgres directly.
    ═══════════════════════════════════════════════════════════════════ */
 
+/* Same-origin only. These endpoints create bookings and trigger real
+   M-Pesa charges, so a wildcard here would let any page on the internet
+   fire them from a visitor's browser. The site's own fetches are
+   same-origin and send no Origin header we need to answer. */
+const ALLOWED = [
+  'https://wildbosses.vercel.app',
+  'http://localhost:3000'
+];
+function setCors(req, res) {
+  const origin = req.headers && req.headers.origin;
+  if (origin && ALLOWED.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Vary', 'Origin');
+  }
+}
+
 function json(res, status, body) {
   res.setHeader('Content-Type', 'application/json');
-  res.setHeader('Access-Control-Allow-Origin', '*');
   res.status(status).end(JSON.stringify(body));
 }
 
 function corsOk(res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.status(204).end();
@@ -23,6 +37,7 @@ function makeRef() {
 }
 
 module.exports = async function handler(req, res) {
+  setCors(req, res);
   if (req.method === 'OPTIONS') return corsOk(res);
   if (req.method !== 'POST')   return json(res, 405, { error: 'Method not allowed' });
 

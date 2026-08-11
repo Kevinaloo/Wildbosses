@@ -103,6 +103,9 @@
    way for a card to end up blank. */
 .rail-film { opacity: 1; }
 .rail-film.film-failed { display: none; }
+/* neither poster nor tour photo: show the canopy gradient rather than a
+   black rectangle the reader has to interpret */
+.rail-still-bare { background: var(--grad-canopy); }
 
 /* a card with no film yet drifts its poster rather than sitting dead */
 .rail-card.is-live .rail-still { animation: railDrift 22s ease-in-out infinite alternate; }
@@ -233,9 +236,102 @@
   .rail-card.is-live .rail-still { animation: none; }
 }
 
+/* ── the thesis ──────────────────────────────────────────
+   The rail used to be the entire top of the homepage: four dark cards
+   drifting past, and nowhere on the page a sentence saying what this
+   company sells. There was no h1 either, so the document opened on an
+   h3 inside a card.
+
+   The band and the stage are one mass — forest at the top sinking into
+   the stage's black — so this reads as the hero having a headline rather
+   than as a strip bolted above a carousel. */
+.wb-rail-top {
+  /* the surface rule in wb-tokens.css sets background:var(--bg); this wins
+     because it is declared after it in the cascade and is more specific */
+  background: linear-gradient(to bottom, var(--forest) 0%, var(--forest-deep) 62%, var(--void) 100%);
+  padding: clamp(38px, 6vw, 74px) 0 clamp(26px, 3.4vw, 40px);
+  position: relative; overflow: hidden;
+}
+.wb-rail-top::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 66% 70% at 50% -24%, rgba(255,214,64,.20), transparent 70%),
+    radial-gradient(ellipse 40% 70% at 100% 40%, rgba(111,217,67,.10), transparent 72%);
+}
+.wb-rail-copy { position: relative; z-index: 1; max-width: 21ch; }
+.wb-rail-copy h1 {
+  margin: 0 0 16px;
+  font-family: var(--display);
+  font-size: clamp(38px, 8.4vw, 92px);
+  line-height: .93; letter-spacing: .01em;
+  color: var(--leaf-white);
+}
+/* the promise the product actually keeps, in the accent, on its own line */
+.wb-rail-copy h1 em {
+  font-style: normal; display: block; color: var(--citrine);
+}
+.wb-rail-lede {
+  margin: 0; max-width: 46ch;
+  color: #A9CBB2; font-size: clamp(15px, 1.5vw, 17.5px); line-height: 1.6;
+}
+.wb-rail-acts { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 26px; }
+/* three claims, each one already true and already stated elsewhere on the
+   site — nothing here is a new promise */
+.wb-rail-trust {
+  display: flex; flex-wrap: wrap; gap: 8px 20px;
+  margin: 26px 0 0; padding: 0; list-style: none;
+}
+.wb-rail-trust li {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 12px; letter-spacing: .04em; color: #96BCA1;
+}
+.wb-rail-trust li::before {
+  content: ''; width: 9px; height: 5px; flex: 0 0 auto;
+  border-left: 2px solid var(--citrine); border-bottom: 2px solid var(--citrine);
+  transform: rotate(-45deg) translateY(-1px);
+}
+
 @media (max-width: 640px) {
-  .rail-viewport { height: clamp(430px, 68vh, 580px); }
-  .rail-card { width: min(70vw, 286px); }
+  .wb-rail-copy { max-width: none; }
+  .wb-rail-acts .wb-btn { flex: 1 1 auto; justify-content: center; }
+  .wb-rail-trust { gap: 6px 16px; }
+  .wb-rail-trust li { font-size: 11.5px; }
+}
+
+@media (max-width: 640px) {
+  /* ── the diagonal is a wide-screen gesture ───────────────
+     Rotated -8deg, the leading card is sliced by the viewport edge: on a
+     phone the first thing anyone saw was half a title and a price cut
+     down the middle. Below 640px the tilt is dropped entirely and the row
+     becomes an upright snap scroller — the same cards, the same order,
+     legible, and swipeable in the direction a thumb already expects. */
+  .rail-viewport {
+    height: auto; overflow-x: auto; overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 4px 0 26px;
+    cursor: default;
+  }
+  .rail-viewport::-webkit-scrollbar { display: none; }
+  .rail-tilt {
+    position: static; width: auto; left: auto; top: auto;
+    transform: none;
+  }
+  .rail-track { transform: none !important; padding-inline: clamp(16px, 4vw, 46px); }
+  /* the duplicate run exists only to hide the desktop loop seam */
+  .rail-run + .rail-run { display: none; }
+  .rail-card {
+    width: min(78vw, 320px);
+    aspect-ratio: 3 / 4.1;
+    margin: 0 10px 0 0;
+    scroll-snap-align: center;
+    transform: none; opacity: 1; filter: none;
+  }
+  .rail-card:last-child { margin-right: clamp(16px, 4vw, 46px); }
+  .rail-card.is-live { transform: none; box-shadow: 0 18px 44px -16px rgba(0,0,0,.8), 0 0 0 1px var(--gold-soft); }
+  .rail-hint { display: none; }
+  .wb-rail::after { height: 0; background: linear-gradient(90deg, transparent, var(--sun) 22%, var(--citrine) 50%, var(--sun) 78%, transparent) bottom / 100% 2px no-repeat; }
 }
 
 /* shown only when a film genuinely will not run, so a card is never an

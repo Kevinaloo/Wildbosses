@@ -32,12 +32,23 @@
     var hasFilm = !!(v.video_url && v.video_url.trim());
     /* The poster sits underneath as a still. The film fades over it once
        it can actually play, so a slow connection shows a photograph
-       rather than a black rectangle. */
-    var still = '<div class="rail-still" style="background-image:url(' +
-                esc(v.poster_url || '') + ')"></div>';
+       rather than a black rectangle.
+
+       Every row in the live table has poster_url NULL, which made this
+       emit `background-image:url()` — not merely empty but invalid, and
+       some engines resolve the bare url() against the document, firing a
+       second request for the page itself. So the promise above was never
+       being kept: the homepage opened on four black rectangles until the
+       MP4s decoded. `v.poster` is filled in by mount() from the linked
+       tour's own image, so the fallback is the operator's photograph and
+       not a stand-in. */
+    var poster = v.poster_url || v.poster || '';
+    var still  = poster
+      ? '<div class="rail-still" style="background-image:url(&quot;' + esc(poster) + '&quot;)"></div>'
+      : '<div class="rail-still rail-still-bare"></div>';
     var media = still + (hasFilm
       ? '<video class="rail-film" playsinline muted loop autoplay preload="auto"' +
-        (v.poster_url ? ' poster="' + esc(v.poster_url) + '"' : '') +
+        (poster ? ' poster="' + esc(poster) + '"' : '') +
         ' src="' + esc(v.video_url) + '"></video>'
       : '');
 
@@ -114,6 +125,30 @@
     setInterval(tickAll, 1000);
 
     if (reduce) { root.classList.add('rail-static'); return; }
+
+    /* ── phones scroll natively ─────────────────────────────────
+       Below 640px the stylesheet drops the tilt and turns .rail-viewport
+       into a scroll-snap row. Running the drift loop as well would mean a
+       rAF writing transforms every frame that CSS then discards, and drag
+       handlers competing with the browser's own momentum scrolling. Keep
+       only the part that still earns its place: staging, so the card in
+       front of the reader is the one whose film plays. */
+    var phone = W.matchMedia && W.matchMedia('(max-width: 640px)').matches;
+    if (phone) {
+      var vp = root.querySelector('.rail-viewport');
+      stage();
+      var raf = null;
+      vp.addEventListener('scroll', function () {
+        if (raf) return;
+        raf = requestAnimationFrame(function () { raf = null; stage(); });
+      }, { passive: true });
+      W.addEventListener('resize', function () { if (!W.matchMedia('(max-width: 640px)').matches) location.reload(); });
+      D.addEventListener('visibilitychange', function () {
+        if (D.hidden || !live) return;
+        arm(live.querySelector('video'));
+      });
+      return;
+    }
 
     /* ── drift ──────────────────────────────────────────────── */
     var runW = 0, x = 0, last = performance.now(), dragging = false, dragX = 0, startX = 0;
@@ -282,7 +317,31 @@
   function init() {
     var root = D.getElementById('wb-rail');
     if (!root || !W.WB) return;
-    W.WB.heroRail().then(function (rows) { mount(root, rows); });
+
+    /* Join each rail row to its tour so a row with no poster_url can borrow
+       the trip's own photograph. Both reads fail soft to [], and the join is
+       optional — if the tours call fails the rail still mounts, just without
+       the fallback stills. */
+    Promise.all([W.WB.heroRail(), W.WB.tours({})]).then(function (res) {
+      var rows  = res[0] || [];
+      var tours = res[1] || [];
+      var bySlug = {};
+      tours.forEach(function (t) { if (t && t.slug) bySlug[t.slug] = t; });
+      rows.forEach(function (r) {
+        var t = r && r.tour_slug ? bySlug[r.tour_slug] : null;
+        if (t && t.image) r.poster = t.image;
+        /* the rail table can drift out of step with the catalogue; the
+           catalogue is the source of truth for money and places left */
+        if (t) {
+          if (r.price_kes == null)  r.price_kes  = t.price_kes;
+          if (r.spots_left == null) r.spots_left = t.spots_left;
+          if (!r.departs_at && t.departure_date) r.departs_at = t.departure_date;
+        }
+      });
+      mount(root, rows);
+    }).catch(function () {
+      W.WB.heroRail().then(function (rows) { mount(root, rows); });
+    });
   }
 
   if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', init);

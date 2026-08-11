@@ -1,8 +1,8 @@
 User-agent: *
 Allow: /
-Sitemap: https://wildbosses.com/sitemap.xml
 
-# Block non-HTML assets from being crawled unnecessarily
-Disallow: /wildbosses-ds.css
-Disallow: /wb-core.css
-Disallow: /wb-shell.js
+# The admin console is a sign-in wall; there is nothing here for a crawler.
+Disallow: /admin.html
+Disallow: /api/
+
+Sitemap: https://wildbosses.vercel.app/sitemap.xml
