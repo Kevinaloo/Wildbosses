@@ -162,6 +162,8 @@ async function stkPush({ phone, amount, reference, customerName }) {
   }
 
   if (!resp.ok) {
+    /* Log the full body so we can see exactly what PayHero is rejecting. */
+    console.error('[pay] PayHero error', resp.status, 'raw body:', rawText.slice(0, 800));
     throw new Error(
       data.message || data.error || data.detail ||
       (data.errors ? JSON.stringify(data.errors) : 'PayHero error ' + resp.status)
