@@ -132,12 +132,19 @@
     var timeout  = opts.timeout  || 120000;
     var started  = Date.now();
 
+    var attempt = 0;
+
     return new Promise(function (resolve, reject) {
       function check() {
-        fetch('/api/pay-status?ref=' + encodeURIComponent(ref))
+        /* The poll is numbered so the server can spend a PayHero
+           lookup on every other one instead of all forty. */
+        attempt += 1;
+        fetch('/api/pay-status?ref=' + encodeURIComponent(ref) + '&n=' + attempt)
           .then(function (r) { return r.json(); })
           .then(function (d) {
-            if (d.payment_status === 'paid') return resolve({ status: 'paid' });
+            if (d.payment_status === 'paid') {
+              return resolve({ status: 'paid', receipt: d.payment_ref, amount: d.paid_amount });
+            }
 
             if (d.payment_status === 'failed') {
               /* How quickly it failed tells us what happened:

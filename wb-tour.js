@@ -510,13 +510,22 @@
       st.innerHTML   = '<span class="wb-spin"></span> Check your phone and enter your M-Pesa PIN. Times out in 2 mins.';
       return W.WB.pollPayment(ref, { interval: 3000, timeout: 120000 });
     })
-    .then(function () {
+    .then(function (res) {
       go.disabled    = false;
       go.className   += ' is-paid';
       go.textContent = '✓ Payment confirmed!';
       st.className   = 'wb-pay-state is-good';
-      st.textContent = 'Your place is confirmed. A receipt is on its way.';
-      setTimeout(function () { if (closeFn) closeFn(); }, 3500);
+
+      /* Show the M-Pesa code. It is the thing the traveller can match
+         against the SMS Safaricom just sent them, and — unlike the
+         confirmation email this used to promise — it actually exists.
+         Booking reference too, so they have something to quote us. */
+      var receipt = res && res.receipt;
+      st.innerHTML = 'Your place is confirmed.' +
+        (receipt ? ' M-Pesa code <b>' + esc(receipt) + '</b>.' : '') +
+        ' Keep your booking reference <b>' + esc(ref) + '</b> — quote it if you message us.';
+
+      setTimeout(function () { if (closeFn) closeFn(); }, 6000);
     })
     .catch(function (err) {
       go.disabled    = false;

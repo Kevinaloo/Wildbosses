@@ -87,9 +87,14 @@ module.exports = async function handler(req, res) {
       return json(res, 409, { error: 'This departure is no longer accepting bookings.' });
     }
 
-    if (tour.spots_left != null && tour.spots_left > 0 && travellers > tour.spots_left) {
+    /* The old guard read `spots_left > 0 && travellers > spots_left`,
+       which quietly waved through every booking on a departure with
+       zero seats — the one case it most needed to catch. */
+    if (tour.spots_left != null && travellers > tour.spots_left) {
       return json(res, 409, {
-        error: 'Only ' + tour.spots_left + ' place' + (tour.spots_left === 1 ? '' : 's') + ' left on this departure.'
+        error: tour.spots_left <= 0
+          ? 'This departure is fully booked. Message us on WhatsApp and we will find you another date.'
+          : 'Only ' + tour.spots_left + ' place' + (tour.spots_left === 1 ? '' : 's') + ' left on this departure.'
       });
     }
 
