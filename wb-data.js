@@ -147,13 +147,21 @@
             }
 
             if (d.payment_status === 'failed') {
-              /* How quickly it failed tells us what happened:
-                 < 8s = rejected before prompt reached phone (PayHero/channel issue)
-                 >= 8s = user cancelled or insufficient funds */
+              /* How fast it failed says who has the problem.
+                 Under ~8s the prompt never reached the handset — the
+                 gateway or the channel rejected it — so this is our
+                 fault, not theirs, and no amount of retrying from
+                 their side fixes it. Longer than that and they saw a
+                 prompt and it did not go through.
+
+                 The old copy here told the customer to "check your
+                 PayHero channel settings". They do not have a PayHero
+                 account. That sentence was written for whoever was
+                 debugging and shipped to travellers. */
               var elapsed = Date.now() - started;
               var msg = elapsed < 8000
-                ? 'The payment could not be initiated. Check your PayHero channel settings or try a different number.'
-                : 'Payment was cancelled or declined. Check your M-Pesa balance and try again.';
+                ? 'Something on our side stopped the prompt reaching your phone. Nothing has been charged and your place is still held — message us on WhatsApp and we will sort it out.'
+                : 'The payment did not go through. If you cancelled the prompt or the balance was short, you can try again.';
               return reject(new Error(msg));
             }
 

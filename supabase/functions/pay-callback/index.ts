@@ -111,7 +111,7 @@ function pick(...vals: unknown[]): string {
   return '';
 }
 
-function readStatus(payload: Bag): { status: string; amount: number; receipt: string | null } {
+function readStatus(payload: Bag): { status: string; amount: number; receipt: string | null; desc: string; raw: string } {
   const r = inner(payload);
 
   let status = pick(r.status, r.Status, payload.status, payload.Status).toUpperCase();
@@ -134,7 +134,21 @@ function readStatus(payload: Bag): { status: string; amount: number; receipt: st
     r.mpesa_receipt_number, r.MpesaReceiptNumber, r.mpesa_code, r.receipt
   ) || null;
 
-  return { status, amount, receipt };
+  /* Why it failed matters as much as that it failed. A push that dies
+     three seconds after leaving here never reached a handset, so the
+     reason is upstream — the channel, the amount, the account — and
+     ResultDesc is the only field that says which. The trimmed body
+     goes too, because PayHero puts the reason in a different place
+     depending on where the rejection happened. */
+  const desc = pick(
+    r.ResultDesc, r.result_desc, r.errorMessage, r.error_message,
+    r.message, payload.error_message, payload.message
+  );
+
+  let raw = '';
+  try { raw = JSON.stringify(payload).slice(0, 400); } catch { raw = '(unserialisable)'; }
+
+  return { status, amount, receipt, desc, raw };
 }
 
 /* Ask PayHero what really happened. The only source of truth.
@@ -227,6 +241,15 @@ Deno.serve(async (req) => {
     await logEvent({ booking_ref: ref, outcome: 'untrusted', detail: { reason: 'bad_or_missing_secret' } });
   }
 
+  /* The body carries Safaricom's own verdict. It is NOT evidence — we
+     still verify — but when a push dies before reaching a handset it
+     is often the only place the reason appears, so it is kept. */
+  const bodyHint = {
+    result_code: r.ResultCode ?? r.result_code ?? null,
+    result_desc: pick(r.ResultDesc, r.result_desc, r.errorMessage, r.message) || null,
+    raw:         JSON.stringify(body).slice(0, 400)
+  };
+
   try {
     /* Load the booking. We prefer OUR stored ids — not ones handed to
        us in the request — when asking PayHero what happened. */
@@ -258,13 +281,13 @@ Deno.serve(async (req) => {
     ];
 
     if (!candidates.some(Boolean)) {
-      await logEvent({ booking_ref: ref, outcome: 'error', detail: { reason: 'no_checkout_id' } });
+      await logEvent({ booking_ref: ref, outcome: 'error', detail: { reason: 'no_checkout_id', body: bodyHint } });
       return ok({ ok: false });
     }
 
     /* ── The real gate. Ask PayHero. ────────────────────────────── */
     const ph = await verifyWithPayHero(candidates);
-    console.log('[pay-callback]', ref, 'PayHero says', ph.status);
+    console.log('[pay-callback]', ref, 'PayHero says', ph.status, ph.desc ? '— ' + ph.desc : '', ph.raw);
 
     if (ph.status === 'SUCCESS') {
       /* Amount and receipt come from PayHero, never from the request
@@ -298,7 +321,7 @@ Deno.serve(async (req) => {
       });
       await logEvent({
         booking_ref: ref, outcome: 'ok', checkout_id: booking.checkout_id ?? null,
-        detail: { payhero_status: ph.status, trusted }
+        detail: { payhero_status: ph.status, reason: ph.desc, raw: ph.raw, body: bodyHint, trusted }
       });
       return ok({ ok: true });
     }
@@ -307,7 +330,7 @@ Deno.serve(async (req) => {
        poll will resolve it, or the next callback will. */
     await logEvent({
       booking_ref: ref, outcome: 'ok', checkout_id: booking.checkout_id ?? null,
-      detail: { payhero_status: ph.status, note: 'not_terminal', trusted }
+      detail: { payhero_status: ph.status, reason: ph.desc, raw: ph.raw, note: 'not_terminal', trusted }
     });
     return ok({ ok: true });
 
@@ -316,7 +339,7 @@ Deno.serve(async (req) => {
     console.error('[pay-callback] error:', (err as Error).message);
     await logEvent({
       booking_ref: ref, outcome: 'error',
-      detail: { error: (err as Error).message, trusted }
+      detail: { error: (err as Error).message, body: bodyHint, trusted }
     });
     return ok({ ok: false });
   }

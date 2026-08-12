@@ -51,7 +51,7 @@ async function sb(path, init) {
    top level; sometimes they are nested under `response` with Safaricom's
    PascalCase names. Read both rather than guessing which. */
 function readStatus(data) {
-  if (!data || typeof data !== 'object') return { status: '', amount: 0, receipt: null };
+  if (!data || typeof data !== 'object') return { status: '', amount: 0, receipt: null, desc: '', raw: '' };
 
   const r = (data.response && typeof data.response === 'object') ? data.response : data;
 
@@ -78,7 +78,21 @@ function readStatus(data) {
     r.receipt || data.mpesa_receipt_number || ''
   ).trim() || null;
 
-  return { status, amount, receipt };
+  /* Why it failed matters as much as that it failed. Kept out of the
+     customer-facing response and written to the audit log instead. */
+  var desc = '';
+  var cands = [r.ResultDesc, r.result_desc, r.errorMessage, r.error_message,
+               r.message, data.error_message, data.message];
+  for (var i = 0; i < cands.length; i++) {
+    if (cands[i] !== undefined && cands[i] !== null && String(cands[i]).trim()) {
+      desc = String(cands[i]).trim(); break;
+    }
+  }
+
+  var raw = '';
+  try { raw = JSON.stringify(data).slice(0, 400); } catch (e) { raw = '(unserialisable)'; }
+
+  return { status: status, amount: amount, receipt: receipt, desc: desc, raw: raw };
 }
 
 /* Ask PayHero what happened. `reference` is PayHero's own id; if that
@@ -113,7 +127,7 @@ async function queryPayHero(ids) {
       }
       const parsed = readStatus(JSON.parse(text));
       if (parsed.status) {
-        console.log('[pay-status]', id, '→', parsed.status);
+        console.log('[pay-status]', id, '→', parsed.status, parsed.desc ? '— ' + parsed.desc : '', parsed.raw);
         return parsed;
       }
     } catch (e) {
@@ -207,6 +221,19 @@ module.exports = async function handler(req, res) {
           }).catch(function (e) {
             console.warn('[pay-status] fail_payment failed:', e.message);
           });
+
+          /* The reason belongs in the audit log, not in the response
+             body — the customer does not need a Safaricom result code,
+             but we do, and after the fact. */
+          await sb('payment_events', {
+            method:  'POST',
+            headers: { Prefer: 'return=minimal' },
+            body:    JSON.stringify({
+              booking_ref: ref, kind: 'status_poll', outcome: 'ok',
+              checkout_id: row.checkout_id || null,
+              detail: { payhero_status: ph.status, reason: ph.desc, raw: ph.raw }
+            })
+          }).catch(function () { /* diagnostics must never break the poll */ });
           row.payment_status = 'failed';
         }
       }
