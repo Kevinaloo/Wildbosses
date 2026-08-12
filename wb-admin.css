@@ -82,9 +82,13 @@
 .adm-pane-head p { margin: 0; font-size: 13.5px; color: var(--ink-2); max-width: 62ch; line-height: 1.55; }
 
 /* ── stat strip ────────────────────────────────────────── */
-.adm-stats { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); margin-bottom: 24px; }
+/* These cells held counts ("3", "12"), so 26px fixed was safe. They
+   now hold money — "KES 126,000" is eleven characters — so the type
+   scales down to fit and the columns are a little wider. Tabular
+   figures keep the four cells optically aligned. */
+.adm-stats { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit,minmax(165px,1fr)); margin-bottom: 24px; }
 .adm-stat { border-radius: var(--r-md); padding: 15px 17px; background: var(--glass-2); border: 1px solid var(--line); }
-.adm-stat b { display: block; font-family: var(--mono); font-size: 26px; font-weight: 600; color: var(--ink); line-height: 1.1; }
+.adm-stat b { display: block; font-family: var(--mono); font-size: clamp(19px, 2.2vw, 26px); font-weight: 600; color: var(--ink); line-height: 1.15; font-variant-numeric: tabular-nums; }
 .adm-stat span { font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
 .adm-stat.warn b { color: var(--ember); }
 

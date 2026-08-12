@@ -563,17 +563,32 @@
     });
   }
 
-  /* ── bookings ─────────────────────────────────────────── */
+  /* ── bookings ───────────────────────────────────────────
+     Every action here goes through a database function, never a
+     direct column write. "Mark paid" used to set payment_status and
+     nothing else: no amount, no receipt, no seat off the departure,
+     no audit row. A booking marked by hand looked identical to one
+     that had actually paid.
+
+     record_manual_payment / confirm_booking / cancel_booking each
+     check is_admin() themselves, so the browser holding a session is
+     not what authorises them — the database is.               */
   function loadBookings() {
     sb.from('bookings').select('*').order('created_at', { ascending: false }).limit(200)
       .then(function (r) {
         var rows = r.data || [], el = $('bookList');
 
+        var live    = rows.filter(function (b) { return b.status !== 'cancelled'; });
         var pending = rows.filter(function (b) { return b.status === 'pending'; }).length;
-        var unpaid  = rows.filter(function (b) { return b.payment_status !== 'paid'
-                                                     && b.status !== 'cancelled'; }).length;
         var heads   = rows.filter(function (b) { return b.status === 'confirmed'; })
                           .reduce(function (a, b) { return a + (b.guests || 0); }, 0);
+
+        /* Money, not counts. "3 not yet paid" does not tell you
+           whether that is KES 3,000 or KES 300,000 outstanding. */
+        var collected = live.reduce(function (a, b) { return a + (Number(b.paid_amount) || 0); }, 0);
+        var owed      = live.reduce(function (a, b) {
+          return a + Math.max(0, (Number(b.total_amount) || 0) - (Number(b.paid_amount) || 0));
+        }, 0);
 
         var tab = D.querySelector('[data-tab="bookings"]');
         if (tab) {
@@ -586,9 +601,10 @@
         var stats = '<div class="adm-stats">' +
           '<div class="adm-stat' + (pending ? ' warn' : '') + '"><b>' + pending + '</b>' +
             '<span>Awaiting reply</span></div>' +
-          '<div class="adm-stat"><b>' + unpaid + '</b><span>Not yet paid</span></div>' +
+          '<div class="adm-stat"><b>KES ' + money(collected) + '</b><span>Collected</span></div>' +
+          '<div class="adm-stat' + (owed ? ' warn' : '') + '"><b>KES ' + money(owed) + '</b>' +
+            '<span>Still owed</span></div>' +
           '<div class="adm-stat"><b>' + heads + '</b><span>Confirmed guests</span></div>' +
-          '<div class="adm-stat"><b>' + rows.length + '</b><span>Total enquiries</span></div>' +
           '</div>';
 
         if (!rows.length) {
@@ -597,51 +613,163 @@
             'Bookings made from the site land here the moment they are sent.</div>';
           return;
         }
+
         el.innerHTML = stats + rows.map(function (b) {
+          var total   = Number(b.total_amount) || 0;
+          var paid    = Number(b.paid_amount)  || 0;
+          var balance = Math.max(0, total - paid);
+          var settled = total > 0 && balance === 0;
+
+          /* Say what was actually collected against what is owed.
+             A part-payment is the normal case here — the site invites
+             it — so it must be legible at a glance. */
+          var moneyLine = total === 0
+            ? 'KES ' + money(paid) + ' received &middot; pay-what-you-want'
+            : 'KES ' + money(paid) + ' of ' + money(total) +
+              (balance ? ' &middot; <b>KES ' + money(balance) + ' outstanding</b>' : ' &middot; settled');
+
           return '<div class="adm-card adm-row">' +
             '<div class="adm-row-main">' +
               '<b>' + esc(b.guest_name) + ' &middot; ' + esc(b.tour_name) + '</b>' +
               '<span class="adm-sub">' + ago(b.created_at) + ' &middot; ' +
                 b.guests + ' guest' + (b.guests === 1 ? '' : 's') +
-                ' &middot; KES ' + money(b.total_amount) +
                 ' &middot; ' + esc(b.booking_ref) + '</span>' +
+              '<span class="adm-sub">' + moneyLine + '</span>' +
+              (b.mpesa_receipt
+                ? '<span class="adm-sub">M-Pesa ' + esc(b.mpesa_receipt) + '</span>' : '') +
               '<span class="adm-pill' + (b.status === 'confirmed' ? ' ok'
                 : b.status === 'cancelled' ? '' : ' warn') + '">' + esc(b.status) + '</span>' +
-              '<span class="adm-pill' + (b.payment_status === 'paid' ? ' ok' : ' warn') + '">' +
-                esc(b.payment_status) + '</span>' +
+              '<span class="adm-pill' + (settled ? ' ok' : ' warn') + '">' +
+                (b.payment_status === 'paid' && !settled && total > 0
+                  ? 'part paid' : esc(b.payment_status)) + '</span>' +
+              (b.seat_taken ? '<span class="adm-pill ok">seat held</span>' : '') +
               (b.notes ? '<span class="adm-sub" style="font-style:italic">&ldquo;' +
                 esc(b.notes) + '&rdquo;</span>' : '') +
             '</div>' +
             '<div class="adm-row-act">' +
               '<a class="adm-btn adm-btn-go" target="_blank" rel="noopener" href="https://wa.me/' +
                 esc(String(b.guest_phone).replace(/[^0-9]/g, '')) + '">WhatsApp</a>' +
-              (b.status !== 'confirmed'
-                ? '<button class="adm-btn adm-btn-go" data-confirm="' + b.id + '">Confirm</button>' : '') +
-              (b.payment_status !== 'paid'
-                ? '<button class="adm-btn adm-btn-ghost" data-paid="' + b.id + '">Mark paid</button>' : '') +
-              '<button class="adm-btn adm-btn-bad" data-cancel="' + b.id + '">Cancel</button>' +
+              (b.status === 'cancelled' ? '' :
+                (b.status !== 'confirmed'
+                  ? '<button class="adm-btn adm-btn-go" data-confirm="' + esc(b.booking_ref) + '">Confirm</button>' : '') +
+                (balance > 0 || total === 0
+                  ? '<button class="adm-btn adm-btn-ghost" data-pay="' + esc(b.booking_ref) + '">Record payment</button>' : '') +
+                '<button class="adm-btn adm-btn-bad" data-cancel="' + esc(b.booking_ref) + '">Cancel</button>') +
             '</div></div>';
         }).join('');
 
-        function patch(id, obj, note) {
-          sb.from('bookings').update(obj).eq('id', id).then(function (r) {
-            if (r.error) return toast(r.error.message, true);
-            toast(note); loadBookings();
+        /* Every RPC returns { applied, reason }. A silent failure —
+           not_admin, receipt_reused — must not look like success. */
+        function runRpc(fn, args, okNote) {
+          return sb.rpc(fn, args).then(function (res) {
+            if (res.error) { toast(res.error.message, true); return false; }
+            var out = Array.isArray(res.data) ? res.data[0] : res.data;
+            if (out && out.applied === false) {
+              toast(REASONS[out.reason] || out.reason || 'That did not apply', true);
+              return false;
+            }
+            toast(okNote); loadBookings(); return true;
           });
         }
-        el.querySelectorAll('[data-confirm]').forEach(function (b) {
-          b.onclick = function () { patch(b.dataset.confirm, { status: 'confirmed' }, 'Booking confirmed'); };
+
+        el.querySelectorAll('[data-confirm]').forEach(function (btn) {
+          btn.onclick = function () {
+            btn.disabled = true;
+            runRpc('confirm_booking', { p_ref: btn.dataset.confirm }, 'Booking confirmed')
+              .then(function (ok) { if (!ok) btn.disabled = false; });
+          };
         });
-        el.querySelectorAll('[data-paid]').forEach(function (b) {
-          b.onclick = function () { patch(b.dataset.paid, { payment_status: 'paid' }, 'Marked paid'); };
+
+        el.querySelectorAll('[data-pay]').forEach(function (btn) {
+          btn.onclick = function () { payModal(btn.dataset.pay, rows); };
         });
-        el.querySelectorAll('[data-cancel]').forEach(function (b) {
-          b.onclick = function () {
-            if (!confirm('Cancel this booking?')) return;
-            patch(b.dataset.cancel, { status: 'cancelled' }, 'Booking cancelled');
+
+        el.querySelectorAll('[data-cancel]').forEach(function (btn) {
+          btn.onclick = function () {
+            var b = rows.filter(function (x) { return x.booking_ref === btn.dataset.cancel; })[0];
+            var warn = (b && Number(b.paid_amount) > 0)
+              ? 'This booking has KES ' + money(b.paid_amount) + ' against it. Cancelling frees the ' +
+                'places but does NOT refund the money — you will need to send that back yourself.\n\nCancel anyway?'
+              : 'Cancel this booking?';
+            if (!confirm(warn)) return;
+            btn.disabled = true;
+            runRpc('cancel_booking', { p_ref: btn.dataset.cancel }, 'Booking cancelled')
+              .then(function (ok) { if (!ok) btn.disabled = false; });
           };
         });
       });
+  }
+
+  var REASONS = {
+    not_admin:               'Your account is not an admin on this project.',
+    no_such_booking:         'That booking no longer exists.',
+    booking_cancelled:       'This booking was cancelled — reinstate it first.',
+    duplicate_receipt:       'That M-Pesa code is already recorded on this booking.',
+    receipt_reused:          'That M-Pesa code is already on a different booking.',
+    amount_must_be_positive: 'Enter an amount greater than zero.'
+  };
+
+  /* Cash, a bank transfer, or an M-Pesa payment made straight to the
+     till. The code field is optional but worth filling: it is what
+     lets this be reconciled against a statement later, and the
+     database refuses the same code twice. */
+  function payModal(ref, rows) {
+    var b       = rows.filter(function (x) { return x.booking_ref === ref; })[0] || {};
+    var total   = Number(b.total_amount) || 0;
+    var paid    = Number(b.paid_amount)  || 0;
+    var balance = Math.max(0, total - paid);
+
+    openModal(
+      '<h3>Record a payment</h3>' +
+      '<p class="adm-sub">' + esc(b.guest_name || '') + ' &middot; ' + esc(ref) + '<br/>' +
+        (total === 0
+          ? 'Pay-what-you-want trip. KES ' + money(paid) + ' received so far.'
+          : 'KES ' + money(paid) + ' of ' + money(total) + ' paid &middot; KES ' +
+            money(balance) + ' outstanding') +
+      '</p>' +
+      '<form id="payFm" class="adm-form">' +
+        field('Amount (KES)', 'amount', balance || '', 'number') +
+        '<label>How was it paid' +
+          '<select name="method">' +
+            '<option value="mpesa_direct">M-Pesa to the till</option>' +
+            '<option value="cash">Cash</option>' +
+            '<option value="bank">Bank transfer</option>' +
+            '<option value="manual">Other</option>' +
+          '</select></label>' +
+        field('M-Pesa code', 'receipt', '', 'text',
+              'Optional, but it is what makes this match your statement later') +
+        '<div class="adm-modal-act">' +
+          '<button class="adm-btn adm-btn-ghost" type="button" onclick="admClose()">Cancel</button>' +
+          '<button class="adm-btn adm-btn-go" type="submit">Record payment</button>' +
+        '</div>' +
+      '</form>'
+    );
+
+    $('payFm').addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var f   = ev.target;
+      var amt = Math.round(Number(f.amount.value) || 0);
+      if (amt <= 0) return toast('Enter an amount greater than zero', true);
+
+      var go = f.querySelector('[type=submit]');
+      go.disabled = true;
+
+      sb.rpc('record_manual_payment', {
+        p_ref:     ref,
+        p_amount:  amt,
+        p_receipt: f.receipt.value.trim() || null,
+        p_method:  f.method.value
+      }).then(function (res) {
+        go.disabled = false;
+        if (res.error) return toast(res.error.message, true);
+        var out = Array.isArray(res.data) ? res.data[0] : res.data;
+        if (out && out.applied === false) {
+          return toast(REASONS[out.reason] || out.reason || 'That did not apply', true);
+        }
+        toast('KES ' + money(amt) + ' recorded');
+        closeModal(); loadBookings();
+      });
+    });
   }
 
   /* ── brand ────────────────────────────────────────────── */

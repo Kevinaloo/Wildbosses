@@ -1,0 +1,28 @@
+-- ═══════════════════════════════════════════════════════════════════
+-- WILDBOSSES · CLOSE THE ANON BOOKING INSERT
+--
+-- The browser has not written to this table since /api/book was
+-- introduced: that endpoint holds the service role key, prices the
+-- trip from the tours table, and bypasses RLS. The anon INSERT policy
+-- outlived its purpose and left the exact hole /api/book exists to
+-- close.
+--
+-- Its WITH CHECK stopped the obvious attack (inserting a row already
+-- marked paid) but not the useful one: nothing constrained
+-- total_amount. Anyone with the publishable key could insert
+--
+--   { tour_name: 'Maasai Mara', guests: 1, total_amount: 1,
+--     payment_status: 'pending', status: 'pending' }
+--
+-- then call /api/pay against it. /api/pay correctly clamps the charge
+-- to the booking's own total_amount — but the attacker wrote that
+-- total. One shilling, and confirm_payment marks a KES 95,000 trip
+-- paid in full and takes a seat on it. paid_amount was unconstrained
+-- too, so the admin money figures could be poisoned from outside.
+--
+-- Nothing in the browser inserts bookings, so this is a straight
+-- removal, not a tightening. Verified: anon INSERT now raises, and a
+-- service_role INSERT still succeeds.
+-- ═══════════════════════════════════════════════════════════════════
+
+drop policy if exists "bookings anon create" on public.bookings;
